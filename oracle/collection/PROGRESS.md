@@ -1,3 +1,52 @@
+# Estado atual verificado — 2026-11-03
+
+**Projeto em andamento. Próximo lote: 009. Não há processamento em segundo plano.**
+
+| Situação | Quantidade |
+|---|---:|
+| SQL únicos publicados e verificados na main | **168** |
+| Novos SQL publicados desde o início deste trabalho | **160** |
+| Novos SQL publicados nesta retomada (lotes 005–008) | **80** |
+| Novos arquivos na main com alterações de SQL/cliente/normalização | **133** |
+| Fontes SQL aguardando análise individual | **469** |
+| Retidos para análise de licença | 45 |
+| Retido por credencial literal | 1 |
+| Propostas apenas em branch, PR #2, fora dos totais main | 2 |
+| Origens duplicadas/variantes mapeadas sem cópias adicionais | 7 |
+| Referência externa sem implementação | 1 |
+| Auxiliares pendentes | 4 |
+
+[Inventário de 697 arquivos](inventory.csv) — 693 fontes SQL e 4 auxiliares. Existem 162 novos arquivos documentados (160 na main e 2 no PR). Os oito publicados antes do projeto foram comparados e preservados. As categorias novas desta retomada incluem `objects/indexes`, `asm` e `performance/sql`.
+
+## Últimos lotes confirmados
+
+| Lote | Novos SQL | Commit |
+|---|---:|---|
+| 005 | 20 | [00b1493](https://github.com/francois-fiorino/tech-automation-scripts/commit/00b1493c145d8d3381797abe85cfe8cf856351a6) |
+| 006 | 20 | [f58f399](https://github.com/francois-fiorino/tech-automation-scripts/commit/f58f399ab4d227e86f6f112877a885e04ea86248) |
+| 007 | 20 | [41ab033](https://github.com/francois-fiorino/tech-automation-scripts/commit/41ab033640d39879a4e646c012b332612efcaa72) |
+| 008 | 20 | [a4fb9cc](https://github.com/francois-fiorino/tech-automation-scripts/commit/a4fb9ccf43f7afdd9b77ac2f695429991e751faf) |
+
+Todos os 160 novos SQL foram novamente comparados por hash Git ao conteúdo UTF-8 publicado. Nenhum script existente no início desta retomada foi alterado; apenas controles do projeto foram atualizados. Inventário só classifica publicação como confirmada após essa verificação.
+
+Principais correções desta retomada: denominadores zero, médias ponderadas, tempo/operação ASM invertido, identidade de objetos/sessões, limites de extent, colunas/agrupamentos incorretos, TO_DATE sobre DATE, máscaras e comandos de cliente. Fórmulas históricas sem metodologia confiável foram preservadas com ressalvas específicas, sem prometer correção semântica não validada.
+
+Validação adicional: fixtures relacionais/aritméticas em SQLite para tablespaces cheios, total zero, ponderação entre instâncias, operações ASM e colisão de hash. Esses testes não compilam nem executam Oracle. Nenhum banco de produção, banco Oracle ou instância ASM foi acessado. Compilação, compatibilidade e impacto operacional continuam sujeitos a homologação no ambiente-alvo.
+
+[PR #2](https://github.com/francois-fiorino/tech-automation-scripts/pull/2) permanece isolado para revisão dos dois exemplos administrativos. Arquivo com credencial não foi republicado e os 45 com aviso explícito de uso não comercial/licenciamento continuam retidos.
+
+## Como retomar
+
+Conferir main e o hash do inventário atual, validar ZIP pelos hashes SHA-256 e processar linhas `pendente` em lotes de 20. Próximo número: **009**. Preservar arquivos existentes, registrar correções e verificar blobs antes de confirmar publicação. Não promover propostas do PR ou retidos automaticamente. Não contar origens duplicadas como novas publicações.
+
+A coleção **não está concluída**. Este checkpoint preserva o progresso para as próximas execuções; não é relatório final nem indica trabalho ativo após o fim da sessão.
+
+---
+
+## Histórico dos lotes e checkpoints anteriores
+
+Os números nas seções abaixo descrevem cada estágio anterior. O quadro acima é o estado atual.
+
 # Oracle Script Collection 2015 — andamento
 
 Data: 2026-11-03. Projeto **em andamento**, sem homologação em banco Oracle.
