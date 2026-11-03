@@ -4,7 +4,7 @@ Acervo de scripts Oracle e implementações novas, com documentação técnica e
 
 [Inventário de 697 origens](collection/inventory.csv) · [Relatório atualizado](collection/REPORT.md) · [Implementações novas](collection/INDEPENDENT_IMPLEMENTATIONS.md) · [Histórico](collection/PROGRESS.md) · [Aviso original](collection/ORIGINAL_README.txt)
 
-A main contém **452 implementações únicas** (20 novas nesta etapa). O [PR #2](https://github.com/francois-fiorino/tech-automation-scripts/pull/2) mantém **175 propostas administrativas** em revisão. Dos 49 requisitos de fontes retidas, **21** já têm código novo publicado, em **20** implementações; **28** aguardam publicação. Os originais restritos continuam retidos. As diferenças funcionais estão nos cabeçalhos e no mapeamento; três requisitos equivalentes compartilham destinos quando a fila estiver completa.
+A main contém **472 implementações únicas** (40 novas nesta etapa). O [PR #2](https://github.com/francois-fiorino/tech-automation-scripts/pull/2) mantém **175 propostas administrativas** em revisão. Dos 49 requisitos de fontes retidas, **42** já têm código novo publicado, em **40** implementações; **7** aguardam publicação. Os originais restritos continuam retidos. As diferenças funcionais estão nos cabeçalhos e no mapeamento; três requisitos equivalentes compartilham destinos quando a fila estiver completa.
 
 ## Consultar por categoria
 
@@ -15,19 +15,19 @@ A main contém **452 implementações únicas** (20 novas nesta etapa). O [PR #2
 | `administration/windows/` | 0 | 1 |
 | `asm/` | 2 | 0 |
 | `backup-recovery/` | 3 | 8 |
-| `memory/` | 43 | 1 |
+| `memory/` | 48 | 1 |
 | `monitoring/` | 64 | 0 |
 | `objects/` | 65 | 47 |
-| `objects/indexes/` | 11 | 0 |
+| `objects/indexes/` | 12 | 0 |
 | `performance/` | 31 | 2 |
 | `performance/ash/` | 17 | 0 |
-| `performance/awr/` | 36 | 0 |
+| `performance/awr/` | 47 | 0 |
 | `performance/sql/` | 23 | 1 |
 | `performance/statspack/` | 1 | 0 |
 | `rac/` | 40 | 1 |
 | `rac/grid/` | 1 | 0 |
 | `security/` | 19 | 19 |
-| `storage/` | 34 | 0 |
+| `storage/` | 37 | 0 |
 | `troubleshooting/` | 32 | 2 |
 
 Os novos arquivos estão nas subpastas `independent/`. Leia cada cabeçalho para configurar parâmetros, grants, escopo de instância/container e custos. AWR/ASH exige direito de uso aplicável. Contagens ASH são amostras; associação de SQL a plano/objeto não representa contagem exata de execuções de operadores.

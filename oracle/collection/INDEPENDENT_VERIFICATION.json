@@ -3,9 +3,9 @@
   "oracle_execution": false,
   "oracle_compilation": false,
   "original_sources_withheld": 49,
-  "requirements_mapped": 21,
-  "requirements_pending": 28,
-  "new_main": 20,
+  "requirements_mapped": 42,
+  "requirements_pending": 7,
+  "new_main": 40,
   "new_review": 0,
   "static_validation_scope": "Validação estática local das 46 implementações preparadas; publicação confirmada apenas para entradas com commit.",
   "validation": {
@@ -286,6 +286,267 @@
       "batch": 33,
       "blob_sha": "621e7aca01489b49025cad8c049d41ade9d849ea",
       "commit": "334b807a5142f5f4e31b04607f7d2e1391f932d1"
+    },
+    {
+      "origins": [
+        "_awr_scripts/awr_sql_details.sql"
+      ],
+      "path": "oracle/performance/awr/independent/table_access_snapshot_mix.sql",
+      "category": "performance/awr",
+      "goal": "Comparar presença de acessos FULL e ROWID nos planos observados.",
+      "notes": "Contagem de SQL/plano/snapshot ou execuções de SQL associado a plano não equivale a execuções de operadores. AWR é amostragem seletiva, não captura todo SQL. Chaves DBID/instância/snapshot e plano/container são explícitas; deltas de SQL não são atribuídos como I/O físico exclusivo de cada objeto. Agregação condicional preserva períodos com uma só categoria; um plano pode conter ambas. ROWID é categoria explícita, não todo acesso a índice.",
+      "branch": "main",
+      "batch": 34,
+      "blob_sha": "6da6e6f303a36e0895a4d68e547f9170d5e9c23d",
+      "commit": "4f2cbcf7bac0bb41e804281a0eff41be186823b4"
+    },
+    {
+      "origins": [
+        "_awr_scripts/awr_sql_full_scans.sql"
+      ],
+      "path": "oracle/performance/awr/independent/table_access_weekday_mix.sql",
+      "category": "performance/awr",
+      "goal": "Comparar presença de acessos FULL e ROWID nos planos observados.",
+      "notes": "Contagem de SQL/plano/snapshot ou execuções de SQL associado a plano não equivale a execuções de operadores. AWR é amostragem seletiva, não captura todo SQL. Chaves DBID/instância/snapshot e plano/container são explícitas; deltas de SQL não são atribuídos como I/O físico exclusivo de cada objeto. Agregação condicional preserva períodos com uma só categoria; um plano pode conter ambas. ROWID é categoria explícita, não todo acesso a índice.",
+      "branch": "main",
+      "batch": 34,
+      "blob_sha": "7f0c182cc6bc1e15ba7bbe2a628d5abc84da8792",
+      "commit": "4f2cbcf7bac0bb41e804281a0eff41be186823b4"
+    },
+    {
+      "origins": [
+        "_awr_scripts/awr_sql_full_scans_avg_dy.sql"
+      ],
+      "path": "oracle/performance/awr/independent/index_associated_workload.sql",
+      "category": "performance/awr",
+      "goal": "Relatar workload dos SQLs cujos planos referenciam índices.",
+      "notes": "Contagem de SQL/plano/snapshot ou execuções de SQL associado a plano não equivale a execuções de operadores. AWR é amostragem seletiva, não captura todo SQL. Chaves DBID/instância/snapshot e plano/container são explícitas; deltas de SQL não são atribuídos como I/O físico exclusivo de cada objeto. O nome da fonte menciona médias/full scans, mas seu requisito real é workload associado a índices. Métricas são do SQL inteiro e se repetem para objetos diferentes; não somar como consumo exclusivo de índices.",
+      "branch": "main",
+      "batch": 34,
+      "blob_sha": "c57cf56ab2a6baffb2942d04f5ce0d381fd88b99",
+      "commit": "4f2cbcf7bac0bb41e804281a0eff41be186823b4"
+    },
+    {
+      "origins": [
+        "_awr_scripts/awr_sql_index.sql"
+      ],
+      "path": "oracle/performance/awr/independent/index_access_snapshot_mix.sql",
+      "category": "performance/awr",
+      "goal": "Contar planos associados a categorias de acesso a índice.",
+      "notes": "Contagem de SQL/plano/snapshot ou execuções de SQL associado a plano não equivale a execuções de operadores. AWR é amostragem seletiva, não captura todo SQL. Chaves DBID/instância/snapshot e plano/container são explícitas; deltas de SQL não são atribuídos como I/O físico exclusivo de cada objeto. Preserva categorias ausentes como zero, sem inner joins entre séries.",
+      "branch": "main",
+      "batch": 34,
+      "blob_sha": "a5d1a3ba41a5051787b219af2f796ac79611ff11",
+      "commit": "4f2cbcf7bac0bb41e804281a0eff41be186823b4"
+    },
+    {
+      "origins": [
+        "_awr_scripts/awr_sql_index_access.sql"
+      ],
+      "path": "oracle/performance/awr/independent/object_weekday_presence.sql",
+      "category": "performance/awr",
+      "goal": "Contar presenças de objetos em planos por dia ISO.",
+      "notes": "Contagem de SQL/plano/snapshot ou execuções de SQL associado a plano não equivale a execuções de operadores. AWR é amostragem seletiva, não captura todo SQL. Chaves DBID/instância/snapshot e plano/container são explícitas; deltas de SQL não são atribuídos como I/O físico exclusivo de cada objeto. Inclui tipos de objeto, conforme requisito real, apesar do nome histórico citar índice. Dia ISO não depende de NLS_TERRITORY.",
+      "branch": "main",
+      "batch": 34,
+      "blob_sha": "6b68859d66e73ed01d44601e57a6f73fa5927452",
+      "commit": "4f2cbcf7bac0bb41e804281a0eff41be186823b4"
+    },
+    {
+      "origins": [
+        "_awr_scripts/awr_sql_object_avg_dy.sql"
+      ],
+      "path": "oracle/performance/awr/independent/object_estimated_plan_costs.sql",
+      "category": "performance/awr",
+      "goal": "Resumir estimativas de custo de passos por objeto.",
+      "notes": "Média simples de estimativas dos passos retidos, sem ponderação por execução e sem filtro diário. Custos não são CPU medida/segundos. Nome novo elimina a indicação indevida de média diária.",
+      "branch": "main",
+      "batch": 34,
+      "blob_sha": "b9ec358160bada6fe59861402948d926813d3bdf",
+      "commit": "4f2cbcf7bac0bb41e804281a0eff41be186823b4"
+    },
+    {
+      "origins": [
+        "_awr_scripts/awr_sql_object_char.sql"
+      ],
+      "path": "oracle/performance/awr/independent/object_cost_time_series.sql",
+      "category": "performance/awr",
+      "goal": "Consultar série de estimativas de custo para objeto escolhido.",
+      "notes": "Objeto e owner são binds, sem nome de aplicação fixo. Média de médias por SQL/plano, não tempo de CPU real nem custo exclusivo do objeto; não pondera por execução. NULL em p_object retorna vazio.",
+      "branch": "main",
+      "batch": 34,
+      "blob_sha": "9583b7f0aad48d7a0b94b1b841618f28dfd1f769",
+      "commit": "4f2cbcf7bac0bb41e804281a0eff41be186823b4"
+    },
+    {
+      "origins": [
+        "_awr_scripts/awr_sql_object_char_detail.sql"
+      ],
+      "path": "oracle/performance/awr/independent/scan_size_snapshot_mix.sql",
+      "category": "performance/awr",
+      "goal": "Separar planos com FULL em objetos grandes/pequenos e acesso a índice.",
+      "notes": "Contagem de SQL/plano/snapshot ou execuções de SQL associado a plano não equivale a execuções de operadores. AWR é amostragem seletiva, não captura todo SQL. Chaves DBID/instância/snapshot e plano/container são explícitas; deltas de SQL não são atribuídos como I/O físico exclusivo de cada objeto. Tamanho é atual, agregado por objeto; grande > limiar e pequeno <= limiar. Planos mistos aparecem em mais de uma categoria; objetos sem segmento atual não recebem classe de tamanho.",
+      "branch": "main",
+      "batch": 34,
+      "blob_sha": "e8322deba90fed7d18fd781389314a5e1e170300",
+      "commit": "4f2cbcf7bac0bb41e804281a0eff41be186823b4"
+    },
+    {
+      "origins": [
+        "_awr_scripts/awr_sql_scan_sums.sql"
+      ],
+      "path": "oracle/performance/awr/independent/sql_workload_interval_deltas.sql",
+      "category": "performance/awr",
+      "goal": "Listar deltas de execução e esperas por SQL/plano e snapshot.",
+      "notes": "Deltas já fornecidos por SQLSTAT; não subtrai novamente. SQL_ID opcional filtra a série; segundos explicitamente convertidos de microssegundos. AWR não contém todo SQL executado.",
+      "branch": "main",
+      "batch": 34,
+      "blob_sha": "5bfafd4693efc42c6917ed19804390679ea5351a",
+      "commit": "4f2cbcf7bac0bb41e804281a0eff41be186823b4"
+    },
+    {
+      "origins": [
+        "_awr_scripts/awr_sqlstat_deltas.sql"
+      ],
+      "path": "oracle/performance/awr/independent/single_sql_time_series.sql",
+      "category": "performance/awr",
+      "goal": "Detalhar série de tempo e execução de um SQL_ID.",
+      "notes": "SQL_ID obrigatório para retornar dados; captura mudanças de plano sem misturar instâncias. Tempos agregados podem exceder duração de parede com paralelismo; ausência de amostra não significa zero atividade.",
+      "branch": "main",
+      "batch": 34,
+      "blob_sha": "ec797ee6eb6c78d4cdabb8c61398639615fe82bf",
+      "commit": "4f2cbcf7bac0bb41e804281a0eff41be186823b4"
+    },
+    {
+      "origins": [
+        "_awr_scripts/rpt_bhr_awr_dy.sql",
+        "_sga_internals_scripts/lib_cache_int.sql"
+      ],
+      "path": "oracle/memory/independent/buffer_hit_weekday_deltas.sql",
+      "category": "memory",
+      "goal": "Calcular hit ratio ponderado por deltas do buffer cache.",
+      "notes": "Usa razão de somas de deltas em vez de média de razões cumulativas; NULL em ausência de leituras lógicas. Reinícios/reset são excluídos. Resultado negativo não é truncado artificialmente. LIB_CACHE_INT da fonte era relatório de buffer cache, não library cache. Métrica isolada não decide expansão/rebuild.",
+      "branch": "main",
+      "batch": 34,
+      "blob_sha": "ead74f4c5bc61e4ced1c29936be0344ad309d8ec",
+      "commit": "4f2cbcf7bac0bb41e804281a0eff41be186823b4"
+    },
+    {
+      "origins": [
+        "_awr_scripts/rpt_bhr_awr_hr.sql"
+      ],
+      "path": "oracle/memory/independent/buffer_hit_hour_deltas.sql",
+      "category": "memory",
+      "goal": "Calcular hit ratio ponderado por deltas do buffer cache.",
+      "notes": "Usa razão de somas de deltas em vez de média de razões cumulativas; NULL em ausência de leituras lógicas. Reinícios/reset são excluídos. Resultado negativo não é truncado artificialmente. LIB_CACHE_INT da fonte era relatório de buffer cache, não library cache. Métrica isolada não decide expansão/rebuild.",
+      "branch": "main",
+      "batch": 34,
+      "blob_sha": "e08264ffa48b9c1e100b2bcc631f37ab1a157a36",
+      "commit": "4f2cbcf7bac0bb41e804281a0eff41be186823b4"
+    },
+    {
+      "origins": [
+        "_disk_file_scripts/snapfileio_10g.sql"
+      ],
+      "path": "oracle/storage/independent/file_io_snapshot_counters.sql",
+      "category": "storage",
+      "goal": "Relatar contadores cumulativos de datafiles e tempfiles em snapshot selecionado.",
+      "notes": "Snapshot deve ser informado (NULL retorna vazio). Percentual calculado separadamente por instância/container sobre DATA+TEMP; contadores desde inicialização/vida do arquivo, não I/O do intervalo.",
+      "branch": "main",
+      "batch": 34,
+      "blob_sha": "7d6d21580672898d7c293c2fc4edd47b30124e8f",
+      "commit": "4f2cbcf7bac0bb41e804281a0eff41be186823b4"
+    },
+    {
+      "origins": [
+        "_disk_file_scripts/snapdeltafileio_awr.sql"
+      ],
+      "path": "oracle/storage/independent/file_io_between_snapshots.sql",
+      "category": "storage",
+      "goal": "Comparar I/O de arquivos entre dois snapshots explícitos.",
+      "notes": "Exige dois snapshots informados, ordenados e do mesmo startup/arquivo. Arquivos criados/removidos entre endpoints são omitidos (somente pares); resets são excluídos, não tratados como zero. Percentual DATA+TEMP por instância/container.",
+      "branch": "main",
+      "batch": 34,
+      "blob_sha": "22472aac1a092baabcc6bd715ac25e8006e9aef6",
+      "commit": "4f2cbcf7bac0bb41e804281a0eff41be186823b4"
+    },
+    {
+      "origins": [
+        "_i_o_scripts/hot_write_files.sql"
+      ],
+      "path": "oracle/storage/independent/file_write_concentration.sql",
+      "category": "storage",
+      "goal": "Identificar arquivos acima do limiar percentual de escrita entre snapshots.",
+      "notes": "Percentual usa deltas de escrita DATA+TEMP nos mesmos endpoints; default 25%. Arquivos sem par são omitidos e podem afetar a cobertura/denominador; não comparar acumulado por arquivo com média histórica global.",
+      "branch": "main",
+      "batch": 34,
+      "blob_sha": "5103607e57a77233cf99e1aba7d8435060040b5c",
+      "commit": "4f2cbcf7bac0bb41e804281a0eff41be186823b4"
+    },
+    {
+      "origins": [
+        "_i_o_scripts/awr_plan_over_time.sql"
+      ],
+      "path": "oracle/performance/awr/independent/plan_object_access_time_series.sql",
+      "category": "performance/awr",
+      "goal": "Relatar workload associado a acessos FULL, ROWID e índices ao longo do tempo.",
+      "notes": "Contagem de SQL/plano/snapshot ou execuções de SQL associado a plano não equivale a execuções de operadores. AWR é amostragem seletiva, não captura todo SQL. Chaves DBID/instância/snapshot e plano/container são explícitas; deltas de SQL não são atribuídos como I/O físico exclusivo de cada objeto. Relatório único preserva categorias de TABLE ACCESS e INDEX sem seções com joins divergentes; não equivale a contar starts de operadores. Metadados de cache/NUM_ROWS não são necessários ao novo relatório; essa diferença é deliberada.",
+      "branch": "main",
+      "batch": 34,
+      "blob_sha": "9d18dd9ab36e018a623c0f006b2798a0ffc2e759",
+      "commit": "4f2cbcf7bac0bb41e804281a0eff41be186823b4"
+    },
+    {
+      "origins": [
+        "_index_scripts/index_usage_hr.sql"
+      ],
+      "path": "oracle/objects/indexes/independent/index_search_columns_history.sql",
+      "category": "objects/indexes",
+      "goal": "Contar planos de índice por hora e número de colunas de busca.",
+      "notes": "Contagem de SQL/plano/snapshot ou execuções de SQL associado a plano não equivale a execuções de operadores. AWR é amostragem seletiva, não captura todo SQL. Chaves DBID/instância/snapshot e plano/container são explícitas; deltas de SQL não são atribuídos como I/O físico exclusivo de cada objeto. Owner e nome do índice são binds; NULL retorna vazio. SEARCH_COLUMNS é propriedade do plano, não uso efetivo de todas as colunas nem contador de invocações.",
+      "branch": "main",
+      "batch": 34,
+      "blob_sha": "03ebbeef798eedc27b2c3408cb30e2ebc9c1402e",
+      "commit": "4f2cbcf7bac0bb41e804281a0eff41be186823b4"
+    },
+    {
+      "origins": [
+        "_sga_internals_scripts/SGA_DEC.SQL"
+      ],
+      "path": "oracle/memory/independent/buffer_cache_shrink_advice.sql",
+      "category": "memory",
+      "goal": "Consultar estimativas do advisory para redução do buffer cache.",
+      "notes": "Substitui estruturas X$ e parâmetros obsoletos por advisory documentado. Não altera SGA/cache nem ativa advisory. Estima leituras físicas, não reproduz a métrica histórica de hits perdidos/ganhos; ausência de linhas pode significar advisory inativo ou sem dados. Validar representatividade do workload.",
+      "branch": "main",
+      "batch": 34,
+      "blob_sha": "16b1fb27837316bcf3688b6eaeede9e52747437d",
+      "commit": "4f2cbcf7bac0bb41e804281a0eff41be186823b4"
+    },
+    {
+      "origins": [
+        "_sga_internals_scripts/SGA_INC.SQL"
+      ],
+      "path": "oracle/memory/independent/buffer_cache_growth_advice.sql",
+      "category": "memory",
+      "goal": "Consultar estimativas do advisory para expansão do buffer cache.",
+      "notes": "Substitui estruturas X$ e parâmetros obsoletos por advisory documentado. Não altera SGA/cache nem ativa advisory. Estima leituras físicas, não reproduz a métrica histórica de hits perdidos/ganhos; ausência de linhas pode significar advisory inativo ou sem dados. Validar representatividade do workload.",
+      "branch": "main",
+      "batch": 34,
+      "blob_sha": "de557e3018c51fe5bfd4c77630100e42937f1f0a",
+      "commit": "4f2cbcf7bac0bb41e804281a0eff41be186823b4"
+    },
+    {
+      "origins": [
+        "_sga_internals_scripts/rpt_10g_lib_miss.sql"
+      ],
+      "path": "oracle/memory/independent/library_cache_reload_deltas.sql",
+      "category": "memory",
+      "goal": "Calcular reloads por pins em intervalos históricos de library cache.",
+      "notes": "Pins não equivalem a execuções de SQL. Reload/pin não representa todos os tipos de miss; mantém namespace separado e evita deltas através de restart/reset.",
+      "branch": "main",
+      "batch": 34,
+      "blob_sha": "25c9f320a817d7af4ac17533ad3ae3d6bc0fbc12",
+      "commit": "4f2cbcf7bac0bb41e804281a0eff41be186823b4"
     }
   ]
 }

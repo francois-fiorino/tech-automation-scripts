@@ -7,14 +7,14 @@ Atualizado em 03/11/2026. **Projeto em andamento: revisão estática e publicaç
 | Medida | Total | Critério |
 |---|---:|---|
 | Origens inventariadas | 697 | 693 SQL e quatro auxiliares |
-| Implementações únicas na main | 452 | 432 anteriores + 20 novas |
+| Implementações únicas na main | 472 | 432 anteriores + 40 novas |
 | Implementações somente na branch/PR #2 | 175 | 175 anteriores + 0 novos geradores |
-| Origens variantes/canônicas compartilhadas | 33 | 32 anteriores + 1 novas correspondências compartilhadas |
+| Origens variantes/canônicas compartilhadas | 34 | 32 anteriores + 2 novas correspondências compartilhadas |
 | Fontes sem implementação funcional | 5 | placeholders/referências sem código; não publicadas ficticiamente |
-| Requisitos das 49 fontes retidas atendidos por código novo | 21 | 20 implementações novas com conteúdo publicado e verificado |
-| Requisitos ainda aguardando nova implementação publicada | 28 | fila de requisitos, sem republicar código original |
+| Requisitos das 49 fontes retidas atendidos por código novo | 42 | 40 implementações novas com conteúdo publicado e verificado |
+| Requisitos ainda aguardando nova implementação publicada | 7 | fila de requisitos, sem republicar código original |
 | Fontes originais restritas republicadas | 0 | os 49 originais permanecem retidos |
-| Pendências de main | 203 | 175 propostas no PR + 28 requisitos restantes |
+| Pendências de main | 182 | 175 propostas no PR + 7 requisitos restantes |
 | Compilações/execuções efetivas em Oracle | 0 | parser local e fixtures não são homologação Oracle |
 
 Os oito scripts anteriores à campanha continuam incluídos nas 432 implementações preservadas. Novas implementações não são contadas como correções do código original, nem como licença ou autorização de redistribuição. Cada cabeçalho descreve as diferenças funcionais, dependências, parâmetros, riscos, referências e limites de validação.
@@ -33,6 +33,7 @@ Os oito scripts anteriores à campanha continuam incluídos nas 432 implementaç
 | Lote | Arquivos únicos | Destino | Commit de conteúdo |
 |---|---:|---|---|
 | 033 | 20 | main | [334b807a51](https://github.com/francois-fiorino/tech-automation-scripts/commit/334b807a5142f5f4e31b04607f7d2e1391f932d1) |
+| 034 | 20 | main | [4f2cbcf7ba](https://github.com/francois-fiorino/tech-automation-scripts/commit/4f2cbcf7bac0bb41e804281a0eff41be186823b4) |
 
 Cada lote tem no máximo 20 implementações; a correspondência pode atender mais de uma origem equivalente. Publicação confirmada por caminho e SHA de blob Git. Não foram sobrescritos scripts existentes ou integrados PRs.
 
@@ -45,19 +46,19 @@ Cada lote tem no máximo 20 implementações; a correspondência pode atender ma
 | `administration/windows/` | 0 | 1 |
 | `asm/` | 2 | 0 |
 | `backup-recovery/` | 3 | 8 |
-| `memory/` | 43 | 1 |
+| `memory/` | 48 | 1 |
 | `monitoring/` | 64 | 0 |
 | `objects/` | 65 | 47 |
-| `objects/indexes/` | 11 | 0 |
+| `objects/indexes/` | 12 | 0 |
 | `performance/` | 31 | 2 |
 | `performance/ash/` | 17 | 0 |
-| `performance/awr/` | 36 | 0 |
+| `performance/awr/` | 47 | 0 |
 | `performance/sql/` | 23 | 1 |
 | `performance/statspack/` | 1 | 0 |
 | `rac/` | 40 | 1 |
 | `rac/grid/` | 1 | 0 |
 | `security/` | 19 | 19 |
-| `storage/` | 34 | 0 |
+| `storage/` | 37 | 0 |
 | `troubleshooting/` | 32 | 2 |
 
 Os novos scripts ficam em subpastas `independent/` dentro da categoria. Contagens por categoria incluem essas subpastas, sem contar variantes duas vezes.
