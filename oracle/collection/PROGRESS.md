@@ -119,3 +119,17 @@ FILEIO2.SQL, FILEIO_NH.SQL, datafile2.sql e mapper1.sql tiveram todos os SELECTs
 Após verificação: **108 SQL únicos na main**, sendo 100 publicados nas execuções deste projeto e 84 desses com alterações de código/cliente. **529 fontes** continuam aguardando análise individual, **45** retidas por licença, **1** por credencial, **2** apenas no PR #2, **7** origens duplicadas mapeadas e **1** referência sem implementação. Quatro auxiliares continuam pendentes.
 
 Referências: [V$BACKUP](https://docs.oracle.com/en/database/oracle/oracle-database/26/refrn/V-BACKUP.html), [DBA_HIST_SEG_STAT](https://docs.oracle.com/en/database/oracle/oracle-database/26/refrn/DBA_HIST_SEG_STAT.html). Cabeçalhos detalham privilégios, unidades, dados acumulados versus deltas, dependências customizadas e riscos de tabelas internas.
+
+## Lote 006 — índices, segmentos e tablespaces
+
+20 arquivos analisados individualmente e documentados; 19 com alterações de SQL ou comandos de cliente. Nova subcategoria `objects/indexes`. Variantes co_lo_ind, co_lo_ind2 e co_lo_ind3 foram preservadas separadamente: suas exclusões de owners são funcionalmente diferentes.
+
+Corrigidos o proprietário real da tabela na associação com índices, INDEX_OWNER no join de partições, GROUP BY/limite de extent no mapeamento de buffers e proteção contra zero no percentual de UNUSED_SPACE. A consulta de espaço agora inclui tablespaces sem extents livres com LEFT JOIN/NVL. MAX_EXTENT de DBA_IND_PARTITIONS foi conferido no Database Reference e preservado, pois é coluna válida nessa view.
+
+Validação: leitura de originais e diffs; estrutura de cabeçalhos, comandos somente de diagnóstico e parênteses; teste auxiliar da consulta de espaço em SQLite com função NVL registrada e três fixtures (cheio, 50% livre e total zero). Esse teste valida lógica relacional auxiliar, não substitui parse/execução Oracle. Não houve execução em banco Oracle nem DDL/DML administrativo.
+
+Lote 005 confirmado: [00b1493](https://github.com/francois-fiorino/tech-automation-scripts/commit/00b1493c145d8d3381797abe85cfe8cf856351a6), 20 SQL e dois controles conferidos por SHA; todos os scripts anteriores preservados.
+
+Após confirmar lote 006: **128 SQL únicos na main** (8 anteriores + 120 novos); **103 dos novos** receberam alterações de código/cliente; 2 propostas documentadas permanecem apenas no PR #2. Continuam **509 fontes aguardando análise**, 45 retidas por licença, 1 por credencial, 7 origens duplicadas mapeadas, 1 referência sem implementação e 4 auxiliares pendentes. Projeto ainda não concluído.
+
+Referências: [ALL_IND_PARTITIONS/DBA_IND_PARTITIONS](https://docs.oracle.com/en/database/oracle/oracle-database/21/refrn/ALL_IND_PARTITIONS.html) e [DBMS_SPACE](https://docs.oracle.com/en/database/oracle/oracle-database/19/arpls/DBMS_SPACE.html).
