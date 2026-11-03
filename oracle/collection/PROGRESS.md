@@ -395,3 +395,13 @@ Quatro fontes restantes mapeadas a canônicos no PR: VIEW_RCT (limite LONG menor
 ## Retomada e residual 032 — verificados
 
 Reconferidas as 697 origens por SHA-256 e os caminhos/blobs de 432 implementações main e 175 propostas. O residual contém uma proposta sanitizada de link público: commit d0723c789677d70c78bf3eb1e01139a2fc6e55c7, blob 6eb68b2e121561967fdb01ec076d5aeee391b0e8; original sensível retido. Corrigida somente a referência de commit de GET_COND no inventário para a errata 9095ca3cdad534aa6a96c6f26e8839121c652d3a. Scripts anteriores preservados. Sem merge de PR e sem execução Oracle. Ver REPORT.md e RECONCILIATION.json para checkpoint e próxima etapa: homologação das 175 propostas e direitos de redistribuição de 49 fontes, sem reiniciar lotes.
+
+## Implementações novas dos requisitos retidos — 03/11/2026
+
+21/49 origens de requisito atendidas por 20 novas implementações publicadas (20 main, 0 PR); 28 requisitos restantes. Originais restritos não republicados.
+
+| Lote | Arquivos | Destino | Commit |
+|---|---:|---|---|
+| 033 | 20 | main | [334b807a51](https://github.com/francois-fiorino/tech-automation-scripts/commit/334b807a5142f5f4e31b04607f7d2e1391f932d1) |
+
+Ver REPORT.md, INDEPENDENT_IMPLEMENTATIONS.md e INDEPENDENT_VERIFICATION.json. Revisão estática e fixtures locais; nenhuma execução Oracle e nenhum merge.

@@ -1,0 +1,291 @@
+{
+  "scope": "Novas implementações; não substitui snapshots históricos de integridade.",
+  "oracle_execution": false,
+  "oracle_compilation": false,
+  "original_sources_withheld": 49,
+  "requirements_mapped": 21,
+  "requirements_pending": 28,
+  "new_main": 20,
+  "new_review": 0,
+  "static_validation_scope": "Validação estática local das 46 implementações preparadas; publicação confirmada apenas para entradas com commit.",
+  "validation": {
+    "independent_scripts": 46,
+    "select_ast_parsed": 44,
+    "plsql_manually_reviewed": 2,
+    "bind_declarations_consistent": true,
+    "no_effective_ddl_dml_in_select_ast": true,
+    "local_relational_fixtures": [
+      "restart and instance separation",
+      "snapshot gap",
+      "zero denominator",
+      "weighted hit ratio",
+      "plan step deduplication and DBID/plan keys"
+    ],
+    "oracle_compilation": false,
+    "oracle_execution": false,
+    "sqlglot_version": "30.29.0"
+  },
+  "files": [
+    {
+      "origins": [
+        "_ash_scripts/ash_hot_objects.sql"
+      ],
+      "path": "oracle/performance/ash/independent/ash_object_samples.sql",
+      "category": "performance/ash",
+      "goal": "Classificar objetos por amostras ASH de espera.",
+      "notes": "Usa contagem de amostras, sem somar WAIT_TIME com TIME_WAITED. Metadados atuais podem não representar objetos históricos; objeto desconhecido é preservado por LEFT JOIN. ASH local à instância; janela depende da retenção em memória.",
+      "branch": "main",
+      "batch": 33,
+      "blob_sha": "f36aa9cfd5672e61b1bf06e8929aae3372a2d4a0",
+      "commit": "334b807a5142f5f4e31b04607f7d2e1391f932d1"
+    },
+    {
+      "origins": [
+        "_ash_scripts/ash_latch.sql"
+      ],
+      "path": "oracle/performance/awr/independent/latch_interval_deltas.sql",
+      "category": "performance/awr",
+      "goal": "Medir deltas de latches entre snapshots observados.",
+      "notes": "LAG separado por DBID, instância, container, latch e startup; remove primeiro ponto e reset. Gaps abrangem snapshots observados, sem presumir SNAP_ID consecutivo.",
+      "branch": "main",
+      "batch": 33,
+      "blob_sha": "ae71379da1292c5f9a1aa3222f992ed0dfa9d4d9",
+      "commit": "334b807a5142f5f4e31b04607f7d2e1391f932d1"
+    },
+    {
+      "origins": [
+        "_ash_scripts/ash_list_events.sql"
+      ],
+      "path": "oracle/performance/awr/independent/historical_event_catalog.sql",
+      "category": "performance/awr",
+      "goal": "Listar o catálogo histórico de eventos do banco atual.",
+      "notes": "Catálogo de nomes, sem contar esperas ou afirmar atividade no período. Não há filtro temporal porque a view é catálogo.",
+      "branch": "main",
+      "batch": 33,
+      "blob_sha": "965614146248a62f878debabdbf13851a398015f",
+      "commit": "334b807a5142f5f4e31b04607f7d2e1391f932d1"
+    },
+    {
+      "origins": [
+        "_ash_scripts/ash_sql.sql"
+      ],
+      "path": "oracle/performance/ash/independent/session_sampled_sql.sql",
+      "category": "performance/ash",
+      "goal": "Relacionar SQLs amostrados de uma sessão histórica.",
+      "notes": "Mantém SERIAL#, instância e container; evita multiplicação por child cursors de V$SQL. Filtro de texto é substring literal opcional, não LIKE; trecho limitado a 1000 caracteres. O SID pode ter sido reutilizado, por isso os SERIAL# aparecem separados.",
+      "branch": "main",
+      "batch": 33,
+      "blob_sha": "252362ee02632ab657bcaa56f00e3ef03a086e97",
+      "commit": "334b807a5142f5f4e31b04607f7d2e1391f932d1"
+    },
+    {
+      "origins": [
+        "_ash_scripts/ash_total_wait_time.sql"
+      ],
+      "path": "oracle/performance/ash/independent/ash_event_hour_samples.sql",
+      "category": "performance/ash",
+      "goal": "Contar amostras de espera por evento na hora configurada.",
+      "notes": "Corrige a seleção contraditória de ON CPU como espera. O resultado mede amostras, não segundos; a mesma hora em dias diferentes é agregada dentro da janela.",
+      "branch": "main",
+      "batch": 33,
+      "blob_sha": "fe369aafde9c2c3b8c34863b34cd7b37be5ee568",
+      "commit": "334b807a5142f5f4e31b04607f7d2e1391f932d1"
+    },
+    {
+      "origins": [
+        "_ash_scripts/ash_total_wait_time_dy.sql"
+      ],
+      "path": "oracle/performance/ash/independent/ash_session_wait_samples.sql",
+      "category": "performance/ash",
+      "goal": "Classificar sessões amostradas por espera.",
+      "notes": "Não depende da existência atual da sessão em V$SESSION. SERIAL# reduz confusão por reutilização de SID; USER_ID pode não resolver a conta histórica. Contagem não é duração.",
+      "branch": "main",
+      "batch": 33,
+      "blob_sha": "130d605e7bbbd08803ab470428453894e20e1d9a",
+      "commit": "334b807a5142f5f4e31b04607f7d2e1391f932d1"
+    },
+    {
+      "origins": [
+        "_ash_scripts/ash_trend.sql"
+      ],
+      "path": "oracle/performance/awr/independent/time_model_interval_deltas.sql",
+      "category": "performance/awr",
+      "goal": "Exibir variações do time model histórico por estatística.",
+      "notes": "Deltas em microssegundos convertidos para segundos, isolando reinícios. Estatísticas pai/filho não devem ser somadas indiscriminadamente; primeira amostra não gera delta.",
+      "branch": "main",
+      "batch": 33,
+      "blob_sha": "d192a1d1abd41ccbf21dd52c062e9438edea4af6",
+      "commit": "334b807a5142f5f4e31b04607f7d2e1391f932d1"
+    },
+    {
+      "origins": [
+        "_ash_scripts/ash_wait_time.sql"
+      ],
+      "path": "oracle/performance/ash/independent/ash_hourly_wait_samples.sql",
+      "category": "performance/ash",
+      "goal": "Exibir evolução horária das amostras de espera.",
+      "notes": "Preserva data e hora, sem misturar dias. Amostras de espera não são tempo exato nem execuções; horários seguem os timestamps armazenados.",
+      "branch": "main",
+      "batch": 33,
+      "blob_sha": "52fa6769bb9532108b73b6ae9dfa16d9b15fa8c4",
+      "commit": "334b807a5142f5f4e31b04607f7d2e1391f932d1"
+    },
+    {
+      "origins": [
+        "_ash_scripts/ash_wait_time_sum.sql"
+      ],
+      "path": "oracle/performance/ash/independent/ash_event_wait_samples.sql",
+      "category": "performance/ash",
+      "goal": "Resumir amostras de espera por classe e evento.",
+      "notes": "Percentual relativo somente às esperas filtradas; exclui CPU e Idle. Não interpreta WAIT_TIME como centésimos de segundo.",
+      "branch": "main",
+      "batch": 33,
+      "blob_sha": "acba4ddf53171c88f3040679e4a5c769b6a8595d",
+      "commit": "334b807a5142f5f4e31b04607f7d2e1391f932d1"
+    },
+    {
+      "origins": [
+        "_ash_scripts/ash_waitclass_waits.sql"
+      ],
+      "path": "oracle/performance/awr/independent/waitclass_metric_history.sql",
+      "category": "performance/awr",
+      "goal": "Consultar métricas históricas de classes de espera.",
+      "notes": "Limiar aplica-se à métrica DBTIME_IN_WAIT; não reinterpreta seu valor como segundos. Conferir definição/unidade da view da versão alvo.",
+      "branch": "main",
+      "batch": 33,
+      "blob_sha": "f29f4bcee748ff15b61ce502f4fbb882fe4f34c8",
+      "commit": "334b807a5142f5f4e31b04607f7d2e1391f932d1"
+    },
+    {
+      "origins": [
+        "_awr_scripts/awr_full_table_scans.sql"
+      ],
+      "path": "oracle/performance/awr/independent/hash_join_workload.sql",
+      "category": "performance/awr",
+      "goal": "Medir workload de SQLs associados a hash joins.",
+      "notes": "Contagem de SQL/plano/snapshot ou execuções de SQL associado a plano não equivale a execuções de operadores. AWR é amostragem seletiva, não captura todo SQL. Chaves DBID/instância/snapshot e plano/container são explícitas; deltas de SQL não são atribuídos como I/O físico exclusivo de cada objeto. O nome da fonte não descrevia sua finalidade real; nome novo corresponde ao conteúdo.",
+      "branch": "main",
+      "batch": 33,
+      "blob_sha": "1abb8461288b43d326c359b839382177f002283c",
+      "commit": "334b807a5142f5f4e31b04607f7d2e1391f932d1"
+    },
+    {
+      "origins": [
+        "_awr_scripts/awr_list_seg_block_space.sql"
+      ],
+      "path": "oracle/performance/awr/independent/nested_loop_workload.sql",
+      "category": "performance/awr",
+      "goal": "Medir workload de SQLs associados a nested loops.",
+      "notes": "Contagem de SQL/plano/snapshot ou execuções de SQL associado a plano não equivale a execuções de operadores. AWR é amostragem seletiva, não captura todo SQL. Chaves DBID/instância/snapshot e plano/container são explícitas; deltas de SQL não são atribuídos como I/O físico exclusivo de cada objeto. O nome da fonte não descrevia sua finalidade real; nome novo corresponde ao conteúdo.",
+      "branch": "main",
+      "batch": 33,
+      "blob_sha": "dcd586e3138d7b65e345dc97ba5bb63cb0a906a4",
+      "commit": "334b807a5142f5f4e31b04607f7d2e1391f932d1"
+    },
+    {
+      "origins": [
+        "_awr_scripts/awr_estimate_index_cost.sql"
+      ],
+      "path": "oracle/performance/awr/independent/large_full_scan_snapshots.sql",
+      "category": "performance/awr",
+      "goal": "Resumir ocorrências de SQL/plano com acesso FULL a objetos grandes.",
+      "notes": "Contagem de SQL/plano/snapshot ou execuções de SQL associado a plano não equivale a execuções de operadores. AWR é amostragem seletiva, não captura todo SQL. Chaves DBID/instância/snapshot e plano/container são explícitas; deltas de SQL não são atribuídos como I/O físico exclusivo de cada objeto. Tamanho usa soma atual de segmentos do objeto, não tamanho histórico ou fração efetivamente varrida; limiar em blocos. Dia ISO: segunda=1, domingo=7; por hora/dia da semana o resultado é soma, não média. A fonte chamada estimate_index_cost não estimava custo de índice.",
+      "branch": "main",
+      "batch": 33,
+      "blob_sha": "d5a17d9e2fdb803a8c949ed723c86f0b5703bdd3",
+      "commit": "334b807a5142f5f4e31b04607f7d2e1391f932d1"
+    },
+    {
+      "origins": [
+        "_awr_scripts/awr_report_seg_block_space.sql"
+      ],
+      "path": "oracle/performance/awr/independent/large_full_scan_weekdays.sql",
+      "category": "performance/awr",
+      "goal": "Resumir ocorrências de SQL/plano com acesso FULL a objetos grandes.",
+      "notes": "Contagem de SQL/plano/snapshot ou execuções de SQL associado a plano não equivale a execuções de operadores. AWR é amostragem seletiva, não captura todo SQL. Chaves DBID/instância/snapshot e plano/container são explícitas; deltas de SQL não são atribuídos como I/O físico exclusivo de cada objeto. Tamanho usa soma atual de segmentos do objeto, não tamanho histórico ou fração efetivamente varrida; limiar em blocos. Dia ISO: segunda=1, domingo=7; por hora/dia da semana o resultado é soma, não média. A fonte chamada estimate_index_cost não estimava custo de índice.",
+      "branch": "main",
+      "batch": 33,
+      "blob_sha": "2e3e5eb153c2725da1944ede9cb1a49db3d9e484",
+      "commit": "334b807a5142f5f4e31b04607f7d2e1391f932d1"
+    },
+    {
+      "origins": [
+        "_awr_scripts/awr_sql_access_day.sql"
+      ],
+      "path": "oracle/performance/awr/independent/large_full_scan_hours.sql",
+      "category": "performance/awr",
+      "goal": "Resumir ocorrências de SQL/plano com acesso FULL a objetos grandes.",
+      "notes": "Contagem de SQL/plano/snapshot ou execuções de SQL associado a plano não equivale a execuções de operadores. AWR é amostragem seletiva, não captura todo SQL. Chaves DBID/instância/snapshot e plano/container são explícitas; deltas de SQL não são atribuídos como I/O físico exclusivo de cada objeto. Tamanho usa soma atual de segmentos do objeto, não tamanho histórico ou fração efetivamente varrida; limiar em blocos. Dia ISO: segunda=1, domingo=7; por hora/dia da semana o resultado é soma, não média. A fonte chamada estimate_index_cost não estimava custo de índice.",
+      "branch": "main",
+      "batch": 33,
+      "blob_sha": "aa37bcc965f7954d4c31b58e9cf2e8ebb80944a9",
+      "commit": "334b807a5142f5f4e31b04607f7d2e1391f932d1"
+    },
+    {
+      "origins": [
+        "_awr_scripts/awr_hash_join_alert.sql"
+      ],
+      "path": "oracle/performance/awr/independent/historical_plan_costs.sql",
+      "category": "performance/awr",
+      "goal": "Classificar custos estimados de planos históricos.",
+      "notes": "A fonte chamada hash_join_alert classifica custo raiz, sem filtro de hash join. Custo não é tempo nem pode ser comparado cegamente entre ambientes; não há filtro de dias porque SQL_PLAN não possui SNAP_ID.",
+      "branch": "main",
+      "batch": 33,
+      "blob_sha": "99125fb6aef29271fb028f4a60e7942e89000981",
+      "commit": "334b807a5142f5f4e31b04607f7d2e1391f932d1"
+    },
+    {
+      "origins": [
+        "_awr_scripts/awr_high_cost_sql.sql"
+      ],
+      "path": "oracle/performance/sql/independent/cached_sql_read_ranking.sql",
+      "category": "performance/sql",
+      "goal": "Classificar SQLs em cache por leituras por execução.",
+      "notes": "Consulta cache atual local, não AWR. Usa NULLIF e exclui execuções zero; leituras por execução calculadas sobre contadores da vida do cursor, sem afirmar janela temporal ou hit ratio de buffer cache.",
+      "branch": "main",
+      "batch": 33,
+      "blob_sha": "e57098f721170fecdc26e4e0243fe3c07bd3a54d",
+      "commit": "334b807a5142f5f4e31b04607f7d2e1391f932d1"
+    },
+    {
+      "origins": [
+        "_awr_scripts/awr_large_scan_count.sql",
+        "_awr_scripts/awr_physrds.sql"
+      ],
+      "path": "oracle/storage/independent/segment_assm_block_buckets.sql",
+      "category": "storage",
+      "goal": "Relatar classes de ocupação de blocos em segmentos ASSM.",
+      "notes": "Substitui função/consumidor históricos por bloco anônimo completo, sem DROP/CREATE TYPE/FUNCTION. Exige EXECUTE DBMS_SPACE e ANALYZE no objeto, SELECT nas views. FS1 a FS4 representam faixas de espaço livre (0–25,25–50,50–75,75–100%); não bytes recuperáveis. LOBs e MSSM excluídos explicitamente; erros por segmento aparecem na saída. Custo proporcional ao número de segmentos. Duas fontes mapeadas ao mesmo relatório.",
+      "branch": "main",
+      "batch": 33,
+      "blob_sha": "2fd507f9370a8d993c790e867d5b6a43b1694be2",
+      "commit": "334b807a5142f5f4e31b04607f7d2e1391f932d1"
+    },
+    {
+      "origins": [
+        "_awr_scripts/awr_nested_join_alert.sql"
+      ],
+      "path": "oracle/storage/independent/datafile_read_counters.sql",
+      "category": "storage",
+      "goal": "Consultar contadores cumulativos históricos de leitura por datafile.",
+      "notes": "Nome da fonte não correspondia ao conteúdo de file I/O. Exibe contadores totais em cada snapshot, não taxa ou delta; possíveis resets devem ser interpretados com startup/arquivo.",
+      "branch": "main",
+      "batch": 33,
+      "blob_sha": "2c78e3462d8af5989ca69ba44144d4bff8b61004",
+      "commit": "334b807a5142f5f4e31b04607f7d2e1391f932d1"
+    },
+    {
+      "origins": [
+        "_awr_scripts/awr_sql_cartesian.sql"
+      ],
+      "path": "oracle/performance/awr/independent/historical_plan_steps.sql",
+      "category": "performance/awr",
+      "goal": "Exibir todos os passos dos planos de um SQL_ID histórico.",
+      "notes": "SQL_ID deve ser configurado; NULL retorna vazio. Não se limita a joins cartesianos, assim como a finalidade real da fonte. Separa planos por PLAN_HASH_VALUE; não é plano real com contadores por operador.",
+      "branch": "main",
+      "batch": 33,
+      "blob_sha": "621e7aca01489b49025cad8c049d41ade9d849ea",
+      "commit": "334b807a5142f5f4e31b04607f7d2e1391f932d1"
+    }
+  ]
+}

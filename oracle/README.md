@@ -1,43 +1,41 @@
 # Biblioteca de scripts Oracle
 
-Coleção histórica Oracle Script Collection 2015 organizada e documentada em português brasileiro. **Revisão estática: nenhum script foi compilado ou executado em Oracle neste trabalho.** Consulte o cabeçalho individual antes de qualquer uso.
+Acervo de scripts Oracle e implementações novas, com documentação técnica em português no próprio código. **Revisão estática; nenhum script foi compilado ou executado em Oracle neste trabalho.**
 
-[Inventário por origem e arquivo publicado](collection/inventory.csv) · [Relatório detalhado e commits](collection/REPORT.md) · [Histórico](collection/PROGRESS.md) · [Aviso original da coleção](collection/ORIGINAL_README.txt)
+[Inventário de 697 origens](collection/inventory.csv) · [Relatório atualizado](collection/REPORT.md) · [Implementações novas](collection/INDEPENDENT_IMPLEMENTATIONS.md) · [Histórico](collection/PROGRESS.md) · [Aviso original](collection/ORIGINAL_README.txt)
 
-A main contém **432 implementações únicas** da coleção, incluindo oito anteriores preservadas. Há **175 propostas de maior risco no [PR #2](https://github.com/francois-fiorino/tech-automation-scripts/pull/2)**, fora desta contagem, além de 49 fontes retidas para esclarecimento de licença. A fonte com credencial recebeu proposta sanitizada e bloqueada no PR; o original continua retido. Trinta e duas variantes apontam a arquivos canônicos e cinco origens não possuem implementação funcional. Todos os 697 arquivos de origem foram classificados; o projeto permanece aberto pelos impedimentos registrados.
+A main contém **452 implementações únicas** (20 novas nesta etapa). O [PR #2](https://github.com/francois-fiorino/tech-automation-scripts/pull/2) mantém **175 propostas administrativas** em revisão. Dos 49 requisitos de fontes retidas, **21** já têm código novo publicado, em **20** implementações; **28** aguardam publicação. Os originais restritos continuam retidos. As diferenças funcionais estão nos cabeçalhos e no mapeamento; três requisitos equivalentes compartilham destinos quando a fila estiver completa.
 
 ## Consultar por categoria
 
-As contagens são de arquivos diretamente classificados em cada categoria, sem duplicar o total de subpastas.
+| Categoria | Main | Somente PR |
+|---|---:|---:|
+| `administration/` | 30 | 92 |
+| `administration/legacy-linux/` | 0 | 1 |
+| `administration/windows/` | 0 | 1 |
+| `asm/` | 2 | 0 |
+| `backup-recovery/` | 3 | 8 |
+| `memory/` | 43 | 1 |
+| `monitoring/` | 64 | 0 |
+| `objects/` | 65 | 47 |
+| `objects/indexes/` | 11 | 0 |
+| `performance/` | 31 | 2 |
+| `performance/ash/` | 17 | 0 |
+| `performance/awr/` | 36 | 0 |
+| `performance/sql/` | 23 | 1 |
+| `performance/statspack/` | 1 | 0 |
+| `rac/` | 40 | 1 |
+| `rac/grid/` | 1 | 0 |
+| `security/` | 19 | 19 |
+| `storage/` | 34 | 0 |
+| `troubleshooting/` | 32 | 2 |
 
-| Categoria | Arquivos na main |
-|---|---:|
-| [administration](administration/) | 30 |
-| [asm](asm/) | 2 |
-| [backup-recovery](backup-recovery/) | 3 |
-| [memory](memory/) | 43 |
-| [monitoring](monitoring/) | 64 |
-| [objects](objects/) | 65 |
-| [objects/indexes](objects/indexes/) | 11 |
-| [performance](performance/) | 31 |
-| [performance/ash](performance/ash/) | 11 |
-| [performance/awr](performance/awr/) | 25 |
-| [performance/sql](performance/sql/) | 22 |
-| [performance/statspack](performance/statspack/) | 1 |
-| [rac](rac/) | 40 |
-| [rac/grid](rac/grid/) | 1 |
-| [security](security/) | 19 |
-| [storage](storage/) | 32 |
-| [troubleshooting](troubleshooting/) | 32 |
+Os novos arquivos estão nas subpastas `independent/`. Leia cada cabeçalho para configurar parâmetros, grants, escopo de instância/container e custos. AWR/ASH exige direito de uso aplicável. Contagens ASH são amostras; associação de SQL a plano/objeto não representa contagem exata de execuções de operadores.
 
-## Execução e interpretação
+## Utilização
 
-Leia objetivo, pré-requisitos, views/pacotes, exemplos, unidades, limitações e riscos no cabeçalho de cada arquivo. Execute em SQL*Plus/SQLcl com os grants e parâmetros documentados, primeiro em desenvolvimento/homologação. Scripts históricos podem depender de versões, estruturas internas ou tabelas de aplicação que não existem no ambiente atual. Contadores acumulados, estatísticas e estimativas não devem ser interpretados automaticamente como taxas ou recomendações de alteração.
-
-Não há instalador para executar a coleção inteira. As propostas administrativas possuem DDL/DML, jobs, autenticação, backups e geradores com contratos alternativos; permanecem em revisão, não homologadas para implantação. AWR/ASH exige verificar o direito de uso aplicável.
-
-Os arquivos adicionais que já existiam no repositório foram preservados integralmente e não foram incluídos ficticiamente nas contagens da coleção.
+Execute individualmente em SQL*Plus/SQLcl, primeiro em laboratório. Não existe instalador da coleção. DDL/DML, autenticação, backup/recovery e aplicação de comandos gerados exigem revisão do impacto e homologação específica. Nenhuma proposta de PR foi incorporada automaticamente.
 
 ## Responsabilidade
 
-Conteúdo fornecido AS IS para fins técnicos, educacionais e administrativos, sem garantia de funcionamento, compatibilidade, desempenho ou adequação. O usuário deve analisar integralmente o código, compreender seus efeitos e testar em ambiente controlado antes de utilizar. A execução ocorre por sua conta e risco; os mantenedores não assumem responsabilidade por danos, perdas de dados, indisponibilidade ou outros impactos, nos limites legais aplicáveis. Os avisos e créditos históricos de cada fonte continuam preservados.
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
