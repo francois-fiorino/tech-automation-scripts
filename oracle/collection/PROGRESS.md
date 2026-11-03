@@ -3,12 +3,12 @@
 
 | Situação | Quantidade |
 |---|---:|
-| Scripts únicos da coleção na main | **308** |
-| Novos publicados na main desde início deste trabalho | 300 |
-| Novos arquivos documentados (main e propostas) | 342 |
-| Novos arquivos main com alterações SQL/cliente/normalização | 250 |
+| Scripts únicos da coleção na main | **328** |
+| Novos publicados na main desde início deste trabalho | 320 |
+| Novos arquivos documentados (main e propostas) | 362 |
+| Novos arquivos main com alterações SQL/cliente/normalização | 268 |
 | Propostas somente em branch/PR #2 | 42 |
-| Fontes aguardando análise individual | **277** |
+| Fontes aguardando análise individual | **257** |
 | Retidos para verificação de licença | 49 |
 | Retido por credencial literal | 1 |
 | Origens duplicadas/variantes mapeadas | 11 |
@@ -291,3 +291,11 @@ Lote 016 confirmado por hashes: [commit 46b6d76](https://github.com/francois-fio
 ## Lote 017 — verificado
 
 20 arquivos com código e cabeçalhos conferidos por SHA de blob Git, na main. [Commit](https://github.com/francois-fiorino/tech-automation-scripts/commit/7d376e68ba5f135fb6bd32c84af35af5a7ecef4f). Sem execução Oracle.
+
+## Lote 018 — preparado para publicação
+
+20 arquivos lidos individualmente, com código completo e cabeçalhos técnicos. 18 receberam alterações de SQL/comandos de cliente/normalização. Os cabeçalhos e o inventário descrevem cada correção e limitação. Sem execução ou compilação Oracle. Confirmar apenas após conferência de hashes Git.
+
+## Lote 018 — verificado
+
+20 arquivos com código e cabeçalhos conferidos por SHA de blob Git, na main. [Commit](https://github.com/francois-fiorino/tech-automation-scripts/commit/4cacc4c7c246e8041424826e806f37dfa6efe59a). Sem execução Oracle.
