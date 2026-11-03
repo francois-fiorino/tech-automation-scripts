@@ -212,3 +212,9 @@ Após confirmação do lote 008: **168 scripts SQL únicos na main**, dos quais 
 ## Lote 009 — preparado para publicação
 
 20 arquivos lidos individualmente, com código completo e cabeçalhos técnicos. 16 receberam alterações de SQL/comandos de cliente/normalização. Os cabeçalhos e o inventário descrevem cada correção e limitação. Sem execução ou compilação Oracle. Confirmar apenas após conferência de hashes Git.
+
+Lote 009 confirmado por hashes: [commit 25e45a7](https://github.com/francois-fiorino/tech-automation-scripts/commit/25e45a746d7c3bd0b84d3da2ad4a9ebf98de8176). Vinte SQL e dois controles conferidos; scripts anteriores preservados.
+
+## Lote 010 — preparado para publicação
+
+20 arquivos lidos individualmente, com código completo e cabeçalhos técnicos. 13 receberam alterações de SQL/comandos de cliente/normalização. Os cabeçalhos e o inventário descrevem cada correção e limitação. Sem execução ou compilação Oracle. Confirmar apenas após conferência de hashes Git.
