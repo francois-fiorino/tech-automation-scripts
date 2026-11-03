@@ -5,10 +5,10 @@
 |---|---:|
 | Scripts únicos da coleção na main | **348** |
 | Novos publicados na main desde início deste trabalho | 340 |
-| Novos arquivos documentados (main e propostas) | 382 |
+| Novos arquivos documentados (main e propostas) | 402 |
 | Novos arquivos main com alterações SQL/cliente/normalização | 288 |
-| Propostas somente em branch/PR #2 | 42 |
-| Fontes aguardando análise individual | **237** |
+| Propostas somente em branch/PR #2 | 62 |
+| Fontes aguardando análise individual | **217** |
 | Retidos para verificação de licença | 49 |
 | Retido por credencial literal | 1 |
 | Origens duplicadas/variantes mapeadas | 11 |
@@ -307,3 +307,7 @@ Lote 016 confirmado por hashes: [commit 46b6d76](https://github.com/francois-fio
 ## Lote 019 — verificado
 
 20 arquivos com código e cabeçalhos conferidos por SHA de blob Git, na main. [Commit](https://github.com/francois-fiorino/tech-automation-scripts/commit/f5dffc1747f9e0834d109701654cc91544cc1119). Sem execução Oracle.
+
+## Lote 020 — verificado
+
+20 arquivos com código e cabeçalhos conferidos por SHA de blob Git, somente no PR #2 (fora da main). [Commit](https://github.com/francois-fiorino/tech-automation-scripts/commit/bfe9b7c1c856c8434a3d56ce74f2a7c3383d302b). Sem execução Oracle.
