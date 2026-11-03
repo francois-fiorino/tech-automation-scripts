@@ -236,3 +236,11 @@ Errata de dependências: title80.sql/title132.sql estão no ZIP em _dba_admin_sc
 ## Lote 013 — preparado para publicação
 
 20 arquivos lidos individualmente, com código completo e cabeçalhos técnicos. 18 receberam alterações de SQL/comandos de cliente/normalização. Os cabeçalhos e o inventário descrevem cada correção e limitação. Sem execução ou compilação Oracle. Confirmar apenas após conferência de hashes Git.
+
+Lote 013 confirmado por hashes: [commit 9ca8c83](https://github.com/francois-fiorino/tech-automation-scripts/commit/9ca8c838ea59b2df2a6abdde3c1358e763d27456). Vinte SQL e dois controles conferidos; scripts anteriores preservados.
+
+Triagem adicional de licença: quatro fontes com aviso All rights reserved (SGA_DEC, SGA_INC, TBSP_EXP e DEFRAG7) foram separadas para verificar autorização, sem afirmar conclusão jurídica. Total de fontes retidas para licença passa a 49; arquivo com credencial continua separado. fix_storage.sql é transcrição interrompida de cliente, sem código funcional, e não foi publicado como script pronto.
+
+## Lote 014 — preparado para publicação
+
+20 arquivos lidos individualmente, com código completo e cabeçalhos técnicos. 17 receberam alterações de SQL/comandos de cliente/normalização. Os cabeçalhos e o inventário descrevem cada correção e limitação. Sem execução ou compilação Oracle. Confirmar apenas após conferência de hashes Git.
