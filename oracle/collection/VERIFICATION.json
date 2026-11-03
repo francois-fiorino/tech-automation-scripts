@@ -1,0 +1,10 @@
+{
+  "main_head": "95698444fd4076eb98d9d99d0bafc9eb83feb49e",
+  "review_head": "627706b5c563a370a739c9b7ecc731cd09517ed3",
+  "new_main_blobs_verified": 424,
+  "review_blobs_verified": 174,
+  "preexisting_blobs_unchanged": 15,
+  "main_total": 432,
+  "review_total": 174,
+  "scope": "Snapshot anterior aos commits finais de documentação; integridade de código e preservação conferidas, sem runtime Oracle."
+}
