@@ -208,3 +208,7 @@ Validação: cabeçalhos completos, diffs e ausência de DDL/DML direto; fixture
 Lote 007 confirmado: [41ab033](https://github.com/francois-fiorino/tech-automation-scripts/commit/41ab033640d39879a4e646c012b332612efcaa72), vinte SQL e dois controles conferidos por hash; scripts anteriores preservados.
 
 Após confirmação do lote 008: **168 scripts SQL únicos na main**, dos quais **160 novos** e **133 novos arquivos com alterações de SQL/cliente/normalização**. Restam **469 fontes com análise individual pendente**, 45 retidas por licença, 1 por credencial, 2 apenas no PR #2, 7 origens duplicadas mapeadas e 1 referência sem código. Quatro auxiliares pendentes. Projeto ainda não concluído; próximo lote 009.
+
+## Lote 009 — preparado para publicação
+
+20 arquivos lidos individualmente, com código completo e cabeçalhos técnicos. 16 receberam alterações de SQL/comandos de cliente/normalização. Os cabeçalhos e o inventário descrevem cada correção e limitação. Sem execução ou compilação Oracle. Confirmar apenas após conferência de hashes Git.
