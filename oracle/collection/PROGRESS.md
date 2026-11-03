@@ -55,3 +55,15 @@ Métricas históricas questionáveis foram preservadas com ressalvas específica
 Referências adicionais: [V$LOGMNR_LOGS](https://docs.oracle.com/en/database/oracle/oracle-database/12.2/refrn/V-LOGMNR_LOGS.html) e [V$PGA_TARGET_ADVICE](https://docs.oracle.com/en/database/oracle/oracle-database/21/refrn/V-PGA_TARGET_ADVICE.html).
 
 Total novo nesta execução até o lote 002: 40 scripts com análise individual e cabeçalhos completos; 36 com alterações de código/cliente. Os 8 anteriores foram preservados e não homologados novamente. A conferência de hashes não valida semântica em execução Oracle.
+
+## Lote 003
+
+20 arquivos preparados de RAC, ocupação de segmentos e segurança. 16 receberam correções de SQL/cliente; 4 consultas foram mantidas. Incluem proteção de razões, normalização de BOM, terminador PL/SQL, alias inválido em gc_ratio.sql e GROUP BY inválido em sys_roles.sql.
+
+Duplicação exata confirmada: `_rac_grid_scripts/cache_conv.sql` e `_i_o_scripts/reads_10g.sql` têm o mesmo texto integral. A origem adicional está mapeada ao código canônico já publicado `oracle/rac/reads_10g.sql`, sem publicação adicional.
+
+`RACDIAG.SQL` contém apenas referência externa, sem implementação. `proc_sys_net.sql` é shell administrativo e `staggered_sequence_trigger.sql` cria trigger; ambos aguardam branch/PR de revisão. O conteúdo de nenhum dos três foi republicado.
+
+Após verificação do lote 003, o total esperado é **68 arquivos SQL únicos publicados**, com **60 novos documentados individualmente**, dos quais **52 receberam alterações de SQL ou comandos de cliente**. Há 575 fontes aguardando análise individual, 2 aguardando revisão administrativa, 45 retidas para análise de licença, 1 retida por credencial, 1 duplicata mapeada e 1 referência sem código. Quatro auxiliares permanecem pendentes. O projeto NÃO está concluído.
+
+Lote 002 verificado: [aeae553](https://github.com/francois-fiorino/tech-automation-scripts/commit/aeae553fff3f92a6afa9be31b17f3812bc680794); 22 conteúdos conferidos (20 SQL e 2 controles); scripts anteriores preservados.
