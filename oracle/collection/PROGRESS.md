@@ -244,3 +244,15 @@ Triagem adicional de licença: quatro fontes com aviso All rights reserved (SGA_
 ## Lote 014 — preparado para publicação
 
 20 arquivos lidos individualmente, com código completo e cabeçalhos técnicos. 17 receberam alterações de SQL/comandos de cliente/normalização. Os cabeçalhos e o inventário descrevem cada correção e limitação. Sem execução ou compilação Oracle. Confirmar apenas após conferência de hashes Git.
+
+Lote 014 confirmado por hashes: [commit 387ebb8](https://github.com/francois-fiorino/tech-automation-scripts/commit/387ebb84f41b1146d73299d0ca731b887329f730). Vinte SQL e dois controles conferidos; scripts anteriores preservados.
+
+## Lote 015 — revisão administrativa
+
+20 fontes completas documentadas na branch do PR #2, commit [3ef0497](https://github.com/francois-fiorino/tech-automation-scripts/commit/3ef049760afbda16da2e8ec4a59603017c8ae0c1). Hashes dos vinte conferidos; arquivos anteriores preservados. Não conta como publicação na main. Cada cabeçalho registra privilégios, riscos, correções e pendências. Nenhum comando administrativo executado.
+
+Correção da revisão GET_COND (apenas PR #2): USER_CONSTRAINTS tem as mesmas colunas de ALL_CONSTRAINTS, inclusive OWNER, conforme Oracle Database Reference. A alteração proposta anteriormente foi revertida, preservando escopo original do usuário. Cabeçalho e inventário corrigidos; nenhuma versão desse arquivo foi publicada na main. Referência: https://docs.oracle.com/en/database/oracle/oracle-database/19/refrn/USER_CONSTRAINTS.html .
+
+## Lote 016 — preparado para publicação
+
+20 arquivos lidos individualmente, com código completo e cabeçalhos técnicos. 17 receberam alterações de SQL/comandos de cliente/normalização. Os cabeçalhos e o inventário descrevem cada correção e limitação. Sem execução ou compilação Oracle. Confirmar apenas após conferência de hashes Git.
