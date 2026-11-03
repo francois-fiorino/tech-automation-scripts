@@ -228,3 +228,11 @@ Lote 010 confirmado por hashes: [commit 424bd75](https://github.com/francois-fio
 ## Lote 012 — preparado para publicação
 
 20 arquivos lidos individualmente, com código completo e cabeçalhos técnicos. 18 receberam alterações de SQL/comandos de cliente/normalização. Os cabeçalhos e o inventário descrevem cada correção e limitação. Sem execução ou compilação Oracle. Confirmar apenas após conferência de hashes Git.
+
+Lote 012 confirmado por hashes: [commit 4131a06](https://github.com/francois-fiorino/tech-automation-scripts/commit/4131a06e8f6baca711c0f3930cc34d68d98a4dc2). Vinte SQL e dois controles conferidos; scripts anteriores preservados.
+
+Errata de dependências: title80.sql/title132.sql estão no ZIP em _dba_admin_scripts. Nos cabeçalhos anteriores, ausente refere-se à dependência não disponibilizada ao lado dos scripts no caminho operacional, não à inexistência no ZIP. Ambos agora estão catalogados em administration; os demais relatórios mantêm TTITLE local para execução independente. Duas variantes de cache advisor/SGASTAT foram mapeadas e analz_sch.sql contém apenas transcrição de prompts interrompidos, sem implementação.
+
+## Lote 013 — preparado para publicação
+
+20 arquivos lidos individualmente, com código completo e cabeçalhos técnicos. 18 receberam alterações de SQL/comandos de cliente/normalização. Os cabeçalhos e o inventário descrevem cada correção e limitação. Sem execução ou compilação Oracle. Confirmar apenas após conferência de hashes Git.
