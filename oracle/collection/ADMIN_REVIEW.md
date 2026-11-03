@@ -1,6 +1,6 @@
 # Revisão complementar das propostas administrativas
 
-Data: 03/11/2026. **20 de 177 scripts reavaliados nesta fase; 16 com alteração de código e quatro com comportamento mantido. Nenhuma compilação/execução Oracle.**
+Data: 03/11/2026. **40 de 177 scripts reavaliados nesta fase; 27 com alteração de código e 13 com comportamento mantido. Nenhuma compilação/execução Oracle.**
 
 Commit da revisão 036: [0c6e9ce71d3ffa3d8d4da1bd303a827474ae5d8a](https://github.com/francois-fiorino/tech-automation-scripts/commit/0c6e9ce71d3ffa3d8d4da1bd303a827474ae5d8a). Todos os 20 scripts e o roteiro auxiliar de laboratório foram conferidos após publicação, por conteúdo/caminho/blob. O roteiro não foi executado.
 
@@ -203,29 +203,220 @@ Os cabeçalhos agora incluem as referências oficiais das APIs usadas. Foram pre
 
 Ajuste final do mesmo lote: parâmetros internos do cursor de UPDATE_IT renomeados para evitar ROW reservado, preservando a interface pública. Commit [256f3206a5c43e46ccff203a13ff3fe3fa99ac48](https://github.com/francois-fiorino/tech-automation-scripts/commit/256f3206a5c43e46ccff203a13ff3fe3fa99ac48); blob conferido após publicação.
 
+## Revisão 037 — mais 20 scripts
+
+Commit [5c46898439576d594ef844d4575660995fb4fadf](https://github.com/francois-fiorino/tech-automation-scripts/commit/5c46898439576d594ef844d4575660995fb4fadf). Conteúdo/caminho/blob dos 20 arquivos conferidos após publicação. Onze receberam alterações de código; nove tiveram comportamento mantido com pendências de ambiente/contrato explicitadas.
+
+| Script | Tratamento | Blob SHA |
+|---|---|---|
+| [oracle/administration/windows/batch_substitute.bat](https://github.com/francois-fiorino/tech-automation-scripts/blob/5c46898439576d594ef844d4575660995fb4fadf/oracle/administration/windows/batch_substitute.bat) | cabeçalho; corpo preservado | `f4d177c520baafbfd1117d4e8534b35bb4d2eef2` |
+| [oracle/administration/isvaldat.sql](https://github.com/francois-fiorino/tech-automation-scripts/blob/5c46898439576d594ef844d4575660995fb4fadf/oracle/administration/isvaldat.sql) | cabeçalho; corpo preservado | `7b8665476e41a440fa3d780ea1368dc1b3621394` |
+| [oracle/security/link_rct.sql](https://github.com/francois-fiorino/tech-automation-scripts/blob/5c46898439576d594ef844d4575660995fb4fadf/oracle/security/link_rct.sql) | código/cabeçalho | `15de84d55dfc1069b726cceb55ea04b5a07340df` |
+| [oracle/administration/ora_kill.sql](https://github.com/francois-fiorino/tech-automation-scripts/blob/5c46898439576d594ef844d4575660995fb4fadf/oracle/administration/ora_kill.sql) | código/cabeçalho | `21fec0c3ffa03bc6ddc645aab549e2fc71459750` |
+| [oracle/administration/rbk_rct.sql](https://github.com/francois-fiorino/tech-automation-scripts/blob/5c46898439576d594ef844d4575660995fb4fadf/oracle/administration/rbk_rct.sql) | código/cabeçalho | `3084df5191f2303b43a21ce13f57312c82308844` |
+| [oracle/administration/run_fprc.sql](https://github.com/francois-fiorino/tech-automation-scripts/blob/5c46898439576d594ef844d4575660995fb4fadf/oracle/administration/run_fprc.sql) | cabeçalho; corpo preservado | `6ddc0eef3679e5ec02d7e0ef56f54dae0eeb948e` |
+| [oracle/administration/check_schema.sql](https://github.com/francois-fiorino/tech-automation-scripts/blob/5c46898439576d594ef844d4575660995fb4fadf/oracle/administration/check_schema.sql) | código/cabeçalho | `1047bda2c7edd9b3e0e08c64cc8cc57bf5a92967` |
+| [oracle/security/cr_role.sql](https://github.com/francois-fiorino/tech-automation-scripts/blob/5c46898439576d594ef844d4575660995fb4fadf/oracle/security/cr_role.sql) | cabeçalho; corpo preservado | `88b141097696c5c25a119da65c54629f158af6cb` |
+| [oracle/administration/cre_dba_running_stats.sql](https://github.com/francois-fiorino/tech-automation-scripts/blob/5c46898439576d594ef844d4575660995fb4fadf/oracle/administration/cre_dba_running_stats.sql) | cabeçalho; corpo preservado | `fea08e0124aa42c26122927b53cbf5da8f25e7ac` |
+| [oracle/administration/cre_tem_size.sql](https://github.com/francois-fiorino/tech-automation-scripts/blob/5c46898439576d594ef844d4575660995fb4fadf/oracle/administration/cre_tem_size.sql) | cabeçalho; corpo preservado | `665110b0e013a2ec9b8b8eb5345f94675f930afd` |
+| [oracle/administration/create_block_views.sql](https://github.com/francois-fiorino/tech-automation-scripts/blob/5c46898439576d594ef844d4575660995fb4fadf/oracle/administration/create_block_views.sql) | cabeçalho; corpo preservado | `d7ee248f6b01df333d365f4511e7fd99c58a1fb7` |
+| [oracle/objects/create_cluster.sql](https://github.com/francois-fiorino/tech-automation-scripts/blob/5c46898439576d594ef844d4575660995fb4fadf/oracle/objects/create_cluster.sql) | código/cabeçalho | `021032abbcd094681164cb5bf788769cd32645f8` |
+| [oracle/administration/db_df.sql](https://github.com/francois-fiorino/tech-automation-scripts/blob/5c46898439576d594ef844d4575660995fb4fadf/oracle/administration/db_df.sql) | cabeçalho; corpo preservado | `382b5c29960e7aa00a055e816f3fa960aa7b265a` |
+| [oracle/administration/drop_rbk.sql](https://github.com/francois-fiorino/tech-automation-scripts/blob/5c46898439576d594ef844d4575660995fb4fadf/oracle/administration/drop_rbk.sql) | cabeçalho; corpo preservado | `2d56a86efe7cafda5a52811d09f98d08600e7550` |
+| [oracle/objects/extract_data_subset.sql](https://github.com/francois-fiorino/tech-automation-scripts/blob/5c46898439576d594ef844d4575660995fb4fadf/oracle/objects/extract_data_subset.sql) | código/cabeçalho | `c4c97cf9a73102d6ebebca845347a78812fba120` |
+| [oracle/administration/flush_it.sql](https://github.com/francois-fiorino/tech-automation-scripts/blob/5c46898439576d594ef844d4575660995fb4fadf/oracle/administration/flush_it.sql) | código/cabeçalho | `d65e3451f9ed485d5e12b9527e35c329455b3cd3` |
+| [oracle/administration/flush_it7.sql](https://github.com/francois-fiorino/tech-automation-scripts/blob/5c46898439576d594ef844d4575660995fb4fadf/oracle/administration/flush_it7.sql) | código/cabeçalho | `e63cbdded1b3c0571cc26b4d7f45a74aebb7983f` |
+| [oracle/administration/flush_it8.sql](https://github.com/francois-fiorino/tech-automation-scripts/blob/5c46898439576d594ef844d4575660995fb4fadf/oracle/administration/flush_it8.sql) | código/cabeçalho | `09ac6b7b03cd1428cd1fc14ec069467bdacd5157` |
+| [oracle/administration/flush_it_new.sql](https://github.com/francois-fiorino/tech-automation-scripts/blob/5c46898439576d594ef844d4575660995fb4fadf/oracle/administration/flush_it_new.sql) | código/cabeçalho | `c958deda358a6d0edda94004ce1a84fb1a3d0679` |
+| [oracle/administration/hratio.sql](https://github.com/francois-fiorino/tech-automation-scripts/blob/5c46898439576d594ef844d4575660995fb4fadf/oracle/administration/hratio.sql) | código/cabeçalho | `8b53706f8ca4ae081bc77b92a70ceec1e0c3c738` |
+
+### `oracle/administration/windows/batch_substitute.bat`
+
+Corpo CMD preservado; a expansão CALL ainda reinterpreta metacaracteres e exige interface sem execução de texto para aceitar entrada não confiável.
+
+**Pendências:** Sem Windows disponível; não é SQL e não passa por parser Oracle. Aceitar somente arquivos/argumentos confiáveis em VM descartável.
+
+**Testes necessários:** Espaços em caminho; Unicode; linhas vazias; %, !, &, |, redirecionamento e aspas; nenhum teste Windows executado.
+
+### `oracle/administration/isvaldat.sql`
+
+Contrato 0=válido/1=erro preservado, inclusive NULL válido e captura genérica de exceção.
+
+**Pendências:** Não distingue formato inválido de data inválida; TO_DATE sem FX é flexível. Não impor formato exato ou rejeitar NULL sem mudar API esperada.
+
+**Testes necessários:** NULL, string vazia, ano bissexto, mês inválido, máscara inválida, FX e NLS_DATE_LANGUAGE distintos.
+
+### `oracle/security/link_rct.sql`
+
+Gerador reimplementado por DBA_DB_LINKS sem ler SYS.LINK$/senhas, sem staging DDL e sem minúsculas ou remoção de domínio. Saída contém marcadores de segredo e EXIT bloqueante; HOST é citado com escape de apóstrofo e identificadores por DBMS_ASSERT. HOST com marcadores usuais de autenticação é retido e substituído por marcador de serviço; a detecção não é garantia de anonimização de descriptor arbitrário.
+
+**Pendências:** Não restaura segredos, credenciais, links SHARED/authenticated e todos os atributos modernos. CONNECT privado exige autenticação manual; PUBLIC exige conta autorizada sem assumir SYS. Saída é proposta bloqueada, não roteiro aplicável sem revisão. Metadados de HOST podem conter informação sensível e precisam de proteção; rejeitar/remover eventual credencial embutida no catálogo antes de compartilhar o spool.
+
+**Testes necessários:** Link conectado/fixed user; nome com domínio/quoted; host com apóstrofo; PUBLIC versus privado; catálogo vazio; limite DBMS_OUTPUT; saída deve começar com EXIT bloqueante.
+
+### `oracle/administration/ora_kill.sql`
+
+Gerador exclui a própria sessão e restringe TYPE=USER além das exclusões existentes de SYS/NULL. Continua sem executar o spool.
+
+**Pendências:** Não é lista de sessões não essenciais: inclui contas administrativas e de aplicação críticas. Revalidar SID/SERIAL antes de cada aplicação e privilégio no KILL_SESSION revisado; escopo local, sem RAC remoto.
+
+**Testes necessários:** Sessão chamadora; SYS; background; usuário crítico; sessão encerrada ou SID reutilizado entre geração e uso.
+
+### `oracle/administration/rbk_rct.sql`
+
+Nomes de segmento/tablespace preservam case por ENQUOTE_NAME; staging e buffer ampliados para 128/4000 e saída sem quebra em 80 caracteres.
+
+**Pendências:** Continua roteiro de undo manual legado, não migração de AUM. OFFLINE não recupera OPTIMAL, staging deve ser exclusivo e grants/custo/storage exigem ambiente alvo. DDL confirma transações e saída não é aplicada automaticamente.
+
+**Testes necessários:** Nomes quoted/longos; ONLINE/OFFLINE; OPTIMAL ausente; tabela staging existente; spool íntegro; ambiente legado descartável com undo manual.
+
+### `oracle/administration/run_fprc.sql`
+
+Pipeline mantido: gera driver e executa helper para produzir fonte; documentada dependência real da localização e de valores confiáveis.
+
+**Pendências:** OWNER/TYPE/NAME são substituição textual SQL*Plus; helper usa SQLPATH, arquivos externos e pode revelar código/segredos. Caminhos rep_out e nome de helper dependem do diretório de execução. Não presumir que @@ resolveria arquivos a partir do driver gerado em outra pasta.
+
+**Testes necessários:** Owner/type/name com espaços/aspas; diretório ausente; FPRC_RCT no SQLPATH; fonte longa/com segredo; arquivo de saída existente; definir nova interface antes de entradas não confiáveis.
+
+### `oracle/administration/check_schema.sql`
+
+Sequência de três ADMIN_TABLES numéricos substituída por CREATE_ACTION somente se SYS.REPAIR_TABLE não existe. Não apaga/purga evidências antes do CHECK_OBJECT. Tipos usam constantes DBMS_REPAIR no PL/SQL e buffers ancorados.
+
+**Pendências:** Rotina de DBA com acesso especial SYS/DBMS_REPAIR; checagem de existência não valida estrutura nem elimina corrida de criação. Tabela existente é reutilizada e pode acumular evidência. CHECK_OBJECT documenta TABLE/INDEX; suporte de CLUSTER deve ser confirmado antes de uso. Não repara nem marca blocos automaticamente.
+
+**Testes necessários:** Tabela de reparo ausente/existente/estrutura incorreta; corrida de criação; TABLE/INDEX/CLUSTER; schema vazio; falha em objeto intermediário; custo de varredura em cópia descartável.
+
+### `oracle/security/cr_role.sql`
+
+Lista integral de CREATE ROLE/GRANT preservada; não alterado destinatário nem objetos por suposição.
+
+**Pendências:** Objetos de aplicação e GMPRATIC são exemplos históricos, sem autorização atual implícita. DDL pode confirmar e aplicar parcialmente. Requer decisão de matriz de acesso e privilégios mínimos antes de execução.
+
+**Testes necessários:** Objetos/conta inexistentes; role já criada; falha no meio dos grants; autoridade WITH GRANT OPTION; escopo PDB/common.
+
+### `oracle/administration/cre_dba_running_stats.sql`
+
+DDL de staging histórico preservado, sem tornar DROP em recriação silenciosamente idempotente.
+
+**Pendências:** DROP destrói histórico e confirma transação; colunas precisam coincidir com consumidores. DATA_TABLESPACE é substituição textual de entrada confiável. Não cria retenção/PK/índice nem rotina de coleta.
+
+**Testes necessários:** Tabela existente com dados; tabela ausente; quota/tablespace; consumidores de cinco colunas; falha após DROP.
+
+### `oracle/administration/cre_tem_size.sql`
+
+Estrutura de duas colunas preservada para manter compatibilidade dos consumidores; não adicionada chave owner por suposição.
+
+**Pendências:** DROP remove dados; contratos sem OWNER podem misturar tabelas homônimas. Tablespace por substituição SQL*Plus; revisar apenas entrada confiável. Storage legado pode ser ignorado em LMT.
+
+**Testes necessários:** Nomes >32/até128; homônimos em schemas; tabela existente/ausente; consumidores COUNT/FILL; quota e storage.
+
+### `oracle/administration/create_block_views.sql`
+
+Views internas e grants preservados; nenhum mapeamento de flags foi promovido a API estável.
+
+**Pendências:** X$BH, LRBA_SEQ, DIRTY_QUEUE e FLAG dependem da versão/estrutura interna. Substitui views e concede acesso a DBAUTIL; SELECT direto e decisão de segurança são necessários.
+
+**Testes necessários:** Colunas presentes no RU alvo; unidades dos flags; custo de varredura; DBAUTIL ausente; falha entre DROP/CREATE/GRANT; dependentes invalidados.
+
+### `oracle/objects/create_cluster.sql`
+
+Exemplo inclui CREATE INDEX ON CLUSTER; cláusulas CLUSTER das tabelas mapeiam a coluna local DEPTNO à chave do cluster, em vez de usar indevidamente o nome da chave de cluster como coluna local.
+
+**Pendências:** Permanece template com marcadores <...> que precisam de edição consciente; não compila sem configurar. Tablespace USERS e storage são exemplos. CREATE CLUSTER/TABLE/INDEX confirma transações e pode falhar parcialmente; não instala DEMO sobre dados existentes.
+
+**Testes necessários:** Nomes configurados; chave de cluster com nome diferente de DEPTNO; INSERT de departamentos/empregados; índice de cluster; FK/PK; ASSM/LMT; objetos existentes.
+
+### `oracle/administration/db_df.sql`
+
+Definição histórica preservada, sem presumir equivalência de tabelas internas com DBA_DATA_FILES atual.
+
+**Pendências:** SYS.TS$/FILE$/FILEXT$ e unidades são dependentes de versão. MAXEXTEND/INC podem não representar bytes; ausência de linha FILEXT$ é permitida pelo outer join. Não tratar como inventário moderno homologado.
+
+**Testes necessários:** Layout/colunas do RU alvo; arquivos sem FILEXT$; autoextend ligado/desligado; CDB/PDB; validar unidade de cada campo.
+
+### `oracle/administration/drop_rbk.sql`
+
+Comandos e aviso educacional histórico preservados; a afirmação de teste do autor não foi tratada como teste desta revisão.
+
+**Pendências:** DROP de RB6 etc. são nomes históricos e não alvos autorizados. Requer undo manual/offline e ausência de transações/dependências. DDL pode ter sucesso parcial e não é reversível por ROLLBACK.
+
+**Testes necessários:** Ambiente manual descartável; nomes existentes/ausentes; segmento online/em uso; revisar cada alvo antes de executar qualquer comando.
+
+### `oracle/objects/extract_data_subset.sql`
+
+Retorno antecipado para tabela já emitida evita repetição/recursão cíclica no caminho alcançado; flag reiniciada por filho; nomes emitidos citados por ENQUOTE_NAME, buffers até32767 e percentual validado. Percentual emitido como inteiro/100, sem decimal NLS.
+
+**Pendências:** Ainda não é amostragem aleatória/anonimização. Seleção de raízes pode omitir grafos sem raiz/ciclos e self-FKs; múltiplos pais, chaves NULL e preservação referencial exigem testes. CTAS gerado perde constraints/grants/índices e pode exceder32767 em schema amplo. Chamada exemplo MOVIES/BERT continua apenas gerando texto.
+
+**Testes necessários:** Diamante; ciclo alcançável; grafo sem raiz; self-FK; múltiplas FKs; chaves compostas/NULL; nomes quoted; 0/100/fora da faixa; decimal NLS; texto longo; reexecução XGO.
+
+### `oracle/administration/flush_it.sql`
+
+Limiar validado antes da coleta; base de memória ausente/zero falha explicitamente antes de FLUSH/KEEP; NATIVE e cleanup de cursores em exceção com RAISE. Política/cursores/commits existentes preservados.
+
+**Pendências:** FLUSH pode causar hard parse e degradação global; definer rights/grants EXECUTE precisam de revisão. Categorias/SQL_SUMMARY/DBA_RUNNING_STATS e estruturas internas, quando presentes, ainda exigem contrato. ASMM/AMM pode tornar tamanho configurado inadequado, mesmo positivo. KEEPs podem ter efeito parcial antes de falha; não há rollback de estado de shared pool.
+
+**Testes necessários:** NULL, negativo,0,0.5,1,100,>100; baseNULL/zero; pacote/view ausente; falha duranteKEEP/PARSE/INSERT; cursor fechado; medir impacto só em laboratório descartável.
+
+### `oracle/administration/flush_it7.sql`
+
+Limiar validado antes da coleta; base de memória ausente/zero falha explicitamente antes de FLUSH/KEEP; NATIVE e cleanup de cursores em exceção com RAISE. Política/cursores/commits existentes preservados.
+
+**Pendências:** FLUSH pode causar hard parse e degradação global; definer rights/grants EXECUTE precisam de revisão. Categorias/SQL_SUMMARY/DBA_RUNNING_STATS e estruturas internas, quando presentes, ainda exigem contrato. ASMM/AMM pode tornar tamanho configurado inadequado, mesmo positivo. KEEPs podem ter efeito parcial antes de falha; não há rollback de estado de shared pool.
+
+**Testes necessários:** NULL, negativo,0,0.5,1,100,>100; baseNULL/zero; pacote/view ausente; falha duranteKEEP/PARSE/INSERT; cursor fechado; medir impacto só em laboratório descartável.
+
+### `oracle/administration/flush_it8.sql`
+
+Limiar validado antes da coleta; base de memória ausente/zero falha explicitamente antes de FLUSH/KEEP; NATIVE e cleanup de cursores em exceção com RAISE. Política/cursores/commits existentes preservados.
+
+**Pendências:** FLUSH pode causar hard parse e degradação global; definer rights/grants EXECUTE precisam de revisão. Categorias/SQL_SUMMARY/DBA_RUNNING_STATS e estruturas internas, quando presentes, ainda exigem contrato. ASMM/AMM pode tornar tamanho configurado inadequado, mesmo positivo. Mantida convenção antiga: valor <1 é fração, valor >=1 é percentual; exatamente1 significa1%, não100%. KEEPs podem ter efeito parcial antes de falha; não há rollback de estado de shared pool.
+
+**Testes necessários:** NULL, negativo,0,0.5,1,100,>100; baseNULL/zero; pacote/view ausente; falha duranteKEEP/PARSE/INSERT; cursor fechado; medir impacto só em laboratório descartável.
+
+### `oracle/administration/flush_it_new.sql`
+
+Limiar validado antes da coleta; base de memória ausente/zero falha explicitamente antes de FLUSH/KEEP; NATIVE e cleanup de cursores em exceção com RAISE. NUM_RUNS validado como inteiro não negativo. Política/cursores/commits existentes preservados.
+
+**Pendências:** FLUSH pode causar hard parse e degradação global; definer rights/grants EXECUTE precisam de revisão. Categorias/SQL_SUMMARY/DBA_RUNNING_STATS e estruturas internas, quando presentes, ainda exigem contrato. ASMM/AMM pode tornar tamanho configurado inadequado, mesmo positivo. KEEPs podem ter efeito parcial antes de falha; não há rollback de estado de shared pool.
+
+**Testes necessários:** NULL, negativo,0,0.5,1,100,>100; baseNULL/zero; pacote/view ausente; falha duranteKEEP/PARSE/INSERT; cursor fechado; medir impacto só em laboratório descartável.
+
+### `oracle/administration/hratio.sql`
+
+Denominador do ratio de período protegido por NULLIF; erro deixa de inserir segunda coleta/confirmar valor artificial. Cursor fecha em erro e exceção é propagada. Data/hora derivadas do mesmo SYSDATE; ratio NUMBER sem limite5,2.
+
+**Pendências:** Tabela HIT_RATIOS e sua chave não fornecidas; duas coletas/hora podem multiplicar subconsultas e causar ORA-01427. Restart e dados ausentes ainda invalidam deltas; não há startup/instância no contrato. Commits existentes podem deixar atualização parcial. Não usar hit ratio isolado para decidir ação.
+
+**Testes necessários:** Zero delta; várias coletas na hora; virada de dia; restart; estatística ausente; erro de tabela/UPDATE; razões negativas; confirmar estado após commits.
+
+### Validação local do lote 037
+
+Os dois UPDATEs de HITRATIO passaram pelo parser SQLGlot em dialeto Oracle. Inspeções locais verificaram ausência de leitura de senha em SYS.LINK$ no novo gerador, barreira EXIT no arquivo gerado, ciclo create-only da tabela DBMS_REPAIR, template de cluster com índice e coluna local correta, guards de shared pool e cleanup. Fixtures locais cobriram grafos com ciclo/diamante/self-edge, denominador zero e quoting de HOST. Modelos de grafo não equivalem a executar o pacote SUBSETDATA. Nenhum script foi executado ou compilado em Oracle/Windows; os erros e limitações de domínio permanecem descritos individualmente.
+
 ## Continuidade
 
-Restam 157 scripts para revisão complementar, além da homologação dos 177. A fila exata está em [ADMIN_REVIEW_VERIFICATION.json](ADMIN_REVIEW_VERIFICATION.json), campo `next_queue`; a seleção seguinte de até 20 está em `next_batch`. O inventário tem as colunas `revisao_complementar`, `commit_revisao`, `blob_revisao` e `pendencias_homologacao`. Não repetir os 20 já marcados sem nova evidência de problema.
+Restam **137 de 177** scripts para revisão complementar; homologação continua pendente nos 177. A fila exata está em ADMIN_REVIEW_VERIFICATION.json (`next_queue` e `next_batch`). O inventário identifica os 40 já reavaliados por revisão/commit/blob e registra o impedimento e os testes por arquivo. As contagens da coleção continuam 476 main e 177 propostas; o roteiro de teste é auxiliar.
 
-Próximo lote planejado (037), em ordem de inventário:
+Próximo lote planejado (038), em ordem de inventário:
 
-- `oracle/administration/windows/batch_substitute.bat`
-- `oracle/administration/isvaldat.sql`
-- `oracle/security/link_rct.sql`
-- `oracle/administration/ora_kill.sql`
-- `oracle/administration/rbk_rct.sql`
-- `oracle/administration/run_fprc.sql`
-- `oracle/administration/check_schema.sql`
-- `oracle/security/cr_role.sql`
-- `oracle/administration/cre_dba_running_stats.sql`
-- `oracle/administration/cre_tem_size.sql`
-- `oracle/administration/create_block_views.sql`
-- `oracle/objects/create_cluster.sql`
-- `oracle/administration/db_df.sql`
-- `oracle/administration/drop_rbk.sql`
-- `oracle/objects/extract_data_subset.sql`
-- `oracle/administration/flush_it.sql`
-- `oracle/administration/flush_it7.sql`
-- `oracle/administration/flush_it8.sql`
-- `oracle/administration/flush_it_new.sql`
-- `oracle/administration/hratio.sql`
+- `oracle/memory/keep_them.sql`
+- `oracle/security/link.sql`
+- `oracle/administration/map_db.sql`
+- `oracle/security/pword_gen.sql`
+- `oracle/administration/rbk_views.sql`
+- `oracle/administration/version.sql`
+- `oracle/administration/count_blocks.sql`
+- `oracle/administration/fill_sz.sql`
+- `oracle/administration/new_dba_free.sql`
+- `oracle/administration/brown.sql`
+- `oracle/administration/explain.sql`
+- `oracle/objects/in_rct.sql`
+- `oracle/administration/exp_ext_tab.sql`
+- `oracle/performance/explain1.sql`
+- `oracle/objects/in_rct2.sql`
+- `oracle/administration/in_siz_es.sql`
+- `oracle/administration/index_size.sql`
+- `oracle/administration/index_sz.sql`
+- `oracle/administration/legacy-linux/proc_sys_net.sh`
+- `oracle/rac/staggered_sequence_trigger.sql`

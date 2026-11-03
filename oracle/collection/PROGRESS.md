@@ -414,3 +414,7 @@ Ver REPORT.md, INDEPENDENT_IMPLEMENTATIONS.md e INDEPENDENT_VERIFICATION.json. R
 20 scripts do PR #2 reavaliados (16 alterações de código, quatro revisões documentais); commit 0c6e9ce71d3ffa3d8d4da1bd303a827474ae5d8a. Conteúdo e SHA conferidos após publicação. Roteiro de laboratório adicional, não executado. Os 157 scripts restantes desta fase estão em ADMIN_REVIEW_VERIFICATION.json; nenhuma alteração em scripts main ou merge. Totais preservados: 476 main e 177 revisão. Ver ADMIN_REVIEW.md para correções, limitações e testes individuais.
 
 Ajuste final do mesmo lote 036: parâmetros internos do cursor UPDATE_IT renomeados para evitar ROW reservado; interface pública preservada. Commit 256f3206a5c43e46ccff203a13ff3fe3fa99ac48, blob 48830f89eaa79af34c90dd527faf513b7f75808d, conferidos. Contagem permanece 20 scripts reavaliados (16 com alterações de código).
+
+## Lote 037 — revisão complementar administrativa confirmada
+
+20 scripts (11 alterações de código, nove corpos preservados com pendências documentadas); commit 5c46898439576d594ef844d4575660995fb4fadf. Todos conferidos após publicação. Acumulado40/177; restam137 para revisão complementar. Parser local dos UPDATEs e fixtures passaram, sem runtime Oracle/Windows. Inventário e ADMIN_REVIEW_VERIFICATION.json atualizados com próxima fila038. Nenhum script main alterado, nenhuma integração automática.

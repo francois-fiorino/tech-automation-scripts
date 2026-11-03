@@ -94,12 +94,18 @@ Foram reavaliados 20 scripts do PR #2: 16 receberam alterações de código e qu
 
 Correções incluem INSERT SELECT válido, validação de SID/SERIAL, quoting e invoker rights em rotinas sensíveis, coluna STARTUP_TIME documentada, datafiles sem extents livres, conversões/duração, chamadas LogMiner sem SQL concatenado, buffers/quoting de sequências e binds DATE/ROWID na atualização por lotes. Permanecem as limitações e dependências individuais, sem aprovação de implantação.
 
-[Revisão e testes por script](ADMIN_REVIEW.md) · [Hashes e fila de continuidade](ADMIN_REVIEW_VERIFICATION.json). Restam **157 de 177** scripts para esta revisão complementar; homologação Oracle continua pendente nos 177. O arquivo auxiliar `oracle/collection/tests/review036_lab.sql` não aumenta a contagem de implementações da coleção. Os totais permanecem **476 main e 177 revisão**.
+[Revisão e testes por script](ADMIN_REVIEW.md) · [Hashes e fila de continuidade](ADMIN_REVIEW_VERIFICATION.json). Após o lote 036 restavam **157 de 177** scripts para esta revisão complementar; homologação Oracle continua pendente nos 177. O arquivo auxiliar `oracle/collection/tests/review036_lab.sql` não aumenta a contagem de implementações da coleção. Os totais permanecem **476 main e 177 revisão**.
 
 Ajuste final da revisão 036: [parâmetros internos do cursor UPDATE_IT desambiguados](https://github.com/francois-fiorino/tech-automation-scripts/commit/256f3206a5c43e46ccff203a13ff3fe3fa99ac48); não altera a quantidade de scripts revisados. Branch administrativa confirmada em `256f3206a5c43e46ccff203a13ff3fe3fa99ac48`.
 
+## Revisão administrativa complementar — lote 037
+
+Mais 20 scripts reavaliados: 11 alterações de código e nove corpos preservados com pendências explícitas. Commit confirmado: [5c46898439](https://github.com/francois-fiorino/tech-automation-scripts/commit/5c46898439576d594ef844d4575660995fb4fadf). O gerador de links usa metadados sem leitura de senha e gera saída bloqueada; o ciclo da tabela de reparo evita purge/drop de evidências; o template de cluster inclui índice/mapeamento correto; a amostragem de subconjunto tem proteção de visita e emissão de percentual sem dependência de NLS; shared pool recebe validação/cleanup; HITRATIO trata denominador zero sem inserir segunda coleta artificial.
+
+Acumulado desta fase: **40 de 177** scripts reavaliados (**27 alterações de código e 13 revisões documentais**). Restam **137** na fila complementar, além de homologação dos 177. Os 20 arquivos do lote 037 foram confirmados por caminho/conteúdo/blob. Parser local e fixtures passaram; nenhum Oracle/Windows foi executado. Detalhes em [ADMIN_REVIEW.md](ADMIN_REVIEW.md) e [ADMIN_REVIEW_VERIFICATION.json](ADMIN_REVIEW_VERIFICATION.json). Totais permanecem 476 main e 177 propostas; nenhum merge.
+
 ## Próximo ponto de retomada
 
-Os 49 requisitos anteriormente retidos já possuem destinos novos confirmados. Não há requisito restante dessa fila para publicar. Continuar a revisão complementar das 157 propostas restantes pela fila `next_batch` de ADMIN_REVIEW_VERIFICATION.json, em lotes de até 20. Resolver limitações e homologar em laboratório descartável, com contratos/objetos, versão e resultados verificáveis.
+Os 49 requisitos anteriormente retidos já possuem destinos novos confirmados. Não há requisito restante dessa fila para publicar. Continuar a revisão complementar das 137 propostas restantes pela fila `next_batch` de ADMIN_REVIEW_VERIFICATION.json, em lotes de até 20. Resolver limitações e homologar em laboratório descartável, com contratos/objetos, versão e resultados verificáveis.
 
 Nenhum merge automático está autorizado. O projeto não é declarado concluído enquanto as propostas e homologações pendentes permanecerem abertas. Não há execução em segundo plano.
