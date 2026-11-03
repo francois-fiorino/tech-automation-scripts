@@ -1,3 +1,28 @@
+<!-- CURRENT_STATUS_START -->
+# Estado atual verificado — projeto em andamento
+
+| Situação | Quantidade |
+|---|---:|
+| Scripts únicos da coleção na main | **288** |
+| Novos publicados na main desde início deste trabalho | 280 |
+| Novos arquivos documentados (main e propostas) | 322 |
+| Novos arquivos main com alterações SQL/cliente/normalização | 232 |
+| Propostas somente em branch/PR #2 | 42 |
+| Fontes aguardando análise individual | **297** |
+| Retidos para verificação de licença | 49 |
+| Retido por credencial literal | 1 |
+| Origens duplicadas/variantes mapeadas | 11 |
+| Fontes sem implementação funcional | 5 |
+
+[Inventário de 697 arquivos](inventory.csv): 693 fontes SQL e quatro auxiliares. Os itens da branch estão no [PR #2](https://github.com/francois-fiorino/tech-automation-scripts/pull/2), fora do total main. Oito scripts anteriores foram preservados. Os números abaixo nas seções históricas pertencem a seus estágios; esta tabela é o estado atual.
+
+Cada lote foi lido individualmente e publicado com código integral, cabeçalhos técnicos e correções registradas. SHA dos blobs foi comparado após publicação. Nenhum banco Oracle/ASM ou comando administrativo foi executado; compatibilidade, compilação e impacto exigem homologação. Fixtures locais auxiliares, quando usadas, não substituem testes Oracle. Não executar propostas administrativas ou instalar todas as definições alternativas em sequência.
+
+**O projeto não está concluído enquanto houver elegíveis pendentes. Não há processamento em segundo plano associado a este checkpoint.**
+<!-- CURRENT_STATUS_END -->
+
+## Histórico das etapas
+
 # Estado atual verificado — 2026-11-03
 
 **Projeto em andamento. Próximo lote: 009. Não há processamento em segundo plano.**
@@ -256,3 +281,5 @@ Correção da revisão GET_COND (apenas PR #2): USER_CONSTRAINTS tem as mesmas c
 ## Lote 016 — preparado para publicação
 
 20 arquivos lidos individualmente, com código completo e cabeçalhos técnicos. 17 receberam alterações de SQL/comandos de cliente/normalização. Os cabeçalhos e o inventário descrevem cada correção e limitação. Sem execução ou compilação Oracle. Confirmar apenas após conferência de hashes Git.
+
+Lote 016 confirmado por hashes: [commit 46b6d76](https://github.com/francois-fiorino/tech-automation-scripts/commit/46b6d764d936bb4f881c81643bd6682a4a921cf5). Vinte SQL e dois controles conferidos; scripts anteriores preservados.
