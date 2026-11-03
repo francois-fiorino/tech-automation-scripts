@@ -398,11 +398,13 @@ Reconferidas as 697 origens por SHA-256 e os caminhos/blobs de 432 implementaç�
 
 ## Implementações novas dos requisitos retidos — 03/11/2026
 
-42/49 origens de requisito atendidas por 40 novas implementações publicadas (40 main, 0 PR); 7 requisitos restantes. Originais restritos não republicados.
+49/49 origens de requisito atendidas por 46 novas implementações publicadas (44 main, 2 PR); 0 requisitos restantes. Originais restritos não republicados.
 
 | Lote | Arquivos | Destino | Commit |
 |---|---:|---|---|
 | 033 | 20 | main | [334b807a51](https://github.com/francois-fiorino/tech-automation-scripts/commit/334b807a5142f5f4e31b04607f7d2e1391f932d1) |
 | 034 | 20 | main | [4f2cbcf7ba](https://github.com/francois-fiorino/tech-automation-scripts/commit/4f2cbcf7bac0bb41e804281a0eff41be186823b4) |
+| 035 | 4 | main | [134ab289fd](https://github.com/francois-fiorino/tech-automation-scripts/commit/134ab289fd9c3654515f9182ce26aa65ab18e9c4) |
+| 035 | 2 | oracle/review-legacy-admin-20261103 | [c00e04d00c](https://github.com/francois-fiorino/tech-automation-scripts/commit/c00e04d00c9b76e58a325fbfbeeb6b481b26b007) |
 
 Ver REPORT.md, INDEPENDENT_IMPLEMENTATIONS.md e INDEPENDENT_VERIFICATION.json. Revisão estática e fixtures locais; nenhuma execução Oracle e nenhum merge.

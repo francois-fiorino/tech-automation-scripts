@@ -3,10 +3,10 @@
   "oracle_execution": false,
   "oracle_compilation": false,
   "original_sources_withheld": 49,
-  "requirements_mapped": 42,
-  "requirements_pending": 7,
-  "new_main": 40,
-  "new_review": 0,
+  "requirements_mapped": 49,
+  "requirements_pending": 0,
+  "new_main": 44,
+  "new_review": 2,
   "static_validation_scope": "Validação estática local das 46 implementações preparadas; publicação confirmada apenas para entradas com commit.",
   "validation": {
     "independent_scripts": 46,
@@ -547,6 +547,85 @@
       "batch": 34,
       "blob_sha": "25c9f320a817d7af4ac17533ad3ae3d6bc0fbc12",
       "commit": "4f2cbcf7bac0bb41e804281a0eff41be186823b4"
+    },
+    {
+      "origins": [
+        "_sga_internals_scripts/rpt_10g_sysstat.sql"
+      ],
+      "path": "oracle/monitoring/independent/system_stat_threshold_history.sql",
+      "category": "monitoring",
+      "goal": "Consultar valores históricos de estatística acima de limiar.",
+      "notes": "Preserva o conceito de limiar sobre valor total do snapshot; não confundir com taxa/delta. Nome da estatística é bind e deve corresponder exatamente ao dicionário.",
+      "branch": "main",
+      "batch": 35,
+      "blob_sha": "843ffe2893550308593f3591ee53a0b517e86915",
+      "commit": "134ab289fd9c3654515f9182ce26aa65ab18e9c4"
+    },
+    {
+      "origins": [
+        "_sga_internals_scripts/rpt_sysstat_dy_10g.sql"
+      ],
+      "path": "oracle/monitoring/independent/system_stat_weekday_deltas.sql",
+      "category": "monitoring",
+      "goal": "Resumir deltas não negativos de estatística por período.",
+      "notes": "Substitui média de contadores acumulados por soma/média de deltas entre pontos observados. Só usar para estatística cumulativa crescente; gauges não são suportados como delta. Intervalos podem ter durações diferentes; média não é taxa por segundo. Descarta primeiro ponto e reset.",
+      "branch": "main",
+      "batch": 35,
+      "blob_sha": "4076c140a839dcd7803374f5e32a9a740447e81d",
+      "commit": "134ab289fd9c3654515f9182ce26aa65ab18e9c4"
+    },
+    {
+      "origins": [
+        "_sga_internals_scripts/rpt_sysstat_hr_10g.sql"
+      ],
+      "path": "oracle/monitoring/independent/system_stat_hour_deltas.sql",
+      "category": "monitoring",
+      "goal": "Resumir deltas não negativos de estatística por período.",
+      "notes": "Substitui média de contadores acumulados por soma/média de deltas entre pontos observados. Só usar para estatística cumulativa crescente; gauges não são suportados como delta. Intervalos podem ter durações diferentes; média não é taxa por segundo. Descarta primeiro ponto e reset.",
+      "branch": "main",
+      "batch": 35,
+      "blob_sha": "6bc86200e39b2c1f1c68d5bf382340ae016588e1",
+      "commit": "134ab289fd9c3654515f9182ce26aa65ab18e9c4"
+    },
+    {
+      "origins": [
+        "_wait_event_scripts/wait_time_detail.sql",
+        "_wait_event_scripts/wait_time_detail_10g.sql"
+      ],
+      "path": "oracle/troubleshooting/independent/historical_wait_object_evidence.sql",
+      "category": "troubleshooting",
+      "goal": "Relatar evidência ASH de objetos/arquivos associados a esperas históricas.",
+      "notes": "Duas fontes equivalentes apontam ao mesmo novo relatório. Remove junção sem relação causal de WAITSTAT com ASH; número de arquivo é evidência da amostra, não atribuição de todo WAITSTAT ao objeto. Sem duração exata: conta amostras. Objetos removidos/recriados podem não resolver; CURRENT_OBJ# pode ser desconhecido.",
+      "branch": "main",
+      "batch": 35,
+      "blob_sha": "8aadd8593f8a51d7af8c11075371f0b9d0149a81",
+      "commit": "134ab289fd9c3654515f9182ce26aa65ab18e9c4"
+    },
+    {
+      "origins": [
+        "_tablespace_scripts/TBSP_EXP.SQL"
+      ],
+      "path": "oracle/backup-recovery/independent/datapump_tablespace_parameters.sql",
+      "category": "backup-recovery",
+      "goal": "Gerar parâmetros de exportação Data Pump por tablespace permanente.",
+      "notes": "Nova implementação usa modo TABLESPACES do Data Pump em vez de exp legado, staging e Shell com senha. Apenas gera texto por DBMS_OUTPUT: não cria DIRECTORY, não exporta, não escreve dump nem altera banco. Exige SELECT DBA_TABLESPACES; a execução futura de expdp exige READ/WRITE no DIRECTORY, espaço, autenticação externa/wallet aprovada e DATAPUMP_EXP_FULL_DATABASE quando aplicável. Configurar DIRECTORY e nomes únicos, revisar dependências/partições e consistência FLASHBACK_SCN/TIME para o caso concreto; não é backup físico ou garantia de exportação completa de schemas. Após salvar um único bloco em arquivo privado: expdp /@ALIAS_SEGURO parfile=arquivo.par (somente se autenticação externa/wallet foi configurada). Não há credencial no código. Permanece em revisão administrativa.",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "batch": 35,
+      "blob_sha": "022bf99c993b3e9696efacd23790192afc194c85",
+      "commit": "c00e04d00c9b76e58a325fbfbeeb6b481b26b007"
+    },
+    {
+      "origins": [
+        "misc_scripts/DEFRAG7.SQL"
+      ],
+      "path": "oracle/administration/independent/dictionary_tablespace_coalesce_plan.sql",
+      "category": "administration",
+      "goal": "Gerar plano de coalescência somente para tablespaces DMT.",
+      "notes": "Gera DDL documentado, sem eventos internos e sem executar saída. Contar extents livres não prova adjacência nem benefício de coalescer; DMT pode não existir em ambientes atuais. Não faz shrink/rebuild/defrag físico. Exige SELECT nas views e EXECUTE DBMS_ASSERT; aplicação futura exige ALTER TABLESPACE e autorização específica. Apenas planeja, não declara portabilidade do evento Oracle7.",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "batch": 35,
+      "blob_sha": "d88057372f9d46de449056b2bcdfaef45394327a",
+      "commit": "c00e04d00c9b76e58a325fbfbeeb6b481b26b007"
     }
   ]
 }

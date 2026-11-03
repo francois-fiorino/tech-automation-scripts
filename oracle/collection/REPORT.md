@@ -7,14 +7,14 @@ Atualizado em 03/11/2026. **Projeto em andamento: revisão estática e publicaç
 | Medida | Total | Critério |
 |---|---:|---|
 | Origens inventariadas | 697 | 693 SQL e quatro auxiliares |
-| Implementações únicas na main | 472 | 432 anteriores + 40 novas |
-| Implementações somente na branch/PR #2 | 175 | 175 anteriores + 0 novos geradores |
-| Origens variantes/canônicas compartilhadas | 34 | 32 anteriores + 2 novas correspondências compartilhadas |
+| Implementações únicas na main | 476 | 432 anteriores + 44 novas |
+| Implementações somente na branch/PR #2 | 177 | 175 anteriores + 2 novos geradores |
+| Origens variantes/canônicas compartilhadas | 35 | 32 anteriores + 3 novas correspondências compartilhadas |
 | Fontes sem implementação funcional | 5 | placeholders/referências sem código; não publicadas ficticiamente |
-| Requisitos das 49 fontes retidas atendidos por código novo | 42 | 40 implementações novas com conteúdo publicado e verificado |
-| Requisitos ainda aguardando nova implementação publicada | 7 | fila de requisitos, sem republicar código original |
+| Requisitos das 49 fontes retidas atendidos por código novo | 49 | 46 implementações novas com conteúdo publicado e verificado |
+| Requisitos ainda aguardando nova implementação publicada | 0 | fila de requisitos, sem republicar código original |
 | Fontes originais restritas republicadas | 0 | os 49 originais permanecem retidos |
-| Pendências de main | 182 | 175 propostas no PR + 7 requisitos restantes |
+| Pendências de main | 177 | 177 propostas no PR + 0 requisitos restantes |
 | Compilações/execuções efetivas em Oracle | 0 | parser local e fixtures não são homologação Oracle |
 
 Os oito scripts anteriores à campanha continuam incluídos nas 432 implementações preservadas. Novas implementações não são contadas como correções do código original, nem como licença ou autorização de redistribuição. Cada cabeçalho descreve as diferenças funcionais, dependências, parâmetros, riscos, referências e limites de validação.
@@ -34,6 +34,8 @@ Os oito scripts anteriores à campanha continuam incluídos nas 432 implementaç
 |---|---:|---|---|
 | 033 | 20 | main | [334b807a51](https://github.com/francois-fiorino/tech-automation-scripts/commit/334b807a5142f5f4e31b04607f7d2e1391f932d1) |
 | 034 | 20 | main | [4f2cbcf7ba](https://github.com/francois-fiorino/tech-automation-scripts/commit/4f2cbcf7bac0bb41e804281a0eff41be186823b4) |
+| 035 | 4 | main | [134ab289fd](https://github.com/francois-fiorino/tech-automation-scripts/commit/134ab289fd9c3654515f9182ce26aa65ab18e9c4) |
+| 035 | 2 | oracle/review-legacy-admin-20261103 | [c00e04d00c](https://github.com/francois-fiorino/tech-automation-scripts/commit/c00e04d00c9b76e58a325fbfbeeb6b481b26b007) |
 
 Cada lote tem no máximo 20 implementações; a correspondência pode atender mais de uma origem equivalente. Publicação confirmada por caminho e SHA de blob Git. Não foram sobrescritos scripts existentes ou integrados PRs.
 
@@ -41,13 +43,13 @@ Cada lote tem no máximo 20 implementações; a correspondência pode atender ma
 
 | Categoria | Main | Somente PR |
 |---|---:|---:|
-| `administration/` | 30 | 92 |
+| `administration/` | 30 | 93 |
 | `administration/legacy-linux/` | 0 | 1 |
 | `administration/windows/` | 0 | 1 |
 | `asm/` | 2 | 0 |
-| `backup-recovery/` | 3 | 8 |
+| `backup-recovery/` | 3 | 9 |
 | `memory/` | 48 | 1 |
-| `monitoring/` | 64 | 0 |
+| `monitoring/` | 67 | 0 |
 | `objects/` | 65 | 47 |
 | `objects/indexes/` | 12 | 0 |
 | `performance/` | 31 | 2 |
@@ -59,7 +61,7 @@ Cada lote tem no máximo 20 implementações; a correspondência pode atender ma
 | `rac/grid/` | 1 | 0 |
 | `security/` | 19 | 19 |
 | `storage/` | 37 | 0 |
-| `troubleshooting/` | 32 | 2 |
+| `troubleshooting/` | 33 | 2 |
 
 Os novos scripts ficam em subpastas `independent/` dentro da categoria. Contagens por categoria incluem essas subpastas, sem contar variantes duas vezes.
 
@@ -82,12 +84,12 @@ Filtro de container exige validação no ambiente: views históricas podem armaz
 ## PRs e impedimentos
 
 - [PR #1](https://github.com/francois-fiorino/tech-automation-scripts/pull/1): documentação preliminar histórica, oito commits/cinco arquivos. O SQL proposto já tem canônico na main; não mesclar automaticamente nem substituir totais atuais por seu inventário antigo.
-- [PR #2](https://github.com/francois-fiorino/tech-automation-scripts/pull/2): 175 propostas, incluindo DDL/DML, autenticação, backups e geradores administrativos. Permanecem em Draft. Falhas conhecidas, dependências customizadas, contratos e homologação estão descritos nos cabeçalhos. Não equivalem a scripts aprovados para implantação.
+- [PR #2](https://github.com/francois-fiorino/tech-automation-scripts/pull/2): 177 propostas, incluindo DDL/DML, autenticação, backups e geradores administrativos. Permanecem em Draft. Falhas conhecidas, dependências customizadas, contratos e homologação estão descritos nos cabeçalhos. Não equivalem a scripts aprovados para implantação.
 - Os 49 originais com avisos restritivos continuam retidos. A fila técnica avança por implementações novas dos requisitos, sem alegar autorização para republicar o acervo original.
 - Cinco origens sem implementação funcional e auxiliares sem código seguem classificados no inventário; não são pendências fictícias de publicação de SQL.
 
 ## Próximo ponto de retomada
 
-Publicar as implementações preparadas dos lotes seguintes, selecionando somente os requisitos ainda não mapeados no inventário. Não repetir os lotes já confirmados.
+Os 49 requisitos anteriormente retidos já possuem destinos novos confirmados. Não há requisito restante dessa fila para publicar. A próxima etapa é resolver limitações e homologar as propostas administrativas no PR #2 em laboratório descartável, com contratos/objetos, versão e resultados verificáveis.
 
 Nenhum merge automático está autorizado. O projeto não é declarado concluído enquanto as propostas e homologações pendentes permanecerem abertas. Não há execução em segundo plano.
