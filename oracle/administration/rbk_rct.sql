@@ -20,8 +20,7 @@ OBJETOS, VIEWS E PACOTES
   SYS.DBA_ROLLBACK_SEGS, SYS.V_$ROLLSTAT, V$PARAMETER, RB_TEMP
 
 COMPATIBILIDADE CONHECIDA E LIMITAÇÕES
-  CREATE TABLE/quota/SELECT. DDL confirma transações; modelo legado de undo manual não é migração de AUM. Offline não captura OPTIMAL e nomes sem quoting/limites 800 podem falhar.
-  Não homologado em versões específicas; validar dicionário e plano em laboratório.
+  Continua roteiro de undo manual legado, não migração de AUM. OFFLINE não recupera OPTIMAL, staging deve ser exclusivo e grants/custo/storage exigem ambiente alvo. DDL confirma transações e saída não é aplicada automaticamente. Alvo documental das APIs novas: Oracle 19c. Sem compilação ou execução Oracle; grants, versão e resultado ainda exigem laboratório.
 
 EXEMPLO DE EXECUÇÃO
   Somente schema descartável; revisar a saída sem executá-la.
@@ -40,11 +39,15 @@ RISCOS E IMPACTOS OPERACIONAIS
   Quando houver SPOOL, o arquivo local pode ser sobrescrito: proteger sua saída.
 
 CORREÇÕES REALIZADAS E PENDÊNCIAS
-  Código completo preservado; valor OPTIMAL reinicializado por segmento para não herdar valor anterior sem linha no cursor. 
-  Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
-  Comentários e créditos históricos preservados abaixo.
+  Revisão complementar 037 (2026-11-03): Nomes de segmento/tablespace preservam case por ENQUOTE_NAME; staging e buffer ampliados para 128/4000 e saída sem quebra em 80 caracteres. Casos de homologação: Nomes quoted/longos; ONLINE/OFFLINE; OPTIMAL ausente; tabela staging existente; spool íntegro; ambiente legado descartável com undo manual. Comentários/créditos históricos preservados. Não aprovado para implantação.
 
 AVISO DE RESPONSABILIDADE
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de
+qualquer utilização em produção. Sua execução é de responsabilidade do
+profissional responsável pelo ambiente. Os mantenedores deste repositório não
+se responsabilizam por indisponibilidade, perda de dados, alterações indevidas
+ou outros impactos decorrentes de sua utilização.
+
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
 e realize testes em ambiente controlado, preferencialmente desenvolvimento ou
@@ -55,7 +58,6 @@ responsabilidade por danos, perdas de dados, indisponibilidade ou outros impacto
 decorrentes do uso, nos limites permitidos pela legislação aplicável.
 ===============================================================================
 */
-
 /*  */
 REM
 REM rbk_rct.sql
@@ -86,13 +88,14 @@ set feedback off
 set termout off
 set echo off
 set pagesize 0
+set linesize 32767
  
 set termout on
 select 'Creating rollback segment build script...' from dual;
 rem set termout off
  
-create table rb_temp (lineno NUMBER, rb_name varchar2(30),
-		    text varchar2(800))
+create table rb_temp (lineno NUMBER, rb_name varchar2(128),
+		    text varchar2(4000))
 /
  
 DECLARE
@@ -122,7 +125,7 @@ DECLARE
    lv_status              sys.dba_rollback_segs.status%TYPE;
    lv_usn                 sys.v_$rollstat.usn%TYPE;
    lv_optsize             VARCHAR2(40);
-   lv_string              VARCHAR2(800);
+   lv_string              VARCHAR2(4000);
    lv_lineno            number := 0;
  
    procedure write_out(p_line INTEGER, p_name VARCHAR2, p_string VARCHAR2) is
@@ -155,10 +158,10 @@ BEGIN
   CLOSE rb_optimal;
 if lv_status = 'ONLINE' then
 lv_string:='CREATE ' || lv_owner || 'ROLLBACK SEGMENT ' || 
-	     lower(lv_segment_name);
+	     DBMS_ASSERT.ENQUOTE_NAME(lv_segment_name,FALSE);
 write_out(lv_lineno, lv_segment_name, lv_string);
 lv_lineno := lv_lineno + 1;
-lv_string:='TABLESPACE ' || lower(lv_tablespace_name);
+lv_string:='TABLESPACE ' || DBMS_ASSERT.ENQUOTE_NAME(lv_tablespace_name,FALSE);
 write_out(lv_lineno, lv_segment_name, lv_string);
 lv_lineno := lv_lineno + 1;
 lv_string:='STORAGE ' || '(INITIAL ' || lv_initial_extent || ' NEXT ' || 
@@ -171,10 +174,10 @@ lv_string:='/';
 write_out(lv_lineno, lv_segment_name, lv_string);
 else
 lv_string:='CREATE ' || lv_owner || 'ROLLBACK SEGMENT ' || 
-	     lower(lv_segment_name);
+	     DBMS_ASSERT.ENQUOTE_NAME(lv_segment_name,FALSE);
 write_out(lv_lineno, lv_segment_name, lv_string);
 lv_lineno := lv_lineno + 1;
-lv_string:='TABLESPACE ' || lower(lv_tablespace_name);
+lv_string:='TABLESPACE ' || DBMS_ASSERT.ENQUOTE_NAME(lv_tablespace_name,FALSE);
 write_out(lv_lineno, lv_segment_name, lv_string);
 lv_lineno := lv_lineno + 1;
 lv_string:='STORAGE ' || '(INITIAL ' || lv_initial_extent || ' NEXT ' ||
@@ -197,7 +200,7 @@ select value dbname from v$parameter where name='db_name';
 spool rep_out\&db\crt_rbks.sql
  
 set heading off
-col text format a80 word_wrap
+col text format a4000
  
 select   text
 from     rb_temp

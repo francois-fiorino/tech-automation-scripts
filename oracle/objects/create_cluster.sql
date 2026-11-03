@@ -21,8 +21,7 @@ OBJETOS, VIEWS E PACOTES
   Cluster e tabelas DEPT/EMP, tablespace USERS
 
 COMPATIBILIDADE CONHECIDA E LIMITAÇÕES
-  CREATE CLUSTER/TABLE e quota. Homônimos podem conflitar; falta índice de cluster no exemplo impede uso normal de indexed cluster até completá-lo. Storage/PCTUSED históricos podem não ter efeito em ASSM/LMT.
-  Não homologado em versões específicas; validar dicionário e plano em laboratório.
+  Permanece template com marcadores <...> que precisam de edição consciente; não compila sem configurar. Tablespace USERS e storage são exemplos. CREATE CLUSTER/TABLE/INDEX confirma transações e pode falhar parcialmente; não instala DEMO sobre dados existentes. Alvo documental das APIs novas: Oracle 19c. Sem compilação ou execução Oracle; grants, versão e resultado ainda exigem laboratório.
 
 EXEMPLO DE EXECUÇÃO
   Somente editar cópia de laboratório substituindo todos os <placeholders>; então revisar DDL.
@@ -41,11 +40,15 @@ RISCOS E IMPACTOS OPERACIONAIS
   Quando houver SPOOL, o arquivo local pode ser sobrescrito: proteger sua saída.
 
 CORREÇÕES REALIZADAS E PENDÊNCIAS
-  Delimitador <cluster_name) corrigido e referência EMP padronizada para <cluster_name>; não inventado índice ou ambiente. 
-  Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
-  Comentários e créditos históricos preservados abaixo.
+  Revisão complementar 037 (2026-11-03): Exemplo inclui CREATE INDEX ON CLUSTER; cláusulas CLUSTER das tabelas mapeiam a coluna local DEPTNO à chave do cluster, em vez de usar indevidamente o nome da chave de cluster como coluna local. Casos de homologação: Nomes configurados; chave de cluster com nome diferente de DEPTNO; INSERT de departamentos/empregados; índice de cluster; FK/PK; ASSM/LMT; objetos existentes. Comentários/créditos históricos preservados. Não aprovado para implantação.
 
 AVISO DE RESPONSABILIDADE
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de
+qualquer utilização em produção. Sua execução é de responsabilidade do
+profissional responsável pelo ambiente. Os mantenedores deste repositório não
+se responsabilizam por indisponibilidade, perda de dados, alterações indevidas
+ou outros impactos decorrentes de sua utilização.
+
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
 e realize testes em ambiente controlado, preferencialmente desenvolvimento ou
@@ -56,10 +59,9 @@ responsabilidade por danos, perdas de dados, indisponibilidade ou outros impacto
 decorrentes do uso, nos limites permitidos pela legislação aplicável.
 ===============================================================================
 */
-
 /*  */
 REM Replace the <> placeholders with the proper values
-REM for cluster name and cluster column as required.
+REM for cluster name, cluster column and cluster index name as required.
 
 CREATE CLUSTER <cluster_name> (<cluster_column> NUMBER(2))
 PCTUSED 80
@@ -73,11 +75,13 @@ MINEXTENTS 2
 MAXEXTENTS 20
 PCTINCREASE 0);
 
+CREATE INDEX <cluster_index_name> ON CLUSTER <cluster_name>;
+
 CREATE TABLE dept(
 DEPTNO NUMBER(2) CONSTRAINT PK_DEPT PRIMARY KEY,
 DNAME  VARCHAR2(14),
 LOC    VARCHAR2(13))
-CLUSTER <cluster_name> (<cluster_column>);
+CLUSTER <cluster_name> (DEPTNO);
 
 CREATE TABLE emp(
 EMPNO NUMBER(4) CONSTRAINT PK_EMP PRIMARY KEY, 
@@ -88,4 +92,4 @@ HIREDATE DATE,
 SAL NUMBER(7,2),
 COMM NUMBER(7,2),
 DEPTNO NUMBER(2) REFERENCES dept)
-CLUSTER <cluster_name> (<cluster_column>);
+CLUSTER <cluster_name> (DEPTNO);

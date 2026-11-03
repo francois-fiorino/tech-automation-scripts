@@ -9,7 +9,7 @@ OBJETIVO E FINALIDADE
   Gerar DDL histórico de database links a partir de tabelas internas.
 
 FUNCIONAMENTO DETALHADO
-  CREATE DL_TEMP; cursor LINK$/USER$ lê dono/nome/usuário/senha/host e compõe CREATE LINK e CONNECT por dono; spool e DROP staging.
+  Lê metadados de DBA_DB_LINKS, gera DDL textual com placeholders de senha e barreira EXIT; não coleta autenticação nem instala objetos.
 
 PRÉ-REQUISITOS E PRIVILÉGIOS
   SQL*Plus ou SQLcl; conexão ao banco/container que se deseja diagnosticar.
@@ -17,11 +17,10 @@ PRÉ-REQUISITOS E PRIVILÉGIOS
   Não requer AWR/ASH nesta implementação.
 
 OBJETOS, VIEWS E PACOTES
-  SYS.LINK$, SYS.USER$, V$PARAMETER, DL_TEMP
+  DBA_DB_LINKS, DBMS_ASSERT, DBMS_OUTPUT e spool local do SQL*Plus; sem dependência de SYS.LINK$/SYS.USER$.
 
 COMPATIBILIDADE CONHECIDA E LIMITAÇÕES
-  DDL/staging confirma transações. Layout PASSWORD de LINK$ é Oracle7, incompatível com criptografia moderna; valor pode não ser senha utilizável. .WORLD é removido e LOWER altera identificadores. Saída contém segredo e não deve ser versionada.
-  Não homologado em versões específicas; validar dicionário e plano em laboratório.
+  Não restaura segredos, credenciais, links SHARED/authenticated e todos os atributos modernos. CONNECT privado exige autenticação manual; PUBLIC exige conta autorizada sem assumir SYS. Saída é proposta bloqueada, não roteiro aplicável sem revisão. Metadados de HOST podem conter informação sensível e precisam de proteção; rejeitar/remover eventual credencial embutida no catálogo antes de compartilhar o spool. Alvo documental das APIs novas: Oracle 19c. Sem compilação ou execução Oracle; grants, versão e resultado ainda exigem laboratório.
 
 EXEMPLO DE EXECUÇÃO
   Revisão somente; não executar contra credenciais reais nem divulgar sua saída.
@@ -40,11 +39,19 @@ RISCOS E IMPACTOS OPERACIONAIS
   Quando houver SPOOL, o arquivo local pode ser sobrescrito: proteger sua saída.
 
 CORREÇÕES REALIZADAS E PENDÊNCIAS
-  CONNECT gerado deixou de presumir senha igual ao usuário (agora solicita autenticação); senha remota deixa de ser convertida para minúsculas. Fluxo de extração preservado somente para revisão restrita. 
-  Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
-  Comentários e créditos históricos preservados abaixo.
+  Revisão complementar 037 (2026-11-03): Gerador reimplementado por DBA_DB_LINKS sem ler SYS.LINK$/senhas, sem staging DDL e sem minúsculas ou remoção de domínio. Saída contém marcadores de segredo e EXIT bloqueante; HOST é citado com escape de apóstrofo e identificadores por DBMS_ASSERT; marcadores usuais de autenticação no HOST são retidos, sem garantia de anonimização de descriptor arbitrário. Casos de homologação: Link conectado/fixed user; nome com domínio/quoted; host com apóstrofo; PUBLIC versus privado; catálogo vazio; limite DBMS_OUTPUT; saída deve começar com EXIT bloqueante. Comentários/créditos históricos preservados. Não aprovado para implantação.
+
+REFERÊNCIAS TÉCNICAS DA REVISÃO 037
+ https://docs.oracle.com/en/database/oracle/oracle-database/19/refrn/DBA_DB_LINKS.html
+ https://docs.oracle.com/en/database/oracle/oracle-database/19/arpls/DBMS_ASSERT.html
 
 AVISO DE RESPONSABILIDADE
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de
+qualquer utilização em produção. Sua execução é de responsabilidade do
+profissional responsável pelo ambiente. Os mantenedores deste repositório não
+se responsabilizam por indisponibilidade, perda de dados, alterações indevidas
+ou outros impactos decorrentes de sua utilização.
+
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
 e realize testes em ambiente controlado, preferencialmente desenvolvimento ou
@@ -55,7 +62,6 @@ responsabilidade por danos, perdas de dados, indisponibilidade ou outros impacto
 decorrentes do uso, nos limites permitidos pela legislação aplicável.
 ===============================================================================
 */
-
 /*  */
 REM
 REM link_rct.sql
@@ -89,93 +95,41 @@ REM Only preliminary testing of this script was performed.  Be sure to test
 REM it completely before relying on it.  
 REM
  
-set verify off
-set feedback off
-set termout off
-set echo off
-set pagesize 0
- 
-set termout on
-select 'Creating database link build script...' from dual;
-set termout off
- 
-create table dl_temp (lineno NUMBER, grantor_owner varchar2(20),
-text VARCHAR(255));
- 
-DECLARE
-   CURSOR link_cursor IS select   u.name,
-                                  l.name, 
-                                  l.userid, 
-                                  l.password, 
-                                  l.host
-                         from     sys.link$ l, sys.user$ u
-                         where    l.owner# = u.user#
-                         order by l.name;
-   lv_owner    sys.user$.name%TYPE;
-   lv_db_link  sys.link$.name%TYPE;
-   lv_username sys.link$.userid%TYPE;
-   lv_password sys.link$.password%TYPE;
-   lv_host     sys.link$.host%TYPE;
-   lv_string     VARCHAR2(255);
-   lv_user       VARCHAR2(255);
-   lv_connect    VARCHAR2(255);
-   lv_text       VARCHAR2(500);
- 
-   procedure write_out(p_string VARCHAR2) is
-   begin
-      insert into dl_temp (grantor_owner,text) 
-                        values (lv_owner,p_string);
-   end;
- 
-BEGIN
-   OPEN link_cursor;
-   LOOP
-      FETCH link_cursor INTO lv_owner,
-                             lv_db_link,
-                             lv_username,
-                             lv_password,
-                             lv_host;
-      EXIT WHEN link_cursor%NOTFOUND;
-if (lv_owner = 'PUBLIC') then
-      lv_string := ('CREATE PUBLIC DATABASE LINK '||
-                lower(replace(lv_db_link,'.WORLD','')));
-else
-      lv_string := ('CREATE DATABASE LINK '||
-                lower(replace(lv_db_link,'.WORLD','')));
-end if;
-      if (lv_username is not null) then
-         lv_user := ('CONNECT TO '||lower(lv_username)||
-                   ' IDENTIFIED BY '||lv_password);
-      end if;
-      if (lv_host is not null) then
-         lv_connect := ('USING '''||lv_host||''''||';');
-      end if;
-   lv_text := lv_string || ' ' || lv_user || ' ' || lv_connect;
-   write_out(lv_text);
-   lv_user := ' ';
-   lv_connect := ' ';
-   END LOOP;
-   CLOSE link_cursor;
-END;
-/
- column dbname new_value db noprint
-select value dbname from v$parameter where name='db_name';
-spool rep_out\&db\crt_dbls.sql
-break on downer skip 1
-col text format a60 word_wrap
- 
-select   'connect ' || decode (grantor_owner, 'PUBLIC', 'SYS', grantor_owner) 
- downer,'
-'||rtrim(text)
-from     dl_temp 
-order by downer 
+REM Revisao 037: comentarios acima sao historicos; nao inserir senhas na saida.
+set define off
+set verify off feedback off echo off heading off pagesize 0
+set linesize 32767
+set serveroutput on size unlimited
+spool dblink_recreation_review.sql
+prompt REM Proposta de recriacao de links; configurar autenticacao em copia privada.
+prompt REM Bloqueio incondicional: revisar todos os comandos antes de adaptar.
+prompt EXIT FAILURE ROLLBACK
+begin
+ for r in (select owner,db_link,username,host from dba_db_links order by owner,db_link) loop
+  if r.owner='PUBLIC' then
+   DBMS_OUTPUT.PUT_LINE('REM Conectar manualmente a conta autorizada para CREATE PUBLIC DATABASE LINK.');
+  else
+   DBMS_OUTPUT.PUT_LINE('CONNECT '||DBMS_ASSERT.ENQUOTE_NAME(r.owner,FALSE));
+  end if;
+  DBMS_OUTPUT.PUT_LINE('CREATE '||case when r.owner='PUBLIC' then 'PUBLIC ' end||
+   'DATABASE LINK '||DBMS_ASSERT.ENQUOTE_NAME(r.db_link,FALSE));
+  if r.username is not null then
+   DBMS_OUTPUT.PUT_LINE('CONNECT TO '||DBMS_ASSERT.ENQUOTE_NAME(r.username,FALSE)||
+    ' IDENTIFIED BY "<DEFINIR_SENHA_REMOTA>"');
+  end if;
+  if r.host is not null then
+   IF REGEXP_LIKE(r.host,'(PASSWORD|PWD|TOKEN|SECRET)[[:space:]]*=','i')
+      OR REGEXP_LIKE(r.host,'[^/[:space:]]+/[^@[:space:]]+@') THEN
+    DBMS_OUTPUT.PUT_LINE('REM HOST retido por marcador de autenticacao; configurar servico sem segredo.');
+    DBMS_OUTPUT.PUT_LINE('USING '||CHR(39)||'<DEFINIR_SERVICO_REMOTO>'||CHR(39)||';');
+   ELSE
+    DBMS_OUTPUT.PUT_LINE('USING '||CHR(39)||REPLACE(r.host,CHR(39),CHR(39)||CHR(39))||CHR(39)||';');
+   END IF;
+  else
+   DBMS_OUTPUT.PUT_LINE(';');
+  end if;
+ end loop;
+end;
 /
 spool off
- set verify on
-set feedback on
-set termout on
-set echo on
-set pagesize 22
-clear columns
-drop table dl_temp;
- 
+set heading on feedback on

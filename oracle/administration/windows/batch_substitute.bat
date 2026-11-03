@@ -44,6 +44,8 @@ REM   Extensão .sql corrigida para .bat; GOTO:EOF que era incondicional após &
 REM   Revisão estática somente; implantação depende de testes e aprovação do PR.
 REM   Comentários e créditos históricos preservados abaixo.
 REM 
+REM Revisão complementar 037 (2026-11-03): corpo CMD preservado; reinterpretação de CALL permanece bloqueio para entrada não confiável. Sem teste Windows. Casos necessários: arquivo com espaços no caminho, Unicode, linhas vazias, %, !, &, |, redirecionamento e aspas. Não aprovado para implantação.
+REM
 REM AVISO DE RESPONSABILIDADE
 REM Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 REM Antes da utilização, analise integralmente o código, compreenda seu funcionamento

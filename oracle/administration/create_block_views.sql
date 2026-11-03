@@ -20,8 +20,7 @@ OBJETOS, VIEWS E PACOTES
   X$BH, views BLOCK_STATUS/BUFFER_STATUS, usuário DBAUTIL
 
 COMPATIBILIDADE CONHECIDA E LIMITAÇÕES
-  DDL substitui objetos e confirma transação. SELECT direto interno/CREATE VIEW e GRANT necessários; flags e LRBA_SEQ/DIRTY_QUEUE são dependentes de versão. Varredura posterior pode ser cara. DBAUTIL precisa avaliação de acesso.
-  Não homologado em versões específicas; validar dicionário e plano em laboratório.
+  X$BH, LRBA_SEQ, DIRTY_QUEUE e FLAG dependem da versão/estrutura interna. Substitui views e concede acesso a DBAUTIL; SELECT direto e decisão de segurança são necessários. Alvo documental das APIs novas: Oracle 19c. Sem compilação ou execução Oracle; grants, versão e resultado ainda exigem laboratório.
 
 EXEMPLO DE EXECUÇÃO
   Somente laboratório com catálogo compatível: revisar @create_block_views.sql.
@@ -40,11 +39,15 @@ RISCOS E IMPACTOS OPERACIONAIS
   Quando houver SPOOL, o arquivo local pode ser sobrescrito: proteger sua saída.
 
 CORREÇÕES REALIZADAS E PENDÊNCIAS
-  Estrutura e grants preservados, sem afirmar compatibilidade moderna dos flags. 
-  Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
-  Comentários e créditos históricos preservados abaixo.
+  Revisão complementar 037 (2026-11-03): Views internas e grants preservados; nenhum mapeamento de flags foi promovido a API estável. Casos de homologação: Colunas presentes no RU alvo; unidades dos flags; custo de varredura; DBAUTIL ausente; falha entre DROP/CREATE/GRANT; dependentes invalidados. Comentários/créditos históricos preservados. Não aprovado para implantação.
 
 AVISO DE RESPONSABILIDADE
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de
+qualquer utilização em produção. Sua execução é de responsabilidade do
+profissional responsável pelo ambiente. Os mantenedores deste repositório não
+se responsabilizam por indisponibilidade, perda de dados, alterações indevidas
+ou outros impactos decorrentes de sua utilização.
+
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
 e realize testes em ambiente controlado, preferencialmente desenvolvimento ou
@@ -55,7 +58,6 @@ responsabilidade por danos, perdas de dados, indisponibilidade ou outros impacto
 decorrentes do uso, nos limites permitidos pela legislação aplicável.
 ===============================================================================
 */
-
 /*  */
 drop view block_status;
 CREATE VIEW BLOCK_STATUS AS

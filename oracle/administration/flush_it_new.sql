@@ -20,8 +20,7 @@ OBJETOS, VIEWS E PACOTES
   V$SGASTAT, V$PARAMETER, SYS.V_$SQLAREA, SYS.DBA_SEQUENCES, SYS.X_$KGLOB, DBMS_SHARED_POOL, DBMS_SQL, DBA_RUNNING_STATS
 
 COMPATIBILIDADE CONHECIDA E LIMITAÇÕES
-  CREATE PROCEDURE/grants diretos/ALTER SYSTEM. KEEP aumenta pressão sobre pool e purge dispara hard parse; ASMM/AMM configurado zero invalida heurística. SYS.X_$KGLOB depende de objeto/sinônimo autorizado e versão. Cursores/KEEPs podem falhar parcialmente.
-  Não homologado em versões específicas; validar dicionário e plano em laboratório.
+  FLUSH pode causar hard parse e degradação global; definer rights/grants EXECUTE precisam de revisão. Categorias/SQL_SUMMARY/DBA_RUNNING_STATS e estruturas internas, quando presentes, ainda exigem contrato. ASMM/AMM pode tornar tamanho configurado inadequado, mesmo positivo. KEEPs podem ter efeito parcial antes de falha; não há rollback de estado de shared pool. Alvo documental das APIs novas: Oracle 19c. Sem compilação ou execução Oracle; grants, versão e resultado ainda exigem laboratório.
 
 EXEMPLO DE EXECUÇÃO
   Revisão somente; não instalar junto das outras variantes FLUSH_IT.
@@ -40,11 +39,18 @@ RISCOS E IMPACTOS OPERACIONAIS
   Quando houver SPOOL, o arquivo local pode ser sobrescrito: proteger sua saída.
 
 CORREÇÕES REALIZADAS E PENDÊNCIAS
-  NULLIF no divisor, buffers de nomes ampliados, cursores fechados e / adicionado; política de KEEP/purge preservada com créditos Steve Adams. 
-  Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
-  Comentários e créditos históricos preservados abaixo.
+  Revisão complementar 037 (2026-11-03): Limiar validado antes da coleta; base de memória ausente/zero falha explicitamente antes de FLUSH/KEEP; NATIVE e cleanup de cursores em exceção com RAISE. NUM_RUNS validado como inteiro não negativo. Política/cursores/commits existentes preservados. Casos de homologação: NULL, negativo,0,0.5,1,100,>100; baseNULL/zero; pacote/view ausente; falha duranteKEEP/PARSE/INSERT; cursor fechado; medir impacto só em laboratório descartável. Comentários/créditos históricos preservados. Não aprovado para implantação.
+
+REFERÊNCIAS TÉCNICAS DA REVISÃO 037
+ https://docs.oracle.com/en/database/oracle/oracle-database/19/arpls/DBMS_SQL.html
 
 AVISO DE RESPONSABILIDADE
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de
+qualquer utilização em produção. Sua execução é de responsabilidade do
+profissional responsável pelo ambiente. Os mantenedores deste repositório não
+se responsabilizam por indisponibilidade, perda de dados, alterações indevidas
+ou outros impactos decorrentes de sua utilização.
+
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
 e realize testes em ambiente controlado, preferencialmente desenvolvimento ou
@@ -55,7 +61,6 @@ responsabilidade por danos, perdas de dados, indisponibilidade ou outros impacto
 decorrentes do uso, nos limites permitidos pela legislação aplicável.
 ===============================================================================
 */
-
 /*  */
 CREATE OR REPLACE PROCEDURE flush_it(
     p_free IN NUMBER, num_runs IN NUMBER) IS
@@ -105,17 +110,20 @@ CURSOR get_time IS
   mem_ratio 	NUMBER;
   share_mem 	NUMBER;
   variable_mem 	NUMBER;
-  cur 		INTEGER;
+  cur INTEGER:=NULL;
   sql_com 	VARCHAR2(60);
   row_proc 	NUMBER;
 --
 BEGIN
+ IF p_free IS NULL OR p_free<0 OR p_free>100 THEN RAISE_APPLICATION_ERROR(-20020,'Limiar deve estar entre 0 e 100.'); END IF;
+ IF num_runs IS NULL OR num_runs<0 OR num_runs<>TRUNC(num_runs) THEN RAISE_APPLICATION_ERROR(-20021,'NUM_RUNS deve ser inteiro nao negativo.'); END IF;
  OPEN get_share;
  OPEN get_var;
  FETCH get_share INTO share_mem;
  FETCH get_var INTO variable_mem;
  CLOSE get_share;
  CLOSE get_var;
+ IF variable_mem IS NULL OR variable_mem<=0 THEN RAISE_APPLICATION_ERROR(-20022,'Base de memoria ausente/zero; heuristica nao aplicavel.'); END IF;
  mem_ratio:=share_mem/nullif(variable_mem,0);
  IF mem_ratio>p_free/100 THEN
  --
@@ -153,9 +161,9 @@ BEGIN
  --
   cur:=DBMS_SQL.OPEN_CURSOR;
   sql_com:='ALTER SYSTEM FLUSH SHARED_POOL';
-  DBMS_SQL.PARSE(cur,sql_com,dbms_sql.v7);
+  DBMS_SQL.PARSE(cur,sql_com,dbms_sql.native);
   row_proc:=DBMS_SQL.EXECUTE(cur);
-  DBMS_SQL.CLOSE_CURSOR(cur);
+  DBMS_SQL.CLOSE_CURSOR(cur); cur:=NULL;
   OPEN get_time;
   FETCH get_time INTO todays_date;
  CLOSE get_time;
@@ -165,5 +173,17 @@ BEGIN
 	);
   COMMIT;
  END IF;
+EXCEPTION WHEN OTHERS THEN
+ BEGIN
+  IF cur IS NOT NULL AND DBMS_SQL.IS_OPEN(cur) THEN DBMS_SQL.CLOSE_CURSOR(cur); cur:=NULL; END IF;
+  IF get_share%ISOPEN THEN CLOSE get_share; END IF;
+  IF get_var%ISOPEN THEN CLOSE get_var; END IF;
+  IF get_time%ISOPEN THEN CLOSE get_time; END IF;
+  IF reused_cursors%ISOPEN THEN CLOSE reused_cursors; END IF;
+  IF cached_sequences%ISOPEN THEN CLOSE cached_sequences; END IF;
+  IF candidate_objects%ISOPEN THEN CLOSE candidate_objects; END IF;
+ EXCEPTION WHEN OTHERS THEN NULL;
+ END;
+ RAISE;
 END flush_it;
 /

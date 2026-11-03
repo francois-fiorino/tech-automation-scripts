@@ -21,8 +21,7 @@ OBJETOS, VIEWS E PACOTES
   SYS.TS$, SYS.FILE$, SYS.FILEXT$, V$DBFILE; view DBA_FILE_DATA
 
 COMPATIBILIDADE CONHECIDA E LIMITAÇÕES
-  CREATE VIEW e SELECT direto interno. Estruturas antigas podem não existir/ter colunas compatíveis; unidades de extensão precisam de confirmação. Não é substituto homologado de DBA_DATA_FILES.
-  Não homologado em versões específicas; validar dicionário e plano em laboratório.
+  SYS.TS$/FILE$/FILEXT$ e unidades são dependentes de versão. MAXEXTEND/INC podem não representar bytes; ausência de linha FILEXT$ é permitida pelo outer join. Não tratar como inventário moderno homologado. Alvo documental das APIs novas: Oracle 19c. Sem compilação ou execução Oracle; grants, versão e resultado ainda exigem laboratório.
 
 EXEMPLO DE EXECUÇÃO
   Somente laboratório: @db_df.sql
@@ -41,11 +40,15 @@ RISCOS E IMPACTOS OPERACIONAIS
   Quando houver SPOOL, o arquivo local pode ser sobrescrito: proteger sua saída.
 
 CORREÇÕES REALIZADAS E PENDÊNCIAS
-  Definição original preservada. 
-  Revisão estática somente; implantação depende de laboratório e aprovação do PR.
-  Comentários e créditos históricos preservados abaixo.
+  Revisão complementar 037 (2026-11-03): Definição histórica preservada, sem presumir equivalência de tabelas internas com DBA_DATA_FILES atual. Casos de homologação: Layout/colunas do RU alvo; arquivos sem FILEXT$; autoextend ligado/desligado; CDB/PDB; validar unidade de cada campo. Comentários/créditos históricos preservados. Não aprovado para implantação.
 
 AVISO DE RESPONSABILIDADE
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de
+qualquer utilização em produção. Sua execução é de responsabilidade do
+profissional responsável pelo ambiente. Os mantenedores deste repositório não
+se responsabilizam por indisponibilidade, perda de dados, alterações indevidas
+ou outros impactos decorrentes de sua utilização.
+
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
 e realize testes em ambiente controlado, preferencialmente desenvolvimento ou
@@ -56,7 +59,6 @@ responsabilidade por danos, perdas de dados, indisponibilidade ou outros impacto
 decorrentes do uso, nos limites permitidos pela legislação aplicável.
 ===============================================================================
 */
-
 /*  */
 create or replace view dba_file_data as
 select

@@ -21,8 +21,7 @@ OBJETOS, VIEWS E PACOTES
   V$SYSSTAT, V$SESSION, DUAL, HIT_RATIOS, DBMS_OUTPUT
 
 COMPATIBILIDADE CONHECIDA E LIMITAÇÕES
-  CREATE PROCEDURE/grants diretos/DML. Horários duplicados podem causar ORA-01427; restart invalida deltas. Tratamento ZERO_DIVIDE insere nova linha e pode duplicar coleta; não homologado. Hit ratio não diagnostica I/O sozinho.
-  Não homologado em versões específicas; validar dicionário e plano em laboratório.
+  Tabela HIT_RATIOS e sua chave não fornecidas; duas coletas/hora podem multiplicar subconsultas e causar ORA-01427. Restart e dados ausentes ainda invalidam deltas; não há startup/instância no contrato. Commits existentes podem deixar atualização parcial. Não usar hit ratio isolado para decidir ação. Alvo documental das APIs novas: Oracle 19c. Sem compilação ou execução Oracle; grants, versão e resultado ainda exigem laboratório.
 
 EXEMPLO DE EXECUÇÃO
   Somente revisão com HIT_RATIOS descartável e contrato de nove colunas.
@@ -41,11 +40,15 @@ RISCOS E IMPACTOS OPERACIONAIS
   Quando houver SPOOL, o arquivo local pode ser sobrescrito: proteger sua saída.
 
 CORREÇÕES REALIZADAS E PENDÊNCIAS
-  C_DATE usa TRUNC(SYSDATE), eliminando roundtrip textual/NLS; divisor acumulado protegido. Deltas e handler originais preservados com pendências explícitas. 
-  Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
-  Comentários e créditos históricos preservados abaixo.
+  Revisão complementar 037 (2026-11-03): Denominador do ratio de período protegido por NULLIF; erro deixa de inserir segunda coleta/confirmar valor artificial. Cursor fecha em erro e exceção é propagada. Data/hora derivadas do mesmo SYSDATE; ratio NUMBER sem limite5,2. Casos de homologação: Zero delta; várias coletas na hora; virada de dia; restart; estatística ausente; erro de tabela/UPDATE; razões negativas; confirmar estado após commits. Comentários/créditos históricos preservados. Não aprovado para implantação.
 
 AVISO DE RESPONSABILIDADE
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de
+qualquer utilização em produção. Sua execução é de responsabilidade do
+profissional responsável pelo ambiente. Os mantenedores deste repositório não
+se responsabilizam por indisponibilidade, perda de dados, alterações indevidas
+ou outros impactos decorrentes de sua utilização.
+
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
 e realize testes em ambiente controlado, preferencialmente desenvolvimento ou
@@ -56,12 +59,12 @@ responsabilidade por danos, perdas de dados, indisponibilidade ou outros impacto
 decorrentes do uso, nos limites permitidos pela legislação aplicável.
 ===============================================================================
 */
-
 /*  */
 CREATE OR REPLACE PROCEDURE HITRATIO IS
     C_DATE DATE;
+    SAMPLE_DATE DATE:=SYSDATE;
     C_HOUR NUMBER := 0;
-    H_RATIO NUMBER(5,2) := 0;
+    H_RATIO NUMBER := 0;
     CON_GETS NUMBER := 0;
     DB_GETS NUMBER := 0;
     P_READS NUMBER := 0;
@@ -78,8 +81,8 @@ select
     	where
 		name = p_name;
 BEGIN
-  select trunc(sysdate) into c_date from dual;
-  select to_char(sysdate,'HH24') into c_hour from dual;
+  c_date:=TRUNC(sample_date);
+  c_hour:=TO_NUMBER(TO_CHAR(sample_date,'HH24'));
   STAT_NAME := 'db block gets';
   OPEN get_stat(stat_name);
   FETCH get_stat INTO temp_name,db_gets;
@@ -103,8 +106,8 @@ dbms_output.put_line('hit_ratio:'||to_char(h_ratio));
 commit;
 update hit_ratios set period_hit_ratio =
     (select round((((h2.consistent-h1.consistent)+(h2.db_block_gets-h1.db_block_gets)-
-    (h2.phy_reads-h1.phy_reads))/((h2.consistent-h1.consistent)+
-        (h2.db_block_gets-h1.db_block_gets)))*100,2) from hit_ratios h1, hit_ratios h2
+    (h2.phy_reads-h1.phy_reads))/NULLIF((h2.consistent-h1.consistent)+
+        (h2.db_block_gets-h1.db_block_gets),0))*100,2) from hit_ratios h1, hit_ratios h2
     where h2.check_date = hit_ratios.check_date and h2.check_hour = hit_ratios.check_hour
     and ((h1.check_date = h2.check_date and h1.check_hour+1 = h2.check_hour) or
     (h1.check_date+1 = h2.check_date and h1.check_hour = '23' and h2.check_hour='0')))
@@ -118,8 +121,8 @@ update hit_ratios set period_USAGE =
     h1.check_hour = '23' and h2.check_hour='0'))) where period_USAGE = 0;
   COMMIT;
 EXCEPTION
-    WHEN ZERO_DIVIDE THEN
-    INSERT INTO  hit_ratios  VALUES (c_date,c_hour,db_gets,con_gets,p_reads,0,0,0,users);
-    COMMIT;
+    WHEN OTHERS THEN
+    IF get_stat%ISOPEN THEN CLOSE get_stat; END IF;
+    RAISE;
 END;
 /

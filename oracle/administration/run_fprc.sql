@@ -21,8 +21,7 @@ OBJETOS, VIEWS E PACOTES
   DBA_SOURCE, DBA_OBJECTS, V$PARAMETER, FPRC_RCT.SQL
 
 COMPATIBILIDADE CONHECIDA E LIMITAÇÕES
-  Original executava o mesmo arquivo que estava sendo escrito. Helper ainda depende de revisão/publicação; SQLPATH e diretórios rep_out precisam existir. Fonte pode conter segredos e saída pode ser executável.
-  Não homologado em versões específicas; validar dicionário e plano em laboratório.
+  OWNER/TYPE/NAME são substituição textual SQL*Plus; helper usa SQLPATH, arquivos externos e pode revelar código/segredos. Caminhos rep_out e nome de helper dependem do diretório de execução. Não presumir que @@ resolveria arquivos a partir do driver gerado em outra pasta. Alvo documental das APIs novas: Oracle 19c. Sem compilação ou execução Oracle; grants, versão e resultado ainda exigem laboratório.
 
 EXEMPLO DE EXECUÇÃO
   Revisão de código em laboratório; não executar sem revisar FPRC_RCT e caminhos.
@@ -41,11 +40,15 @@ RISCOS E IMPACTOS OPERACIONAIS
   Quando houver SPOOL, o arquivo local pode ser sobrescrito: proteger sua saída.
 
 CORREÇÕES REALIZADAS E PENDÊNCIAS
-  START final corrigido para DO_FPRC.SQL em vez de autoexecutar EXE_FPRC.SQL aberto para spool; nomes e ramos preservados. 
-  Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
-  Comentários e créditos históricos preservados abaixo.
+  Revisão complementar 037 (2026-11-03): Pipeline mantido: gera driver e executa helper para produzir fonte; documentada dependência real da localização e de valores confiáveis. Casos de homologação: Owner/type/name com espaços/aspas; diretório ausente; FPRC_RCT no SQLPATH; fonte longa/com segredo; arquivo de saída existente; definir nova interface antes de entradas não confiáveis. Comentários/créditos históricos preservados. Não aprovado para implantação.
 
 AVISO DE RESPONSABILIDADE
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de
+qualquer utilização em produção. Sua execução é de responsabilidade do
+profissional responsável pelo ambiente. Os mantenedores deste repositório não
+se responsabilizam por indisponibilidade, perda de dados, alterações indevidas
+ou outros impactos decorrentes de sua utilização.
+
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
 e realize testes em ambiente controlado, preferencialmente desenvolvimento ou
@@ -56,7 +59,6 @@ responsabilidade por danos, perdas de dados, indisponibilidade ou outros impacto
 decorrentes do uso, nos limites permitidos pela legislação aplicável.
 ===============================================================================
 */
-
 /*  */
 REM
 REM NAME        : RUN_FPRC.SQL 

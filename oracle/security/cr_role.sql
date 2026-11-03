@@ -21,8 +21,7 @@ OBJETOS, VIEWS E PACOTES
   Role SLR_DISC_EDIT, schemas DIMENSION/KMSLR, usuário GMPRATIC
 
 COMPATIBILIDADE CONHECIDA E LIMITAÇÕES
-  Exige CREATE ROLE e autoridade para grants. Identificadores são exemplos históricos, não destinatários autorizados para ambiente atual. DDL altera acesso e pode falhar parcialmente.
-  Não homologado em versões específicas; validar dicionário e plano em laboratório.
+  Objetos de aplicação e GMPRATIC são exemplos históricos, sem autorização atual implícita. DDL pode confirmar e aplicar parcialmente. Requer decisão de matriz de acesso e privilégios mínimos antes de execução. Alvo documental das APIs novas: Oracle 19c. Sem compilação ou execução Oracle; grants, versão e resultado ainda exigem laboratório.
 
 EXEMPLO DE EXECUÇÃO
   Somente revisão: conferir cada objeto e destinatário antes de qualquer execução.
@@ -41,11 +40,15 @@ RISCOS E IMPACTOS OPERACIONAIS
   Quando houver SPOOL, o arquivo local pode ser sobrescrito: proteger sua saída.
 
 CORREÇÕES REALIZADAS E PENDÊNCIAS
-  Lista de objetos, grants e destinatário preservada para revisão explícita. 
-  Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
-  Comentários e créditos históricos preservados abaixo.
+  Revisão complementar 037 (2026-11-03): Lista integral de CREATE ROLE/GRANT preservada; não alterado destinatário nem objetos por suposição. Casos de homologação: Objetos/conta inexistentes; role já criada; falha no meio dos grants; autoridade WITH GRANT OPTION; escopo PDB/common. Comentários/créditos históricos preservados. Não aprovado para implantação.
 
 AVISO DE RESPONSABILIDADE
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de
+qualquer utilização em produção. Sua execução é de responsabilidade do
+profissional responsável pelo ambiente. Os mantenedores deste repositório não
+se responsabilizam por indisponibilidade, perda de dados, alterações indevidas
+ou outros impactos decorrentes de sua utilização.
+
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
 e realize testes em ambiente controlado, preferencialmente desenvolvimento ou
@@ -56,7 +59,6 @@ responsabilidade por danos, perdas de dados, indisponibilidade ou outros impacto
 decorrentes do uso, nos limites permitidos pela legislação aplicável.
 ===============================================================================
 */
-
 /*  */
 create role SLR_DISC_EDIT;
 grant select on

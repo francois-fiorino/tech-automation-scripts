@@ -21,8 +21,7 @@ OBJETOS, VIEWS E PACOTES
   V$SESSION, procedimento KILL_SESSION
 
 COMPATIBILIDADE CONHECIDA E LIMITAÇÕES
-  Geração não encerra sessões, mas executar saída derruba conexões e causa rollback. Não exclui a própria sessão nem usuários administrativos além de SYS. SID/SERIAL# devem ser reconferidos.
-  Não homologado em versões específicas; validar dicionário e plano em laboratório.
+  Não é lista de sessões não essenciais: inclui contas administrativas e de aplicação críticas. Revalidar SID/SERIAL antes de cada aplicação e privilégio no KILL_SESSION revisado; escopo local, sem RAC remoto. Alvo documental das APIs novas: Oracle 19c. Sem compilação ou execução Oracle; grants, versão e resultado ainda exigem laboratório.
 
 EXEMPLO DE EXECUÇÃO
   Somente revisão: @ora_kill.sql; inspecionar KILL_ALL.SQL sem executar.
@@ -41,11 +40,15 @@ RISCOS E IMPACTOS OPERACIONAIS
   Quando houver SPOOL, o arquivo local pode ser sobrescrito: proteger sua saída.
 
 CORREÇÕES REALIZADAS E PENDÊNCIAS
-  OR incorreto substituído por AND, evitando incluir SYS; código gerador preservado. 
-  Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
-  Comentários e créditos históricos preservados abaixo.
+  Revisão complementar 037 (2026-11-03): Gerador exclui a própria sessão e restringe TYPE=USER além das exclusões existentes de SYS/NULL. Continua sem executar o spool. Casos de homologação: Sessão chamadora; SYS; background; usuário crítico; sessão encerrada ou SID reutilizado entre geração e uso. Comentários/créditos históricos preservados. Não aprovado para implantação.
 
 AVISO DE RESPONSABILIDADE
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de
+qualquer utilização em produção. Sua execução é de responsabilidade do
+profissional responsável pelo ambiente. Os mantenedores deste repositório não
+se responsabilizam por indisponibilidade, perda de dados, alterações indevidas
+ou outros impactos decorrentes de sua utilização.
+
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
 e realize testes em ambiente controlado, preferencialmente desenvolvimento ou
@@ -56,7 +59,6 @@ responsabilidade por danos, perdas de dados, indisponibilidade ou outros impacto
 decorrentes do uso, nos limites permitidos pela legislação aplicável.
 ===============================================================================
 */
-
 /*  */
 REM
 REM ORA_KILL.SQL
@@ -71,6 +73,8 @@ select 'execute kill_session('||chr(39)||sid||chr(39)||','||
 chr(39)||serial#||chr(39)||');' from v$session
 where username is not null
 and username <> 'SYS'
+and type='USER'
+and sid<>TO_NUMBER(SYS_CONTEXT('USERENV','SID'))
 /
 spool off
 rem start kill_all.sql

@@ -21,8 +21,7 @@ OBJETOS, VIEWS E PACOTES
   TEMP_SIZE_TABLE; tablespace informado
 
 COMPATIBILIDADE CONHECIDA E LIMITAÇÕES
-  DROP elimina dados e DDL confirma transações. Exige CREATE TABLE/quota; nomes e tablespace precisam ser válidos. Sem PK/owner na chave; tabelas homônimas podem ser indistinguíveis.
-  Não homologado em versões específicas; validar dicionário e plano em laboratório.
+  DROP remove dados; contratos sem OWNER podem misturar tabelas homônimas. Tablespace por substituição SQL*Plus; revisar apenas entrada confiável. Storage legado pode ser ignorado em LMT. Alvo documental das APIs novas: Oracle 19c. Sem compilação ou execução Oracle; grants, versão e resultado ainda exigem laboratório.
 
 EXEMPLO DE EXECUÇÃO
   Somente schema descartável: DEFINE data_tablespace = USERS
@@ -42,11 +41,15 @@ RISCOS E IMPACTOS OPERACIONAIS
   Quando houver SPOOL, o arquivo local pode ser sobrescrito: proteger sua saída.
 
 CORREÇÕES REALIZADAS E PENDÊNCIAS
-  TABLE_NAME aumentado de 64 para 128 caracteres, preservando as duas colunas e algoritmo consumidor. 
-  Revisão estática somente; implantação depende de laboratório e aprovação do PR.
-  Comentários e créditos históricos preservados abaixo.
+  Revisão complementar 037 (2026-11-03): Estrutura de duas colunas preservada para manter compatibilidade dos consumidores; não adicionada chave owner por suposição. Casos de homologação: Nomes >32/até128; homônimos em schemas; tabela existente/ausente; consumidores COUNT/FILL; quota e storage. Comentários/créditos históricos preservados. Não aprovado para implantação.
 
 AVISO DE RESPONSABILIDADE
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de
+qualquer utilização em produção. Sua execução é de responsabilidade do
+profissional responsável pelo ambiente. Os mantenedores deste repositório não
+se responsabilizam por indisponibilidade, perda de dados, alterações indevidas
+ou outros impactos decorrentes de sua utilização.
+
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
 e realize testes em ambiente controlado, preferencialmente desenvolvimento ou
@@ -57,7 +60,6 @@ responsabilidade por danos, perdas de dados, indisponibilidade ou outros impacto
 decorrentes do uso, nos limites permitidos pela legislação aplicável.
 ===============================================================================
 */
-
 /*  */
 drop table temp_size_table;
 create table temp_size_table (

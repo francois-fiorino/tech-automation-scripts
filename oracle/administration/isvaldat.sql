@@ -21,8 +21,7 @@ OBJETOS, VIEWS E PACOTES
   DUAL, TO_DATE; função ISVALIDDATE
 
 COMPATIBILIDADE CONHECIDA E LIMITAÇÕES
-  CREATE PROCEDURE. NULL é aceito por TO_DATE e retorna 0; sem FX pode haver conversão flexível. OTHERS não distingue erro de máscara de data inválida.
-  Não homologado em versões específicas; validar dicionário e plano em laboratório.
+  Não distingue formato inválido de data inválida; TO_DATE sem FX é flexível. Não impor formato exato ou rejeitar NULL sem mudar API esperada. Alvo documental das APIs novas: Oracle 19c. Sem compilação ou execução Oracle; grants, versão e resultado ainda exigem laboratório.
 
 EXEMPLO DE EXECUÇÃO
   Somente laboratório: @isvaldat.sql; testar chamadas com data válida, inválida e NULL.
@@ -41,11 +40,15 @@ RISCOS E IMPACTOS OPERACIONAIS
   Quando houver SPOOL, o arquivo local pode ser sobrescrito: proteger sua saída.
 
 CORREÇÕES REALIZADAS E PENDÊNCIAS
-  SELECT INTO variável DATE adicionado; OTHER corrigido para OTHERS; terminador / adicionado. Contrato 0/1 preservado. 
-  Revisão estática somente; implantação depende de laboratório e aprovação do PR.
-  Comentários e créditos históricos preservados abaixo.
+  Revisão complementar 037 (2026-11-03): Contrato 0=válido/1=erro preservado, inclusive NULL válido e captura genérica de exceção. Casos de homologação: NULL, string vazia, ano bissexto, mês inválido, máscara inválida, FX e NLS_DATE_LANGUAGE distintos. Comentários/créditos históricos preservados. Não aprovado para implantação.
 
 AVISO DE RESPONSABILIDADE
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de
+qualquer utilização em produção. Sua execução é de responsabilidade do
+profissional responsável pelo ambiente. Os mantenedores deste repositório não
+se responsabilizam por indisponibilidade, perda de dados, alterações indevidas
+ou outros impactos decorrentes de sua utilização.
+
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
 e realize testes em ambiente controlado, preferencialmente desenvolvimento ou
@@ -56,7 +59,6 @@ responsabilidade por danos, perdas de dados, indisponibilidade ou outros impacto
 decorrentes do uso, nos limites permitidos pela legislação aplicável.
 ===============================================================================
 */
-
 /*  */
 CREATE OR REPLACE FUNCTION IsValidDate (in_date varchar2, in_format varchar2)
 RETURN INTEGER IS

@@ -20,8 +20,7 @@ OBJETOS, VIEWS E PACOTES
   DBA_TABLES, DBA_CONSTRAINTS, DBA_CONS_COLUMNS, DBMS_OUTPUT; pacote SUBSETDATA
 
 COMPATIBILIDADE CONHECIDA E LIMITAÇÕES
-  Não é amostragem aleatória nem anonimização. CTAS perde índices/constraints/grants e expõe dados se saída executada. Ciclos/self-FK/caminhos múltiplos/nullable FKs podem omitir ou repetir tabelas e recursão não garante término. Strings256 limitam SQL e nomes não são validados.
-  Não homologado em versões específicas; validar dicionário e plano em laboratório.
+  Ainda não é amostragem aleatória/anonimização. Seleção de raízes pode omitir grafos sem raiz/ciclos e self-FKs; múltiplos pais, chaves NULL e preservação referencial exigem testes. CTAS gerado perde constraints/grants/índices e pode exceder32767 em schema amplo. Chamada exemplo MOVIES/BERT continua apenas gerando texto. Alvo documental das APIs novas: Oracle 19c. Sem compilação ou execução Oracle; grants, versão e resultado ainda exigem laboratório.
 
 EXEMPLO DE EXECUÇÃO
   Somente laboratório com dados fictícios e schemas MOVIES/BERT do exemplo revisados.
@@ -40,11 +39,15 @@ RISCOS E IMPACTOS OPERACIONAIS
   Quando houver SPOOL, o arquivo local pode ser sobrescrito: proteger sua saída.
 
 CORREÇÕES REALIZADAS E PENDÊNCIAS
-  Lista done reinicializada a cada XGO, evitando estado de chamada anterior; linhas ### de instrução convertidas em PROMPT. Recursão e geração completas preservadas. 
-  Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
-  Comentários e créditos históricos preservados abaixo.
+  Revisão complementar 037 (2026-11-03): Retorno antecipado para tabela já emitida evita repetição/recursão cíclica no caminho alcançado; flag reiniciada por filho; nomes emitidos citados por ENQUOTE_NAME, buffers até32767 e percentual validado. Percentual emitido como inteiro/100, sem decimal NLS. Casos de homologação: Diamante; ciclo alcançável; grafo sem raiz; self-FK; múltiplas FKs; chaves compostas/NULL; nomes quoted; 0/100/fora da faixa; decimal NLS; texto longo; reexecução XGO. Comentários/créditos históricos preservados. Não aprovado para implantação.
 
 AVISO DE RESPONSABILIDADE
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de
+qualquer utilização em produção. Sua execução é de responsabilidade do
+profissional responsável pelo ambiente. Os mantenedores deste repositório não
+se responsabilizam por indisponibilidade, perda de dados, alterações indevidas
+ou outros impactos decorrentes de sua utilização.
+
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
 e realize testes em ambiente controlado, preferencialmente desenvolvimento ou
@@ -55,7 +58,6 @@ responsabilidade por danos, perdas de dados, indisponibilidade ou outros impacto
 decorrentes do uso, nos limites permitidos pela legislação aplicável.
 ===============================================================================
 */
-
 set linesize 200
 
 set serveroutput on size 100000
@@ -78,7 +80,7 @@ create or replace package body subsetdata
 
 as
 
-  type tnames is table of varchar2(32);
+  type tnames is table of varchar2(128);
 
    done_arr tnames := tnames();
 
@@ -90,21 +92,21 @@ as
 
   is
 
-    s1    varchar2(256) := 'create table ' || xtarget || '.' || current_table || '
+    s1    varchar2(32767) := 'create table ' || DBMS_ASSERT.ENQUOTE_NAME(xtarget,FALSE) || '.' || DBMS_ASSERT.ENQUOTE_NAME(current_table,FALSE) || '
 
 as
 
-select * from ' || xsource || '.' ||current_table;
+select * from ' || DBMS_ASSERT.ENQUOTE_NAME(xsource,FALSE) || '.' || DBMS_ASSERT.ENQUOTE_NAME(current_table,FALSE);
 
-    s2    varchar2(256) := 'where rownum <= (select ceil(' || to_char(xpercent/100) || ' * count(*))
+    s2    varchar2(32767) := 'where rownum <= (select ceil(' || to_char(xpercent,'FM990')||'/100' || ' * count(*))
 
-from ' || xsource || '.' || current_table || ');';
+from ' || DBMS_ASSERT.ENQUOTE_NAME(xsource,FALSE) || '.' || DBMS_ASSERT.ENQUOTE_NAME(current_table,FALSE) || ');';
 
-    s3    varchar2(256) := 'create table ' || xtarget || '.' || current_table || ' as
+    s3    varchar2(32767) := 'create table ' || DBMS_ASSERT.ENQUOTE_NAME(xtarget,FALSE) || '.' || DBMS_ASSERT.ENQUOTE_NAME(current_table,FALSE) || ' as
 
-select T0.* from   ' || xsource || '.' || current_table || '  T0,';
+select T0.* from   ' || DBMS_ASSERT.ENQUOTE_NAME(xsource,FALSE) || '.' || DBMS_ASSERT.ENQUOTE_NAME(current_table,FALSE) || '  T0,';
 
-    s4    varchar2(256) := 'where';
+    s4    varchar2(32767) := 'where';
 
     cnt1 integer       := 0;
 
@@ -194,7 +196,7 @@ select T0.* from   ' || xsource || '.' || current_table || '  T0,';
 
           s3 := s3 || '
 
- ' || xtarget || '.' || c1.table_name || '  T' || to_char(i) || es3;
+ ' || DBMS_ASSERT.ENQUOTE_NAME(xtarget,FALSE) || '.' || DBMS_ASSERT.ENQUOTE_NAME(c1.table_name,FALSE) || '  T' || to_char(i) || es3;
 
           j := 0;
 
@@ -258,7 +260,7 @@ select T0.* from   ' || xsource || '.' || current_table || '  T0,';
 
             s4 := s4 || '
 
- ' || 'T0.' || c2.fk_col || ' = T' || to_char(i) || '.' || c2.pk_col || es4;
+ ' || 'T0.' || DBMS_ASSERT.ENQUOTE_NAME(c2.fk_col,FALSE) || ' = T' || to_char(i) || '.' || DBMS_ASSERT.ENQUOTE_NAME(c2.pk_col,FALSE) || es4;
 
           end loop;
 
@@ -291,7 +293,9 @@ procedure xprocess (xsource varchar2, xtarget varchar2, current_table varchar2, 
     cnt2 integer := 0;
 
    begin
-
+    for visited_idx in 1..done_cnt loop
+     if done_arr(visited_idx)=current_table then return; end if;
+    end loop;
     xsample (xsource, xtarget, current_table, xpercent);
 
     for c1 in (select fk.table_name
@@ -318,6 +322,7 @@ procedure xprocess (xsource varchar2, xtarget varchar2, current_table varchar2, 
 
               ) loop
 
+      flg:=1;
       select count(*)
 
       into cnt1
@@ -413,6 +418,7 @@ procedure xprocess (xsource varchar2, xtarget varchar2, current_table varchar2, 
   is
 
    begin
+    IF xpercent IS NULL OR xpercent<0 OR xpercent>100 OR xpercent<>TRUNC(xpercent) THEN RAISE_APPLICATION_ERROR(-20019,'Percentual inteiro deve estar entre 0 e 100.'); END IF;
     done_arr:=tnames(); done_cnt:=0;
 
     for c1 in (select table_name

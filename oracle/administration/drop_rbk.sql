@@ -21,8 +21,7 @@ OBJETOS, VIEWS E PACOTES
   Rollback segments literais RB6/RB7/RB8/RB9/RB16/RB17/RB18/RB19/RB20/RB21
 
 COMPATIBILIDADE CONHECIDA E LIMITAÇÕES
-  DROP ROLLBACK SEGMENT administrativo confirma DDL; segmentos em uso não devem ser removidos. Conceito de undo manual legado, não recomendação para AUM. Operações podem ter sucesso parcial.
-  Não homologado em versões específicas; validar dicionário e plano em laboratório.
+  DROP de RB6 etc. são nomes históricos e não alvos autorizados. Requer undo manual/offline e ausência de transações/dependências. DDL pode ter sucesso parcial e não é reversível por ROLLBACK. Alvo documental das APIs novas: Oracle 19c. Sem compilação ou execução Oracle; grants, versão e resultado ainda exigem laboratório.
 
 EXEMPLO DE EXECUÇÃO
   Revisão somente; não executar em ambiente com dados/transações reais.
@@ -41,11 +40,15 @@ RISCOS E IMPACTOS OPERACIONAIS
   Quando houver SPOOL, o arquivo local pode ser sobrescrito: proteger sua saída.
 
 CORREÇÕES REALIZADAS E PENDÊNCIAS
-  Todos os comandos e aviso educacional histórico preservados. 
-  Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
-  Comentários e créditos históricos preservados abaixo.
+  Revisão complementar 037 (2026-11-03): Comandos e aviso educacional histórico preservados; a afirmação de teste do autor não foi tratada como teste desta revisão. Casos de homologação: Ambiente manual descartável; nomes existentes/ausentes; segmento online/em uso; revisar cada alvo antes de executar qualquer comando. Comentários/créditos históricos preservados. Não aprovado para implantação.
 
 AVISO DE RESPONSABILIDADE
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de
+qualquer utilização em produção. Sua execução é de responsabilidade do
+profissional responsável pelo ambiente. Os mantenedores deste repositório não
+se responsabilizam por indisponibilidade, perda de dados, alterações indevidas
+ou outros impactos decorrentes de sua utilização.
+
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
 e realize testes em ambiente controlado, preferencialmente desenvolvimento ou
@@ -56,7 +59,6 @@ responsabilidade por danos, perdas de dados, indisponibilidade ou outros impacto
 decorrentes do uso, nos limites permitidos pela legislação aplicável.
 ===============================================================================
 */
-
 /*  */
 REM PURPOSE:
 REM    Syntax for dropping rollback segments. Insert correct name for each segment.
