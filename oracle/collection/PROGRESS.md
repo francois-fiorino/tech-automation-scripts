@@ -76,6 +76,36 @@ Dois novos mapeamentos de duplicação confirmados: `seg_top_logreads.sql` é c�
 
 Lote 003 verificado: [70f71f8](https://github.com/francois-fiorino/tech-automation-scripts/commit/70f71f803a4d7fb45f3fb9329f6caf59d906f9a4). Vinte SQL e dois controles conferidos por hash; scripts anteriores idênticos.
 
-Após confirmação do lote 004: **88 SQL únicos publicados** (8 anteriores + 80 novos), **80 novos com análise técnica individual e cabeçalhos completos**, **66 novos com alterações de SQL/cliente**. Permanecem 553 fontes aguardando análise, 2 para branch/PR administrativa, 45 para análise de licença e 1 com credencial. Há ainda 3 origens duplicadas mapeadas, 1 referência sem implementação e 4 auxiliares pendentes.
+Lote 004 confirmado por hash: **88 SQL únicos publicados** (8 anteriores + 80 novos), **80 novos com análise técnica individual e cabeçalhos completos**, **66 novos com alterações de SQL/cliente**. Permanecem 553 fontes aguardando análise, 2 para branch/PR administrativa, 45 para análise de licença e 1 com credencial. Há ainda 3 origens duplicadas mapeadas, 1 referência sem implementação e 4 auxiliares pendentes.
 
 Esses números não significam homologação de execução Oracle. O projeto permanece em andamento e o inventário é o ponto de retomada obrigatório.
+
+## Checkpoint verificado — projeto não concluído
+
+- **80 novos scripts publicados e conferidos na main**, em quatro lotes de 20.
+- **88 scripts únicos da coleção na main**, incluindo oito anteriores.
+- **82 novos arquivos com documentação técnica individual**, sendo 80 na main e 2 apenas em branch de revisão.
+- **66 novos arquivos na main com correções de SQL/comandos de cliente**; os dois da branch também tiveram correções, sem execução administrativa.
+- **553 fontes aguardam análise individual**; **45** estão retidas para análise de licença; **1** contém credencial literal e segue retida.
+- **2 propostas de alto risco no [PR #2](https://github.com/francois-fiorino/tech-automation-scripts/pull/2)**, em rascunho; não contam como publicadas na main.
+- **3 duplicatas de origem mapeadas** a códigos canônicos, sem contar como novas publicações.
+- **1 referência externa sem implementação**; **4 auxiliares** pendentes.
+
+Categorias publicadas na main: administration, backup-recovery, memory, monitoring, objects, performance, performance/awr, performance/ash, rac, security, storage e troubleshooting.
+
+### Commits e verificações
+
+| Lote | SQL novos | Commit |
+|---|---:|---|
+| 001 | 20 | [0ed29a8](https://github.com/francois-fiorino/tech-automation-scripts/commit/0ed29a8bc18010de88a4cb8ff69cb32ecf54af0d) |
+| 002 | 20 | [aeae553](https://github.com/francois-fiorino/tech-automation-scripts/commit/aeae553fff3f92a6afa9be31b17f3812bc680794) |
+| 003 | 20 | [70f71f8](https://github.com/francois-fiorino/tech-automation-scripts/commit/70f71f803a4d7fb45f3fb9329f6caf59d906f9a4) |
+| 004 | 20 | [2d482e6](https://github.com/francois-fiorino/tech-automation-scripts/commit/2d482e66afe80c85ef4191bbb6263ddaff0cc08e) |
+
+Os hashes dos 80 SQL novos foram comparados ao conteúdo UTF-8 publicado. Os 15 blobs que existiam no início continuam idênticos. Os dois arquivos do PR também foram conferidos por hash. `sh -n` aprovou somente a sintaxe do shell legado; nenhum comando dele foi executado. Não houve compilação ou execução em banco Oracle.
+
+### Retomada
+
+Usar o ZIP original de 697 arquivos e os SHA-256 do [inventário](inventory.csv). Ler o estado atual da main antes de escrever. Prosseguir pelas linhas com publicação `pendente`, em lotes de 20; não refazer os 80 novos nem os oito anteriores. Reavaliar duplicatas pelo corpo integral e preservar créditos. Arquivos retidos por licença/credencial e os dois do PR não devem ser promovidos automaticamente. O próximo lote será o 005.
+
+Não existe processamento ativo em segundo plano. Este é um checkpoint parcial; não é relatório de conclusão da coleção.
