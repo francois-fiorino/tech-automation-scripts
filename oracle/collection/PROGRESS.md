@@ -9,7 +9,7 @@ Data: 2026-11-03. Projeto **em andamento**, sem homologação em banco Oracle.
 - Oito SQL da coleção já estavam publicados: sete em `oracle/performance/` e `oracle/rac/grid/block_pin.sql`.
 - Todos os arquivos existentes foram preservados. Os oito corpos foram comparados com o ZIP; diferenças constam no inventário.
 
-## Lote 001
+## Lote 001 — publicado e verificado
 
 20 SQL com análise individual, cabeçalhos em português e código completo.
 18 arquivos receberam alterações de código ou comandos do cliente; duas consultas mantidas integralmente.
@@ -26,7 +26,7 @@ Foram preservados e sinalizados: soma inadequada de tempos ASH; estatísticas RA
 
 45 SQL contêm aviso explícito de uso não comercial e instrução de licenciamento. Não foram republicados. A detecção é uma triagem textual, não substitui análise jurídica nem garante ausência de outras restrições nos pendentes.
 
-Após verificação do lote 001: 28 SQL publicados (8 anteriores + 20 novos), 620 SQL pendentes de revisão e 45 bloqueados para análise de licença. Quatro arquivos auxiliares continuam pendentes. Não contar fichas ou arquivos preparados como publicados.
+Após verificação do lote 002: 48 SQL publicados (8 anteriores + 40 novos), 599 SQL pendentes de revisão, 45 bloqueados para análise de licença e 1 retido para revisão de segurança. Quatro arquivos auxiliares continuam pendentes. Não contar fichas ou arquivos preparados como publicados.
 
 Continuar com lotes de 20, sempre lendo individualmente e verificando o estado atual da main. Não há processamento em segundo plano associado a este relatório.
 
@@ -40,3 +40,18 @@ Continuar com lotes de 20, sempre lendo individualmente e verificando o estado a
 Validação realizada: leitura de cada original, inspeção dos diffs, conferência de comentários/créditos e restrições, 12 seções de documentação, UTF-8, ausência de dependências title80/title132 e comandos de alteração no lote; revisão de sintaxe estática. SQL*Plus e servidor Oracle não disponíveis para compilação/execução. Nada foi executado em produção.
 
 O inventário inclui o hash SHA-256 do arquivo original para permitir retomada sem confundir versões. Não alterar os arquivos anteriores sem nova comparação.
+
+Commit do lote: [0ed29a8](https://github.com/francois-fiorino/tech-automation-scripts/commit/0ed29a8bc18010de88a4cb8ff69cb32ecf54af0d). Os 20 códigos e os dois arquivos de controle conferem com os hashes Git dos conteúdos UTF-8 publicados. Todos os 15 blobs preexistentes permaneceram idênticos.
+
+## Lote 002
+
+20 consultas administrativas, de objetos, PGA, LogMiner, segurança, métricas e RAC.
+18 arquivos receberam correções de SQL ou comandos de apresentação; 2 corpos mantidos.
+Novas categorias: `objects`, `memory`, `security`, `storage`, `backup-recovery`.
+Correções: MINUS de packages agora considera OWNER; foreign keys incluem schema/tabela nas junções; denominador de latch usava DECODE incompleto; divisões por zero, aspas tipográficas, terminadores e datas/ordenação foram revisados.
+Métricas históricas questionáveis foram preservadas com ressalvas específicas.
+`_dba_admin_scripts/link.sql` foi retido por conter credencial literal e DDL público; nenhum segredo desse arquivo foi incluído nesta publicação.
+
+Referências adicionais: [V$LOGMNR_LOGS](https://docs.oracle.com/en/database/oracle/oracle-database/12.2/refrn/V-LOGMNR_LOGS.html) e [V$PGA_TARGET_ADVICE](https://docs.oracle.com/en/database/oracle/oracle-database/21/refrn/V-PGA_TARGET_ADVICE.html).
+
+Total novo nesta execução até o lote 002: 40 scripts com análise individual e cabeçalhos completos; 36 com alterações de código/cliente. Os 8 anteriores foram preservados e não homologados novamente. A conferência de hashes não valida semântica em execução Oracle.
