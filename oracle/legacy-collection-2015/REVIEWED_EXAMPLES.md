@@ -1,6 +1,6 @@
 # Exemplos de revisão técnica — coleção legada de scripts Oracle
 
-**Método:** inspeção estática de arquivos selecionados do ZIP fornecido. Não houve execução, teste em banco, nem validação de compatibilidade. As descrições abaixo são explicações originais; **o código de terceiros não é reproduzido**.
+**Método:** inspeção estática de arquivos selecionados do ZIP fornecido. Não houve execução, teste em banco, nem validação de compatibilidade. As descrições abaixo registram os achados técnicos de sete scripts selecionados.
 
 ## 1. `_awr_scripts/awr_access_counts.sql`
 
