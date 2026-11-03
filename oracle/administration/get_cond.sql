@@ -9,7 +9,7 @@ OBJETIVO E FINALIDADE
   Criar função que retorna condição de constraint por nome/proprietário.
 
 FUNCIONAMENTO DETALHADO
-  SELECT SEARCH_CONDITION em ALL_CONSTRAINTS para variáveis upper-case e retorna VARCHAR2.
+  SELECT SEARCH_CONDITION em USER_CONSTRAINTS para variáveis upper-case e retorna VARCHAR2.
 
 PRÉ-REQUISITOS E PRIVILÉGIOS
   SQL*Plus ou SQLcl; conexão ao banco/container que se deseja diagnosticar.
@@ -18,7 +18,7 @@ PRÉ-REQUISITOS E PRIVILÉGIOS
   Não requer AWR/ASH nesta implementação.
 
 OBJETOS, VIEWS E PACOTES
-  ALL_CONSTRAINTS; função GET_COND
+  USER_CONSTRAINTS; função GET_COND
 
 COMPATIBILIDADE CONHECIDA E LIMITAÇÕES
   Exige CREATE PROCEDURE e privilégios diretos; SEARCH_CONDITION LONG e buffer de 2000 limitam tamanho. Pode gerar NO_DATA_FOUND/TOO_MANY_ROWS e erro para condições longas; identificadores quoted ficam limitados por UPPER.
@@ -41,7 +41,7 @@ RISCOS E IMPACTOS OPERACIONAIS
   Quando houver SPOOL, o arquivo local pode ser sobrescrito: proteger sua saída.
 
 CORREÇÕES REALIZADAS E PENDÊNCIAS
-  USER_CONSTRAINTS sem coluna OWNER substituída por ALL_CONSTRAINTS, mantendo visibilidade da sessão e argumento de proprietário. 
+  Consulta original USER_CONSTRAINTS restaurada após conferir Oracle Database Reference: a view contém OWNER. A mudança anterior para ALL_CONSTRAINTS era desnecessária e alterava o escopo. 
   Revisão estática somente; implantação depende de testes e aprovação do PR.
   Comentários e créditos históricos preservados abaixo.
 
@@ -62,7 +62,7 @@ create or replace function get_cond(con_name varchar2, owner_name varchar2)
 return varchar2 as
 ser_cond varchar2(2000);
 begin
-select search_condition into ser_cond from all_constraints
+select search_condition into ser_cond from user_constraints
 where constraint_name=upper(con_name) and owner=upper(owner_name);
 return ser_cond;
 end;
