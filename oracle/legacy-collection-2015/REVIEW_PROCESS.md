@@ -16,7 +16,7 @@
 | Licenciamento | Verificar Diagnostics Pack/Tuning Pack quando aplicável |
 | Segurança | Literais sensíveis, credenciais, concatenação e privilégios excessivos |
 | Testes | Ambiente, evidências, resultado esperado e limitações |
-| Proveniência | Créditos originais e permissão de redistribuição |
+| Histórico | Comentários e créditos existentes no arquivo |
 | Status | Não revisado / Revisado estaticamente / Testado / Aprovado |
 
 ## 2. Classificação de risco sugerida
@@ -29,22 +29,21 @@ O risco deve ser **derivado do conteúdo integral e do contexto de execução**,
 
 ## 3. Etapas de validação
 
-1. Preservar hash, autoria e conteúdo original fora do repositório público.
+1. Preservar uma cópia de referência do conteúdo original antes de modificações.
 2. Identificar comandos SQL e SQL*Plus; expandir dependências de `START`/`@@`.
 3. Revisar parâmetros, efeitos colaterais e acesso a tabelas internas.
-4. Escrever descrição e exemplo **sem reproduzir código de terceiros sem permissão**.
+4. Escrever descrição, parâmetros, exemplos de execução e interpretação da saída.
 5. Testar a eventual versão própria em laboratório, com privilégio mínimo e rollback/plano de recuperação quando necessário.
 6. Registrar planos de execução e custo para consultas relevantes.
-7. Obter autorização antes de republicar qualquer código original.
-8. Publicar somente material autorizado e revisado, mediante revisão de pull request.
+7. Adicionar avisos de risco e responsabilidade nos READMEs de categoria.
+8. Publicar lotes revisados mediante revisão de pull request.
 
 ## 4. Modelo de ficha por script
 
 ```markdown
 # Identificador do script
 
-- Origem/autoria:
-- Permissão de redistribuição:
+- Histórico/créditos existentes:
 - Objetivo real:
 - Tipo e risco:
 - Entradas/parâmetros:
@@ -56,5 +55,13 @@ O risco deve ser **derivado do conteúdo integral e do contexto de execução**,
 - Resultados esperados e limitações:
 - Status de revisão:
 ```
+
+## Aviso de utilização e responsabilidade
+
+Os scripts deste acervo destinam-se a fins técnicos, educacionais e administrativos. **Antes de executar qualquer script, leia integralmente o código e teste-o em ambiente controlado de desenvolvimento ou homologação**, com permissões mínimas, plano de recuperação e validação dos impactos.
+
+O conteúdo é disponibilizado **no estado em que se encontra (AS IS)**, sem garantias de funcionamento, compatibilidade, desempenho ou adequação a um ambiente específico. **A execução é por conta e risco de quem utiliza.** O usuário é responsável por validar efeitos sobre dados, objetos, segurança, performance e disponibilidade. Os mantenedores não assumem responsabilidade por danos, perdas ou interrupções decorrentes do uso, nos limites permitidos pela legislação aplicável.
+
+**Nenhum script foi homologado em banco Oracle nesta revisão estática.**
 
 **Advertência:** a documentação não equivale a homologação. Nenhum script da coleção foi executado nesta etapa.
