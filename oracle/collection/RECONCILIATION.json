@@ -1,0 +1,4264 @@
+{
+  "main_code_snapshot": "b9ce813cf109fd739be5160a2cc5559b17267802",
+  "review_head": "d0723c789677d70c78bf3eb1e01139a2fc6e55c7",
+  "source_sha256_verified": 697,
+  "main_total": 432,
+  "review_total": 175,
+  "redistribution_blocked": 49,
+  "main_publication_pending": 224,
+  "overlap_count": 0,
+  "original_sensitive_source_published": false,
+  "oracle_runtime_tests": false,
+  "previous_review_files_unchanged": 174,
+  "files": [
+    {
+      "origin": "_ash_scripts/ash_enqueues.sql",
+      "path": "oracle/performance/awr/ash_enqueues.sql",
+      "branch": "main",
+      "blob_sha": "d03c261e75920adf06e9f18501f61506989de751",
+      "content_commit": "25e45a746d7c3bd0b84d3da2ad4a9ebf98de8176"
+    },
+    {
+      "origin": "_ash_scripts/ash_event_count.sql",
+      "path": "oracle/performance/ash/ash_event_count.sql",
+      "branch": "main",
+      "blob_sha": "f587a5061c9f34f6dcfee22d9a4a38caddcde2e5",
+      "content_commit": "25e45a746d7c3bd0b84d3da2ad4a9ebf98de8176"
+    },
+    {
+      "origin": "_ash_scripts/ash_event_hist.sql",
+      "path": "oracle/troubleshooting/ash_event_hist.sql",
+      "branch": "main",
+      "blob_sha": "62d766bbe9807a43ddf6fb3c2b996ff682e03999",
+      "content_commit": "25e45a746d7c3bd0b84d3da2ad4a9ebf98de8176"
+    },
+    {
+      "origin": "_ash_scripts/ash_event_rollup.sql",
+      "path": "oracle/performance/ash/ash_event_rollup.sql",
+      "branch": "main",
+      "blob_sha": "3dd26d3ad31f918b57755f651090e607b94e2ff0",
+      "content_commit": "25e45a746d7c3bd0b84d3da2ad4a9ebf98de8176"
+    },
+    {
+      "origin": "_ash_scripts/ash_file_wait_time_dy.sql",
+      "path": "oracle/performance/ash/ash_file_wait_time_dy.sql",
+      "branch": "main",
+      "blob_sha": "771030c32eb085ebf5e55523b5fd142ac31af129",
+      "content_commit": "25e45a746d7c3bd0b84d3da2ad4a9ebf98de8176"
+    },
+    {
+      "origin": "_ash_scripts/obj_wait_ash.sql",
+      "path": "oracle/performance/ash/obj_wait_ash.sql",
+      "branch": "main",
+      "blob_sha": "8fbf12b48fdd8e3cbf85c1677fdf839d4362a1bf",
+      "content_commit": "25e45a746d7c3bd0b84d3da2ad4a9ebf98de8176"
+    },
+    {
+      "origin": "_ash_scripts/sys_time_model_int_10g.sql",
+      "path": "oracle/performance/awr/sys_time_model_int_10g.sql",
+      "branch": "main",
+      "blob_sha": "a121da296ce544159f056ce71c2dd71bcfca462b",
+      "content_commit": "25e45a746d7c3bd0b84d3da2ad4a9ebf98de8176"
+    },
+    {
+      "origin": "_awr_scripts/awr_access_counts.sql",
+      "path": "oracle/performance/awr_access_counts.sql",
+      "branch": "main",
+      "blob_sha": "68d7a1f7ade4af479c82e5ade14e3b2dd4125976",
+      "content_commit": "40b17222142a7371b111e03172e483ae0cf772cd"
+    },
+    {
+      "origin": "_awr_scripts/awr_cartesian_sum.sql",
+      "path": "oracle/performance/awr_cartesian_sum.sql",
+      "branch": "main",
+      "blob_sha": "6537e5a93f9582ce7e6354dbeae81d532d1e0df4",
+      "content_commit": "a0e25c91a0e4d3b56eecb13f10126e96a6db6501"
+    },
+    {
+      "origin": "_awr_scripts/awr_get_keep_pool.sql",
+      "path": "oracle/performance/awr_get_keep_pool.sql",
+      "branch": "main",
+      "blob_sha": "dcf5372948e354c628e2b58ff5d40f63c4112484",
+      "content_commit": "f33fc7af4109ec22276fdf5587704d819c9c8d9e"
+    },
+    {
+      "origin": "_awr_scripts/awr_high_resource_sql.sql",
+      "path": "oracle/performance/awr_high_resource_sql.sql",
+      "branch": "main",
+      "blob_sha": "e9f563ac33a7ce89c5becb221f533dfee2c918d1",
+      "content_commit": "e2fb5503c86567086f30b4a3340e90a8c612fd5c"
+    },
+    {
+      "origin": "_awr_scripts/awr_high_scan_sql.sql",
+      "path": "oracle/performance/awr_high_scan_sql.sql",
+      "branch": "main",
+      "blob_sha": "c4aefbc1837a09acea61d34698650a45d11083d3",
+      "content_commit": "b8f71c4f66f6a69cced3d9fa657bba132b54536e"
+    },
+    {
+      "origin": "_awr_scripts/awr_sql_access_hr.sql",
+      "path": "oracle/performance/awr_sql_access_hr.sql",
+      "branch": "main",
+      "blob_sha": "10e853e6e90052779e5c428d9a8ae3e0bb472b20",
+      "content_commit": "7c693f813a204a9f8841afc8777ad35fc3d466dc"
+    },
+    {
+      "origin": "_awr_scripts/awr_sqlstat_deltas_detail.sql",
+      "path": "oracle/administration/windows/batch_substitute.bat",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "a1b68ca90a033f7c93a2421eacf7c6b68333a2c2",
+      "content_commit": "436f99ad1cd56b8bb7ff9465aa68e53fd624b8ef"
+    },
+    {
+      "origin": "_awr_scripts/awr_wait_events.sql",
+      "path": "oracle/performance/awr_wait_events.sql",
+      "branch": "main",
+      "blob_sha": "0e75c3d9ea03f70070addfdcf68ef307ba4fe2da",
+      "content_commit": "e1b58651b74bf34b3a208fcbb50b82b813fda5d8"
+    },
+    {
+      "origin": "_background_events_scripts/bg_event_int.sql",
+      "path": "oracle/performance/awr/bg_event_int.sql",
+      "branch": "main",
+      "blob_sha": "791298fcf1e8fc1f307b5e00e5a43905f66acc7e",
+      "content_commit": "25e45a746d7c3bd0b84d3da2ad4a9ebf98de8176"
+    },
+    {
+      "origin": "_dba_admin_scripts/BLOCKERS.SQL",
+      "path": "oracle/troubleshooting/blockers.sql",
+      "branch": "main",
+      "blob_sha": "30d307a604429520b66fb504a780e72d8b8d487f",
+      "content_commit": "2cc417902145f25db58dce04e07863bd295898ec"
+    },
+    {
+      "origin": "_dba_admin_scripts/HANGING.SQL",
+      "path": "oracle/troubleshooting/hanging.sql",
+      "branch": "main",
+      "blob_sha": "860a2c6709a2e10f284032a9359e552ce1c24375",
+      "content_commit": "aeae553fff3f92a6afa9be31b17f3812bc680794"
+    },
+    {
+      "origin": "_dba_admin_scripts/INV_OBJ.SQL",
+      "path": "oracle/objects/inv_obj.sql",
+      "branch": "main",
+      "blob_sha": "660bf975ca8c0b967b808891499b4ef3517ed156",
+      "content_commit": "aeae553fff3f92a6afa9be31b17f3812bc680794"
+    },
+    {
+      "origin": "_dba_admin_scripts/ISVALDAT.SQL",
+      "path": "oracle/administration/isvaldat.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "f27d0b8130a01182d0b21fc2049c51aa9fd75dbf",
+      "content_commit": "3ef049760afbda16da2e8ec4a59603017c8ae0c1"
+    },
+    {
+      "origin": "_dba_admin_scripts/LINK_RCT.SQL",
+      "path": "oracle/security/link_rct.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "c3973585fbc58e25df15d298bbb216b0af560ab6",
+      "content_commit": "fb9e2a2f98d1145b36ff3cc4af498345bf67cee0"
+    },
+    {
+      "origin": "_dba_admin_scripts/LOCKS.SQL",
+      "path": "oracle/troubleshooting/locks.sql",
+      "branch": "main",
+      "blob_sha": "e892687e844ea50ddbad51c68ee0666c9908a7c8",
+      "content_commit": "9ca8c838ea59b2df2a6abdde3c1358e763d27456"
+    },
+    {
+      "origin": "_dba_admin_scripts/LOG_STAT.SQL",
+      "path": "oracle/administration/log_stat.sql",
+      "branch": "main",
+      "blob_sha": "bd23701d1b4e4cd2d822dd818e86184c725536b2",
+      "content_commit": "9ca8c838ea59b2df2a6abdde3c1358e763d27456"
+    },
+    {
+      "origin": "_dba_admin_scripts/Log_file.sql",
+      "path": "oracle/storage/log_file.sql",
+      "branch": "main",
+      "blob_sha": "41918afe5de9e6d41ad890a1141c7f5fadde2789",
+      "content_commit": "aeae553fff3f92a6afa9be31b17f3812bc680794"
+    },
+    {
+      "origin": "_dba_admin_scripts/Log_hist.sql",
+      "path": "oracle/administration/log_hist.sql",
+      "branch": "main",
+      "blob_sha": "c7c9fdbbd933b66328cef6f96a44429ef9337ee2",
+      "content_commit": "9ca8c838ea59b2df2a6abdde3c1358e763d27456"
+    },
+    {
+      "origin": "_dba_admin_scripts/ORA_KILL.SQL",
+      "path": "oracle/administration/ora_kill.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "1cd18758651cb303737503f11ed66c732347421a",
+      "content_commit": "bfe9b7c1c856c8434a3d56ce74f2a7c3383d302b"
+    },
+    {
+      "origin": "_dba_admin_scripts/PROFILE.SQL",
+      "path": "oracle/security/profile.sql",
+      "branch": "main",
+      "blob_sha": "cd54da2e8ca9f1b4b30ca7436f617399c42e434e",
+      "content_commit": "aeae553fff3f92a6afa9be31b17f3812bc680794"
+    },
+    {
+      "origin": "_dba_admin_scripts/QUOTA.SQL",
+      "path": "oracle/security/quota.sql",
+      "branch": "main",
+      "blob_sha": "476d5633568e755d63b7910c2ff32c53c2f735a7",
+      "content_commit": "2cc417902145f25db58dce04e07863bd295898ec"
+    },
+    {
+      "origin": "_dba_admin_scripts/RBK_RCT.SQL",
+      "path": "oracle/administration/rbk_rct.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "93be065c38a3b50e9b034168b6117fbac02b4ef7",
+      "content_commit": "fb9e2a2f98d1145b36ff3cc4af498345bf67cee0"
+    },
+    {
+      "origin": "_dba_admin_scripts/ROLLBACK.SQL",
+      "path": "oracle/administration/rollback.sql",
+      "branch": "main",
+      "blob_sha": "b183d84d5f27f4b1c0e25b78d25eac121a845455",
+      "content_commit": "2cc417902145f25db58dce04e07863bd295898ec"
+    },
+    {
+      "origin": "_dba_admin_scripts/RUN_FPRC.SQL",
+      "path": "oracle/administration/run_fprc.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "f40834823c09e3f710aef5423468cacf3314196a",
+      "content_commit": "bfe9b7c1c856c8434a3d56ce74f2a7c3383d302b"
+    },
+    {
+      "origin": "_dba_admin_scripts/blockers2.sql",
+      "path": "oracle/troubleshooting/blockers2.sql",
+      "branch": "main",
+      "blob_sha": "42d076e176473b9fa051f3cade9480d338654b31",
+      "content_commit": "9ca8c838ea59b2df2a6abdde3c1358e763d27456"
+    },
+    {
+      "origin": "_dba_admin_scripts/check_schema.sql",
+      "path": "oracle/administration/check_schema.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "6ab6e23c53779d8d6f950dfe6d5d4773e76107f4",
+      "content_commit": "bfe9b7c1c856c8434a3d56ce74f2a7c3383d302b"
+    },
+    {
+      "origin": "_dba_admin_scripts/cr_role.sql",
+      "path": "oracle/security/cr_role.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "18962832a518ba1e37e2ee71d4c4d3651064f727",
+      "content_commit": "bfe9b7c1c856c8434a3d56ce74f2a7c3383d302b"
+    },
+    {
+      "origin": "_dba_admin_scripts/cre_dba_running_stats.sql",
+      "path": "oracle/administration/cre_dba_running_stats.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "bd3d632aecc06074f8003a6f67843cde7c4244f2",
+      "content_commit": "3ef049760afbda16da2e8ec4a59603017c8ae0c1"
+    },
+    {
+      "origin": "_dba_admin_scripts/cre_tem_size.sql",
+      "path": "oracle/administration/cre_tem_size.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "8d6a96a435f27f04bd4dc8e4ff3b23dde5b7a4ac",
+      "content_commit": "3ef049760afbda16da2e8ec4a59603017c8ae0c1"
+    },
+    {
+      "origin": "_dba_admin_scripts/cre_user.sql",
+      "path": "oracle/administration/cre_user.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "f45b41c73982488a9fd702d1f6cbd52ab5472660",
+      "content_commit": "3ef049760afbda16da2e8ec4a59603017c8ae0c1"
+    },
+    {
+      "origin": "_dba_admin_scripts/create_block_views.sql",
+      "path": "oracle/administration/create_block_views.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "46bc5a4bc80f4e75ae8810cab8349c4b4ccbfc7d",
+      "content_commit": "bfe9b7c1c856c8434a3d56ce74f2a7c3383d302b"
+    },
+    {
+      "origin": "_dba_admin_scripts/create_cluster.sql",
+      "path": "oracle/objects/create_cluster.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "5fc0d3814567c0f81ee7a03c55153c51a7c2abfc",
+      "content_commit": "bfe9b7c1c856c8434a3d56ce74f2a7c3383d302b"
+    },
+    {
+      "origin": "_dba_admin_scripts/db_cache_ad.sql",
+      "path": "oracle/memory/db_cache_ad.sql",
+      "branch": "main",
+      "blob_sha": "7b5b9026b7e7a50d9117c26e5976362fa2144592",
+      "content_commit": "9ca8c838ea59b2df2a6abdde3c1358e763d27456"
+    },
+    {
+      "origin": "_dba_admin_scripts/db_df.sql",
+      "path": "oracle/administration/db_df.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "7db9500797122829ea82cde983ba7296204344fa",
+      "content_commit": "3ef049760afbda16da2e8ec4a59603017c8ae0c1"
+    },
+    {
+      "origin": "_dba_admin_scripts/db_policies.sql",
+      "path": "oracle/security/db_policies.sql",
+      "branch": "main",
+      "blob_sha": "1b6debfa0229f84cec22eacea7b3b064278d519e",
+      "content_commit": "2cc417902145f25db58dce04e07863bd295898ec"
+    },
+    {
+      "origin": "_dba_admin_scripts/display_users.sql",
+      "path": "oracle/security/display_users.sql",
+      "branch": "main",
+      "blob_sha": "e3c2b488cd54563107d9becb7d5fefe4dad2fc3a",
+      "content_commit": "9ca8c838ea59b2df2a6abdde3c1358e763d27456"
+    },
+    {
+      "origin": "_dba_admin_scripts/drop_rbk.sql",
+      "path": "oracle/administration/drop_rbk.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "e7ea228eb02109ccc84e7b88db7e4dc583fa1b4c",
+      "content_commit": "bfe9b7c1c856c8434a3d56ce74f2a7c3383d302b"
+    },
+    {
+      "origin": "_dba_admin_scripts/extract_data_subset.sql",
+      "path": "oracle/objects/extract_data_subset.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "9f71f82606ee51bce0906c27b07ff6e5d4b21e88",
+      "content_commit": "3f4224241719feab32cfd0d8c2f5c6ecbc559679"
+    },
+    {
+      "origin": "_dba_admin_scripts/fk_indexes.sql",
+      "path": "oracle/objects/fk_indexes.sql",
+      "branch": "main",
+      "blob_sha": "e3a472fa71a27c2b6ef962225207f17c20fa0fab",
+      "content_commit": "aeae553fff3f92a6afa9be31b17f3812bc680794"
+    },
+    {
+      "origin": "_dba_admin_scripts/flush_it.sql",
+      "path": "oracle/administration/flush_it.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "19d7b19be7c4f3360ef28c6b8b08fc4772256905",
+      "content_commit": "bfe9b7c1c856c8434a3d56ce74f2a7c3383d302b"
+    },
+    {
+      "origin": "_dba_admin_scripts/flush_it7.SQL",
+      "path": "oracle/administration/flush_it7.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "d58b94a5bfeaaf65c6637e5c670e6cc373706a1e",
+      "content_commit": "bfe9b7c1c856c8434a3d56ce74f2a7c3383d302b"
+    },
+    {
+      "origin": "_dba_admin_scripts/flush_it8.SQL",
+      "path": "oracle/administration/flush_it8.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "b56f1d6b3106f509fda61ef09b063b821dae110a",
+      "content_commit": "bfe9b7c1c856c8434a3d56ce74f2a7c3383d302b"
+    },
+    {
+      "origin": "_dba_admin_scripts/flush_it_new.sql",
+      "path": "oracle/administration/flush_it_new.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "fd36a24d0b34cd30ec58bf5f697c4a89f31d5075",
+      "content_commit": "b59898337fd6d279755d4239e1228fca6bbe3b96"
+    },
+    {
+      "origin": "_dba_admin_scripts/flush_rep.sql",
+      "path": "oracle/monitoring/flush_rep.sql",
+      "branch": "main",
+      "blob_sha": "c6cf2b73074820d9eadbcabbd399360beea50c0c",
+      "content_commit": "2cc417902145f25db58dce04e07863bd295898ec"
+    },
+    {
+      "origin": "_dba_admin_scripts/get_hitratio.sql",
+      "path": "oracle/rac/get_hitratio.sql",
+      "branch": "main",
+      "blob_sha": "6937b50c691af848658291af66a91cf8a4ebafd1",
+      "content_commit": "aeae553fff3f92a6afa9be31b17f3812bc680794"
+    },
+    {
+      "origin": "_dba_admin_scripts/get_log_info.sql",
+      "path": "oracle/backup-recovery/get_log_info.sql",
+      "branch": "main",
+      "blob_sha": "499a2a84e55f2a56d543c17ebca1cdd8639e746a",
+      "content_commit": "aeae553fff3f92a6afa9be31b17f3812bc680794"
+    },
+    {
+      "origin": "_dba_admin_scripts/get_logfiles.sql",
+      "path": "oracle/backup-recovery/get_logfiles.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "875a87df08dc885e283fdf9f3757146f9242ec6d",
+      "content_commit": "b59898337fd6d279755d4239e1228fca6bbe3b96"
+    },
+    {
+      "origin": "_dba_admin_scripts/gtt_rep.sql",
+      "path": "oracle/objects/gtt_rep.sql",
+      "branch": "main",
+      "blob_sha": "6a18cec6230cd95081af35f08b56f4c0cf7a7c4a",
+      "content_commit": "aeae553fff3f92a6afa9be31b17f3812bc680794"
+    },
+    {
+      "origin": "_dba_admin_scripts/hr_by_user.sql",
+      "path": "oracle/monitoring/hr_by_user.sql",
+      "branch": "main",
+      "blob_sha": "b3446b416c0e6096b783f84757b1df5fd36d5ded",
+      "content_commit": "9ca8c838ea59b2df2a6abdde3c1358e763d27456"
+    },
+    {
+      "origin": "_dba_admin_scripts/hratio.sql",
+      "path": "oracle/administration/hratio.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "4d46b290ce95a3b6b148c9485ba9449ff5df41d8",
+      "content_commit": "04b93a49bef837fde158953d5627ce8b50cfedc1"
+    },
+    {
+      "origin": "_dba_admin_scripts/keep_pool_obj.sql",
+      "path": "oracle/memory/keep_pool_obj.sql",
+      "branch": "main",
+      "blob_sha": "41aedaa000e0c6aaf86c27e3a5e46fb63ed1bef2",
+      "content_commit": "aeae553fff3f92a6afa9be31b17f3812bc680794"
+    },
+    {
+      "origin": "_dba_admin_scripts/keep_them.sql",
+      "path": "oracle/memory/keep_them.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "6d9b0dbddbf309a897f9894fd8e25ac337937db9",
+      "content_commit": "b59898337fd6d279755d4239e1228fca6bbe3b96"
+    },
+    {
+      "origin": "_dba_admin_scripts/kill_session.SQL",
+      "path": "oracle/administration/kill_session.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "ac4616ddced9ae7a64df437ed91ff8d3fe713cd8",
+      "content_commit": "bfe9b7c1c856c8434a3d56ce74f2a7c3383d302b"
+    },
+    {
+      "origin": "_dba_admin_scripts/last_refresh.sql",
+      "path": "oracle/administration/last_refresh.sql",
+      "branch": "main",
+      "blob_sha": "f6240070da1ccbe1c5ee45c9104ea5e4a738eefd",
+      "content_commit": "aeae553fff3f92a6afa9be31b17f3812bc680794"
+    },
+    {
+      "origin": "_dba_admin_scripts/latch_contention.SQL",
+      "path": "oracle/performance/latch_contention.sql",
+      "branch": "main",
+      "blob_sha": "88ef2441227b0ef669e3795483d832f010a1abb9",
+      "content_commit": "aeae553fff3f92a6afa9be31b17f3812bc680794"
+    },
+    {
+      "origin": "_dba_admin_scripts/link.sql",
+      "path": "oracle/security/link.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "6eb68b2e121561967fdb01ec076d5aeee391b0e8",
+      "content_commit": "d0723c789677d70c78bf3eb1e01139a2fc6e55c7"
+    },
+    {
+      "origin": "_dba_admin_scripts/lock.sql",
+      "path": "oracle/troubleshooting/lock.sql",
+      "branch": "main",
+      "blob_sha": "b23933b3b02ac2e98f521a213c391f17dc86183f",
+      "content_commit": "9ca8c838ea59b2df2a6abdde3c1358e763d27456"
+    },
+    {
+      "origin": "_dba_admin_scripts/locks2.sql",
+      "path": "oracle/troubleshooting/locks2.sql",
+      "branch": "main",
+      "blob_sha": "daeac859f6814c79f4bf9c64839893231d37afaf",
+      "content_commit": "80be7f39bed330dedf16f63d9a950b3ed7ec77ee"
+    },
+    {
+      "origin": "_dba_admin_scripts/log_mnr_rpt.sql",
+      "path": "oracle/backup-recovery/log_mnr_rpt.sql",
+      "branch": "main",
+      "blob_sha": "5f2354fdf4e4fee576745f936601db5d4f904843",
+      "content_commit": "aeae553fff3f92a6afa9be31b17f3812bc680794"
+    },
+    {
+      "origin": "_dba_admin_scripts/long_ops.sql",
+      "path": "oracle/monitoring/long_ops.sql",
+      "branch": "main",
+      "blob_sha": "2ba35e889818d184a7b1b375fb63edfe54a15bae",
+      "content_commit": "aeae553fff3f92a6afa9be31b17f3812bc680794"
+    },
+    {
+      "origin": "_dba_admin_scripts/map_db.sql",
+      "path": "oracle/administration/map_db.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "2c8558c035415961cce672c85fe04a5b13e049bb",
+      "content_commit": "04b93a49bef837fde158953d5627ce8b50cfedc1"
+    },
+    {
+      "origin": "_dba_admin_scripts/metric_summary.sql",
+      "path": "oracle/performance/awr/metric_summary.sql",
+      "branch": "main",
+      "blob_sha": "43e58f83be92994eb2ef099cbc4d38e1d28e58ba",
+      "content_commit": "aeae553fff3f92a6afa9be31b17f3812bc680794"
+    },
+    {
+      "origin": "_dba_admin_scripts/o_temp.sql",
+      "path": "oracle/memory/o_temp.sql",
+      "branch": "main",
+      "blob_sha": "097c9dcd644ef6f15dde2a0e2940622e37bf14bd",
+      "content_commit": "9ca8c838ea59b2df2a6abdde3c1358e763d27456"
+    },
+    {
+      "origin": "_dba_admin_scripts/os_stat_int_10g.sql",
+      "path": "oracle/performance/awr/os_stat_int_10g.sql",
+      "branch": "main",
+      "blob_sha": "9e9e0fd49dd5667a0a878d55dae29ebcc3c7ee08",
+      "content_commit": "4cacc4c7c246e8041424826e806f37dfa6efe59a"
+    },
+    {
+      "origin": "_dba_admin_scripts/outline_hint.sql",
+      "path": "oracle/performance/sql/outline_hint.sql",
+      "branch": "main",
+      "blob_sha": "a86ebf0b9ef76b6bc6be1302f67941dc87f5108a",
+      "content_commit": "9ca8c838ea59b2df2a6abdde3c1358e763d27456"
+    },
+    {
+      "origin": "_dba_admin_scripts/packages_wo_bodies.SQL",
+      "path": "oracle/objects/packages_wo_bodies.sql",
+      "branch": "main",
+      "blob_sha": "a0d3db22ff14384a27a97798df6c636d7735251a",
+      "content_commit": "aeae553fff3f92a6afa9be31b17f3812bc680794"
+    },
+    {
+      "origin": "_dba_admin_scripts/pga_advice.sql",
+      "path": "oracle/memory/pga_advice.sql",
+      "branch": "main",
+      "blob_sha": "88a23a59bcb689ac5ffdeead30cdf6ad6dd46e8f",
+      "content_commit": "aeae553fff3f92a6afa9be31b17f3812bc680794"
+    },
+    {
+      "origin": "_dba_admin_scripts/profile_report.sql",
+      "path": "oracle/security/profile_report.sql",
+      "branch": "main",
+      "blob_sha": "d93cc5aa3afed213d10f9a0b6c57cf6dd8eb7740",
+      "content_commit": "9ca8c838ea59b2df2a6abdde3c1358e763d27456"
+    },
+    {
+      "origin": "_dba_admin_scripts/punch_mv_ddl.sql",
+      "path": "oracle/objects/punch_mv_ddl.sql",
+      "branch": "main",
+      "blob_sha": "1272fc9f954f59d790c46661e0e424d96d64bf52",
+      "content_commit": "321616c6f6c3048bd9fba2beac5b0f583af2d4b9"
+    },
+    {
+      "origin": "_dba_admin_scripts/pword_gen.sql",
+      "path": "oracle/security/pword_gen.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "9c2f7ce73d186bbd2b300cb7eea0004686182ff4",
+      "content_commit": "bfe9b7c1c856c8434a3d56ce74f2a7c3383d302b"
+    },
+    {
+      "origin": "_dba_admin_scripts/rbk1.sql",
+      "path": "oracle/administration/rbk1.sql",
+      "branch": "main",
+      "blob_sha": "7d8016c10b0109f37d2191582da728c8d621bf48",
+      "content_commit": "80be7f39bed330dedf16f63d9a950b3ed7ec77ee"
+    },
+    {
+      "origin": "_dba_admin_scripts/rbk2.sql",
+      "path": "oracle/administration/rbk2.sql",
+      "branch": "main",
+      "blob_sha": "26330f5236c22ff727669ebafe7fb983bd82d107",
+      "content_commit": "80be7f39bed330dedf16f63d9a950b3ed7ec77ee"
+    },
+    {
+      "origin": "_dba_admin_scripts/rbk3.sql",
+      "path": "oracle/administration/rbk3.sql",
+      "branch": "main",
+      "blob_sha": "5859a95c12bf322311931aaffbd9576974d3f393",
+      "content_commit": "80be7f39bed330dedf16f63d9a950b3ed7ec77ee"
+    },
+    {
+      "origin": "_dba_admin_scripts/rbk3nv.sql",
+      "path": "oracle/administration/rbk3nv.sql",
+      "branch": "main",
+      "blob_sha": "ff3a255e98f628ba0d7361e2b5614a19c8ab9438",
+      "content_commit": "80be7f39bed330dedf16f63d9a950b3ed7ec77ee"
+    },
+    {
+      "origin": "_dba_admin_scripts/rbk_views.sql",
+      "path": "oracle/administration/rbk_views.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "16f3b89fed8b5fed38eab33840f5cdea9738b74d",
+      "content_commit": "bfe9b7c1c856c8434a3d56ce74f2a7c3383d302b"
+    },
+    {
+      "origin": "_dba_admin_scripts/rbk_wait.sql",
+      "path": "oracle/monitoring/rbk_wait.sql",
+      "branch": "main",
+      "blob_sha": "626876e81d833a920b4b93b69f75df0a8a29929b",
+      "content_commit": "aeae553fff3f92a6afa9be31b17f3812bc680794"
+    },
+    {
+      "origin": "_dba_admin_scripts/rbs_set.sql",
+      "path": "oracle/objects/rbs_set.sql",
+      "branch": "main",
+      "blob_sha": "627437616d169ec36df1f7ac126c0e87f5c66af9",
+      "content_commit": "aeae553fff3f92a6afa9be31b17f3812bc680794"
+    },
+    {
+      "origin": "_dba_admin_scripts/remove_logfiles.sql",
+      "path": "oracle/backup-recovery/remove_logfiles.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "9cc3f37b7afb0b4878389673fb6e947211ff4815",
+      "content_commit": "bfe9b7c1c856c8434a3d56ce74f2a7c3383d302b"
+    },
+    {
+      "origin": "_dba_admin_scripts/resource_limit.sql",
+      "path": "oracle/monitoring/resource_limit.sql",
+      "branch": "main",
+      "blob_sha": "377b043b3f9f2f19bf9e9b2d3e6e1c6df17457c0",
+      "content_commit": "aeae553fff3f92a6afa9be31b17f3812bc680794"
+    },
+    {
+      "origin": "_dba_admin_scripts/resource_plan.sql",
+      "path": "oracle/administration/resource_plan.sql",
+      "branch": "main",
+      "blob_sha": "23788607928d1ed652b256db20a9fa3a06ef7a33",
+      "content_commit": "80be7f39bed330dedf16f63d9a950b3ed7ec77ee"
+    },
+    {
+      "origin": "_dba_admin_scripts/see_commits.sql",
+      "path": "oracle/monitoring/see_commits.sql",
+      "branch": "main",
+      "blob_sha": "013fcfa16e63e04bd47438edce99ac02bca46284",
+      "content_commit": "aeae553fff3f92a6afa9be31b17f3812bc680794"
+    },
+    {
+      "origin": "_dba_admin_scripts/should_keeps.sql",
+      "path": "oracle/memory/should_keeps.sql",
+      "branch": "main",
+      "blob_sha": "75ef303990e7330153b1b983c05f8373f5285aea",
+      "content_commit": "9ca8c838ea59b2df2a6abdde3c1358e763d27456"
+    },
+    {
+      "origin": "_dba_admin_scripts/startup_date.sql",
+      "path": "oracle/objects/startup_date.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "523fc1c10b6deb6c0a815335878f3dd51478df0a",
+      "content_commit": "b59898337fd6d279755d4239e1228fca6bbe3b96"
+    },
+    {
+      "origin": "_dba_admin_scripts/statspack_alert.sql",
+      "path": "oracle/performance/statspack/statspack_alert.sql",
+      "branch": "main",
+      "blob_sha": "d7a186c3f4b3321512b2c7b7958cf38f59fe82c1",
+      "content_commit": "321616c6f6c3048bd9fba2beac5b0f583af2d4b9"
+    },
+    {
+      "origin": "_dba_admin_scripts/title132.sql",
+      "path": "oracle/administration/title132.sql",
+      "branch": "main",
+      "blob_sha": "2842c4c0ffd732e189d7477d734141a951e2756e",
+      "content_commit": "9ca8c838ea59b2df2a6abdde3c1358e763d27456"
+    },
+    {
+      "origin": "_dba_admin_scripts/title80.sql",
+      "path": "oracle/administration/title80.sql",
+      "branch": "main",
+      "blob_sha": "7c5f7cf2d6b8351580f103a58338e76550ba83d5",
+      "content_commit": "9ca8c838ea59b2df2a6abdde3c1358e763d27456"
+    },
+    {
+      "origin": "_dba_admin_scripts/version.sql",
+      "path": "oracle/administration/version.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "a1abeab031e19aadf655f180d815f463fb173301",
+      "content_commit": "3ef049760afbda16da2e8ec4a59603017c8ae0c1"
+    },
+    {
+      "origin": "_disk_file_scripts/DATAFILE.SQL",
+      "path": "oracle/storage/datafile.sql",
+      "branch": "main",
+      "blob_sha": "0a5d35f523d8ccfe254f5e1d89e50683ec502604",
+      "content_commit": "00b1493c145d8d3381797abe85cfe8cf856351a6"
+    },
+    {
+      "origin": "_disk_file_scripts/FILEIO.SQL",
+      "path": "oracle/performance/fileio.sql",
+      "branch": "main",
+      "blob_sha": "611c788da223a6a2dcc081665b48b33314ea8e4b",
+      "content_commit": "00b1493c145d8d3381797abe85cfe8cf856351a6"
+    },
+    {
+      "origin": "_disk_file_scripts/FILEIO_MP.SQL",
+      "path": "oracle/performance/fileio_mp.sql",
+      "branch": "main",
+      "blob_sha": "8eaa2d2423175cfa6a50dc9de67d65de1bcad28e",
+      "content_commit": "00b1493c145d8d3381797abe85cfe8cf856351a6"
+    },
+    {
+      "origin": "_disk_file_scripts/MAPPER.SQL",
+      "path": "oracle/storage/mapper.sql",
+      "branch": "main",
+      "blob_sha": "c900fed9a1b12eaedc1d7198dd924ec1c8de3096",
+      "content_commit": "00b1493c145d8d3381797abe85cfe8cf856351a6"
+    },
+    {
+      "origin": "_disk_file_scripts/block_usage.sql",
+      "path": "oracle/memory/block_usage.sql",
+      "branch": "main",
+      "blob_sha": "3061cff512d57338e2b2ce7aece6491fb4c6bc2b",
+      "content_commit": "00b1493c145d8d3381797abe85cfe8cf856351a6"
+    },
+    {
+      "origin": "_disk_file_scripts/count_blocks.sql",
+      "path": "oracle/administration/count_blocks.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "933b73ec0903672149565a686902dfa5f5eab29e",
+      "content_commit": "436f99ad1cd56b8bb7ff9465aa68e53fd624b8ef"
+    },
+    {
+      "origin": "_disk_file_scripts/data_blk_waits.sql",
+      "path": "oracle/monitoring/data_blk_waits.sql",
+      "branch": "main",
+      "blob_sha": "d1bf9ece3c2e8d2fef9862e553c1d13ad5fb4478",
+      "content_commit": "00b1493c145d8d3381797abe85cfe8cf856351a6"
+    },
+    {
+      "origin": "_disk_file_scripts/data_block.SQL",
+      "path": "oracle/monitoring/data_block.sql",
+      "branch": "main",
+      "blob_sha": "45fcbc3b11efac5f6edb9dfcd540568be583c34a",
+      "content_commit": "00b1493c145d8d3381797abe85cfe8cf856351a6"
+    },
+    {
+      "origin": "_disk_file_scripts/excessive_undo_log_usage.sql",
+      "path": "oracle/performance/awr/excessive_undo_log_usage.sql",
+      "branch": "main",
+      "blob_sha": "98f6b5a97a9049baf00a5dd93f8a071c0d7d176a",
+      "content_commit": "00b1493c145d8d3381797abe85cfe8cf856351a6"
+    },
+    {
+      "origin": "_disk_file_scripts/file_archive_status.SQL",
+      "path": "oracle/backup-recovery/file_archive_status.sql",
+      "branch": "main",
+      "blob_sha": "64b5206f8a53ec6f01a0a802244f0ea857aff706",
+      "content_commit": "00b1493c145d8d3381797abe85cfe8cf856351a6"
+    },
+    {
+      "origin": "_disk_file_scripts/file_blk_cnt.sql",
+      "path": "oracle/memory/file_blk_cnt.sql",
+      "branch": "main",
+      "blob_sha": "da7cd0b0a5f616da4197bda4a682592608001555",
+      "content_commit": "00b1493c145d8d3381797abe85cfe8cf856351a6"
+    },
+    {
+      "origin": "_disk_file_scripts/file_status.SQL",
+      "path": "oracle/storage/file_status.sql",
+      "branch": "main",
+      "blob_sha": "22ae0400f5b301c2947d0db79c4f1173c9036fd8",
+      "content_commit": "00b1493c145d8d3381797abe85cfe8cf856351a6"
+    },
+    {
+      "origin": "_disk_file_scripts/fileio3.sql",
+      "path": "oracle/performance/fileio3.sql",
+      "branch": "main",
+      "blob_sha": "caf48bd16976cfea543a911c448c28f696d0a0ef",
+      "content_commit": "00b1493c145d8d3381797abe85cfe8cf856351a6"
+    },
+    {
+      "origin": "_disk_file_scripts/fileio4.sql",
+      "path": "oracle/performance/fileio4.sql",
+      "branch": "main",
+      "blob_sha": "26cca633c6afa27c8faa03070a97b2cda029a315",
+      "content_commit": "00b1493c145d8d3381797abe85cfe8cf856351a6"
+    },
+    {
+      "origin": "_disk_file_scripts/fileio_mp2.sql",
+      "path": "oracle/performance/fileio_mp2.sql",
+      "branch": "main",
+      "blob_sha": "3b5053a0d9ff7a7ed34296ee81845dfed2de1f66",
+      "content_commit": "00b1493c145d8d3381797abe85cfe8cf856351a6"
+    },
+    {
+      "origin": "_disk_file_scripts/files_mp.sql",
+      "path": "oracle/storage/files_mp.sql",
+      "branch": "main",
+      "blob_sha": "bb44bdc3c08e3d2df1027d43ac2e67bc93bc4261",
+      "content_commit": "00b1493c145d8d3381797abe85cfe8cf856351a6"
+    },
+    {
+      "origin": "_disk_file_scripts/fill_sz.sql",
+      "path": "oracle/administration/fill_sz.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "457e636e185524f7715932dc54cabb1d5e6eee16",
+      "content_commit": "627706b5c563a370a739c9b7ecc731cd09517ed3"
+    },
+    {
+      "origin": "_disk_file_scripts/mapper0.sql",
+      "path": "oracle/storage/mapper0.sql",
+      "branch": "main",
+      "blob_sha": "e284faf68c85f31a95703bd7e3c17c7ecfaee76a",
+      "content_commit": "00b1493c145d8d3381797abe85cfe8cf856351a6"
+    },
+    {
+      "origin": "_disk_file_scripts/max_file_size_partitioned_table.sql",
+      "path": "oracle/storage/max_file_size_partitioned_table.sql",
+      "branch": "main",
+      "blob_sha": "59e692c8d1cf5435c873371353211ad3bf85d275",
+      "content_commit": "00b1493c145d8d3381797abe85cfe8cf856351a6"
+    },
+    {
+      "origin": "_disk_file_scripts/new_dba_free.sql",
+      "path": "oracle/administration/new_dba_free.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "5ba4e6f53ecea134550a66e59e09a9278e058bb1",
+      "content_commit": "3ef049760afbda16da2e8ec4a59603017c8ae0c1"
+    },
+    {
+      "origin": "_disk_file_scripts/phys_disk_reads_10g.sql",
+      "path": "oracle/performance/awr/phys_disk_reads_10g.sql",
+      "branch": "main",
+      "blob_sha": "f814dc28a2017e5e052b357739e1b66ff1e582c5",
+      "content_commit": "00b1493c145d8d3381797abe85cfe8cf856351a6"
+    },
+    {
+      "origin": "_disk_file_scripts/physical_reads_writes_awr.sql",
+      "path": "oracle/performance/awr/physical_reads_writes_awr.sql",
+      "branch": "main",
+      "blob_sha": "01ce4a69c39d28bd105abe32bb660b304d675d9a",
+      "content_commit": "25e45a746d7c3bd0b84d3da2ad4a9ebf98de8176"
+    },
+    {
+      "origin": "_disk_file_scripts/temp_file_waits.sql",
+      "path": "oracle/troubleshooting/temp_file_waits.sql",
+      "branch": "main",
+      "blob_sha": "390dfbfd8980608b42b3714a614a16e6dc119260",
+      "content_commit": "00b1493c145d8d3381797abe85cfe8cf856351a6"
+    },
+    {
+      "origin": "_disk_file_scripts/user_disk_io.sql",
+      "path": "oracle/monitoring/user_disk_io.sql",
+      "branch": "main",
+      "blob_sha": "26f25b3ca14af9e463e2f278b0a6d3456bccce8c",
+      "content_commit": "00b1493c145d8d3381797abe85cfe8cf856351a6"
+    },
+    {
+      "origin": "_i_o_scripts/LOGS.SQL",
+      "path": "oracle/administration/logs.sql",
+      "branch": "main",
+      "blob_sha": "967589f357b0f7da7758e702e400839d49a88593",
+      "content_commit": "0ed29a8bc18010de88a4cb8ff69cb32ecf54af0d"
+    },
+    {
+      "origin": "_i_o_scripts/i_o_per_sec.sql",
+      "path": "oracle/performance/i_o_per_sec.sql",
+      "branch": "main",
+      "blob_sha": "da821c331c43184c5bb632f9da7d687433e172db",
+      "content_commit": "0ed29a8bc18010de88a4cb8ff69cb32ecf54af0d"
+    },
+    {
+      "origin": "_i_o_scripts/io_sec.sql",
+      "path": "oracle/performance/io_sec.sql",
+      "branch": "main",
+      "blob_sha": "8bac15b57ebcaabf9441e16e0216428aa6b3cd01",
+      "content_commit": "0ed29a8bc18010de88a4cb8ff69cb32ecf54af0d"
+    },
+    {
+      "origin": "_i_o_scripts/io_timing.sql",
+      "path": "oracle/performance/io_timing.sql",
+      "branch": "main",
+      "blob_sha": "e2db28bcd6af6f690c6d6ea09324caa136605883",
+      "content_commit": "0ed29a8bc18010de88a4cb8ff69cb32ecf54af0d"
+    },
+    {
+      "origin": "_i_o_scripts/io_timing2.sql",
+      "path": "oracle/performance/io_timing2.sql",
+      "branch": "main",
+      "blob_sha": "25d6ece408b1adc359bffab3c18ec4f32a8c17b2",
+      "content_commit": "0ed29a8bc18010de88a4cb8ff69cb32ecf54af0d"
+    },
+    {
+      "origin": "_i_o_scripts/iops_calc.sql",
+      "path": "oracle/performance/awr/iops_calc.sql",
+      "branch": "main",
+      "blob_sha": "ad1db73f1dae0059f1a5fcb56f2ab46fef61bb84",
+      "content_commit": "25e45a746d7c3bd0b84d3da2ad4a9ebf98de8176"
+    },
+    {
+      "origin": "_i_o_scripts/physical_file_io_rollup.sql",
+      "path": "oracle/monitoring/physical_file_io_rollup.sql",
+      "branch": "main",
+      "blob_sha": "d91ceffbef088ea5bf06d6fc7360821f4d1e7efd",
+      "content_commit": "0ed29a8bc18010de88a4cb8ff69cb32ecf54af0d"
+    },
+    {
+      "origin": "_i_o_scripts/reads_10g.sql",
+      "path": "oracle/rac/reads_10g.sql",
+      "branch": "main",
+      "blob_sha": "49e36c1150ffa595711a18611768fa27d03e6aee",
+      "content_commit": "0ed29a8bc18010de88a4cb8ff69cb32ecf54af0d"
+    },
+    {
+      "origin": "_index_scripts/BROWN.SQL",
+      "path": "oracle/administration/brown.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "299c755ddb05730c13c52771ce495908015ac11a",
+      "content_commit": "04b93a49bef837fde158953d5627ce8b50cfedc1"
+    },
+    {
+      "origin": "_index_scripts/EXPLAIN.SQL",
+      "path": "oracle/administration/explain.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "3d28fa8ef4d3e26958f4421c709ed7686d964404",
+      "content_commit": "b59898337fd6d279755d4239e1228fca6bbe3b96"
+    },
+    {
+      "origin": "_index_scripts/IDX_TIME.SQL",
+      "path": "oracle/objects/indexes/idx_time.sql",
+      "branch": "main",
+      "blob_sha": "fcf82709fd0a8a3483347b2805ec59616ea9592a",
+      "content_commit": "f58f399ab4d227e86f6f112877a885e04ea86248"
+    },
+    {
+      "origin": "_index_scripts/IN_REP.SQL",
+      "path": "oracle/objects/in_rep.sql",
+      "branch": "main",
+      "blob_sha": "9b04f6baf93321f2e5a4c6c92530f12177ac4e1c",
+      "content_commit": "80be7f39bed330dedf16f63d9a950b3ed7ec77ee"
+    },
+    {
+      "origin": "_index_scripts/IN_SIZ.SQL",
+      "path": "oracle/objects/indexes/in_siz.sql",
+      "branch": "main",
+      "blob_sha": "cede51093363aafbff4711bf3363bac6d54e7079",
+      "content_commit": "f58f399ab4d227e86f6f112877a885e04ea86248"
+    },
+    {
+      "origin": "_index_scripts/IN_STAT.SQL",
+      "path": "oracle/objects/indexes/in_stat.sql",
+      "branch": "main",
+      "blob_sha": "082a616f4410939d736ca2c6c575ae7dbc7c5a87",
+      "content_commit": "f58f399ab4d227e86f6f112877a885e04ea86248"
+    },
+    {
+      "origin": "_index_scripts/In_rct.sql",
+      "path": "oracle/objects/in_rct.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "b3fcdec1d3cfddbf00d3f8f7aa3dad94ae4d149a",
+      "content_commit": "3f4224241719feab32cfd0d8c2f5c6ecbc559679"
+    },
+    {
+      "origin": "_index_scripts/brown_rep.sql",
+      "path": "oracle/objects/indexes/brown_rep.sql",
+      "branch": "main",
+      "blob_sha": "dcaa24302df277bb4b4360ad117958e8772812c8",
+      "content_commit": "f58f399ab4d227e86f6f112877a885e04ea86248"
+    },
+    {
+      "origin": "_index_scripts/co_lo_ind.sql",
+      "path": "oracle/objects/indexes/co_lo_ind.sql",
+      "branch": "main",
+      "blob_sha": "bf97bef12f89b54d6552b5534f1dde66f238fef0",
+      "content_commit": "f58f399ab4d227e86f6f112877a885e04ea86248"
+    },
+    {
+      "origin": "_index_scripts/co_lo_ind2.sql",
+      "path": "oracle/objects/indexes/co_lo_ind2.sql",
+      "branch": "main",
+      "blob_sha": "8448a7ac4168d9259513995c914ff72c1c14294d",
+      "content_commit": "f58f399ab4d227e86f6f112877a885e04ea86248"
+    },
+    {
+      "origin": "_index_scripts/co_lo_ind3.sql",
+      "path": "oracle/objects/indexes/co_lo_ind3.sql",
+      "branch": "main",
+      "blob_sha": "6ee76de21deb03fdb2322cb58137e519e6a5d912",
+      "content_commit": "f58f399ab4d227e86f6f112877a885e04ea86248"
+    },
+    {
+      "origin": "_index_scripts/exp_ext_tab.sql",
+      "path": "oracle/administration/exp_ext_tab.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "419ab2fd08bd26d046582538543733eca4ca3a70",
+      "content_commit": "436f99ad1cd56b8bb7ff9465aa68e53fd624b8ef"
+    },
+    {
+      "origin": "_index_scripts/explain1.sql",
+      "path": "oracle/performance/explain1.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "303149a21c5d484e84a73fe768d554f14169422c",
+      "content_commit": "3f4224241719feab32cfd0d8c2f5c6ecbc559679"
+    },
+    {
+      "origin": "_index_scripts/frag_ind.sql",
+      "path": "oracle/storage/frag_ind.sql",
+      "branch": "main",
+      "blob_sha": "f626f7494660233952decc4793433d03e17f6b9c",
+      "content_commit": "f58f399ab4d227e86f6f112877a885e04ea86248"
+    },
+    {
+      "origin": "_index_scripts/in_rct2.sql",
+      "path": "oracle/objects/in_rct2.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "cdc18375303243dde5ede342b929b12d47a00ab1",
+      "content_commit": "3f4224241719feab32cfd0d8c2f5c6ecbc559679"
+    },
+    {
+      "origin": "_index_scripts/in_siz_es.sql",
+      "path": "oracle/administration/in_siz_es.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "22203fdf3b71b6c28d0a387ae2e61c6be0bb0ab7",
+      "content_commit": "04b93a49bef837fde158953d5627ce8b50cfedc1"
+    },
+    {
+      "origin": "_index_scripts/in_stat_user.sql",
+      "path": "oracle/objects/indexes/in_stat_user.sql",
+      "branch": "main",
+      "blob_sha": "9c5bc1ff2cf6e80ad1a164b0c024a47811396d15",
+      "content_commit": "f58f399ab4d227e86f6f112877a885e04ea86248"
+    },
+    {
+      "origin": "_index_scripts/ind_part.sql",
+      "path": "oracle/objects/indexes/ind_part.sql",
+      "branch": "main",
+      "blob_sha": "9752dcc9b4597e8093c00320a83d057b8284839b",
+      "content_commit": "f58f399ab4d227e86f6f112877a885e04ea86248"
+    },
+    {
+      "origin": "_index_scripts/ind_pstor.sql",
+      "path": "oracle/objects/indexes/ind_pstor.sql",
+      "branch": "main",
+      "blob_sha": "8f0a7e19e356fc9c5694b1e5b8f3c66225602e20",
+      "content_commit": "f58f399ab4d227e86f6f112877a885e04ea86248"
+    },
+    {
+      "origin": "_index_scripts/ind_type.sql",
+      "path": "oracle/objects/indexes/ind_type.sql",
+      "branch": "main",
+      "blob_sha": "a73b07f231289d281fec5d40efab994146490547",
+      "content_commit": "f58f399ab4d227e86f6f112877a885e04ea86248"
+    },
+    {
+      "origin": "_index_scripts/index_size.sql",
+      "path": "oracle/administration/index_size.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "34143dde0e9657c0c6581d02d05deaca581a6b1e",
+      "content_commit": "04b93a49bef837fde158953d5627ce8b50cfedc1"
+    },
+    {
+      "origin": "_index_scripts/index_sz.sql",
+      "path": "oracle/administration/index_sz.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "8bb1ed4a135e5ff22305c04f9fd2d5117d013b38",
+      "content_commit": "436f99ad1cd56b8bb7ff9465aa68e53fd624b8ef"
+    },
+    {
+      "origin": "_os_scripts/CPU_UTILIZATION.SQL",
+      "path": "oracle/monitoring/cpu_utilization.sql",
+      "branch": "main",
+      "blob_sha": "78b2e0e06bfe28f7259f4963db72ce9481735de7",
+      "content_commit": "25e45a746d7c3bd0b84d3da2ad4a9ebf98de8176"
+    },
+    {
+      "origin": "_os_scripts/OSUSER.SQL",
+      "path": "oracle/monitoring/osuser.sql",
+      "branch": "main",
+      "blob_sha": "c8def213a5de48b83371a3cdecd755613333c5b1",
+      "content_commit": "25e45a746d7c3bd0b84d3da2ad4a9ebf98de8176"
+    },
+    {
+      "origin": "_os_scripts/cpu.sql",
+      "path": "oracle/performance/sql/cpu.sql",
+      "branch": "main",
+      "blob_sha": "18174035bccdc602e16f00c96ae4857748f6d25e",
+      "content_commit": "25e45a746d7c3bd0b84d3da2ad4a9ebf98de8176"
+    },
+    {
+      "origin": "_os_scripts/get_osuser.sql",
+      "path": "oracle/administration/get_osuser.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "ffb5718b05d02b91b98a79afb48d15aaee5804bf",
+      "content_commit": "436f99ad1cd56b8bb7ff9465aa68e53fd624b8ef"
+    },
+    {
+      "origin": "_rac_grid_scripts/block_count.sql",
+      "path": "oracle/storage/block_count.sql",
+      "branch": "main",
+      "blob_sha": "20eeff826ddabd0c1cf9591d49795cfa01fc7fac",
+      "content_commit": "70f71f803a4d7fb45f3fb9329f6caf59d906f9a4"
+    },
+    {
+      "origin": "_rac_grid_scripts/block_pin.sql",
+      "path": "oracle/rac/grid/block_pin.sql",
+      "branch": "main",
+      "blob_sha": "ff2b500def7a6378cadb42b15b49afe903bd7c0c",
+      "content_commit": "2d29af03c0ad5bb0d68b7c6b6e0f8bebc415a09d"
+    },
+    {
+      "origin": "_rac_grid_scripts/block_transfer_ratio.sql",
+      "path": "oracle/rac/block_transfer_ratio.sql",
+      "branch": "main",
+      "blob_sha": "8338d5660746b5ebb80ab01383b275a7f6b2de80",
+      "content_commit": "70f71f803a4d7fb45f3fb9329f6caf59d906f9a4"
+    },
+    {
+      "origin": "_rac_grid_scripts/cache_fusion_writes.sql",
+      "path": "oracle/rac/cache_fusion_writes.sql",
+      "branch": "main",
+      "blob_sha": "082dcbd2b0a2e1873d5c7d3bcd45db199b3c5942",
+      "content_commit": "70f71f803a4d7fb45f3fb9329f6caf59d906f9a4"
+    },
+    {
+      "origin": "_rac_grid_scripts/check_rac.sql",
+      "path": "oracle/rac/check_rac.sql",
+      "branch": "main",
+      "blob_sha": "86d472ff3a89d113a87a1154346454493e47a537",
+      "content_commit": "70f71f803a4d7fb45f3fb9329f6caf59d906f9a4"
+    },
+    {
+      "origin": "_rac_grid_scripts/current_blocks.sql",
+      "path": "oracle/rac/current_blocks.sql",
+      "branch": "main",
+      "blob_sha": "58fa8db4108f4efa7fd1d1e84241fbff9a114d05",
+      "content_commit": "70f71f803a4d7fb45f3fb9329f6caf59d906f9a4"
+    },
+    {
+      "origin": "_rac_grid_scripts/current_requests.sql",
+      "path": "oracle/rac/current_requests.sql",
+      "branch": "main",
+      "blob_sha": "83eed57e029999f8d073600cda96baabcde72c24",
+      "content_commit": "70f71f803a4d7fb45f3fb9329f6caf59d906f9a4"
+    },
+    {
+      "origin": "_rac_grid_scripts/enqueue_stats.sql",
+      "path": "oracle/rac/enqueue_stats.sql",
+      "branch": "main",
+      "blob_sha": "3028f3512c576494a72d1fd48df4e2d0371ca2d7",
+      "content_commit": "70f71f803a4d7fb45f3fb9329f6caf59d906f9a4"
+    },
+    {
+      "origin": "_rac_grid_scripts/forced_reads_writes.sql",
+      "path": "oracle/rac/forced_reads_writes.sql",
+      "branch": "main",
+      "blob_sha": "6b29071432ded81d9877e96d40d7d7cb5f7b0764",
+      "content_commit": "70f71f803a4d7fb45f3fb9329f6caf59d906f9a4"
+    },
+    {
+      "origin": "_rac_grid_scripts/gc_blocks_lost.sql",
+      "path": "oracle/rac/gc_blocks_lost.sql",
+      "branch": "main",
+      "blob_sha": "80bc35ecf41b8fa50a17d8104c4b997fa90052bc",
+      "content_commit": "70f71f803a4d7fb45f3fb9329f6caf59d906f9a4"
+    },
+    {
+      "origin": "_rac_grid_scripts/gc_ratio.sql",
+      "path": "oracle/rac/gc_ratio.sql",
+      "branch": "main",
+      "blob_sha": "924d48a6fcc10080d221548563db14f4a1a9ed4e",
+      "content_commit": "70f71f803a4d7fb45f3fb9329f6caf59d906f9a4"
+    },
+    {
+      "origin": "_rac_grid_scripts/global_bhr.sql",
+      "path": "oracle/rac/global_bhr.sql",
+      "branch": "main",
+      "blob_sha": "157bb04b580720cdd3e462b4a1da6990253a28d1",
+      "content_commit": "70f71f803a4d7fb45f3fb9329f6caf59d906f9a4"
+    },
+    {
+      "origin": "_rac_grid_scripts/global_cache_blocks.sql",
+      "path": "oracle/rac/global_cache_blocks.sql",
+      "branch": "main",
+      "blob_sha": "b42996dcaa2a310c1e7cc33fbe4536a9e5bac27d",
+      "content_commit": "70f71f803a4d7fb45f3fb9329f6caf59d906f9a4"
+    },
+    {
+      "origin": "_rac_grid_scripts/gv_sysstat.sql",
+      "path": "oracle/rac/gv_sysstat.sql",
+      "branch": "main",
+      "blob_sha": "98c9e4c2996fcff32adc9ebc6c1f78f021c653e7",
+      "content_commit": "70f71f803a4d7fb45f3fb9329f6caf59d906f9a4"
+    },
+    {
+      "origin": "_rac_grid_scripts/proc_sys_net.sql",
+      "path": "oracle/administration/legacy-linux/proc_sys_net.sh",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "96afeabb00bd72c66a1ffbd055c6a110269f0301",
+      "content_commit": "d229b250ab275b491f87e51a1c0fd59ef8910fa3"
+    },
+    {
+      "origin": "_rac_grid_scripts/service_time.sql",
+      "path": "oracle/rac/service_time.sql",
+      "branch": "main",
+      "blob_sha": "1880cc4eddc3cea677ee7f96872594f26983f449",
+      "content_commit": "70f71f803a4d7fb45f3fb9329f6caf59d906f9a4"
+    },
+    {
+      "origin": "_rac_grid_scripts/staggered_sequence_trigger.sql",
+      "path": "oracle/rac/staggered_sequence_trigger.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "97484d8e47e685d027f607354c42a9eb677cf5a3",
+      "content_commit": "d229b250ab275b491f87e51a1c0fd59ef8910fa3"
+    },
+    {
+      "origin": "_rac_grid_scripts/wait_event.sql",
+      "path": "oracle/rac/wait_event.sql",
+      "branch": "main",
+      "blob_sha": "f16a3dbf23ba396170edbb531e7ad7925c2760f7",
+      "content_commit": "70f71f803a4d7fb45f3fb9329f6caf59d906f9a4"
+    },
+    {
+      "origin": "_rac_tuning_scripts/ash_top_objects_last_hour.sql",
+      "path": "oracle/performance/ash/ash_top_objects_last_hour.sql",
+      "branch": "main",
+      "blob_sha": "74c8dd27ae6a3436f9ce22a1ae90027b208e8f0f",
+      "content_commit": "46b6d764d936bb4f881c81643bd6682a4a921cf5"
+    },
+    {
+      "origin": "_rac_tuning_scripts/ash_top_sessions_last_hour.sql",
+      "path": "oracle/performance/ash/ash_top_sessions_last_hour.sql",
+      "branch": "main",
+      "blob_sha": "213f21f34491c090abddfa79a692e50211ab861b",
+      "content_commit": "25e45a746d7c3bd0b84d3da2ad4a9ebf98de8176"
+    },
+    {
+      "origin": "_rac_tuning_scripts/ash_top_sql_last_hour.sql",
+      "path": "oracle/performance/ash/ash_top_sql_last_hour.sql",
+      "branch": "main",
+      "blob_sha": "f8b073992b0403ba1be4f9799f1aca5758b9f5f4",
+      "content_commit": "25e45a746d7c3bd0b84d3da2ad4a9ebf98de8176"
+    },
+    {
+      "origin": "_rac_tuning_scripts/asm_diskgroup_stats.sql",
+      "path": "oracle/asm/asm_diskgroup_stats.sql",
+      "branch": "main",
+      "blob_sha": "a05f1b1b0a2da5ee01d1e267e0b3d6750142081d",
+      "content_commit": "41ab033640d39879a4e646c012b332612efcaa72"
+    },
+    {
+      "origin": "_rac_tuning_scripts/asm_large_pool_recommendations.sql",
+      "path": "oracle/asm/asm_large_pool_recommendations.sql",
+      "branch": "main",
+      "blob_sha": "ec612cfbba35157a23974a0db0c0cf8640ce7391",
+      "content_commit": "4cacc4c7c246e8041424826e806f37dfa6efe59a"
+    },
+    {
+      "origin": "_rac_tuning_scripts/buffer_cache_blocks.sql",
+      "path": "oracle/rac/buffer_cache_blocks.sql",
+      "branch": "main",
+      "blob_sha": "31da7d8dcd7ca5c4048a5cfd95cbbd336f856e40",
+      "content_commit": "4cacc4c7c246e8041424826e806f37dfa6efe59a"
+    },
+    {
+      "origin": "_rac_tuning_scripts/current_session_top5_waits.sql",
+      "path": "oracle/troubleshooting/current_session_top5_waits.sql",
+      "branch": "main",
+      "blob_sha": "47d0890627cdece27424eb8b52c14b6031035724",
+      "content_commit": "41ab033640d39879a4e646c012b332612efcaa72"
+    },
+    {
+      "origin": "_rac_tuning_scripts/current_session_wait.sql",
+      "path": "oracle/troubleshooting/current_session_wait.sql",
+      "branch": "main",
+      "blob_sha": "89ce308ae51fbe9b616a3c7bb54826244001ec70",
+      "content_commit": "41ab033640d39879a4e646c012b332612efcaa72"
+    },
+    {
+      "origin": "_rac_tuning_scripts/db_services.sql",
+      "path": "oracle/rac/db_services.sql",
+      "branch": "main",
+      "blob_sha": "ed2d829aa5b1610cd45be149fea1fea72ad65ea3",
+      "content_commit": "41ab033640d39879a4e646c012b332612efcaa72"
+    },
+    {
+      "origin": "_rac_tuning_scripts/default_dop.sql",
+      "path": "oracle/rac/default_dop.sql",
+      "branch": "main",
+      "blob_sha": "cb97e366bccea6ce815b93625cf9f644922bafd1",
+      "content_commit": "387ebb84f41b1146d73299d0ca731b887329f730"
+    },
+    {
+      "origin": "_rac_tuning_scripts/dnfs_disk_stats.sql",
+      "path": "oracle/monitoring/dnfs_disk_stats.sql",
+      "branch": "main",
+      "blob_sha": "1e9b9193bc836ea7237dc791c84df9dce0d902ef",
+      "content_commit": "41ab033640d39879a4e646c012b332612efcaa72"
+    },
+    {
+      "origin": "_rac_tuning_scripts/gc_bad_transfers.sql",
+      "path": "oracle/rac/gc_bad_transfers.sql",
+      "branch": "main",
+      "blob_sha": "d743bf1774fbd83bce05488e0db5c41118848cbe",
+      "content_commit": "25e45a746d7c3bd0b84d3da2ad4a9ebf98de8176"
+    },
+    {
+      "origin": "_rac_tuning_scripts/gc_block_transfer_waits.sql",
+      "path": "oracle/rac/gc_block_transfer_waits.sql",
+      "branch": "main",
+      "blob_sha": "2dbb3c8f4b1c15257d978698b0eb4a560903021f",
+      "content_commit": "41ab033640d39879a4e646c012b332612efcaa72"
+    },
+    {
+      "origin": "_rac_tuning_scripts/gc_blocks_lost.sql",
+      "path": "oracle/rac/gc_blocks_lost_events.sql",
+      "branch": "main",
+      "blob_sha": "8eaa88edcc3c79c06f13102822dc3271cd529c2c",
+      "content_commit": "25e45a746d7c3bd0b84d3da2ad4a9ebf98de8176"
+    },
+    {
+      "origin": "_rac_tuning_scripts/gc_blocks_received.sql",
+      "path": "oracle/rac/gc_blocks_received.sql",
+      "branch": "main",
+      "blob_sha": "1b1bc8f7a39980aae56fa9658b2bc9b1a148468d",
+      "content_commit": "41ab033640d39879a4e646c012b332612efcaa72"
+    },
+    {
+      "origin": "_rac_tuning_scripts/gc_read_waits.sql",
+      "path": "oracle/rac/gc_read_waits.sql",
+      "branch": "main",
+      "blob_sha": "ec6e55d0f4525b33762ff7cfe404b3215fdf9d51",
+      "content_commit": "387ebb84f41b1146d73299d0ca731b887329f730"
+    },
+    {
+      "origin": "_rac_tuning_scripts/gc_top_5_segment_details.sql",
+      "path": "oracle/rac/gc_top_5_segment_details.sql",
+      "branch": "main",
+      "blob_sha": "b24394d0aff23731bb5a4b955b402219a51de406",
+      "content_commit": "80be7f39bed330dedf16f63d9a950b3ed7ec77ee"
+    },
+    {
+      "origin": "_rac_tuning_scripts/gc_top_5_segments.sql",
+      "path": "oracle/rac/gc_top_5_segments.sql",
+      "branch": "main",
+      "blob_sha": "3fddd66283d57dbc1349a79a2ac70d2765d4599b",
+      "content_commit": "41ab033640d39879a4e646c012b332612efcaa72"
+    },
+    {
+      "origin": "_rac_tuning_scripts/ges_blockers.sql",
+      "path": "oracle/rac/ges_blockers.sql",
+      "branch": "main",
+      "blob_sha": "2834fc559e9ff6c2dca7c54a557acc88419edfa1",
+      "content_commit": "41ab033640d39879a4e646c012b332612efcaa72"
+    },
+    {
+      "origin": "_rac_tuning_scripts/ges_blocking_programs.sql",
+      "path": "oracle/rac/ges_blocking_programs.sql",
+      "branch": "main",
+      "blob_sha": "b275808f974e1f5bfe0973f6de66b106ff16b323",
+      "content_commit": "25e45a746d7c3bd0b84d3da2ad4a9ebf98de8176"
+    },
+    {
+      "origin": "_rac_tuning_scripts/grd_resource_utilizations.sql",
+      "path": "oracle/rac/grd_resource_utilizations.sql",
+      "branch": "main",
+      "blob_sha": "44f18a114eb4db47991a5d5e8e0317a7f7a64ee2",
+      "content_commit": "41ab033640d39879a4e646c012b332612efcaa72"
+    },
+    {
+      "origin": "_rac_tuning_scripts/hot_segments.sql",
+      "path": "oracle/performance/hot_segments.sql",
+      "branch": "main",
+      "blob_sha": "64d000be9aba61fa1265192d268a6070eb6aaf28",
+      "content_commit": "41ab033640d39879a4e646c012b332612efcaa72"
+    },
+    {
+      "origin": "_rac_tuning_scripts/inmemory_segments.sql",
+      "path": "oracle/memory/inmemory_segments.sql",
+      "branch": "main",
+      "blob_sha": "f8d02f19505b29cc435d0b7c61435e2c31a8b2af",
+      "content_commit": "41ab033640d39879a4e646c012b332612efcaa72"
+    },
+    {
+      "origin": "_rac_tuning_scripts/interconnect_traffic_breakdown.sql",
+      "path": "oracle/rac/interconnect_traffic_breakdown.sql",
+      "branch": "main",
+      "blob_sha": "23f2b311ceac217cdc0b019fdd084891f5538f44",
+      "content_commit": "41ab033640d39879a4e646c012b332612efcaa72"
+    },
+    {
+      "origin": "_rac_tuning_scripts/locked_sessions.sql",
+      "path": "oracle/rac/locked_sessions.sql",
+      "branch": "main",
+      "blob_sha": "58b4ce401750994e39a88dc808b72402fd76e228",
+      "content_commit": "387ebb84f41b1146d73299d0ca731b887329f730"
+    },
+    {
+      "origin": "_rac_tuning_scripts/max_hourly_log_switches.sql",
+      "path": "oracle/rac/max_hourly_log_switches.sql",
+      "branch": "main",
+      "blob_sha": "db5794f56d9986644bb848dbf64e03ab80a57814",
+      "content_commit": "80be7f39bed330dedf16f63d9a950b3ed7ec77ee"
+    },
+    {
+      "origin": "_rac_tuning_scripts/my_trace_file.sql",
+      "path": "oracle/troubleshooting/my_trace_file.sql",
+      "branch": "main",
+      "blob_sha": "41cedac171239ca93ff22dffeb4b6affa6ce41b9",
+      "content_commit": "7d376e68ba5f135fb6bd32c84af35af5a7ecef4f"
+    },
+    {
+      "origin": "_rac_tuning_scripts/no_trace_my_session.sql",
+      "path": "oracle/troubleshooting/no_trace_my_session.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "d99a968081aae7a03ab3c2c1c4781cfff18e77c4",
+      "content_commit": "b59898337fd6d279755d4239e1228fca6bbe3b96"
+    },
+    {
+      "origin": "_rac_tuning_scripts/parallel_consumers_producers.sql",
+      "path": "oracle/rac/parallel_consumers_producers.sql",
+      "branch": "main",
+      "blob_sha": "8f31de7f20c2bdbcdaec5c0199c5715a34152e86",
+      "content_commit": "41ab033640d39879a4e646c012b332612efcaa72"
+    },
+    {
+      "origin": "_rac_tuning_scripts/parallel_downgrades.sql",
+      "path": "oracle/rac/parallel_downgrades.sql",
+      "branch": "main",
+      "blob_sha": "ebc6da4f269ea03c9a1f8fe807219519bc085c7f",
+      "content_commit": "41ab033640d39879a4e646c012b332612efcaa72"
+    },
+    {
+      "origin": "_rac_tuning_scripts/parallel_executions.sql",
+      "path": "oracle/rac/parallel_executions.sql",
+      "branch": "main",
+      "blob_sha": "a4412fddc6431cab85a75fb3f3a67e160dba9573",
+      "content_commit": "41ab033640d39879a4e646c012b332612efcaa72"
+    },
+    {
+      "origin": "_rac_tuning_scripts/parallel_sessions.sql",
+      "path": "oracle/rac/parallel_sessions.sql",
+      "branch": "main",
+      "blob_sha": "1f0624c029c02561b666a7cbeae4295d234f1580",
+      "content_commit": "41ab033640d39879a4e646c012b332612efcaa72"
+    },
+    {
+      "origin": "_rac_tuning_scripts/px_cluster_interconnect_waits.sql",
+      "path": "oracle/rac/px_cluster_interconnect_waits.sql",
+      "branch": "main",
+      "blob_sha": "90e4dbda8a3ecfe94937eb90f8ad5e31913fe341",
+      "content_commit": "41ab033640d39879a4e646c012b332612efcaa72"
+    },
+    {
+      "origin": "_rac_tuning_scripts/service_io_stats.sql",
+      "path": "oracle/rac/service_io_stats.sql",
+      "branch": "main",
+      "blob_sha": "cc27189ffddf0d64c4b1cedc9c021dc0db50d7ad",
+      "content_commit": "41ab033640d39879a4e646c012b332612efcaa72"
+    },
+    {
+      "origin": "_rac_tuning_scripts/session_top5_events.sql",
+      "path": "oracle/rac/session_top5_events.sql",
+      "branch": "main",
+      "blob_sha": "b3277fd911febd87cc5a55ef540c7f9ec9aeeb12",
+      "content_commit": "4cacc4c7c246e8041424826e806f37dfa6efe59a"
+    },
+    {
+      "origin": "_rac_tuning_scripts/shared_pool_grd.sql",
+      "path": "oracle/memory/shared_pool_grd.sql",
+      "branch": "main",
+      "blob_sha": "e669803f66c3d9c27102d9e415c8448afee6966c",
+      "content_commit": "41ab033640d39879a4e646c012b332612efcaa72"
+    },
+    {
+      "origin": "_rac_tuning_scripts/shared_pool_grd_hist.sql",
+      "path": "oracle/performance/awr/shared_pool_grd_hist.sql",
+      "branch": "main",
+      "blob_sha": "288074fb8c498e3e0ba047fe6209249df4a4303a",
+      "content_commit": "25e45a746d7c3bd0b84d3da2ad4a9ebf98de8176"
+    },
+    {
+      "origin": "_rac_tuning_scripts/trace_my_session.sql",
+      "path": "oracle/troubleshooting/trace_my_session.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "71692d7eef72ef173392071a654c265a240197da",
+      "content_commit": "04b93a49bef837fde158953d5627ce8b50cfedc1"
+    },
+    {
+      "origin": "_security_scripts/DB_ROLE.SQL",
+      "path": "oracle/security/db_role.sql",
+      "branch": "main",
+      "blob_sha": "9222dbac5a89feef580482c9b189618a137a7238",
+      "content_commit": "70f71f803a4d7fb45f3fb9329f6caf59d906f9a4"
+    },
+    {
+      "origin": "_security_scripts/GRANT_RC.SQL",
+      "path": "oracle/security/grant_rc.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "312499b58fae223db5e0e6b7b04ab50c6ddb1ddf",
+      "content_commit": "fb9e2a2f98d1145b36ff3cc4af498345bf67cee0"
+    },
+    {
+      "origin": "_security_scripts/ROLE.SQL",
+      "path": "oracle/security/role.sql",
+      "branch": "main",
+      "blob_sha": "32a99401b0841f4fda3cb86afedc1f27609371c5",
+      "content_commit": "70f71f803a4d7fb45f3fb9329f6caf59d906f9a4"
+    },
+    {
+      "origin": "_security_scripts/ROLE_RCT.SQL",
+      "path": "oracle/security/role_rct.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "8f063291ee377afe51010c18a2d8072e44e9edda",
+      "content_commit": "fb9e2a2f98d1145b36ff3cc4af498345bf67cee0"
+    },
+    {
+      "origin": "_security_scripts/SYS_GRAN.SQL",
+      "path": "oracle/security/sys_gran.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "1aa69accefc16895913558ab50cc04d4596abfba",
+      "content_commit": "fb9e2a2f98d1145b36ff3cc4af498345bf67cee0"
+    },
+    {
+      "origin": "_security_scripts/SYS_GRNT.SQL",
+      "path": "oracle/security/sys_grnt.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "2b2c02b818b781755b0afaf7d1f4c251ba88d5fb",
+      "content_commit": "fb9e2a2f98d1145b36ff3cc4af498345bf67cee0"
+    },
+    {
+      "origin": "_security_scripts/SYS_ROLES.SQL",
+      "path": "oracle/security/sys_roles.sql",
+      "branch": "main",
+      "blob_sha": "0e003857a8ca4b093429a732da69dbf1351acded",
+      "content_commit": "70f71f803a4d7fb45f3fb9329f6caf59d906f9a4"
+    },
+    {
+      "origin": "_security_scripts/TAB_GRNT.SQL",
+      "path": "oracle/security/tab_grnt.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "4e20cd2bbb57bc0de69dd17f36742fd4f3c37d79",
+      "content_commit": "fb9e2a2f98d1145b36ff3cc4af498345bf67cee0"
+    },
+    {
+      "origin": "_security_scripts/dba_user_privs.sql",
+      "path": "oracle/administration/dba_user_privs.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "10b77dbdc07aa55c4b75f84f984852e62b584d23",
+      "content_commit": "436f99ad1cd56b8bb7ff9465aa68e53fd624b8ef"
+    },
+    {
+      "origin": "_security_scripts/plan_group_grants.sql",
+      "path": "oracle/security/plan_group_grants.sql",
+      "branch": "main",
+      "blob_sha": "efe66d45b0ebe96d0209625de88d4df8720a58c1",
+      "content_commit": "70f71f803a4d7fb45f3fb9329f6caf59d906f9a4"
+    },
+    {
+      "origin": "_security_scripts/plan_sys_grants.sql",
+      "path": "oracle/security/plan_sys_grants.sql",
+      "branch": "main",
+      "blob_sha": "9267ae612b9c0a012b38e2883ea03cc24594e68d",
+      "content_commit": "70f71f803a4d7fb45f3fb9329f6caf59d906f9a4"
+    },
+    {
+      "origin": "_segment_scripts/dba_hist_seg_stat_usage.sql",
+      "path": "oracle/performance/awr/dba_hist_seg_stat_usage.sql",
+      "branch": "main",
+      "blob_sha": "d10e97bcd30c4c27b28a894924ea0d39730b877c",
+      "content_commit": "25e45a746d7c3bd0b84d3da2ad4a9ebf98de8176"
+    },
+    {
+      "origin": "_segment_scripts/get_blk_cnt.sql",
+      "path": "oracle/memory/get_blk_cnt.sql",
+      "branch": "main",
+      "blob_sha": "16d524d0dcde12f1904376e3e76d17e4e2f6f19b",
+      "content_commit": "f58f399ab4d227e86f6f112877a885e04ea86248"
+    },
+    {
+      "origin": "_segment_scripts/seg_bd.sql",
+      "path": "oracle/storage/seg_bd.sql",
+      "branch": "main",
+      "blob_sha": "91366486ee6a004aea4262c727315b4f3347d386",
+      "content_commit": "f58f399ab4d227e86f6f112877a885e04ea86248"
+    },
+    {
+      "origin": "_segment_scripts/seg_hdr_waits.sql",
+      "path": "oracle/monitoring/seg_hdr_waits.sql",
+      "branch": "main",
+      "blob_sha": "8aa391dc59fecbc997bad9242ea9b53770395d49",
+      "content_commit": "f58f399ab4d227e86f6f112877a885e04ea86248"
+    },
+    {
+      "origin": "_segment_scripts/seg_hwm.sql",
+      "path": "oracle/storage/seg_hwm.sql",
+      "branch": "main",
+      "blob_sha": "9a97df5b335b56fb630bc78db1b985ee78827663",
+      "content_commit": "f58f399ab4d227e86f6f112877a885e04ea86248"
+    },
+    {
+      "origin": "_segment_scripts/segments_file.sql",
+      "path": "oracle/storage/segments_file.sql",
+      "branch": "main",
+      "blob_sha": "ba469548170b8287989bd23f900d162551fe84f4",
+      "content_commit": "f58f399ab4d227e86f6f112877a885e04ea86248"
+    },
+    {
+      "origin": "_sga_internals_scripts/EVENTS.SQL",
+      "path": "oracle/performance/events.sql",
+      "branch": "main",
+      "blob_sha": "ecbfaf7447c21df29bd670f80a2d08cd00e24f23",
+      "content_commit": "7d376e68ba5f135fb6bd32c84af35af5a7ecef4f"
+    },
+    {
+      "origin": "_sga_internals_scripts/INT_LOCK.SQL",
+      "path": "oracle/troubleshooting/int_lock.sql",
+      "branch": "main",
+      "blob_sha": "2123bc1b168ed5ce0c5041a69733e620fb5db9f1",
+      "content_commit": "7d376e68ba5f135fb6bd32c84af35af5a7ecef4f"
+    },
+    {
+      "origin": "_sga_internals_scripts/OPEN_CUR.SQL",
+      "path": "oracle/monitoring/open_cur.sql",
+      "branch": "main",
+      "blob_sha": "92479662c25f09dbd3800aa9e4652dad0d46c377",
+      "content_commit": "2d482e66afe80c85ef4191bbb6263ddaff0cc08e"
+    },
+    {
+      "origin": "_sga_internals_scripts/Pool_rat.sql",
+      "path": "oracle/memory/pool_rat.sql",
+      "branch": "main",
+      "blob_sha": "216e552c56534b9d6739df982ebc0c302736ba6c",
+      "content_commit": "2d482e66afe80c85ef4191bbb6263ddaff0cc08e"
+    },
+    {
+      "origin": "_sga_internals_scripts/SEE_JOBS.SQL",
+      "path": "oracle/administration/see_jobs.sql",
+      "branch": "main",
+      "blob_sha": "287f3c8b92b9dcdb72149ec9b320c50c73193967",
+      "content_commit": "2d482e66afe80c85ef4191bbb6263ddaff0cc08e"
+    },
+    {
+      "origin": "_sga_internals_scripts/SESSTAT.SQL",
+      "path": "oracle/monitoring/sesstat.sql",
+      "branch": "main",
+      "blob_sha": "68098ddff74290101a3be910bab7df8c00c88aaf",
+      "content_commit": "2d482e66afe80c85ef4191bbb6263ddaff0cc08e"
+    },
+    {
+      "origin": "_sga_internals_scripts/SGASTAT.SQL",
+      "path": "oracle/memory/sgastat.sql",
+      "branch": "main",
+      "blob_sha": "6584d9b2a1844eb25798e1fe580a0d0f4a759841",
+      "content_commit": "9ca8c838ea59b2df2a6abdde3c1358e763d27456"
+    },
+    {
+      "origin": "_sga_internals_scripts/active_session_io.sql",
+      "path": "oracle/monitoring/active_session_io.sql",
+      "branch": "main",
+      "blob_sha": "4f90229f6b3aacc90a9479f2b1ec97444f156bd3",
+      "content_commit": "2d482e66afe80c85ef4191bbb6263ddaff0cc08e"
+    },
+    {
+      "origin": "_sga_internals_scripts/all_pool_status.sql",
+      "path": "oracle/memory/all_pool_status.sql",
+      "branch": "main",
+      "blob_sha": "b1f2bdd651f6cd5b235659e5100fd7090411b780",
+      "content_commit": "9ca8c838ea59b2df2a6abdde3c1358e763d27456"
+    },
+    {
+      "origin": "_sga_internals_scripts/amm_resizes_detail.sql",
+      "path": "oracle/memory/amm_resizes_detail.sql",
+      "branch": "main",
+      "blob_sha": "276b3c41b5b7eacc2b98c67a7cdbfa3164c57f7d",
+      "content_commit": "2d482e66afe80c85ef4191bbb6263ddaff0cc08e"
+    },
+    {
+      "origin": "_sga_internals_scripts/amm_resizes_per_day.sql",
+      "path": "oracle/memory/amm_resizes_per_day.sql",
+      "branch": "main",
+      "blob_sha": "b3aa6427edfb637732eacb96fb57c66c2ee49de2",
+      "content_commit": "2d482e66afe80c85ef4191bbb6263ddaff0cc08e"
+    },
+    {
+      "origin": "_sga_internals_scripts/buf_stat_xbh.sql",
+      "path": "oracle/memory/buf_stat_xbh.sql",
+      "branch": "main",
+      "blob_sha": "504a3dcfb6b0ce14b2b8b9a306ddb098a2486288",
+      "content_commit": "7d376e68ba5f135fb6bd32c84af35af5a7ecef4f"
+    },
+    {
+      "origin": "_sga_internals_scripts/buff_adv.sql",
+      "path": "oracle/memory/buff_adv.sql",
+      "branch": "main",
+      "blob_sha": "ee5b633112cec1d5e0e0eefe559a54f3b34c5d1c",
+      "content_commit": "2d482e66afe80c85ef4191bbb6263ddaff0cc08e"
+    },
+    {
+      "origin": "_sga_internals_scripts/buffer_pools.sql",
+      "path": "oracle/memory/buffer_pools.sql",
+      "branch": "main",
+      "blob_sha": "f2ccc887b4c90373fe4757673b385213b0077cf0",
+      "content_commit": "7d376e68ba5f135fb6bd32c84af35af5a7ecef4f"
+    },
+    {
+      "origin": "_sga_internals_scripts/check_cache_latch.sql",
+      "path": "oracle/troubleshooting/check_cache_latch.sql",
+      "branch": "main",
+      "blob_sha": "a06e25fd71abceafae917f6a494b531c9a8dc0bb",
+      "content_commit": "2d482e66afe80c85ef4191bbb6263ddaff0cc08e"
+    },
+    {
+      "origin": "_sga_internals_scripts/check_pool.SQL",
+      "path": "oracle/memory/check_pool.sql",
+      "branch": "main",
+      "blob_sha": "74a342a428fc49037fd3809e750db0f5b2946bd3",
+      "content_commit": "4cacc4c7c246e8041424826e806f37dfa6efe59a"
+    },
+    {
+      "origin": "_sga_internals_scripts/display_buffer_contents.sql",
+      "path": "oracle/administration/display_buffer_contents.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "be6121b2c9f412727da1d9de924e9d76904594bf",
+      "content_commit": "bfe9b7c1c856c8434a3d56ce74f2a7c3383d302b"
+    },
+    {
+      "origin": "_sga_internals_scripts/enq_stat_int.sql",
+      "path": "oracle/performance/awr/enq_stat_int.sql",
+      "branch": "main",
+      "blob_sha": "e25a1e1c31a8929463f9d7a960fbb195bc5091a3",
+      "content_commit": "7d376e68ba5f135fb6bd32c84af35af5a7ecef4f"
+    },
+    {
+      "origin": "_sga_internals_scripts/flush_date.sql",
+      "path": "oracle/memory/flush_date.sql",
+      "branch": "main",
+      "blob_sha": "8c0b83a8bdfa6a59abfd1fd6fc1bf1168283c772",
+      "content_commit": "2d482e66afe80c85ef4191bbb6263ddaff0cc08e"
+    },
+    {
+      "origin": "_sga_internals_scripts/gen_keep.sql",
+      "path": "oracle/memory/gen_keep.sql",
+      "branch": "main",
+      "blob_sha": "538fab629d19e952166df6f13cf8804199b587c1",
+      "content_commit": "2d482e66afe80c85ef4191bbb6263ddaff0cc08e"
+    },
+    {
+      "origin": "_sga_internals_scripts/get_pool_rat.sql",
+      "path": "oracle/memory/get_pool_rat.sql",
+      "branch": "main",
+      "blob_sha": "a98e12d7632f050c70a4f88bd6d8b58cc05ffba5",
+      "content_commit": "2d482e66afe80c85ef4191bbb6263ddaff0cc08e"
+    },
+    {
+      "origin": "_sga_internals_scripts/latch_int_10g.sql",
+      "path": "oracle/performance/awr/latch_int_10g.sql",
+      "branch": "main",
+      "blob_sha": "8a535dcb3d9dbd13629d2ba10200e610cb3f5bf0",
+      "content_commit": "7d376e68ba5f135fb6bd32c84af35af5a7ecef4f"
+    },
+    {
+      "origin": "_sga_internals_scripts/latch_miss_int_10g.sql",
+      "path": "oracle/performance/awr/latch_miss_int_10g.sql",
+      "branch": "main",
+      "blob_sha": "756da870c257faf0d218365f504431ea0bcb18da",
+      "content_commit": "9ca8c838ea59b2df2a6abdde3c1358e763d27456"
+    },
+    {
+      "origin": "_sga_internals_scripts/poolSTAT.SQL",
+      "path": "oracle/memory/poolstat.sql",
+      "branch": "main",
+      "blob_sha": "78bf0141ebce4c7f0192383c89aac86c9ec117ac",
+      "content_commit": "7d376e68ba5f135fb6bd32c84af35af5a7ecef4f"
+    },
+    {
+      "origin": "_sga_internals_scripts/pool_frag.sql",
+      "path": "oracle/memory/pool_frag.sql",
+      "branch": "main",
+      "blob_sha": "26635072ed99f1cf8ed5b66ab4ea683cdfc6837e",
+      "content_commit": "7d376e68ba5f135fb6bd32c84af35af5a7ecef4f"
+    },
+    {
+      "origin": "_sga_internals_scripts/pool_rep.sql",
+      "path": "oracle/memory/pool_rep.sql",
+      "branch": "main",
+      "blob_sha": "a410952ef4c3bbf7554ad2f531d8b3197fa24a05",
+      "content_commit": "2d482e66afe80c85ef4191bbb6263ddaff0cc08e"
+    },
+    {
+      "origin": "_sga_internals_scripts/pool_size_stat.sql",
+      "path": "oracle/memory/pool_size_stat.sql",
+      "branch": "main",
+      "blob_sha": "7e213af06aa2d7f78ab750407f80802e55c6c820",
+      "content_commit": "9ca8c838ea59b2df2a6abdde3c1358e763d27456"
+    },
+    {
+      "origin": "_sga_internals_scripts/recycle_pool_obj.sql",
+      "path": "oracle/memory/recycle_pool_obj.sql",
+      "branch": "main",
+      "blob_sha": "765d36cc7949bd5a74302c4b35e8f1018d256138",
+      "content_commit": "2d482e66afe80c85ef4191bbb6263ddaff0cc08e"
+    },
+    {
+      "origin": "_sga_internals_scripts/rowcache_int_10g.sql",
+      "path": "oracle/performance/awr/rowcache_int_10g.sql",
+      "branch": "main",
+      "blob_sha": "4b5b4eb25afd844751691d0596682e8698713af6",
+      "content_commit": "7d376e68ba5f135fb6bd32c84af35af5a7ecef4f"
+    },
+    {
+      "origin": "_sga_internals_scripts/see_threads.sql",
+      "path": "oracle/monitoring/see_threads.sql",
+      "branch": "main",
+      "blob_sha": "62b34547118d5a81912777cad4a08ac49e4dd05f",
+      "content_commit": "9ca8c838ea59b2df2a6abdde3c1358e763d27456"
+    },
+    {
+      "origin": "_sga_internals_scripts/sess_io.sql",
+      "path": "oracle/monitoring/sess_io.sql",
+      "branch": "main",
+      "blob_sha": "2afb23ee789289afb6c3d4315eab0c779f6c0658",
+      "content_commit": "2d482e66afe80c85ef4191bbb6263ddaff0cc08e"
+    },
+    {
+      "origin": "_sga_internals_scripts/sess_io_sessions_io.sql",
+      "path": "oracle/monitoring/sess_io_sessions_io.sql",
+      "branch": "main",
+      "blob_sha": "fcef688fbee10a5e8961a6957f263e6a8677c22f",
+      "content_commit": "2d482e66afe80c85ef4191bbb6263ddaff0cc08e"
+    },
+    {
+      "origin": "_sga_internals_scripts/session_cached_cursors.sql",
+      "path": "oracle/memory/session_cached_cursors.sql",
+      "branch": "main",
+      "blob_sha": "21783bd8a02bd04514a3cd8f5e8a2ad27ef36c79",
+      "content_commit": "7d376e68ba5f135fb6bd32c84af35af5a7ecef4f"
+    },
+    {
+      "origin": "_sga_internals_scripts/session_cursor_cache.sql",
+      "path": "oracle/memory/session_cursor_cache.sql",
+      "branch": "main",
+      "blob_sha": "0e6d7ffa48e2046092649f29ebd734dbb61eda47",
+      "content_commit": "7d376e68ba5f135fb6bd32c84af35af5a7ecef4f"
+    },
+    {
+      "origin": "_sga_internals_scripts/shared_pool_adv.sql",
+      "path": "oracle/memory/shared_pool_adv.sql",
+      "branch": "main",
+      "blob_sha": "7dadbfaa4c1263493f380d3aa0d5ff9275a70de5",
+      "content_commit": "2d482e66afe80c85ef4191bbb6263ddaff0cc08e"
+    },
+    {
+      "origin": "_sga_internals_scripts/sys_event_int_10g.sql",
+      "path": "oracle/performance/awr/sys_event_int_10g.sql",
+      "branch": "main",
+      "blob_sha": "11aa094221025e482e1086cec5446d48fd696f4b",
+      "content_commit": "7d376e68ba5f135fb6bd32c84af35af5a7ecef4f"
+    },
+    {
+      "origin": "_sga_internals_scripts/sys_stat_int_10g.sql",
+      "path": "oracle/performance/awr/sys_stat_int_10g.sql",
+      "branch": "main",
+      "blob_sha": "eb63d9fc0c0e5017b9c11d81e99a091cceaaf5d3",
+      "content_commit": "7d376e68ba5f135fb6bd32c84af35af5a7ecef4f"
+    },
+    {
+      "origin": "_sga_internals_scripts/test_pool.SQL",
+      "path": "oracle/memory/test_pool.sql",
+      "branch": "main",
+      "blob_sha": "f8f69b642a9ec94b5d73423abcf5c50f10dba290",
+      "content_commit": "9ca8c838ea59b2df2a6abdde3c1358e763d27456"
+    },
+    {
+      "origin": "_sga_internals_scripts/track_pool.sql",
+      "path": "oracle/memory/track_pool.sql",
+      "branch": "main",
+      "blob_sha": "eb35fdf6cc099699c0d06afea11b8f0e8694080d",
+      "content_commit": "2d482e66afe80c85ef4191bbb6263ddaff0cc08e"
+    },
+    {
+      "origin": "_sga_internals_scripts/vbh_status.sql",
+      "path": "oracle/memory/vbh_status.sql",
+      "branch": "main",
+      "blob_sha": "c42ca5cd4cdc66854b19e3562171a5c0c63591db",
+      "content_commit": "2d482e66afe80c85ef4191bbb6263ddaff0cc08e"
+    },
+    {
+      "origin": "_sga_internals_scripts/write_batch_size.SQL",
+      "path": "oracle/memory/write_batch_size.sql",
+      "branch": "main",
+      "blob_sha": "09bd2e54e75e414d2027f717f59e03fb0f79162c",
+      "content_commit": "2d482e66afe80c85ef4191bbb6263ddaff0cc08e"
+    },
+    {
+      "origin": "_sql_scripts/LIBCACHE.SQL",
+      "path": "oracle/performance/sql/libcache.sql",
+      "branch": "main",
+      "blob_sha": "deb6185379fd73fb064173c2ba21642f28d96da1",
+      "content_commit": "4cacc4c7c246e8041424826e806f37dfa6efe59a"
+    },
+    {
+      "origin": "_sql_scripts/PLAN.SQL",
+      "path": "oracle/administration/plan.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "fbe2dafa770ec806e3520b7eeb5639a4e6b652ec",
+      "content_commit": "3ef049760afbda16da2e8ec4a59603017c8ae0c1"
+    },
+    {
+      "origin": "_sql_scripts/PLAN2.SQL",
+      "path": "oracle/performance/sql/plan2.sql",
+      "branch": "main",
+      "blob_sha": "6958a3fa2f0cddb125fb5ed2454a29a8dae65ef1",
+      "content_commit": "a4fb9ccf43f7afdd9b77ac2f695429991e751faf"
+    },
+    {
+      "origin": "_sql_scripts/SQLMEM.SQL",
+      "path": "oracle/performance/sql/sqlmem.sql",
+      "branch": "main",
+      "blob_sha": "18f1c7d20b44767a709ace6ac76f40a03224200f",
+      "content_commit": "4cacc4c7c246e8041424826e806f37dfa6efe59a"
+    },
+    {
+      "origin": "_sql_scripts/SQLSUM.SQL",
+      "path": "oracle/performance/sql/sqlsum.sql",
+      "branch": "main",
+      "blob_sha": "9c4aca4181680718188c991044d6951e83522fa6",
+      "content_commit": "4cacc4c7c246e8041424826e806f37dfa6efe59a"
+    },
+    {
+      "origin": "_sql_scripts/SQLSUM3.SQL",
+      "path": "oracle/performance/sql/sqlsum3.sql",
+      "branch": "main",
+      "blob_sha": "9e0996946366866313f673ec2959897e7603d2b9",
+      "content_commit": "4cacc4c7c246e8041424826e806f37dfa6efe59a"
+    },
+    {
+      "origin": "_sql_scripts/anal_tab.sql",
+      "path": "oracle/monitoring/anal_tab.sql",
+      "branch": "main",
+      "blob_sha": "b413026b0cf127d403203977f14e0b7b5246ed44",
+      "content_commit": "a4fb9ccf43f7afdd9b77ac2f695429991e751faf"
+    },
+    {
+      "origin": "_sql_scripts/analyze_all.sql",
+      "path": "oracle/administration/analyze_all.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "3d8068aea66e2e474a729773db5d508a4523efd7",
+      "content_commit": "b59898337fd6d279755d4239e1228fca6bbe3b96"
+    },
+    {
+      "origin": "_sql_scripts/basic_mview.sql",
+      "path": "oracle/objects/basic_mview.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "89e92052394478bb8e1f00487917bc322c3c97c7",
+      "content_commit": "b59898337fd6d279755d4239e1228fca6bbe3b96"
+    },
+    {
+      "origin": "_sql_scripts/big_plan.sql",
+      "path": "oracle/performance/big_plan.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "90cc29fa9f0e19cf173d2c221203a08d0ef0d30b",
+      "content_commit": "3f4224241719feab32cfd0d8c2f5c6ecbc559679"
+    },
+    {
+      "origin": "_sql_scripts/bitmap_join.sql",
+      "path": "oracle/objects/bitmap_join.sql",
+      "branch": "main",
+      "blob_sha": "95ae506457b91180b102a4258c1704c8077f4d09",
+      "content_commit": "573a4a79dd5956a4ee4eced4ba5a31c3a5830894"
+    },
+    {
+      "origin": "_sql_scripts/cbo_stats.sql",
+      "path": "oracle/performance/cbo_stats.sql",
+      "branch": "main",
+      "blob_sha": "548b6c1b65f42c0d032e1f6bfb5b8635e93c47ee",
+      "content_commit": "573a4a79dd5956a4ee4eced4ba5a31c3a5830894"
+    },
+    {
+      "origin": "_sql_scripts/check_stale.sql",
+      "path": "oracle/objects/check_stale.sql",
+      "branch": "main",
+      "blob_sha": "2783f6f6bb53137a75d993fed838c0f342575701",
+      "content_commit": "a4fb9ccf43f7afdd9b77ac2f695429991e751faf"
+    },
+    {
+      "origin": "_sql_scripts/d_disk_to_mem.sql",
+      "path": "oracle/monitoring/d_disk_to_mem.sql",
+      "branch": "main",
+      "blob_sha": "ef857dec159ffbcd09393aa6b8e473c40f17829e",
+      "content_commit": "a4fb9ccf43f7afdd9b77ac2f695429991e751faf"
+    },
+    {
+      "origin": "_sql_scripts/disk_mem.sql",
+      "path": "oracle/monitoring/disk_mem.sql",
+      "branch": "main",
+      "blob_sha": "4ec0b9c09f0a0dbbc3d36e41e282d8b553da940c",
+      "content_commit": "a4fb9ccf43f7afdd9b77ac2f695429991e751faf"
+    },
+    {
+      "origin": "_sql_scripts/disk_sorts.sql",
+      "path": "oracle/monitoring/disk_sorts.sql",
+      "branch": "main",
+      "blob_sha": "6e93630ea59b72969d7e3a3bcaf5dd44b1165050",
+      "content_commit": "a4fb9ccf43f7afdd9b77ac2f695429991e751faf"
+    },
+    {
+      "origin": "_sql_scripts/disksorts.sql",
+      "path": "oracle/memory/disksorts.sql",
+      "branch": "main",
+      "blob_sha": "a417c35809b5d6c7d8897888086c4d0f96ad82d5",
+      "content_commit": "a4fb9ccf43f7afdd9b77ac2f695429991e751faf"
+    },
+    {
+      "origin": "_sql_scripts/fts_rep.sql",
+      "path": "oracle/troubleshooting/fts_rep.sql",
+      "branch": "main",
+      "blob_sha": "32f4bccb4faa18076e6724208e49a2494db64f05",
+      "content_commit": "a4fb9ccf43f7afdd9b77ac2f695429991e751faf"
+    },
+    {
+      "origin": "_sql_scripts/garbage_view.sql",
+      "path": "oracle/administration/garbage_view.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "04bb4e5728748ffceffe10698d45180364589add",
+      "content_commit": "3ef049760afbda16da2e8ec4a59603017c8ae0c1"
+    },
+    {
+      "origin": "_sql_scripts/get_sql.sql",
+      "path": "oracle/performance/sql/get_sql.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "74833c4b093ef6c7a43d1e92e50655a2fcbcd857",
+      "content_commit": "b59898337fd6d279755d4239e1228fca6bbe3b96"
+    },
+    {
+      "origin": "_sql_scripts/get_sql_text.sql",
+      "path": "oracle/performance/sql/get_sql_text.sql",
+      "branch": "main",
+      "blob_sha": "3fd50938b1928d52e1225fe531dd279d15fc3948",
+      "content_commit": "4cacc4c7c246e8041424826e806f37dfa6efe59a"
+    },
+    {
+      "origin": "_sql_scripts/hash_count.sql",
+      "path": "oracle/performance/sql/hash_count.sql",
+      "branch": "main",
+      "blob_sha": "49485dd20f6e60513aa598eb095c8112aa12f525",
+      "content_commit": "a4fb9ccf43f7afdd9b77ac2f695429991e751faf"
+    },
+    {
+      "origin": "_sql_scripts/high_sql_buf_gets.sql",
+      "path": "oracle/performance/awr/high_sql_buf_gets.sql",
+      "branch": "main",
+      "blob_sha": "8764244fc5c0d58befd395a2d1d8fc800ff19a02",
+      "content_commit": "4cacc4c7c246e8041424826e806f37dfa6efe59a"
+    },
+    {
+      "origin": "_sql_scripts/last_anal.sql",
+      "path": "oracle/objects/last_anal.sql",
+      "branch": "main",
+      "blob_sha": "72d64442d76138f9bf7bd012a4bd7c034987e708",
+      "content_commit": "a4fb9ccf43f7afdd9b77ac2f695429991e751faf"
+    },
+    {
+      "origin": "_sql_scripts/latch_miss.SQL",
+      "path": "oracle/monitoring/latch_miss.sql",
+      "branch": "main",
+      "blob_sha": "eef4c3b6bac151fa4d816e5d34521d847f7433fa",
+      "content_commit": "a4fb9ccf43f7afdd9b77ac2f695429991e751faf"
+    },
+    {
+      "origin": "_sql_scripts/latches_con.sql",
+      "path": "oracle/performance/latches_con.sql",
+      "branch": "main",
+      "blob_sha": "c1da7cd40b45effe9972a081b0a256d2cedc650e",
+      "content_commit": "a4fb9ccf43f7afdd9b77ac2f695429991e751faf"
+    },
+    {
+      "origin": "_sql_scripts/lib_cach_latch.sql",
+      "path": "oracle/troubleshooting/lib_cach_latch.sql",
+      "branch": "main",
+      "blob_sha": "d114e42004559b3c790e9d6a7b67dd650ccedd44",
+      "content_commit": "a4fb9ccf43f7afdd9b77ac2f695429991e751faf"
+    },
+    {
+      "origin": "_sql_scripts/lib_reload.SQL",
+      "path": "oracle/monitoring/lib_reload.sql",
+      "branch": "main",
+      "blob_sha": "0cca590075c5210096d43c7ba21e00372bef7fac",
+      "content_commit": "a4fb9ccf43f7afdd9b77ac2f695429991e751faf"
+    },
+    {
+      "origin": "_sql_scripts/plan_directive.sql",
+      "path": "oracle/administration/plan_directive.sql",
+      "branch": "main",
+      "blob_sha": "c20ee932c5d0683c529130f9a2222de313b5802c",
+      "content_commit": "321616c6f6c3048bd9fba2beac5b0f583af2d4b9"
+    },
+    {
+      "origin": "_sql_scripts/plan_directives.sql",
+      "path": "oracle/administration/plan_directives.sql",
+      "branch": "main",
+      "blob_sha": "edcfe2b9a146edd0340428f202a547b904dd2087",
+      "content_commit": "321616c6f6c3048bd9fba2beac5b0f583af2d4b9"
+    },
+    {
+      "origin": "_sql_scripts/shared_sql.sql",
+      "path": "oracle/monitoring/shared_sql.sql",
+      "branch": "main",
+      "blob_sha": "8c4d488eafad2421efe692149fb79d9e480607b0",
+      "content_commit": "a4fb9ccf43f7afdd9b77ac2f695429991e751faf"
+    },
+    {
+      "origin": "_sql_scripts/slow_sql.sql",
+      "path": "oracle/performance/ash/slow_sql.sql",
+      "branch": "main",
+      "blob_sha": "352875c77a95b549b4e7c646a79e89cfe7fa5689",
+      "content_commit": "46b6d764d936bb4f881c81643bd6682a4a921cf5"
+    },
+    {
+      "origin": "_sql_scripts/sorts_disk.sql",
+      "path": "oracle/monitoring/sorts_disk.sql",
+      "branch": "main",
+      "blob_sha": "55d67718d9046641dcdaf9ce7065755fb6bfab72",
+      "content_commit": "a4fb9ccf43f7afdd9b77ac2f695429991e751faf"
+    },
+    {
+      "origin": "_sql_scripts/sorts_table_scans.sql",
+      "path": "oracle/monitoring/sorts_table_scans.sql",
+      "branch": "main",
+      "blob_sha": "3a7f45bff92f38071fcaddc4764cbf8e361295f8",
+      "content_commit": "4cacc4c7c246e8041424826e806f37dfa6efe59a"
+    },
+    {
+      "origin": "_sql_scripts/sql_areas.sql",
+      "path": "oracle/performance/sql/sql_areas.sql",
+      "branch": "main",
+      "blob_sha": "962f332e12083a97b05e37fc2b8a3fda5c141f41",
+      "content_commit": "a4fb9ccf43f7afdd9b77ac2f695429991e751faf"
+    },
+    {
+      "origin": "_sql_scripts/sql_garbage.sql",
+      "path": "oracle/performance/sql/sql_garbage.sql",
+      "branch": "main",
+      "blob_sha": "abc1ce532cf8c5567224e28c81f74a376c572dc2",
+      "content_commit": "4cacc4c7c246e8041424826e806f37dfa6efe59a"
+    },
+    {
+      "origin": "_sql_scripts/sql_garbage3.sql",
+      "path": "oracle/performance/sql/sql_garbage3.sql",
+      "branch": "main",
+      "blob_sha": "b9826c8adcc7d52d2483a3a46fc35e02de6fa2dc",
+      "content_commit": "7d376e68ba5f135fb6bd32c84af35af5a7ecef4f"
+    },
+    {
+      "origin": "_sql_scripts/sql_stat.sql",
+      "path": "oracle/performance/sql/sql_stat.sql",
+      "branch": "main",
+      "blob_sha": "de23d0b25c8bb83d8dcc22ef2dbb83c4290d0b57",
+      "content_commit": "4cacc4c7c246e8041424826e806f37dfa6efe59a"
+    },
+    {
+      "origin": "_sql_scripts/sql_stats.sql",
+      "path": "oracle/performance/sql/sql_stats.sql",
+      "branch": "main",
+      "blob_sha": "9a557031348033265a65315aa60c681271fec3a9",
+      "content_commit": "4cacc4c7c246e8041424826e806f37dfa6efe59a"
+    },
+    {
+      "origin": "_sql_scripts/sql_text.sql",
+      "path": "oracle/performance/sql/sql_text.sql",
+      "branch": "main",
+      "blob_sha": "a9795fd632a6b78c4e0ef2cec60c95c8613a1fcb",
+      "content_commit": "a4fb9ccf43f7afdd9b77ac2f695429991e751faf"
+    },
+    {
+      "origin": "_sql_scripts/sqldrd.sql",
+      "path": "oracle/performance/sql/sqldrd.sql",
+      "branch": "main",
+      "blob_sha": "243f30cee157f38ac49e96c1ac6004a71796ed3f",
+      "content_commit": "4cacc4c7c246e8041424826e806f37dfa6efe59a"
+    },
+    {
+      "origin": "_sql_scripts/sqldrd1.sql",
+      "path": "oracle/performance/sql/sqldrd1.sql",
+      "branch": "main",
+      "blob_sha": "3d4f83c073fc8e62cb6bc5ebeb1f9704c23669ec",
+      "content_commit": "4cacc4c7c246e8041424826e806f37dfa6efe59a"
+    },
+    {
+      "origin": "_sql_scripts/sqlstmts2.sql",
+      "path": "oracle/objects/sqlstmts2.sql",
+      "branch": "main",
+      "blob_sha": "eae5fa4a3471a544fa2da592db0c4c1bb5f58a39",
+      "content_commit": "a4fb9ccf43f7afdd9b77ac2f695429991e751faf"
+    },
+    {
+      "origin": "_sql_scripts/top_sql_waits.sql",
+      "path": "oracle/performance/ash/top_sql_waits.sql",
+      "branch": "main",
+      "blob_sha": "a240e6b3522b7e63ec777b8573ee9d54530814c3",
+      "content_commit": "a4fb9ccf43f7afdd9b77ac2f695429991e751faf"
+    },
+    {
+      "origin": "_table_scripts/CHAINING.SQL",
+      "path": "oracle/troubleshooting/chaining.sql",
+      "branch": "main",
+      "blob_sha": "7253acf03a5be313d28fb2fc76ad351e484753de",
+      "content_commit": "573a4a79dd5956a4ee4eced4ba5a31c3a5830894"
+    },
+    {
+      "origin": "_table_scripts/EXTENTS.SQL",
+      "path": "oracle/storage/extents.sql",
+      "branch": "main",
+      "blob_sha": "8bacc945b991af408446b8f9c7d8677dd8f4a319",
+      "content_commit": "4131a06e8f6baca711c0f3930cc34d68d98a4dc2"
+    },
+    {
+      "origin": "_table_scripts/FKEYLIST.SQL",
+      "path": "oracle/objects/fkeylist.sql",
+      "branch": "main",
+      "blob_sha": "a66489ef50f206ddf624500c237a3751729d8aa8",
+      "content_commit": "f5dffc1747f9e0834d109701654cc91544cc1119"
+    },
+    {
+      "origin": "_table_scripts/ROWSIZE.SQL",
+      "path": "oracle/administration/rowsize.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "fc0a0c54537a15d8d3f17f152c0a1eedb3c4a27e",
+      "content_commit": "bfe9b7c1c856c8434a3d56ce74f2a7c3383d302b"
+    },
+    {
+      "origin": "_table_scripts/TABHELP.SQL",
+      "path": "oracle/objects/tabhelp.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "7e79ebca2d46a5ac7ec7603960944fa89df4d55f",
+      "content_commit": "bfe9b7c1c856c8434a3d56ce74f2a7c3383d302b"
+    },
+    {
+      "origin": "_table_scripts/TABLE.SQL",
+      "path": "oracle/objects/table.sql",
+      "branch": "main",
+      "blob_sha": "9197a41f575e9b0972c68071363e6e4e8b3e0655",
+      "content_commit": "f5dffc1747f9e0834d109701654cc91544cc1119"
+    },
+    {
+      "origin": "_table_scripts/TAB_COL.SQL",
+      "path": "oracle/objects/tab_col.sql",
+      "branch": "main",
+      "blob_sha": "f0b3d59cc233218fad694a98c4704e4fb42667e9",
+      "content_commit": "f5dffc1747f9e0834d109701654cc91544cc1119"
+    },
+    {
+      "origin": "_table_scripts/TAB_NEST.SQL",
+      "path": "oracle/objects/tab_nest.sql",
+      "branch": "main",
+      "blob_sha": "2424f6b132c1cc7257407d762919c6afe23486ad",
+      "content_commit": "4131a06e8f6baca711c0f3930cc34d68d98a4dc2"
+    },
+    {
+      "origin": "_table_scripts/TAB_PART.SQL",
+      "path": "oracle/objects/tab_part.sql",
+      "branch": "main",
+      "blob_sha": "9484ce394b525cbf74db4865e813d3be781b7f98",
+      "content_commit": "4131a06e8f6baca711c0f3930cc34d68d98a4dc2"
+    },
+    {
+      "origin": "_table_scripts/TAB_RCT.sql",
+      "path": "oracle/objects/tab_rct.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "a9d01aa7bd2217bcc52adbdc1a4b97ee4ff1e282",
+      "content_commit": "fe4c50194b475deb7d4580da8b7bc5cfc94b14be"
+    },
+    {
+      "origin": "_table_scripts/TAB_REP.SQL",
+      "path": "oracle/objects/tab_rep.sql",
+      "branch": "main",
+      "blob_sha": "556536556b8ea5a29f83e194cf90a96517c3e98a",
+      "content_commit": "f5dffc1747f9e0834d109701654cc91544cc1119"
+    },
+    {
+      "origin": "_table_scripts/TAB_SCOL.SQL",
+      "path": "oracle/objects/tab_scol.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "e56b72e9b0a9f61fae4cb194824942a875a2839e",
+      "content_commit": "bfe9b7c1c856c8434a3d56ce74f2a7c3383d302b"
+    },
+    {
+      "origin": "_table_scripts/TAB_STAT.SQL",
+      "path": "oracle/storage/tab_stat.sql",
+      "branch": "main",
+      "blob_sha": "e957447f9a483cd1ce8f12465e7ab923f98ebae7",
+      "content_commit": "f5dffc1747f9e0834d109701654cc91544cc1119"
+    },
+    {
+      "origin": "_table_scripts/TRIG_RCT.SQL",
+      "path": "oracle/objects/trig_rct.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "517ab864f791b379e81dd0581e5d45c2bfb29722",
+      "content_commit": "fe4c50194b475deb7d4580da8b7bc5cfc94b14be"
+    },
+    {
+      "origin": "_table_scripts/TRIG_REP.SQL",
+      "path": "oracle/objects/trig_rep.sql",
+      "branch": "main",
+      "blob_sha": "307d0d996d355dc46ec666f781ea4d67f8313bf6",
+      "content_commit": "4131a06e8f6baca711c0f3930cc34d68d98a4dc2"
+    },
+    {
+      "origin": "_table_scripts/VIEW.SQL",
+      "path": "oracle/administration/view.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "47f481748a9072c42a4784dab82b09840baad1f8",
+      "content_commit": "3ef049760afbda16da2e8ec4a59603017c8ae0c1"
+    },
+    {
+      "origin": "_table_scripts/VIEW_REP.SQL",
+      "path": "oracle/objects/view_rep.sql",
+      "branch": "main",
+      "blob_sha": "039a674d3c3a9422459c941f0cc99b2360d32ad6",
+      "content_commit": "4131a06e8f6baca711c0f3930cc34d68d98a4dc2"
+    },
+    {
+      "origin": "_table_scripts/act_size_tab.sql",
+      "path": "oracle/administration/act_size_tab.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "764c0d09afb929013235bb173f94a7e90cc564c8",
+      "content_commit": "bfe9b7c1c856c8434a3d56ce74f2a7c3383d302b"
+    },
+    {
+      "origin": "_table_scripts/auto_chain.SQL",
+      "path": "oracle/administration/auto_chain.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "29eac305d9d4949090f454b99c41c7466d31df9d",
+      "content_commit": "b59898337fd6d279755d4239e1228fca6bbe3b96"
+    },
+    {
+      "origin": "_table_scripts/cfb_ratio_clustering_factor.sql",
+      "path": "oracle/performance/cfb_ratio_clustering_factor.sql",
+      "branch": "main",
+      "blob_sha": "f0bfee87cabfa78a4bbf20bdc1a030f3fe25ca3f",
+      "content_commit": "f5dffc1747f9e0834d109701654cc91544cc1119"
+    },
+    {
+      "origin": "_table_scripts/chain1.SQL",
+      "path": "oracle/objects/chain1.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "376b63cd10b5fc0380d74ddfc6c69f8f58113174",
+      "content_commit": "b59898337fd6d279755d4239e1228fca6bbe3b96"
+    },
+    {
+      "origin": "_table_scripts/chained.sql",
+      "path": "oracle/administration/chained.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "7e28b6a8507034a5b4371b7fb6876e78bbc5a611",
+      "content_commit": "3ef049760afbda16da2e8ec4a59603017c8ae0c1"
+    },
+    {
+      "origin": "_table_scripts/chained_rows.sql",
+      "path": "oracle/objects/chained_rows.sql",
+      "branch": "main",
+      "blob_sha": "ccd7fda19e66ae7fb620f4af1965ee2876658e44",
+      "content_commit": "4131a06e8f6baca711c0f3930cc34d68d98a4dc2"
+    },
+    {
+      "origin": "_table_scripts/chained_tab.sql",
+      "path": "oracle/objects/chained_tab.sql",
+      "branch": "main",
+      "blob_sha": "3b6188d7ea589a81021bec623ff006a357e30551",
+      "content_commit": "4131a06e8f6baca711c0f3930cc34d68d98a4dc2"
+    },
+    {
+      "origin": "_table_scripts/chaining2.sql",
+      "path": "oracle/troubleshooting/chaining2.sql",
+      "branch": "main",
+      "blob_sha": "88afaeaeef1f9cad433aaf17167fadbbe8a7ea57",
+      "content_commit": "573a4a79dd5956a4ee4eced4ba5a31c3a5830894"
+    },
+    {
+      "origin": "_table_scripts/col_list.sql",
+      "path": "oracle/objects/col_list.sql",
+      "branch": "main",
+      "blob_sha": "fec799b292469661e333b9d4aff0d7f1f602683d",
+      "content_commit": "4131a06e8f6baca711c0f3930cc34d68d98a4dc2"
+    },
+    {
+      "origin": "_table_scripts/ext_file.sql",
+      "path": "oracle/administration/ext_file.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "04f91e159c5feb94e0d5e745037fd4d713f85c3c",
+      "content_commit": "3ef049760afbda16da2e8ec4a59603017c8ae0c1"
+    },
+    {
+      "origin": "_table_scripts/extents_chk.sql",
+      "path": "oracle/storage/extents_chk.sql",
+      "branch": "main",
+      "blob_sha": "f724baae28fc5def025f7cadf1e8f7efce319d45",
+      "content_commit": "f5dffc1747f9e0834d109701654cc91544cc1119"
+    },
+    {
+      "origin": "_table_scripts/get_long_length.sql",
+      "path": "oracle/objects/get_long_length.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "0a36a3b163abd09f43f67440aa87ad17a281402c",
+      "content_commit": "b59898337fd6d279755d4239e1228fca6bbe3b96"
+    },
+    {
+      "origin": "_table_scripts/get_views.sql",
+      "path": "oracle/objects/get_views.sql",
+      "branch": "main",
+      "blob_sha": "b5e721357aa50c22285ece7c3dde9b3c1fd86638",
+      "content_commit": "4131a06e8f6baca711c0f3930cc34d68d98a4dc2"
+    },
+    {
+      "origin": "_table_scripts/iot_rep.sql",
+      "path": "oracle/objects/iot_rep.sql",
+      "branch": "main",
+      "blob_sha": "728f88e21fcdfb546cce8cbaa5ba3816cc8260fd",
+      "content_commit": "f5dffc1747f9e0834d109701654cc91544cc1119"
+    },
+    {
+      "origin": "_table_scripts/lob_seg.sql",
+      "path": "oracle/storage/lob_seg.sql",
+      "branch": "main",
+      "blob_sha": "c3c3e786ea2516e3f9ba6e874dfae017f0c622e5",
+      "content_commit": "4131a06e8f6baca711c0f3930cc34d68d98a4dc2"
+    },
+    {
+      "origin": "_table_scripts/lob_seg_size.sql",
+      "path": "oracle/storage/lob_seg_size.sql",
+      "branch": "main",
+      "blob_sha": "fb4ddc1862b1a639d56ce06729d0212b9cfee43c",
+      "content_commit": "4131a06e8f6baca711c0f3930cc34d68d98a4dc2"
+    },
+    {
+      "origin": "_table_scripts/part_tab_all_rct.sql",
+      "path": "oracle/administration/part_tab_all_rct.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "b99e6c23d83dd63aabfae81507af369546136ac5",
+      "content_commit": "3f4224241719feab32cfd0d8c2f5c6ecbc559679"
+    },
+    {
+      "origin": "_table_scripts/part_tab_rct.sql",
+      "path": "oracle/objects/part_tab_rct.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "5fb98ff1d7099d81820f833cb1c5f65de5b4cbf4",
+      "content_commit": "3f4224241719feab32cfd0d8c2f5c6ecbc559679"
+    },
+    {
+      "origin": "_table_scripts/part_tab_test.sql",
+      "path": "oracle/objects/part_tab_test.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "f9675477a923daf69c8f6a0e7e67d7094d5195ae",
+      "content_commit": "b59898337fd6d279755d4239e1228fca6bbe3b96"
+    },
+    {
+      "origin": "_table_scripts/partition_sizing.sql",
+      "path": "oracle/storage/partition_sizing.sql",
+      "branch": "main",
+      "blob_sha": "61441bc412df8cd5a9158870693db8a49185a2e2",
+      "content_commit": "f5dffc1747f9e0834d109701654cc91544cc1119"
+    },
+    {
+      "origin": "_table_scripts/pctused.sql",
+      "path": "oracle/storage/pctused.sql",
+      "branch": "main",
+      "blob_sha": "51b8831494d764e2444f6bc87154ded6a5f1ad4a",
+      "content_commit": "4131a06e8f6baca711c0f3930cc34d68d98a4dc2"
+    },
+    {
+      "origin": "_table_scripts/recomp_views.sql",
+      "path": "oracle/administration/recomp_views.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "e32465bc7bb7c3dbe8aeba359f78098a7bda4005",
+      "content_commit": "fe4c50194b475deb7d4580da8b7bc5cfc94b14be"
+    },
+    {
+      "origin": "_table_scripts/tab_anal.sql",
+      "path": "oracle/monitoring/tab_anal.sql",
+      "branch": "main",
+      "blob_sha": "e886865f59fc936e4066e900ebd464730742f5f3",
+      "content_commit": "4131a06e8f6baca711c0f3930cc34d68d98a4dc2"
+    },
+    {
+      "origin": "_table_scripts/tab_bwd.sql",
+      "path": "oracle/objects/tab_bwd.sql",
+      "branch": "main",
+      "blob_sha": "38932b3dbfc2c642ca9c339d5a1b2ad3638a3d54",
+      "content_commit": "4131a06e8f6baca711c0f3930cc34d68d98a4dc2"
+    },
+    {
+      "origin": "_table_scripts/tab_bwd_c.sql",
+      "path": "oracle/objects/tab_bwd_c.sql",
+      "branch": "main",
+      "blob_sha": "29b58ed16ca43f0d9f1611767e864c1217b9eb34",
+      "content_commit": "4131a06e8f6baca711c0f3930cc34d68d98a4dc2"
+    },
+    {
+      "origin": "_table_scripts/tab_col_stat.sql",
+      "path": "oracle/objects/tab_col_stat.sql",
+      "branch": "main",
+      "blob_sha": "1ae9be053fb44a7f5fa186cdacf562fac025da7f",
+      "content_commit": "f5dffc1747f9e0834d109701654cc91544cc1119"
+    },
+    {
+      "origin": "_table_scripts/tab_lobs.sql",
+      "path": "oracle/objects/tab_lobs.sql",
+      "branch": "main",
+      "blob_sha": "acac6a33f3bda597b8dd15d6879111aee5fc18e6",
+      "content_commit": "4131a06e8f6baca711c0f3930cc34d68d98a4dc2"
+    },
+    {
+      "origin": "_table_scripts/tab_part80.sql",
+      "path": "oracle/objects/tab_part80.sql",
+      "branch": "main",
+      "blob_sha": "10ffdabd0268c2a4bf2181e6dd9186045f0ee018",
+      "content_commit": "4131a06e8f6baca711c0f3930cc34d68d98a4dc2"
+    },
+    {
+      "origin": "_table_scripts/tab_part_stat.sql",
+      "path": "oracle/objects/tab_part_stat.sql",
+      "branch": "main",
+      "blob_sha": "a1516bd07d91da4e03f52292f934be672d820553",
+      "content_commit": "f5dffc1747f9e0834d109701654cc91544cc1119"
+    },
+    {
+      "origin": "_table_scripts/tab_rct2.SQL",
+      "path": "oracle/objects/tab_rct2.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "b14be4ce0f7bbc94f765aabb8f27f582008f416d",
+      "content_commit": "3f4224241719feab32cfd0d8c2f5c6ecbc559679"
+    },
+    {
+      "origin": "_table_scripts/tab_rct3.SQL",
+      "path": "oracle/objects/tab_rct3.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "84906f697c12bb2780310b57d7f62fd81868ab42",
+      "content_commit": "3f4224241719feab32cfd0d8c2f5c6ecbc559679"
+    },
+    {
+      "origin": "_table_scripts/tab_rebuild.sql",
+      "path": "oracle/objects/tab_rebuild.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "feca1f4d82264c30502de9a8e4d767b206ef491e",
+      "content_commit": "fe4c50194b475deb7d4580da8b7bc5cfc94b14be"
+    },
+    {
+      "origin": "_table_scripts/tab_rep2.sql",
+      "path": "oracle/objects/tab_rep2.sql",
+      "branch": "main",
+      "blob_sha": "e9a602f080db249dd6274aacf1e17fd9c3b4b604",
+      "content_commit": "f5dffc1747f9e0834d109701654cc91544cc1119"
+    },
+    {
+      "origin": "_table_scripts/tab_size8.sql",
+      "path": "oracle/administration/tab_size8.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "f9f5482fe5c36bf9d62211783be588656f9c40f7",
+      "content_commit": "fe4c50194b475deb7d4580da8b7bc5cfc94b14be"
+    },
+    {
+      "origin": "_table_scripts/tab_size8_rep.sql",
+      "path": "oracle/storage/tab_size8_rep.sql",
+      "branch": "main",
+      "blob_sha": "32a49fe6bdb73e7f7f0400aee13a37d660a7af97",
+      "content_commit": "f5dffc1747f9e0834d109701654cc91544cc1119"
+    },
+    {
+      "origin": "_table_scripts/tab_stor.sql",
+      "path": "oracle/storage/tab_stor.sql",
+      "branch": "main",
+      "blob_sha": "285231e9eebc61a77014640870e9706dc2e9c8c4",
+      "content_commit": "f5dffc1747f9e0834d109701654cc91544cc1119"
+    },
+    {
+      "origin": "_table_scripts/tab_store2.sql",
+      "path": "oracle/objects/tab_store2.sql",
+      "branch": "main",
+      "blob_sha": "fd388106fd915b629e3f76fa8853bfbeee7c4a08",
+      "content_commit": "4131a06e8f6baca711c0f3930cc34d68d98a4dc2"
+    },
+    {
+      "origin": "_table_scripts/tab_subpart.sql",
+      "path": "oracle/objects/tab_subpart.sql",
+      "branch": "main",
+      "blob_sha": "e97534a4bc6161a8b11bf86d46fea9ebaa3e1b71",
+      "content_commit": "4131a06e8f6baca711c0f3930cc34d68d98a4dc2"
+    },
+    {
+      "origin": "_table_scripts/tab_subpart_stat.sql",
+      "path": "oracle/objects/tab_subpart_stat.sql",
+      "branch": "main",
+      "blob_sha": "b91ae0c6859026028395696832855300be1be047",
+      "content_commit": "f5dffc1747f9e0834d109701654cc91544cc1119"
+    },
+    {
+      "origin": "_table_scripts/table_scans.sql",
+      "path": "oracle/monitoring/table_scans.sql",
+      "branch": "main",
+      "blob_sha": "d1dd89b8824805d5b4fcc4ae65d8f172352dcda0",
+      "content_commit": "f5dffc1747f9e0834d109701654cc91544cc1119"
+    },
+    {
+      "origin": "_table_scripts/tables_sorts.sql",
+      "path": "oracle/monitoring/tables_sorts.sql",
+      "branch": "main",
+      "blob_sha": "6c8848595cc43603e0869fd58ea3bd668ab07096",
+      "content_commit": "4131a06e8f6baca711c0f3930cc34d68d98a4dc2"
+    },
+    {
+      "origin": "_table_scripts/trig_rct2.SQL",
+      "path": "oracle/objects/trig_rct2.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "81d4d3d581173a15abde6fd92f3731a5b13d3359",
+      "content_commit": "fe4c50194b475deb7d4580da8b7bc5cfc94b14be"
+    },
+    {
+      "origin": "_table_scripts/view_rct2.sql",
+      "path": "oracle/objects/view_rct2.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "3adab74d2ac954a56dfe52fbdd7aff3cadbc3eef",
+      "content_commit": "fe4c50194b475deb7d4580da8b7bc5cfc94b14be"
+    },
+    {
+      "origin": "_tablespace_scripts/BOUND_OB.SQL",
+      "path": "oracle/storage/bound_ob.sql",
+      "branch": "main",
+      "blob_sha": "045b1ad125e35b8b8d18104e9d0c316905872051",
+      "content_commit": "2cc417902145f25db58dce04e07863bd295898ec"
+    },
+    {
+      "origin": "_tablespace_scripts/FREE_SP.SQL",
+      "path": "oracle/storage/free_sp.sql",
+      "branch": "main",
+      "blob_sha": "a5bdd1096d691ce3ada615ed9a60efd98267ff96",
+      "content_commit": "2cc417902145f25db58dce04e07863bd295898ec"
+    },
+    {
+      "origin": "_tablespace_scripts/FREE_SP3.SQL",
+      "path": "oracle/storage/free_sp3.sql",
+      "branch": "main",
+      "blob_sha": "66a36437177659517c8f48480c2579fa0c7b8a2e",
+      "content_commit": "2cc417902145f25db58dce04e07863bd295898ec"
+    },
+    {
+      "origin": "_tablespace_scripts/FREE_SPC.SQL",
+      "path": "oracle/storage/free_spc.sql",
+      "branch": "main",
+      "blob_sha": "cdc0b12e4d0711cc90290bfd7bb65efa0261816a",
+      "content_commit": "2cc417902145f25db58dce04e07863bd295898ec"
+    },
+    {
+      "origin": "_tablespace_scripts/TABLESP.SQL",
+      "path": "oracle/administration/tablesp.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "900be759a7d98d15ad039ba53d4fe30e2cc7ef1c",
+      "content_commit": "b59898337fd6d279755d4239e1228fca6bbe3b96"
+    },
+    {
+      "origin": "_tablespace_scripts/TBSP_RCT.SQL",
+      "path": "oracle/administration/tbsp_rct.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "44819903edb31907b15a14cfab42d02d1fc0b8c4",
+      "content_commit": "3f4224241719feab32cfd0d8c2f5c6ecbc559679"
+    },
+    {
+      "origin": "_tablespace_scripts/auto_defrag.sql",
+      "path": "oracle/administration/auto_defrag.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "944f74f3852bd6f779708408628501a86ee5a8ac",
+      "content_commit": "fb9e2a2f98d1145b36ff3cc4af498345bf67cee0"
+    },
+    {
+      "origin": "_tablespace_scripts/db_tbsp_io.sql",
+      "path": "oracle/performance/awr/db_tbsp_io.sql",
+      "branch": "main",
+      "blob_sha": "d2277fd635d24825e3de62c37aaea25c4664616f",
+      "content_commit": "2cc417902145f25db58dce04e07863bd295898ec"
+    },
+    {
+      "origin": "_tablespace_scripts/free2_spc.sql",
+      "path": "oracle/storage/free2_spc.sql",
+      "branch": "main",
+      "blob_sha": "c20fd49b87ba3e37822b33c177b8062a69fe77d3",
+      "content_commit": "2cc417902145f25db58dce04e07863bd295898ec"
+    },
+    {
+      "origin": "_tablespace_scripts/free_spc3.sql",
+      "path": "oracle/storage/free_spc3.sql",
+      "branch": "main",
+      "blob_sha": "e38641343d9e4b5f7eb1a542730afe7e69d9d320",
+      "content_commit": "f58f399ab4d227e86f6f112877a885e04ea86248"
+    },
+    {
+      "origin": "_tablespace_scripts/segment_tablespace_growth_report.sql",
+      "path": "oracle/performance/awr/segment_tablespace_growth_report.sql",
+      "branch": "main",
+      "blob_sha": "c0361018ffa794227506ccbc87882fdf04bda2dc",
+      "content_commit": "2cc417902145f25db58dce04e07863bd295898ec"
+    },
+    {
+      "origin": "_tablespace_scripts/tbsp1_rct81.sql",
+      "path": "oracle/administration/tbsp1_rct81.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "f15852de8f1bcc3249f88461d94c846b8e4035a9",
+      "content_commit": "3f4224241719feab32cfd0d8c2f5c6ecbc559679"
+    },
+    {
+      "origin": "_tablespace_scripts/tbsp_it_rct81.sql",
+      "path": "oracle/administration/tbsp_it_rct81.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "a71f545623d78a06734eda3fd3eb9fd387bf65d6",
+      "content_commit": "3f4224241719feab32cfd0d8c2f5c6ecbc559679"
+    },
+    {
+      "origin": "_tablespace_scripts/tbsp_opt.sql",
+      "path": "oracle/storage/tbsp_opt.sql",
+      "branch": "main",
+      "blob_sha": "d583b89bc973461e7dc8c68c284ce5a30cb7ff1c",
+      "content_commit": "f58f399ab4d227e86f6f112877a885e04ea86248"
+    },
+    {
+      "origin": "_tablespace_scripts/tbsp_rct81.sql",
+      "path": "oracle/administration/tbsp_rct81.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "5967d21b73048c919bfd4fba88931a580b32a999",
+      "content_commit": "3f4224241719feab32cfd0d8c2f5c6ecbc559679"
+    },
+    {
+      "origin": "_tablespace_scripts/tbsp_rpt.sql",
+      "path": "oracle/storage/tbsp_rpt.sql",
+      "branch": "main",
+      "blob_sha": "474f38ac5bf8bbc1e3a21ae0116e7c197b2fea2c",
+      "content_commit": "f58f399ab4d227e86f6f112877a885e04ea86248"
+    },
+    {
+      "origin": "_wait_event_scripts/V$_display_avg_microseconds_waits.sql",
+      "path": "oracle/performance/awr/v$_display_avg_microseconds_waits.sql",
+      "branch": "main",
+      "blob_sha": "e9991fe9b85752d8a14ef6f69ed277682763bad7",
+      "content_commit": "0ed29a8bc18010de88a4cb8ff69cb32ecf54af0d"
+    },
+    {
+      "origin": "_wait_event_scripts/WAITERS.SQL",
+      "path": "oracle/troubleshooting/waiters.sql",
+      "branch": "main",
+      "blob_sha": "49f47e5412b7cdae46f749ca6ceb9ebce4cc2a81",
+      "content_commit": "0ed29a8bc18010de88a4cb8ff69cb32ecf54af0d"
+    },
+    {
+      "origin": "_wait_event_scripts/avg_mts_waits.SQL",
+      "path": "oracle/monitoring/avg_mts_waits.sql",
+      "branch": "main",
+      "blob_sha": "bd4b620d443cdf4e7d494cc83ef0f5ee01581cee",
+      "content_commit": "0ed29a8bc18010de88a4cb8ff69cb32ecf54af0d"
+    },
+    {
+      "origin": "_wait_event_scripts/enqueues.sql",
+      "path": "oracle/troubleshooting/enqueues.sql",
+      "branch": "main",
+      "blob_sha": "9308aaf4d531c63e1e22b618edd122bc724a7ba0",
+      "content_commit": "0ed29a8bc18010de88a4cb8ff69cb32ecf54af0d"
+    },
+    {
+      "origin": "_wait_event_scripts/file_waits.sql",
+      "path": "oracle/troubleshooting/file_waits.sql",
+      "branch": "main",
+      "blob_sha": "d095fa6dea551949a43b5c0fd6e99feaca9caaac",
+      "content_commit": "0ed29a8bc18010de88a4cb8ff69cb32ecf54af0d"
+    },
+    {
+      "origin": "_wait_event_scripts/resource_waits.sql",
+      "path": "oracle/performance/ash/resource_waits.sql",
+      "branch": "main",
+      "blob_sha": "ab4fa51930110700a2027fa42633dba1e8a2263d",
+      "content_commit": "0ed29a8bc18010de88a4cb8ff69cb32ecf54af0d"
+    },
+    {
+      "origin": "_wait_event_scripts/ssession_wait_details.sql",
+      "path": "oracle/troubleshooting/ssession_wait_details.sql",
+      "branch": "main",
+      "blob_sha": "ad0565d6b7846da686c465ad94b9dca8360830b4",
+      "content_commit": "0ed29a8bc18010de88a4cb8ff69cb32ecf54af0d"
+    },
+    {
+      "origin": "_wait_event_scripts/user_waiting.sql",
+      "path": "oracle/performance/ash/user_waiting.sql",
+      "branch": "main",
+      "blob_sha": "aa1171ecbca1adc8f9e81de67ab81771a2003e6a",
+      "content_commit": "0ed29a8bc18010de88a4cb8ff69cb32ecf54af0d"
+    },
+    {
+      "origin": "_wait_event_scripts/wait.sql",
+      "path": "oracle/monitoring/wait.sql",
+      "branch": "main",
+      "blob_sha": "859f32c7ed0a8d8bfe4165838fb76aa44c3283e4",
+      "content_commit": "0ed29a8bc18010de88a4cb8ff69cb32ecf54af0d"
+    },
+    {
+      "origin": "_wait_event_scripts/wait_stat_int_10g.sql",
+      "path": "oracle/performance/awr/wait_stat_int_10g.sql",
+      "branch": "main",
+      "blob_sha": "fc29957570839ee9fba9f5acb108c37cfb47d8cf",
+      "content_commit": "0ed29a8bc18010de88a4cb8ff69cb32ecf54af0d"
+    },
+    {
+      "origin": "_wait_event_scripts/waiters2.sql",
+      "path": "oracle/troubleshooting/waiters2.sql",
+      "branch": "main",
+      "blob_sha": "a7c32e3cfbb647b44d45e449263a7a3435b02576",
+      "content_commit": "0ed29a8bc18010de88a4cb8ff69cb32ecf54af0d"
+    },
+    {
+      "origin": "_wait_event_scripts/waits_file.sql",
+      "path": "oracle/troubleshooting/waits_file.sql",
+      "branch": "main",
+      "blob_sha": "42b2573a962feb6c45a1fcb0df4d032ed3df04a2",
+      "content_commit": "0ed29a8bc18010de88a4cb8ff69cb32ecf54af0d"
+    },
+    {
+      "origin": "_wait_event_scripts/wt_events_int_10g.sql",
+      "path": "oracle/performance/awr/wt_events_int_10g.sql",
+      "branch": "main",
+      "blob_sha": "c462117fa8a642a72380c221354cd6d78bcf4e42",
+      "content_commit": "0ed29a8bc18010de88a4cb8ff69cb32ecf54af0d"
+    },
+    {
+      "origin": "misc_scripts/CHG_ROLE.SQL",
+      "path": "oracle/security/chg_role.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "65dd72531e227f1ca7ec9cd766a30d02e6485ca5",
+      "content_commit": "04b93a49bef837fde158953d5627ce8b50cfedc1"
+    },
+    {
+      "origin": "misc_scripts/CHNG_PWD.SQL",
+      "path": "oracle/administration/chng_pwd.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "02edb31b90735d4a9bab7e80f2c37122ac9f8742",
+      "content_commit": "3ef049760afbda16da2e8ec4a59603017c8ae0c1"
+    },
+    {
+      "origin": "misc_scripts/CK_CONV.SQL",
+      "path": "oracle/objects/ck_conv.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "c462acea5b0c6c2f7fb85763d7e133133bca199f",
+      "content_commit": "fe4c50194b475deb7d4580da8b7bc5cfc94b14be"
+    },
+    {
+      "origin": "misc_scripts/CLUS_REP.SQL",
+      "path": "oracle/administration/clus_rep.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "2043b04e8cd9f7a259cb10fce727a5b7045ba094",
+      "content_commit": "bfe9b7c1c856c8434a3d56ce74f2a7c3383d302b"
+    },
+    {
+      "origin": "misc_scripts/CLU_TYP.SQL",
+      "path": "oracle/objects/clu_typ.sql",
+      "branch": "main",
+      "blob_sha": "2170b8f7475f128301eec71c01c5a8bb16c3bf39",
+      "content_commit": "f5dffc1747f9e0834d109701654cc91544cc1119"
+    },
+    {
+      "origin": "misc_scripts/COLG_RCT.SQL",
+      "path": "oracle/security/colg_rct.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "e788095ed93a312947e7d8f35c59245fc2919b6f",
+      "content_commit": "fb9e2a2f98d1145b36ff3cc4af498345bf67cee0"
+    },
+    {
+      "origin": "misc_scripts/COL_GRNT.SQL",
+      "path": "oracle/security/col_grnt.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "57a360a5381ca0f0cfc095f5149572e9ae07830a",
+      "content_commit": "fb9e2a2f98d1145b36ff3cc4af498345bf67cee0"
+    },
+    {
+      "origin": "misc_scripts/COM_PROC.SQL",
+      "path": "oracle/objects/com_proc.sql",
+      "branch": "main",
+      "blob_sha": "0a02185e857a4ba6b5c8c1252a43902361789c4a",
+      "content_commit": "387ebb84f41b1146d73299d0ca731b887329f730"
+    },
+    {
+      "origin": "misc_scripts/CON2_RCT.SQL",
+      "path": "oracle/objects/con2_rct.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "a2fc5dfcbae3e40e6c6e50316c0ff1fdd544c05b",
+      "content_commit": "fe4c50194b475deb7d4580da8b7bc5cfc94b14be"
+    },
+    {
+      "origin": "misc_scripts/CON3_RCT.SQL",
+      "path": "oracle/objects/con3_rct.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "a8d577e22c7054aeaa121cadf9a848da992a1683",
+      "content_commit": "fe4c50194b475deb7d4580da8b7bc5cfc94b14be"
+    },
+    {
+      "origin": "misc_scripts/CONS_REP.SQL",
+      "path": "oracle/objects/cons_rep.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "1c0c3624ad390dec850c14104c77298abecbe67e",
+      "content_commit": "fe4c50194b475deb7d4580da8b7bc5cfc94b14be"
+    },
+    {
+      "origin": "misc_scripts/CONTEND.SQL",
+      "path": "oracle/troubleshooting/contend.sql",
+      "branch": "main",
+      "blob_sha": "79aa7214b10f64482a95dd4545d73f53332d0eb0",
+      "content_commit": "4cacc4c7c246e8041424826e806f37dfa6efe59a"
+    },
+    {
+      "origin": "misc_scripts/CON_RCT.SQL",
+      "path": "oracle/objects/con_rct.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "90dd33ada443705803244005e3e63752c871fa35",
+      "content_commit": "fe4c50194b475deb7d4580da8b7bc5cfc94b14be"
+    },
+    {
+      "origin": "misc_scripts/CON_RCT2.SQL",
+      "path": "oracle/objects/con_rct2.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "8a699987f278af3a0bcb85f5cbe027a7efff13c1",
+      "content_commit": "fe4c50194b475deb7d4580da8b7bc5cfc94b14be"
+    },
+    {
+      "origin": "misc_scripts/CRT_PVW.SQL",
+      "path": "oracle/administration/crt_pvw.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "1edb735892119803edee39aa257ab1a6c090d5ea",
+      "content_commit": "436f99ad1cd56b8bb7ff9465aa68e53fd624b8ef"
+    },
+    {
+      "origin": "misc_scripts/CUR_USER.SQL",
+      "path": "oracle/monitoring/cur_user.sql",
+      "branch": "main",
+      "blob_sha": "10f88994244fde5116061fc20fdfc29180992882",
+      "content_commit": "46b6d764d936bb4f881c81643bd6682a4a921cf5"
+    },
+    {
+      "origin": "misc_scripts/Cur_open.sql",
+      "path": "oracle/monitoring/cur_open.sql",
+      "branch": "main",
+      "blob_sha": "7615df60cc361558c120a3f1f78458ed0cea8781",
+      "content_commit": "46b6d764d936bb4f881c81643bd6682a4a921cf5"
+    },
+    {
+      "origin": "misc_scripts/DATE.SQL",
+      "path": "oracle/administration/date.sql",
+      "branch": "main",
+      "blob_sha": "bb8151e610a57fe53be78c9eaf5412f81734d9c7",
+      "content_commit": "a77e85a0c19630cc8593bbcef1344bb3065fd7c2"
+    },
+    {
+      "origin": "misc_scripts/DBLINK.SQL",
+      "path": "oracle/security/dblink.sql",
+      "branch": "main",
+      "blob_sha": "0ff34f896f696d1725840ade89b8b5e91a588708",
+      "content_commit": "2cc417902145f25db58dce04e07863bd295898ec"
+    },
+    {
+      "origin": "misc_scripts/DB_RBKS.SQL",
+      "path": "oracle/administration/db_rbks.sql",
+      "branch": "main",
+      "blob_sha": "02727ae806fa1c6e7bc24a2613daa054a064bbfc",
+      "content_commit": "2cc417902145f25db58dce04e07863bd295898ec"
+    },
+    {
+      "origin": "misc_scripts/DB_RCT.SQL",
+      "path": "oracle/administration/db_rct.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "88fd75b2d7f1769943157eded81b0b0690b5a9fb",
+      "content_commit": "3f4224241719feab32cfd0d8c2f5c6ecbc559679"
+    },
+    {
+      "origin": "misc_scripts/DB_TGNTS.SQL",
+      "path": "oracle/security/db_tgnts.sql",
+      "branch": "main",
+      "blob_sha": "c1737f9fdbe874f058932cb80ae7efb86ca22290",
+      "content_commit": "a77e85a0c19630cc8593bbcef1344bb3065fd7c2"
+    },
+    {
+      "origin": "misc_scripts/DB_TGRNT.SQL",
+      "path": "oracle/security/db_tgrnt.sql",
+      "branch": "main",
+      "blob_sha": "1254e3d74fc4b4a40baa3fee3ac916d2bffd9e94",
+      "content_commit": "a77e85a0c19630cc8593bbcef1344bb3065fd7c2"
+    },
+    {
+      "origin": "misc_scripts/DDCACHE.SQL",
+      "path": "oracle/performance/ddcache.sql",
+      "branch": "main",
+      "blob_sha": "86a06a616bb1ad0450459a4839548a8bd1d252f4",
+      "content_commit": "424bd7546fe30a1797efa43025cfdbea854ed22a"
+    },
+    {
+      "origin": "misc_scripts/DDL_LOCK.SQL",
+      "path": "oracle/troubleshooting/ddl_lock.sql",
+      "branch": "main",
+      "blob_sha": "70db19a26ebcd53baa010db0a79fb49fd8e42ab0",
+      "content_commit": "4cacc4c7c246e8041424826e806f37dfa6efe59a"
+    },
+    {
+      "origin": "misc_scripts/DEFRG73.SQL",
+      "path": "oracle/administration/defrg73.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "268af3497c910f40f0c5cf2b6d1e45d4bc80f1da",
+      "content_commit": "fb9e2a2f98d1145b36ff3cc4af498345bf67cee0"
+    },
+    {
+      "origin": "misc_scripts/DESC_DEF.SQL",
+      "path": "oracle/administration/desc_def.sql",
+      "branch": "main",
+      "blob_sha": "c323e21fa6b7b11f3920f0a1e95501451041a1d4",
+      "content_commit": "46b6d764d936bb4f881c81643bd6682a4a921cf5"
+    },
+    {
+      "origin": "misc_scripts/DESC_NON_DBA_VIEWS.SQL",
+      "path": "oracle/objects/desc_non_dba_views.sql",
+      "branch": "main",
+      "blob_sha": "ab4e2566ef74f64bdd31693132ee464003c50df0",
+      "content_commit": "a77e85a0c19630cc8593bbcef1344bb3065fd7c2"
+    },
+    {
+      "origin": "misc_scripts/DESC_REP.SQL",
+      "path": "oracle/administration/desc_rep.sql",
+      "branch": "main",
+      "blob_sha": "b612e681a1aa7ad063aab9c7bda87dbed67ba17f",
+      "content_commit": "321616c6f6c3048bd9fba2beac5b0f583af2d4b9"
+    },
+    {
+      "origin": "misc_scripts/DESC_SYS.SQL",
+      "path": "oracle/administration/desc_sys.sql",
+      "branch": "main",
+      "blob_sha": "8bd781dd177187e6a6e83aef47d4a10712f0e124",
+      "content_commit": "321616c6f6c3048bd9fba2beac5b0f583af2d4b9"
+    },
+    {
+      "origin": "misc_scripts/DML_LOCK.SQL",
+      "path": "oracle/troubleshooting/dml_lock.sql",
+      "branch": "main",
+      "blob_sha": "7042f74a129c04fd00cb81cda622c9b38f797a2b",
+      "content_commit": "7d376e68ba5f135fb6bd32c84af35af5a7ecef4f"
+    },
+    {
+      "origin": "misc_scripts/EXE_FPRC.SQL",
+      "path": "oracle/security/exe_fprc.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "302f49dbc577936fb3ce1b1aced6ce045552ad12",
+      "content_commit": "3f4224241719feab32cfd0d8c2f5c6ecbc559679"
+    },
+    {
+      "origin": "misc_scripts/FPRC_RCT.SQL",
+      "path": "oracle/objects/fprc_rct.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "d618472be3931601bba5b67ce57b23849f3e13e1",
+      "content_commit": "04b93a49bef837fde158953d5627ce8b50cfedc1"
+    },
+    {
+      "origin": "misc_scripts/GETCOM.SQL",
+      "path": "oracle/administration/getcom.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "e70a24ce68b41af8ebca5948e96092f73709d151",
+      "content_commit": "3ef049760afbda16da2e8ec4a59603017c8ae0c1"
+    },
+    {
+      "origin": "misc_scripts/INIT_RCT.SQL",
+      "path": "oracle/administration/init_rct.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "c27362d3ff2bce16a94cfce34f66c2f6c92637a0",
+      "content_commit": "04b93a49bef837fde158953d5627ce8b50cfedc1"
+    },
+    {
+      "origin": "misc_scripts/LOGIN_TM.SQL",
+      "path": "oracle/monitoring/login_tm.sql",
+      "branch": "main",
+      "blob_sha": "7305f392aa7ed1b39484c517c217b99342a39691",
+      "content_commit": "7d376e68ba5f135fb6bd32c84af35af5a7ecef4f"
+    },
+    {
+      "origin": "misc_scripts/MEM.SQL",
+      "path": "oracle/memory/mem.sql",
+      "branch": "main",
+      "blob_sha": "0abbfddb290b21f7c04cfb735b47c08ed9b62ab6",
+      "content_commit": "424bd7546fe30a1797efa43025cfdbea854ed22a"
+    },
+    {
+      "origin": "misc_scripts/NEW2FPRC.SQL",
+      "path": "oracle/objects/new2fprc.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "f3be79f46582113e4f422cfb0110ca2ec414c186",
+      "content_commit": "3f4224241719feab32cfd0d8c2f5c6ecbc559679"
+    },
+    {
+      "origin": "misc_scripts/NEW_FPRC.SQL",
+      "path": "oracle/objects/new_fprc.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "c3dc421fb62836835e9d9d943f0eb54c2b5bf81c",
+      "content_commit": "3f4224241719feab32cfd0d8c2f5c6ecbc559679"
+    },
+    {
+      "origin": "misc_scripts/NONE.SQL",
+      "path": "oracle/administration/none.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "c249a3b71f3e6ffa9f4873cecd76da0d1955a734",
+      "content_commit": "436f99ad1cd56b8bb7ff9465aa68e53fd624b8ef"
+    },
+    {
+      "origin": "misc_scripts/OBJECT.SQL",
+      "path": "oracle/objects/object.sql",
+      "branch": "main",
+      "blob_sha": "f8542b8afc48119986d8689f4ea83b83da8947f4",
+      "content_commit": "f5dffc1747f9e0834d109701654cc91544cc1119"
+    },
+    {
+      "origin": "misc_scripts/OBJ_STAT.SQL",
+      "path": "oracle/objects/obj_stat.sql",
+      "branch": "main",
+      "blob_sha": "30f6a083587f81d18be76d9f6e71b1d8c5dea6c7",
+      "content_commit": "f5dffc1747f9e0834d109701654cc91544cc1119"
+    },
+    {
+      "origin": "misc_scripts/OLINE_BU.SQL",
+      "path": "oracle/backup-recovery/oline_bu.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "cf9565cb1eebca5e8e3fc39cdb9acc73a34c1d6c",
+      "content_commit": "627706b5c563a370a739c9b7ecc731cd09517ed3"
+    },
+    {
+      "origin": "misc_scripts/O_CACHE.SQL",
+      "path": "oracle/performance/o_cache.sql",
+      "branch": "main",
+      "blob_sha": "cbdc35ce9697a1fca56b2b55f7f5131ae788a63b",
+      "content_commit": "2cc417902145f25db58dce04e07863bd295898ec"
+    },
+    {
+      "origin": "misc_scripts/O_CACHE2.SQL",
+      "path": "oracle/performance/o_cache2.sql",
+      "branch": "main",
+      "blob_sha": "546456dd2af55b631c43b6f198dc82cac24477de",
+      "content_commit": "2cc417902145f25db58dce04e07863bd295898ec"
+    },
+    {
+      "origin": "misc_scripts/PID.SQL",
+      "path": "oracle/monitoring/pid.sql",
+      "branch": "main",
+      "blob_sha": "db3932148116ece1a9a5a603ea021e0e0d813295",
+      "content_commit": "321616c6f6c3048bd9fba2beac5b0f583af2d4b9"
+    },
+    {
+      "origin": "misc_scripts/PID1.SQL",
+      "path": "oracle/monitoring/pid1.sql",
+      "branch": "main",
+      "blob_sha": "9667193391169edb9b692fe02327f2eea0a5b3c9",
+      "content_commit": "2cc417902145f25db58dce04e07863bd295898ec"
+    },
+    {
+      "origin": "misc_scripts/PK_FK2.SQL",
+      "path": "oracle/objects/pk_fk2.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "7148230bc66c656785bd59ff85708de30e225545",
+      "content_commit": "fe4c50194b475deb7d4580da8b7bc5cfc94b14be"
+    },
+    {
+      "origin": "misc_scripts/PROC_REP.SQL",
+      "path": "oracle/objects/proc_rep.sql",
+      "branch": "main",
+      "blob_sha": "67417ad9e275963879ebc3fb0fa722eb72eea609",
+      "content_commit": "2cc417902145f25db58dce04e07863bd295898ec"
+    },
+    {
+      "origin": "misc_scripts/PROC_REP2.SQL",
+      "path": "oracle/objects/proc_rep2.sql",
+      "branch": "main",
+      "blob_sha": "310ffb71fec6654148f9f95a6a73ef69e94eb160",
+      "content_commit": "2cc417902145f25db58dce04e07863bd295898ec"
+    },
+    {
+      "origin": "misc_scripts/PROTWT.SQL",
+      "path": "oracle/monitoring/protwt.sql",
+      "branch": "main",
+      "blob_sha": "fb85d23fa6863ed3e1239e466de22b656f8e6742",
+      "content_commit": "387ebb84f41b1146d73299d0ca731b887329f730"
+    },
+    {
+      "origin": "misc_scripts/RBD_CON.SQL",
+      "path": "oracle/objects/rbd_con.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "91f72359a278436de25433d5de20946eb0d58ab4",
+      "content_commit": "fb9e2a2f98d1145b36ff3cc4af498345bf67cee0"
+    },
+    {
+      "origin": "misc_scripts/RCT_USRS.SQL",
+      "path": "oracle/security/rct_usrs.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "a5248678edf76273abd00acc5e088313c1c54565",
+      "content_commit": "fb9e2a2f98d1145b36ff3cc4af498345bf67cee0"
+    },
+    {
+      "origin": "misc_scripts/RESTRICT.SQL",
+      "path": "oracle/security/restrict.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "b40479fbc9b6ad49d2652a3b2ce5a068c4a4e775",
+      "content_commit": "fb9e2a2f98d1145b36ff3cc4af498345bf67cee0"
+    },
+    {
+      "origin": "misc_scripts/RGNT_RCT.SQL",
+      "path": "oracle/security/rgnt_rct.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "995585413b0555c1d518307c95597a5141817fe2",
+      "content_commit": "fb9e2a2f98d1145b36ff3cc4af498345bf67cee0"
+    },
+    {
+      "origin": "misc_scripts/SEQ.SQL",
+      "path": "oracle/objects/seq.sql",
+      "branch": "main",
+      "blob_sha": "ea1d6d93c6777aafa953e516ce707fd59f982388",
+      "content_commit": "321616c6f6c3048bd9fba2beac5b0f583af2d4b9"
+    },
+    {
+      "origin": "misc_scripts/SEQ_RCT.SQL",
+      "path": "oracle/objects/seq_rct.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "3792562dc09ba34e9fd3c5df4d18451466d1c19e",
+      "content_commit": "fb9e2a2f98d1145b36ff3cc4af498345bf67cee0"
+    },
+    {
+      "origin": "misc_scripts/SHRT_CAL.SQL",
+      "path": "oracle/administration/shrt_cal.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "4da6da1ec11efb443ff2ef5f8985883dc74e0c3f",
+      "content_commit": "3f4224241719feab32cfd0d8c2f5c6ecbc559679"
+    },
+    {
+      "origin": "misc_scripts/SIZE.SQL",
+      "path": "oracle/administration/size.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "aea818e408eeca4acc0b4f2f9ce9b39ca4174c6d",
+      "content_commit": "04b93a49bef837fde158953d5627ce8b50cfedc1"
+    },
+    {
+      "origin": "misc_scripts/SNPLOG.SQL",
+      "path": "oracle/objects/snplog.sql",
+      "branch": "main",
+      "blob_sha": "246062399a2c8c661c7e2d0a8c5a7865896f7539",
+      "content_commit": "321616c6f6c3048bd9fba2beac5b0f583af2d4b9"
+    },
+    {
+      "origin": "misc_scripts/SORT_view.sql",
+      "path": "oracle/objects/sort_view.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "715eb446a4304e2a5c0b5c0d047a79defe45fa0f",
+      "content_commit": "b59898337fd6d279755d4239e1228fca6bbe3b96"
+    },
+    {
+      "origin": "misc_scripts/SPACE.SQL",
+      "path": "oracle/objects/space.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "4b0011d85850dc36af1acce6a366f517b86fd4a3",
+      "content_commit": "04b93a49bef837fde158953d5627ce8b50cfedc1"
+    },
+    {
+      "origin": "misc_scripts/ST_PROC.SQL",
+      "path": "oracle/objects/st_proc.sql",
+      "branch": "main",
+      "blob_sha": "2dd03cb80940e44c0838d34e75cbe4dd094e659c",
+      "content_commit": "7d376e68ba5f135fb6bd32c84af35af5a7ecef4f"
+    },
+    {
+      "origin": "misc_scripts/SYNO_RCT.SQL",
+      "path": "oracle/objects/syno_rct.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "cd48c5ebb9baa61dc5cb3bb2e8d370751c1231b7",
+      "content_commit": "fb9e2a2f98d1145b36ff3cc4af498345bf67cee0"
+    },
+    {
+      "origin": "misc_scripts/SYSTABS.SQL",
+      "path": "oracle/storage/systabs.sql",
+      "branch": "main",
+      "blob_sha": "7f920d7b5446d998b74d699008bd73b58f20e916",
+      "content_commit": "46b6d764d936bb4f881c81643bd6682a4a921cf5"
+    },
+    {
+      "origin": "misc_scripts/THREAD.SQL",
+      "path": "oracle/rac/thread.sql",
+      "branch": "main",
+      "blob_sha": "d98c3fb8f765a63319c082cf14333bf2ab674787",
+      "content_commit": "a77e85a0c19630cc8593bbcef1344bb3065fd7c2"
+    },
+    {
+      "origin": "misc_scripts/TX_RBKV.SQL",
+      "path": "oracle/administration/tx_rbkv.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "4925b28f2e1460401cc014e896f78db04ff81955",
+      "content_commit": "436f99ad1cd56b8bb7ff9465aa68e53fd624b8ef"
+    },
+    {
+      "origin": "misc_scripts/TX_RBS.SQL",
+      "path": "oracle/troubleshooting/tx_rbs.sql",
+      "branch": "main",
+      "blob_sha": "909de96926ae5cf31be924c4e043dd0fd92144e0",
+      "content_commit": "a77e85a0c19630cc8593bbcef1344bb3065fd7c2"
+    },
+    {
+      "origin": "misc_scripts/UNDO.SQL",
+      "path": "oracle/monitoring/undo.sql",
+      "branch": "main",
+      "blob_sha": "c9a814503faaf03d87bdcbc4f802d94ab49d9723",
+      "content_commit": "424bd7546fe30a1797efa43025cfdbea854ed22a"
+    },
+    {
+      "origin": "misc_scripts/UNDOC.SQL",
+      "path": "oracle/administration/undoc.sql",
+      "branch": "main",
+      "blob_sha": "ea0efe8c7dc6aea1a0bc299f47f462278b69fe49",
+      "content_commit": "424bd7546fe30a1797efa43025cfdbea854ed22a"
+    },
+    {
+      "origin": "misc_scripts/VAL_PROC.SQL",
+      "path": "oracle/administration/val_proc.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "00f440dd1bca79489c15df3d0a06cd1199c5c5be",
+      "content_commit": "b59898337fd6d279755d4239e1228fca6bbe3b96"
+    },
+    {
+      "origin": "misc_scripts/cfb_ratio.sql",
+      "path": "oracle/performance/cfb_ratio.sql",
+      "branch": "main",
+      "blob_sha": "31d89e0f11e0473c1a301390a5593e4bf6f91158",
+      "content_commit": "80be7f39bed330dedf16f63d9a950b3ed7ec77ee"
+    },
+    {
+      "origin": "misc_scripts/changed_sql.sql",
+      "path": "oracle/performance/awr/changed_sql.sql",
+      "branch": "main",
+      "blob_sha": "68b2e5f071d95245a0cc4ad8484371d7edf43cde",
+      "content_commit": "46b6d764d936bb4f881c81643bd6682a4a921cf5"
+    },
+    {
+      "origin": "misc_scripts/check-target.sql",
+      "path": "oracle/troubleshooting/check-target.sql",
+      "branch": "main",
+      "blob_sha": "c452b374468590025636b3e6a5253edb86d5ae0e",
+      "content_commit": "321616c6f6c3048bd9fba2beac5b0f583af2d4b9"
+    },
+    {
+      "origin": "misc_scripts/check_ind.sql",
+      "path": "oracle/memory/check_ind.sql",
+      "branch": "main",
+      "blob_sha": "c66d12af91da85b8db02eeca478943d09e40e7e1",
+      "content_commit": "424bd7546fe30a1797efa43025cfdbea854ed22a"
+    },
+    {
+      "origin": "misc_scripts/chg_obj.sql",
+      "path": "oracle/objects/chg_obj.sql",
+      "branch": "main",
+      "blob_sha": "a2169ea237b906030af1ccab816297d0a595671f",
+      "content_commit": "321616c6f6c3048bd9fba2beac5b0f583af2d4b9"
+    },
+    {
+      "origin": "misc_scripts/chk_priv.sql",
+      "path": "oracle/administration/chk_priv.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "75e5a66b05bb07c79795929a1f168cbb526dc038",
+      "content_commit": "3ef049760afbda16da2e8ec4a59603017c8ae0c1"
+    },
+    {
+      "origin": "misc_scripts/chk_tab.SQL",
+      "path": "oracle/administration/chk_tab.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "b58c468ef8b0c05ab9a8e79dfcf79d15dd58d5ea",
+      "content_commit": "b59898337fd6d279755d4239e1228fca6bbe3b96"
+    },
+    {
+      "origin": "misc_scripts/chk_tab2.sql",
+      "path": "oracle/administration/chk_tab2.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "cb08eac68534be6cbedf013cb20dcaa410bbc443",
+      "content_commit": "b59898337fd6d279755d4239e1228fca6bbe3b96"
+    },
+    {
+      "origin": "misc_scripts/clean_temp_temp.sql",
+      "path": "oracle/administration/clean_temp_temp.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "747d564ea8d7c9348c14f0f9bfceb32a2b43cf39",
+      "content_commit": "436f99ad1cd56b8bb7ff9465aa68e53fd624b8ef"
+    },
+    {
+      "origin": "misc_scripts/code_lines.sql",
+      "path": "oracle/objects/code_lines.sql",
+      "branch": "main",
+      "blob_sha": "9b57ed1f38d6c6e03c5d21f414c14e193c259b38",
+      "content_commit": "424bd7546fe30a1797efa43025cfdbea854ed22a"
+    },
+    {
+      "origin": "misc_scripts/con_owner.sql",
+      "path": "oracle/objects/con_owner.sql",
+      "branch": "main",
+      "blob_sha": "ce1a72c407b9b80d076f073a4453ced41b22ba59",
+      "content_commit": "80be7f39bed330dedf16f63d9a950b3ed7ec77ee"
+    },
+    {
+      "origin": "misc_scripts/connect.SQL",
+      "path": "oracle/administration/connect.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "c1babef0bfde6192b764d7c8dfa9798bf3c3a61f",
+      "content_commit": "436f99ad1cd56b8bb7ff9465aa68e53fd624b8ef"
+    },
+    {
+      "origin": "misc_scripts/cons_db.sql",
+      "path": "oracle/objects/cons_db.sql",
+      "branch": "main",
+      "blob_sha": "87eae0d63882ed6918ab815c0945d27ee972710f",
+      "content_commit": "46b6d764d936bb4f881c81643bd6682a4a921cf5"
+    },
+    {
+      "origin": "misc_scripts/cons_rep2.sql",
+      "path": "oracle/objects/cons_rep2.sql",
+      "branch": "main",
+      "blob_sha": "747d9110efb057c15b67607809ce4be38e375ccf",
+      "content_commit": "46b6d764d936bb4f881c81643bd6682a4a921cf5"
+    },
+    {
+      "origin": "misc_scripts/crea_fs.sql",
+      "path": "oracle/administration/crea_fs.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "fb0c007feb41ef00a18fb53cbf0e7ee3e7e7b218",
+      "content_commit": "3ef049760afbda16da2e8ec4a59603017c8ae0c1"
+    },
+    {
+      "origin": "misc_scripts/cum_hrat.sql",
+      "path": "oracle/monitoring/cum_hrat.sql",
+      "branch": "main",
+      "blob_sha": "fe8c5f8a25804ce62e9061e117e8d2117dbcc718",
+      "content_commit": "424bd7546fe30a1797efa43025cfdbea854ed22a"
+    },
+    {
+      "origin": "misc_scripts/daily_stat.SQL",
+      "path": "oracle/monitoring/daily_stat.sql",
+      "branch": "main",
+      "blob_sha": "2178996fe6ab83b855e57b9e8cea61a32aa594fc",
+      "content_commit": "321616c6f6c3048bd9fba2beac5b0f583af2d4b9"
+    },
+    {
+      "origin": "misc_scripts/date_conv.sql",
+      "path": "oracle/administration/date_conv.sql",
+      "branch": "main",
+      "blob_sha": "89f0fc55a2568a9dd42005678c012761a40d569f",
+      "content_commit": "424bd7546fe30a1797efa43025cfdbea854ed22a"
+    },
+    {
+      "origin": "misc_scripts/db_rct81.sql",
+      "path": "oracle/administration/db_rct81.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "c937ea2ff51ca5423d047b975402fc445d0bd6ee",
+      "content_commit": "627706b5c563a370a739c9b7ecc731cd09517ed3"
+    },
+    {
+      "origin": "misc_scripts/db_rct91.sql",
+      "path": "oracle/administration/db_rct91.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "6bef57571aa4f4c70aaa73569a469342320eacca",
+      "content_commit": "627706b5c563a370a739c9b7ecc731cd09517ed3"
+    },
+    {
+      "origin": "misc_scripts/db_rct91a.sql",
+      "path": "oracle/administration/db_rct91a.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "a21f5636504e78f93208ae078e86aaebfa1a3d59",
+      "content_commit": "627706b5c563a370a739c9b7ecc731cd09517ed3"
+    },
+    {
+      "origin": "misc_scripts/db_rct91b.sql",
+      "path": "oracle/administration/db_rct91b.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "3bcdbb2e59fe9624980280342fea82811ded5a57",
+      "content_commit": "fb9e2a2f98d1145b36ff3cc4af498345bf67cee0"
+    },
+    {
+      "origin": "misc_scripts/db_users.sql",
+      "path": "oracle/security/db_users.sql",
+      "branch": "main",
+      "blob_sha": "288aa79921a52973119ef11cf311975133389251",
+      "content_commit": "a77e85a0c19630cc8593bbcef1344bb3065fd7c2"
+    },
+    {
+      "origin": "misc_scripts/dba_running_stats.sql",
+      "path": "oracle/administration/dba_running_stats.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "45555eb752a7319c85f848661b9021a7bc48b86b",
+      "content_commit": "436f99ad1cd56b8bb7ff9465aa68e53fd624b8ef"
+    },
+    {
+      "origin": "misc_scripts/dbwr8_stat.sql",
+      "path": "oracle/performance/dbwr8_stat.sql",
+      "branch": "main",
+      "blob_sha": "55c088f680ca2a84752ac160205c096813733bbd",
+      "content_commit": "f5dffc1747f9e0834d109701654cc91544cc1119"
+    },
+    {
+      "origin": "misc_scripts/dbwr_stat.sql",
+      "path": "oracle/performance/dbwr_stat.sql",
+      "branch": "main",
+      "blob_sha": "f7756ce16bd1f5e21fff4d64a254071ffcfc8a45",
+      "content_commit": "a77e85a0c19630cc8593bbcef1344bb3065fd7c2"
+    },
+    {
+      "origin": "misc_scripts/dd_miss.sql",
+      "path": "oracle/monitoring/dd_miss.sql",
+      "branch": "main",
+      "blob_sha": "ec402ce4133c559ab0f79fb89c596aeaf429d11e",
+      "content_commit": "387ebb84f41b1146d73299d0ca731b887329f730"
+    },
+    {
+      "origin": "misc_scripts/ddl_lock2.sql",
+      "path": "oracle/troubleshooting/ddl_lock2.sql",
+      "branch": "main",
+      "blob_sha": "f0097a7204c60d6d78bbb127d3a10b3ae735944a",
+      "content_commit": "a77e85a0c19630cc8593bbcef1344bb3065fd7c2"
+    },
+    {
+      "origin": "misc_scripts/ddl_vs_anal.sql",
+      "path": "oracle/objects/ddl_vs_anal.sql",
+      "branch": "main",
+      "blob_sha": "439aa057610a555fee00e0e0d48796b84c1cda9f",
+      "content_commit": "321616c6f6c3048bd9fba2beac5b0f583af2d4b9"
+    },
+    {
+      "origin": "misc_scripts/debug_profile.sql",
+      "path": "oracle/administration/debug_profile.sql",
+      "branch": "main",
+      "blob_sha": "eb20bd0bdec86bba7584762b73aa4343ae51c936",
+      "content_commit": "321616c6f6c3048bd9fba2beac5b0f583af2d4b9"
+    },
+    {
+      "origin": "misc_scripts/dec2hex.sql",
+      "path": "oracle/objects/dec2hex.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "a69004870a158b26e6aebee378e949c4e0e2546a",
+      "content_commit": "04b93a49bef837fde158953d5627ce8b50cfedc1"
+    },
+    {
+      "origin": "misc_scripts/decode_lock.SQL",
+      "path": "oracle/troubleshooting/decode_lock.sql",
+      "branch": "main",
+      "blob_sha": "c22f106c984d1bea63ab0a0b1ce98943b2b55198",
+      "content_commit": "321616c6f6c3048bd9fba2beac5b0f583af2d4b9"
+    },
+    {
+      "origin": "misc_scripts/def.sql",
+      "path": "oracle/administration/def.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "3c8c88f49dfb52351099c6defc5c7262790bcd28",
+      "content_commit": "3ef049760afbda16da2e8ec4a59603017c8ae0c1"
+    },
+    {
+      "origin": "misc_scripts/defrag73.sql",
+      "path": "oracle/administration/defrag73.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "dd1474150345b33da3f6c695e5e06384813cc842",
+      "content_commit": "3f4224241719feab32cfd0d8c2f5c6ecbc559679"
+    },
+    {
+      "origin": "misc_scripts/defrag_tbsp.sql",
+      "path": "oracle/monitoring/defrag_tbsp.sql",
+      "branch": "main",
+      "blob_sha": "b0ec7aaa7fec75845dcb7e12d050709b31a5958d",
+      "content_commit": "387ebb84f41b1146d73299d0ca731b887329f730"
+    },
+    {
+      "origin": "misc_scripts/delta.sql",
+      "path": "oracle/administration/delta.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "6f1c473a6ce4197f4320af436f6964361d811866",
+      "content_commit": "436f99ad1cd56b8bb7ff9465aa68e53fd624b8ef"
+    },
+    {
+      "origin": "misc_scripts/delta_rep.sql",
+      "path": "oracle/monitoring/delta_rep.sql",
+      "branch": "main",
+      "blob_sha": "7005850bb44c1c28ffa820a5d0466633cfd45260",
+      "content_commit": "a77e85a0c19630cc8593bbcef1344bb3065fd7c2"
+    },
+    {
+      "origin": "misc_scripts/delta_time.sql",
+      "path": "oracle/objects/delta_time.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "2032abbfd17af56538e82329a2eb0f5700a0eb08",
+      "content_commit": "04b93a49bef837fde158953d5627ce8b50cfedc1"
+    },
+    {
+      "origin": "misc_scripts/desc_v$_views.sql",
+      "path": "oracle/objects/desc_v$_views.sql",
+      "branch": "main",
+      "blob_sha": "faa5ec9f63279c66425062e271eb183401ed807e",
+      "content_commit": "321616c6f6c3048bd9fba2beac5b0f583af2d4b9"
+    },
+    {
+      "origin": "misc_scripts/desc_views.sql",
+      "path": "oracle/objects/desc_views.sql",
+      "branch": "main",
+      "blob_sha": "3084af91980128c7ee87824071d37de51976c575",
+      "content_commit": "321616c6f6c3048bd9fba2beac5b0f583af2d4b9"
+    },
+    {
+      "origin": "misc_scripts/dict_doc.sql",
+      "path": "oracle/objects/dict_doc.sql",
+      "branch": "main",
+      "blob_sha": "80a3a60674fd38e18b1909e597293c070490729e",
+      "content_commit": "a77e85a0c19630cc8593bbcef1344bb3065fd7c2"
+    },
+    {
+      "origin": "misc_scripts/dict_rep.sql",
+      "path": "oracle/administration/dict_rep.sql",
+      "branch": "main",
+      "blob_sha": "6cd8f7dfe1c86ba404a231eb28894bd3242e0a32",
+      "content_commit": "424bd7546fe30a1797efa43025cfdbea854ed22a"
+    },
+    {
+      "origin": "misc_scripts/dim_attribute.sql",
+      "path": "oracle/objects/dim_attribute.sql",
+      "branch": "main",
+      "blob_sha": "be7001ef74644ae709d80d05345f0e17d1fb53f1",
+      "content_commit": "a77e85a0c19630cc8593bbcef1344bb3065fd7c2"
+    },
+    {
+      "origin": "misc_scripts/dim_hierarchies.sql",
+      "path": "oracle/objects/dim_hierarchies.sql",
+      "branch": "main",
+      "blob_sha": "fadfd5acfa95f312e190512b6da018a357c66739",
+      "content_commit": "a77e85a0c19630cc8593bbcef1344bb3065fd7c2"
+    },
+    {
+      "origin": "misc_scripts/dim_level.sql",
+      "path": "oracle/objects/dim_level.sql",
+      "branch": "main",
+      "blob_sha": "069fa2a07449583c2d0f13b704878b79d3974125",
+      "content_commit": "a77e85a0c19630cc8593bbcef1344bb3065fd7c2"
+    },
+    {
+      "origin": "misc_scripts/dml_lock2.sql",
+      "path": "oracle/administration/dml_lock2.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "36ffdb3a60d4568630f24c0b3df9167776d9fcfb",
+      "content_commit": "3ef049760afbda16da2e8ec4a59603017c8ae0c1"
+    },
+    {
+      "origin": "misc_scripts/drop_con.sql",
+      "path": "oracle/administration/drop_con.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "6a5c291c8e41d5c5b568f68bb7cb5e4d14e67fca",
+      "content_commit": "fb9e2a2f98d1145b36ff3cc4af498345bf67cee0"
+    },
+    {
+      "origin": "misc_scripts/except_list.sql",
+      "path": "oracle/objects/except_list.sql",
+      "branch": "main",
+      "blob_sha": "900bba083bd868fd1b6a7a72aa9edc8fa6ca797e",
+      "content_commit": "46b6d764d936bb4f881c81643bd6682a4a921cf5"
+    },
+    {
+      "origin": "misc_scripts/get_alters.sql",
+      "path": "oracle/security/get_alters.sql",
+      "branch": "main",
+      "blob_sha": "41cf9a7870f2d939574daee6dfcfa0d345aa9a20",
+      "content_commit": "46b6d764d936bb4f881c81643bd6682a4a921cf5"
+    },
+    {
+      "origin": "misc_scripts/get_cond.sql",
+      "path": "oracle/administration/get_cond.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "4f6d23173127567e64a6a36b309698bef78c73b9",
+      "content_commit": "9095ca3cdad534aa6a96c6f26e8839121c652d3a"
+    },
+    {
+      "origin": "misc_scripts/get_count2.sql",
+      "path": "oracle/administration/get_count2.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "30e145ec8db1910829d388e8f54a554539d00bbb",
+      "content_commit": "3ef049760afbda16da2e8ec4a59603017c8ae0c1"
+    },
+    {
+      "origin": "misc_scripts/get_count_proc.sql",
+      "path": "oracle/objects/get_count_proc.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "2366980c4520c61706ef185ae2c73fb4d3da3959",
+      "content_commit": "04b93a49bef837fde158953d5627ce8b50cfedc1"
+    },
+    {
+      "origin": "misc_scripts/get_drop_text.sql",
+      "path": "oracle/security/get_drop_text.sql",
+      "branch": "main",
+      "blob_sha": "8eec09ab7b869d5260a496e051db4eba5c56c1a6",
+      "content_commit": "424bd7546fe30a1797efa43025cfdbea854ed22a"
+    },
+    {
+      "origin": "misc_scripts/get_stat_count.sql",
+      "path": "oracle/administration/get_stat_count.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "041878722df4e1e12fa7a45d64fb8749ad18e92d",
+      "content_commit": "3ef049760afbda16da2e8ec4a59603017c8ae0c1"
+    },
+    {
+      "origin": "misc_scripts/get_sum.sql",
+      "path": "oracle/administration/get_sum.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "db74b815601c60d2a310353c4ff06d5ae8c797ff",
+      "content_commit": "436f99ad1cd56b8bb7ff9465aa68e53fd624b8ef"
+    },
+    {
+      "origin": "misc_scripts/good_percent.sql",
+      "path": "oracle/memory/good_percent.sql",
+      "branch": "main",
+      "blob_sha": "99e604181de167f430f14de46cbad64c6a69de23",
+      "content_commit": "424bd7546fe30a1797efa43025cfdbea854ed22a"
+    },
+    {
+      "origin": "misc_scripts/hrsumm.sql",
+      "path": "oracle/monitoring/hrsumm.sql",
+      "branch": "main",
+      "blob_sha": "a716eab65b451e4c4a115ca340f071faec8f3f0d",
+      "content_commit": "7d376e68ba5f135fb6bd32c84af35af5a7ecef4f"
+    },
+    {
+      "origin": "misc_scripts/insert_user.sql",
+      "path": "oracle/security/insert_user.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "ab7fab48dc13f1b185f01fa715c9e36a89649f5e",
+      "content_commit": "fe4c50194b475deb7d4580da8b7bc5cfc94b14be"
+    },
+    {
+      "origin": "misc_scripts/long_proc.sql",
+      "path": "oracle/monitoring/long_proc.sql",
+      "branch": "main",
+      "blob_sha": "04d25ec5a205981b047994b567cfceb09d0d446b",
+      "content_commit": "80be7f39bed330dedf16f63d9a950b3ed7ec77ee"
+    },
+    {
+      "origin": "misc_scripts/meas_rep.sql",
+      "path": "oracle/monitoring/meas_rep.sql",
+      "branch": "main",
+      "blob_sha": "ad3a094f4f0fbb3c3ef3cf812f2d062edfda13d8",
+      "content_commit": "80be7f39bed330dedf16f63d9a950b3ed7ec77ee"
+    },
+    {
+      "origin": "misc_scripts/meas_rep2.sql",
+      "path": "oracle/monitoring/meas_rep2.sql",
+      "branch": "main",
+      "blob_sha": "1137ee01c3ffee693fb2ea6c98cff1e51aca1a2c",
+      "content_commit": "80be7f39bed330dedf16f63d9a950b3ed7ec77ee"
+    },
+    {
+      "origin": "misc_scripts/mview_status.sql",
+      "path": "oracle/objects/mview_status.sql",
+      "branch": "main",
+      "blob_sha": "42c4a4fd7db0fec23983bce05c90c0de73969758",
+      "content_commit": "387ebb84f41b1146d73299d0ca731b887329f730"
+    },
+    {
+      "origin": "misc_scripts/my_file.sql",
+      "path": "oracle/administration/my_file.sql",
+      "branch": "main",
+      "blob_sha": "9d61402d9e8faa43a4471e3ca5ee9cbb436f4717",
+      "content_commit": "424bd7546fe30a1797efa43025cfdbea854ed22a"
+    },
+    {
+      "origin": "misc_scripts/nada_view.sql",
+      "path": "oracle/objects/nada_view.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "001ea8355d7a572d3e8623ef389c1a269dd6f75d",
+      "content_commit": "fe4c50194b475deb7d4580da8b7bc5cfc94b14be"
+    },
+    {
+      "origin": "misc_scripts/net2.sql",
+      "path": "oracle/monitoring/net2.sql",
+      "branch": "main",
+      "blob_sha": "587b69b93336b60c47246d14d70249cd27906eac",
+      "content_commit": "46b6d764d936bb4f881c81643bd6682a4a921cf5"
+    },
+    {
+      "origin": "misc_scripts/network.sql",
+      "path": "oracle/monitoring/network.sql",
+      "branch": "main",
+      "blob_sha": "04f0288483cf1dddf9bff44571938700e29ad4c7",
+      "content_commit": "387ebb84f41b1146d73299d0ca731b887329f730"
+    },
+    {
+      "origin": "misc_scripts/new_pl_feat.sql",
+      "path": "oracle/objects/new_pl_feat.sql",
+      "branch": "main",
+      "blob_sha": "15dd4982638e41cd1f2dd77729fe0f45693449b7",
+      "content_commit": "80be7f39bed330dedf16f63d9a950b3ed7ec77ee"
+    },
+    {
+      "origin": "misc_scripts/ni_lookup.sql",
+      "path": "oracle/monitoring/ni_lookup.sql",
+      "branch": "main",
+      "blob_sha": "e3815d866af32143ca8bdf8fa3e5d2f17567c693",
+      "content_commit": "387ebb84f41b1146d73299d0ca731b887329f730"
+    },
+    {
+      "origin": "misc_scripts/nt_oline_bu.SQL",
+      "path": "oracle/backup-recovery/nt_oline_bu.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "dc6eef8f85ef7aadb4479e629879d393537be19e",
+      "content_commit": "627706b5c563a370a739c9b7ecc731cd09517ed3"
+    },
+    {
+      "origin": "misc_scripts/nt_rec_db.sql",
+      "path": "oracle/backup-recovery/nt_rec_db.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "229c020296dcd971bfd3cbcdc92c0e483422214c",
+      "content_commit": "627706b5c563a370a739c9b7ecc731cd09517ed3"
+    },
+    {
+      "origin": "misc_scripts/null_test.sql",
+      "path": "oracle/objects/null_test.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "25e132020e60ac8cbaffb4fbc56b717e091ac53b",
+      "content_commit": "04b93a49bef837fde158953d5627ce8b50cfedc1"
+    },
+    {
+      "origin": "misc_scripts/o_cache3.sql",
+      "path": "oracle/memory/o_cache3.sql",
+      "branch": "main",
+      "blob_sha": "85c5c20462e9f8bdcbe6dc996e84f2a7414f382e",
+      "content_commit": "a77e85a0c19630cc8593bbcef1344bb3065fd7c2"
+    },
+    {
+      "origin": "misc_scripts/o_kept.sql",
+      "path": "oracle/memory/o_kept.sql",
+      "branch": "main",
+      "blob_sha": "4cbc6e490c559127a31e15200add016960093fe7",
+      "content_commit": "2cc417902145f25db58dce04e07863bd295898ec"
+    },
+    {
+      "origin": "misc_scripts/obj_bdn.sql",
+      "path": "oracle/objects/obj_bdn.sql",
+      "branch": "main",
+      "blob_sha": "d02d44e0c1cfcda7277c399c0d71b5c1b0af3763",
+      "content_commit": "424bd7546fe30a1797efa43025cfdbea854ed22a"
+    },
+    {
+      "origin": "misc_scripts/obj_count.sql",
+      "path": "oracle/objects/obj_count.sql",
+      "branch": "main",
+      "blob_sha": "6dabf5f809baec150b9dd654a79878cfb9a90341",
+      "content_commit": "46b6d764d936bb4f881c81643bd6682a4a921cf5"
+    },
+    {
+      "origin": "misc_scripts/operator.sql",
+      "path": "oracle/objects/operator.sql",
+      "branch": "main",
+      "blob_sha": "4d6ef7c7fed49ae5f026d9fe6d1885e55c42dbfa",
+      "content_commit": "a77e85a0c19630cc8593bbcef1344bb3065fd7c2"
+    },
+    {
+      "origin": "misc_scripts/outline.sql",
+      "path": "oracle/performance/outline.sql",
+      "branch": "main",
+      "blob_sha": "0ec1cc97fe6def035cf83d7902535b4f1fb3fcbf",
+      "content_commit": "321616c6f6c3048bd9fba2beac5b0f583af2d4b9"
+    },
+    {
+      "origin": "misc_scripts/parm_desc.sql",
+      "path": "oracle/administration/parm_desc.sql",
+      "branch": "main",
+      "blob_sha": "756bbab37ec630660b62c4ab2a884451c469f8fa",
+      "content_commit": "a77e85a0c19630cc8593bbcef1344bb3065fd7c2"
+    },
+    {
+      "origin": "misc_scripts/pk_rct.sql",
+      "path": "oracle/objects/pk_rct.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "d7bb3f58906df82c00520f7b71643646bc53ddbf",
+      "content_commit": "627706b5c563a370a739c9b7ecc731cd09517ed3"
+    },
+    {
+      "origin": "misc_scripts/policy_rep.sql",
+      "path": "oracle/security/policy_rep.sql",
+      "branch": "main",
+      "blob_sha": "352e421e3dd6ddf5bd5f512f24a455b45c186676",
+      "content_commit": "a77e85a0c19630cc8593bbcef1344bb3065fd7c2"
+    },
+    {
+      "origin": "misc_scripts/prob_stat.sql",
+      "path": "oracle/performance/sql/prob_stat.sql",
+      "branch": "main",
+      "blob_sha": "d1cf2eb03c43d13294a59ca1df63b84e95a16b2a",
+      "content_commit": "a77e85a0c19630cc8593bbcef1344bb3065fd7c2"
+    },
+    {
+      "origin": "misc_scripts/prod_prof.sql",
+      "path": "oracle/security/prod_prof.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "fefdaf473e529527bd619b94710fc9ee370bab35",
+      "content_commit": "04b93a49bef837fde158953d5627ce8b50cfedc1"
+    },
+    {
+      "origin": "misc_scripts/prof_rep.sql",
+      "path": "oracle/performance/prof_rep.sql",
+      "branch": "main",
+      "blob_sha": "42210683078df09ede0d7eb2788b3584e4fca360",
+      "content_commit": "424bd7546fe30a1797efa43025cfdbea854ed22a"
+    },
+    {
+      "origin": "misc_scripts/random.sql",
+      "path": "oracle/objects/random.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "52df2778169741d2bcf49c6b2d0eeaa22b31a859",
+      "content_commit": "04b93a49bef837fde158953d5627ce8b50cfedc1"
+    },
+    {
+      "origin": "misc_scripts/rebuild_db91.sql",
+      "path": "oracle/administration/rebuild_db91.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "b17bff3385a8941d532d08b333d5f1466ae063bd",
+      "content_commit": "fb9e2a2f98d1145b36ff3cc4af498345bf67cee0"
+    },
+    {
+      "origin": "misc_scripts/recreate_table.sql",
+      "path": "oracle/objects/recreate_table.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "47646cb606ea9966a1edb4e905410d3ace7a737d",
+      "content_commit": "3f4224241719feab32cfd0d8c2f5c6ecbc559679"
+    },
+    {
+      "origin": "misc_scripts/redo.sql",
+      "path": "oracle/monitoring/redo.sql",
+      "branch": "main",
+      "blob_sha": "e3504d371f43d62b815d0da22bdb0072883e52d2",
+      "content_commit": "424bd7546fe30a1797efa43025cfdbea854ed22a"
+    },
+    {
+      "origin": "misc_scripts/redo_spc_req.sql",
+      "path": "oracle/monitoring/redo_spc_req.sql",
+      "branch": "main",
+      "blob_sha": "abfecb9bf39be1f638a3469aea0e7af52fc2858e",
+      "content_commit": "387ebb84f41b1146d73299d0ca731b887329f730"
+    },
+    {
+      "origin": "misc_scripts/ref_prac.sql",
+      "path": "oracle/objects/ref_prac.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "27974932f89ab3315026c28b1d4859689b83ff91",
+      "content_commit": "04b93a49bef837fde158953d5627ce8b50cfedc1"
+    },
+    {
+      "origin": "misc_scripts/rep_outsietadrop_anal_ind.sql",
+      "path": "oracle/administration/rep_outsietadrop_anal_ind.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "e8ea0f16e06f79920abd14809cc47a1ac61d64c1",
+      "content_commit": "627706b5c563a370a739c9b7ecc731cd09517ed3"
+    },
+    {
+      "origin": "misc_scripts/res_per.sql",
+      "path": "oracle/monitoring/res_per.sql",
+      "branch": "main",
+      "blob_sha": "242c002f253602c1a6bb53e815cfa71e8e315918",
+      "content_commit": "46b6d764d936bb4f881c81643bd6682a4a921cf5"
+    },
+    {
+      "origin": "misc_scripts/resource_plans.sql",
+      "path": "oracle/administration/resource_plans.sql",
+      "branch": "main",
+      "blob_sha": "3255a18c70960939484cea47362a245fa61eef8e",
+      "content_commit": "80be7f39bed330dedf16f63d9a950b3ed7ec77ee"
+    },
+    {
+      "origin": "misc_scripts/reuse_sql2.SQL",
+      "path": "oracle/performance/sql/reuse_sql2.sql",
+      "branch": "main",
+      "blob_sha": "2ebc56a8ff60397475729e3d08f27b5103751ddb",
+      "content_commit": "7d376e68ba5f135fb6bd32c84af35af5a7ecef4f"
+    },
+    {
+      "origin": "misc_scripts/see_4031.sql",
+      "path": "oracle/memory/see_4031.sql",
+      "branch": "main",
+      "blob_sha": "d6fa55581d3399ce441d08b5d581895cf17b7262",
+      "content_commit": "387ebb84f41b1146d73299d0ca731b887329f730"
+    },
+    {
+      "origin": "misc_scripts/similar_sql.sql",
+      "path": "oracle/performance/sql/similar_sql.sql",
+      "branch": "main",
+      "blob_sha": "02d8a000f8301934985907ebbf78dba4f173d55d",
+      "content_commit": "80be7f39bed330dedf16f63d9a950b3ed7ec77ee"
+    },
+    {
+      "origin": "misc_scripts/similar_sql1.sql",
+      "path": "oracle/performance/sql/similar_sql1.sql",
+      "branch": "main",
+      "blob_sha": "a42e51b793378b5789b972fa2ef6be765045bbfc",
+      "content_commit": "387ebb84f41b1146d73299d0ca731b887329f730"
+    },
+    {
+      "origin": "misc_scripts/size_est.sql",
+      "path": "oracle/storage/size_est.sql",
+      "branch": "main",
+      "blob_sha": "2598f9a18c728e6256bb11003f42fa16eef9e5f4",
+      "content_commit": "46b6d764d936bb4f881c81643bd6682a4a921cf5"
+    },
+    {
+      "origin": "misc_scripts/sort_segment.sql",
+      "path": "oracle/storage/sort_segment.sql",
+      "branch": "main",
+      "blob_sha": "534c165ba6dbe1622609dc64d3b8c078d123bc01",
+      "content_commit": "424bd7546fe30a1797efa43025cfdbea854ed22a"
+    },
+    {
+      "origin": "misc_scripts/sorters.sql",
+      "path": "oracle/monitoring/sorters.sql",
+      "branch": "main",
+      "blob_sha": "dd1a77485964a7343b0d8a902276b2b4a890ab03",
+      "content_commit": "424bd7546fe30a1797efa43025cfdbea854ed22a"
+    },
+    {
+      "origin": "misc_scripts/sorts.sql",
+      "path": "oracle/monitoring/sorts.sql",
+      "branch": "main",
+      "blob_sha": "1f6f04d019945a02222640dedf360fe13deebbc4",
+      "content_commit": "424bd7546fe30a1797efa43025cfdbea854ed22a"
+    },
+    {
+      "origin": "misc_scripts/sp_res_rep.sql",
+      "path": "oracle/memory/sp_res_rep.sql",
+      "branch": "main",
+      "blob_sha": "f5c4feb1167f1bf244fa11dde3ef75cb1fd96417",
+      "content_commit": "46b6d764d936bb4f881c81643bd6682a4a921cf5"
+    },
+    {
+      "origin": "misc_scripts/sqlnet_bytes.sql",
+      "path": "oracle/monitoring/sqlnet_bytes.sql",
+      "branch": "main",
+      "blob_sha": "b10a3195594f9045c256c9e293a907a76fcc4637",
+      "content_commit": "4cacc4c7c246e8041424826e806f37dfa6efe59a"
+    },
+    {
+      "origin": "misc_scripts/submit_checks.SQL",
+      "path": "oracle/administration/submit_checks.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "7d14a651014d92e95366e62d6b8e766f3ca3c524",
+      "content_commit": "436f99ad1cd56b8bb7ff9465aa68e53fd624b8ef"
+    },
+    {
+      "origin": "misc_scripts/submit_flush.sql",
+      "path": "oracle/administration/submit_flush.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "33c1c78bfd78fc8a984c15d8e0b93b37ae9bb528",
+      "content_commit": "436f99ad1cd56b8bb7ff9465aa68e53fd624b8ef"
+    },
+    {
+      "origin": "misc_scripts/submit_running_stats.sql",
+      "path": "oracle/administration/submit_running_stats.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "bca9863412eca62dff720e757fed795194349f3e",
+      "content_commit": "436f99ad1cd56b8bb7ff9465aa68e53fd624b8ef"
+    },
+    {
+      "origin": "misc_scripts/submit_test.sql",
+      "path": "oracle/administration/submit_test.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "4bce1a69e994de85d5915db4b0e8736ae2425ee6",
+      "content_commit": "436f99ad1cd56b8bb7ff9465aa68e53fd624b8ef"
+    },
+    {
+      "origin": "misc_scripts/sys_events.sql",
+      "path": "oracle/performance/sys_events.sql",
+      "branch": "main",
+      "blob_sha": "d2c03c50c264f10fec2b36a7b866ba37ee37b999",
+      "content_commit": "80be7f39bed330dedf16f63d9a950b3ed7ec77ee"
+    },
+    {
+      "origin": "misc_scripts/t_and_i.sql",
+      "path": "oracle/objects/t_and_i.sql",
+      "branch": "main",
+      "blob_sha": "440a2bb667ffd299675ce892848eb345be7208ad",
+      "content_commit": "424bd7546fe30a1797efa43025cfdbea854ed22a"
+    },
+    {
+      "origin": "misc_scripts/t_scans_long.sql",
+      "path": "oracle/monitoring/t_scans_long.sql",
+      "branch": "main",
+      "blob_sha": "7647d9cb216d57d4eb0030e86095b96679c4988b",
+      "content_commit": "387ebb84f41b1146d73299d0ca731b887329f730"
+    },
+    {
+      "origin": "misc_scripts/test_pool2.sql",
+      "path": "oracle/memory/test_pool2.sql",
+      "branch": "main",
+      "blob_sha": "c0dd56e49bc6261db84ed6b4f3c10f6cc8140ca8",
+      "content_commit": "321616c6f6c3048bd9fba2beac5b0f583af2d4b9"
+    },
+    {
+      "origin": "misc_scripts/thot_bu.sql",
+      "path": "oracle/backup-recovery/thot_bu.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "30e9c7607b5602cd6894691a44e61302cd60a0d6",
+      "content_commit": "627706b5c563a370a739c9b7ecc731cd09517ed3"
+    },
+    {
+      "origin": "misc_scripts/tk_ind.SQL",
+      "path": "oracle/objects/tk_ind.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "dd3f39ea27c493e8c8acac102dfe53bff1a451f4",
+      "content_commit": "b59898337fd6d279755d4239e1228fca6bbe3b96"
+    },
+    {
+      "origin": "misc_scripts/tkp.sql",
+      "path": "oracle/administration/tkp.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "bf129e6e78bea4552187ccbd6fe3317f0c871b67",
+      "content_commit": "436f99ad1cd56b8bb7ff9465aa68e53fd624b8ef"
+    },
+    {
+      "origin": "misc_scripts/transactions.sql",
+      "path": "oracle/troubleshooting/transactions.sql",
+      "branch": "main",
+      "blob_sha": "c3cc33c350e7505c338199cdbf304fddc42d1ff1",
+      "content_commit": "46b6d764d936bb4f881c81643bd6682a4a921cf5"
+    },
+    {
+      "origin": "misc_scripts/translate_param.sql",
+      "path": "oracle/objects/translate_param.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "4933d58636d410e2431e8c6e7298e69cf6b8dc75",
+      "content_commit": "b59898337fd6d279755d4239e1228fca6bbe3b96"
+    },
+    {
+      "origin": "misc_scripts/trig.sql",
+      "path": "oracle/objects/trig.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "85d054bf614672a3c71fc7d10cc2e8d808efefcd",
+      "content_commit": "fe4c50194b475deb7d4580da8b7bc5cfc94b14be"
+    },
+    {
+      "origin": "misc_scripts/tu_meg.sql",
+      "path": "oracle/monitoring/tu_meg.sql",
+      "branch": "main",
+      "blob_sha": "b109afba9a222676e3c262e44ce7590925dd1a1a",
+      "content_commit": "387ebb84f41b1146d73299d0ca731b887329f730"
+    },
+    {
+      "origin": "misc_scripts/umaint.sql",
+      "path": "oracle/security/umaint.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "b1c80ec41530cdf856abf2a371125f2bb2208e77",
+      "content_commit": "fe4c50194b475deb7d4580da8b7bc5cfc94b14be"
+    },
+    {
+      "origin": "misc_scripts/undo_blk_waits.sql",
+      "path": "oracle/monitoring/undo_blk_waits.sql",
+      "branch": "main",
+      "blob_sha": "763b96d670122617c41ce7ae19b3b7e8159f2832",
+      "content_commit": "387ebb84f41b1146d73299d0ca731b887329f730"
+    },
+    {
+      "origin": "misc_scripts/undo_hdr_waits.sql",
+      "path": "oracle/monitoring/undo_hdr_waits.sql",
+      "branch": "main",
+      "blob_sha": "fb4d31150dc1323bed57e0eb5a11bf5098a45cd4",
+      "content_commit": "387ebb84f41b1146d73299d0ca731b887329f730"
+    },
+    {
+      "origin": "misc_scripts/undoc73.sql",
+      "path": "oracle/administration/undoc73.sql",
+      "branch": "main",
+      "blob_sha": "d2ab3e4d074f7f05566eca593c85ef283a3106ad",
+      "content_commit": "80be7f39bed330dedf16f63d9a950b3ed7ec77ee"
+    },
+    {
+      "origin": "misc_scripts/undoc73a.sql",
+      "path": "oracle/administration/undoc73a.sql",
+      "branch": "main",
+      "blob_sha": "ed84d7795a74195001ed02f5bdb0d65ac56f0b48",
+      "content_commit": "46b6d764d936bb4f881c81643bd6682a4a921cf5"
+    },
+    {
+      "origin": "misc_scripts/unexpired_size_undo_logs.sql",
+      "path": "oracle/performance/awr/unexpired_size_undo_logs.sql",
+      "branch": "main",
+      "blob_sha": "9b26df06e60843ec3b36e95bbe8c05c510f40976",
+      "content_commit": "387ebb84f41b1146d73299d0ca731b887329f730"
+    },
+    {
+      "origin": "misc_scripts/unix_oline_bu.sql",
+      "path": "oracle/backup-recovery/unix_oline_bu.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "8633d1cd719049471a7da42fde12467738ca2980",
+      "content_commit": "627706b5c563a370a739c9b7ecc731cd09517ed3"
+    },
+    {
+      "origin": "misc_scripts/update.sql",
+      "path": "oracle/administration/update.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "663b12c2b2019cdf0e392346f42225f407ed7ee4",
+      "content_commit": "04b93a49bef837fde158953d5627ce8b50cfedc1"
+    },
+    {
+      "origin": "misc_scripts/upsert.sql",
+      "path": "oracle/administration/upsert.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "449c04c940b54b969901dc91043e488d20a49e69",
+      "content_commit": "04b93a49bef837fde158953d5627ce8b50cfedc1"
+    },
+    {
+      "origin": "misc_scripts/used_tab.sql",
+      "path": "oracle/troubleshooting/used_tab.sql",
+      "branch": "main",
+      "blob_sha": "878f33b7385a7954f463700341d36af55a8d46e8",
+      "content_commit": "46b6d764d936bb4f881c81643bd6682a4a921cf5"
+    },
+    {
+      "origin": "misc_scripts/user.sql",
+      "path": "oracle/security/user.sql",
+      "branch": "main",
+      "blob_sha": "295dccf5b2be38486eba26ce73f43dfd4658d93c",
+      "content_commit": "80be7f39bed330dedf16f63d9a950b3ed7ec77ee"
+    },
+    {
+      "origin": "misc_scripts/user_blocks_used_v_alloc.SQL",
+      "path": "oracle/administration/user_blocks_used_v_alloc.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "6d13c62c3a56f609b9f9dbfffd144e1cd64b7e7f",
+      "content_commit": "fe4c50194b475deb7d4580da8b7bc5cfc94b14be"
+    },
+    {
+      "origin": "misc_scripts/user_commits.sql",
+      "path": "oracle/monitoring/user_commits.sql",
+      "branch": "main",
+      "blob_sha": "1ce623769301f8ee4a5ce3e2c9775abc50d46d36",
+      "content_commit": "424bd7546fe30a1797efa43025cfdbea854ed22a"
+    },
+    {
+      "origin": "misc_scripts/user_expire.sql",
+      "path": "oracle/security/user_expire.sql",
+      "branch": "main",
+      "blob_sha": "38aa5ea816aea95be58315d267fe288edf3c7b22",
+      "content_commit": "a77e85a0c19630cc8593bbcef1344bb3065fd7c2"
+    },
+    {
+      "origin": "misc_scripts/user_text.sql",
+      "path": "oracle/performance/sql/user_text.sql",
+      "branch": "main",
+      "blob_sha": "7e3ad9bd156ac8f7421174818adc302ee4f3e9d2",
+      "content_commit": "387ebb84f41b1146d73299d0ca731b887329f730"
+    },
+    {
+      "origin": "misc_scripts/user_view_rct.SQL",
+      "path": "oracle/objects/user_view_rct.sql",
+      "branch": "main",
+      "blob_sha": "be265d6b847b149bfa2829eebf2b739bfd6c48b5",
+      "content_commit": "321616c6f6c3048bd9fba2beac5b0f583af2d4b9"
+    },
+    {
+      "origin": "misc_scripts/utl_long.sql",
+      "path": "oracle/objects/utl_long.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "313965f8cad6265d0d0009ebbf4e5f2f6bd085fd",
+      "content_commit": "fe4c50194b475deb7d4580da8b7bc5cfc94b14be"
+    },
+    {
+      "origin": "misc_scripts/v$view_def.sql",
+      "path": "oracle/administration/v$view_def.sql",
+      "branch": "main",
+      "blob_sha": "eb5bdff930383b1b9f5096d4c852a2855185e1be",
+      "content_commit": "387ebb84f41b1146d73299d0ca731b887329f730"
+    },
+    {
+      "origin": "misc_scripts/var_len_col.sql",
+      "path": "oracle/objects/var_len_col.sql",
+      "branch": "main",
+      "blob_sha": "5083b76f0d1543df716c54230e0aff4a3c868433",
+      "content_commit": "46b6d764d936bb4f881c81643bd6682a4a921cf5"
+    },
+    {
+      "origin": "misc_scripts/vms_oline_bu.SQL",
+      "path": "oracle/backup-recovery/vms_oline_bu.sql",
+      "branch": "oracle/review-legacy-admin-20261103",
+      "blob_sha": "3b228f93b5d7f36344c6545ce10d11be107a0c2e",
+      "content_commit": "627706b5c563a370a739c9b7ecc731cd09517ed3"
+    }
+  ]
+}

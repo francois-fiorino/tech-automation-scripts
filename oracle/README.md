@@ -4,7 +4,7 @@ Coleção histórica Oracle Script Collection 2015 organizada e documentada em p
 
 [Inventário por origem e arquivo publicado](collection/inventory.csv) · [Relatório detalhado e commits](collection/REPORT.md) · [Histórico](collection/PROGRESS.md) · [Aviso original da coleção](collection/ORIGINAL_README.txt)
 
-A main contém **432 implementações únicas** da coleção, incluindo oito anteriores preservadas. Há **174 propostas de maior risco no [PR #2](https://github.com/francois-fiorino/tech-automation-scripts/pull/2)**, fora desta contagem, além de 49 fontes retidas para esclarecimento de licença e uma por credencial. Trinta e duas variantes apontam a arquivos canônicos e cinco origens não possuem implementação funcional. Todos os 697 arquivos de origem foram classificados; o projeto permanece aberto pelos impedimentos registrados.
+A main contém **432 implementações únicas** da coleção, incluindo oito anteriores preservadas. Há **175 propostas de maior risco no [PR #2](https://github.com/francois-fiorino/tech-automation-scripts/pull/2)**, fora desta contagem, além de 49 fontes retidas para esclarecimento de licença. A fonte com credencial recebeu proposta sanitizada e bloqueada no PR; o original continua retido. Trinta e duas variantes apontam a arquivos canônicos e cinco origens não possuem implementação funcional. Todos os 697 arquivos de origem foram classificados; o projeto permanece aberto pelos impedimentos registrados.
 
 ## Consultar por categoria
 

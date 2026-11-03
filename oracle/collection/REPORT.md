@@ -7,28 +7,28 @@ Data: 03/11/2026. **Projeto em andamento: todas as origens foram classificadas, 
 | Medida | Total | Critério |
 |---|---:|---|
 | Arquivos inventariados | 697 | 693 SQL e quatro auxiliares |
-| Fontes SQL com implementação examinada ou comparada | 638 | 606 implementações únicas + 32 variantes/duplicatas |
+| Fontes SQL com implementação examinada ou comparada | 639 | 607 implementações únicas/propostas sanitizadas + 32 variantes/duplicatas |
 | Fontes SQL sem implementação funcional | 5 | placeholders/transcripts sem código funcional, não contabilizados como publicados |
-| Fontes retidas antes de concluir análise técnica | 50 | 49 para licença/redistribuição e uma com credencial literal |
+| Fontes retidas antes de concluir análise técnica | 49 | licença/redistribuição; a fonte com credencial teve revisão e proposta sanitizada, mantendo o original retido |
 | Implementações com código/documentação na main | **432** | 424 novas e oito anteriores preservadas |
-| Implementações documentadas somente no PR | **174** | não contam como concluídas na main |
-| Novos arquivos documentados neste projeto | **598** | 424 main + 174 propostas; exclui oito anteriores |
+| Implementações documentadas somente no PR | **175** | não contam como concluídas na main |
+| Novos arquivos documentados neste projeto | **599** | 424 main + 175 propostas; exclui oito anteriores |
 | Novos arquivos main com correção/ajuste de SQL ou cliente | 366 | inclui divisões/joins, comandos SQL*Plus e normalização; não apenas correções semânticas SQL |
-| Propostas com correção/ajuste de código | 92 | ainda exigem validação/revisão |
-| Total com alterações de código | **458** | cabeçalho documenta cada caso; não confundir com testes Oracle aprovados |
+| Propostas com correção/ajuste de código | 93 | ainda exigem validação/revisão |
+| Total com alterações de código | **459** | cabeçalho documenta cada caso; não confundir com testes Oracle aprovados |
 | Origens duplicadas/variantes mapeadas | 32 | não são novas publicações; link e diferenças no inventário |
-| Pendências de publicação na main | **224** | 174 propostas + 50 impedimentos; sem contar fontes vazias e variantes |
+| Pendências de publicação na main | **224** | 175 propostas + 49 impedimentos; sem contar fontes vazias e variantes |
 | Fontes sem classificação/análise de elegibilidade | **0** | não significa todos os scripts implantáveis ou projeto concluído |
 
 O [inventário de 697 origens](inventory.csv) contém nome/caminho original e final, categoria, finalidade, documentação, correções, risco, publicação, link e SHA-256 do original. O [histórico de etapas](PROGRESS.md) conserva os números de cada estágio. O [README histórico](ORIGINAL_README.txt) foi preservado integralmente.
 
 ## Publicação e preservação
 
-Os lotes 001–029 têm vinte arquivos cada. Os resíduos 030 (12 propostas) e 031 (quatro consultas) encerram a fila técnica após reconciliação de variantes. Duas propostas iniciais, anteriores aos lotes de revisão, completam os 174 arquivos do PR.
+Os lotes 001–029 têm vinte arquivos cada. Os resíduos 030 (12 propostas) e 031 (quatro consultas) encerram a fila técnica após reconciliação de variantes. Duas propostas iniciais, anteriores aos lotes de revisão, completavam os 174 arquivos do PR. A retomada acrescentou o residual 032, com uma proposta sanitizada de segurança, totalizando 175.
 
 Todos os novos scripts possuem cabeçalho técnico em português com nome/categoria, objetivo, funcionamento, privilégios, objetos, compatibilidade/limitações, execução, interpretação, riscos, correções/pendências e aviso de responsabilidade. Os códigos e créditos históricos foram mantidos. Há erros conhecidos deliberadamente preservados quando corrigi-los com segurança exigiria Oracle ou regra de negócio; esses arquivos estão sinalizados no PR.
 
-Árvores Git foram criadas a partir da árvore anterior. As atualizações das branches usaram SHA esperado e `force=false`. Após cada publicação, SHA do blob Git foi comparado com o conteúdo local. Na reconferência global, **424 novos arquivos main e 174 propostas** coincidiram com seus hashes; **todos os 15 blobs preexistentes** permaneceram inalterados, inclusive os oito scripts da coleção já publicados. [Evidência do snapshot de verificação](VERIFICATION.json).
+Árvores Git foram criadas a partir da árvore anterior. As atualizações das branches usaram SHA esperado e `force=false`. Após cada publicação, SHA do blob Git foi comparado com o conteúdo local. Na reconferência global anterior à retomada, **424 novos arquivos main e 174 propostas** coincidiram com seus hashes; **todos os 15 blobs preexistentes** permaneceram inalterados, inclusive os oito scripts da coleção já publicados. [Evidência do snapshot de verificação anterior](VERIFICATION.json). A reconciliação da retomada está em [RECONCILIATION.json](RECONCILIATION.json), com os 607 caminhos, blobs e commits de conteúdo conferidos.
 
 Links: [diretório Oracle na main](https://github.com/francois-fiorino/tech-automation-scripts/tree/main/oracle), [PR administrativo #2](https://github.com/francois-fiorino/tech-automation-scripts/pull/2), [branch de revisão](https://github.com/francois-fiorino/tech-automation-scripts/tree/oracle/review-legacy-admin-20261103). O inventário vincula cada arquivo ao destino efetivamente conferido.
 
@@ -54,7 +54,7 @@ As linhas abaixo refletem categorias efetivamente usadas; não foram criados dir
 | `performance/statspack/` | 1 | 0 |
 | `rac/` | 40 | 1 |
 | `rac/grid/` | 1 | 0 |
-| `security/` | 19 | 18 |
+| `security/` | 19 | 19 |
 | `storage/` | 32 | 0 |
 | `troubleshooting/` | 32 | 2 |
 
@@ -77,9 +77,9 @@ Antes de uso, cada arquivo requer avaliação integral e teste controlado no ban
 
 ## Pendências e arquivos auxiliares
 
-- **174 propostas:** aguardam revisão de alto risco, testes de compilação/funcionalidade/recuperação e decisão de integração no PR #2. Arquivos com falhas conhecidas não foram classificados como prontos para produção.
+- **175 propostas:** aguardam revisão de alto risco, testes de compilação/funcionalidade/recuperação e decisão de integração no PR #2. Arquivos com falhas conhecidas não foram classificados como prontos para produção.
 - **49 fontes:** avisos históricos de uso não comercial ou direitos reservados exigem esclarecer redistribuição; sua revisão técnica individual não foi declarada concluída e código não foi publicado. O inventário lista cada origem.
-- **Uma fonte com credencial literal:** retida sem republicar o valor; requer tratamento seguro antes de elegibilidade.
+- **Uma fonte com credencial literal:** original retido; a versão sanitizada `oracle/security/link.sql` foi publicada apenas no PR #2, com bloqueio de execução e pendências específicas. Ela integra as 175 propostas e não é somada novamente aos 49 impedimentos de redistribuição.
 - **Cinco fontes sem código funcional:** mantidas apenas no inventário como referência/placeholder, sem fictícia publicação de script.
 - **Auxiliares:** README original publicado; BAT auxiliar duplicado aponta ao exemplo documentado no PR; arquivo Finder binário e spool de zero bytes não são código elegível e foram excluídos da publicação.
 
@@ -122,3 +122,22 @@ Os links abaixo são os commits com código. Commits adicionais do histórico at
 | 029 | 20 | PR #2 | [3f42242417](https://github.com/francois-fiorino/tech-automation-scripts/commit/3f4224241719feab32cfd0d8c2f5c6ecbc559679) |
 | 030 | 12 | PR #2 | [627706b5c5](https://github.com/francois-fiorino/tech-automation-scripts/commit/627706b5c563a370a739c9b7ecc731cd09517ed3) |
 | 031 | 4 | main | [573a4a79dd](https://github.com/francois-fiorino/tech-automation-scripts/commit/573a4a79dd5956a4ee4eced4ba5a31c3a5830894) |
+| 032 residual | 1 | PR #2, sanitizado e bloqueado | [d0723c7896](https://github.com/francois-fiorino/tech-automation-scripts/commit/d0723c789677d70c78bf3eb1e01139a2fc6e55c7) |
+
+## Checkpoint de retomada — 03/11/2026
+
+- Base da main conferida: `b9ce813cf109fd739be5160a2cc5559b17267802`; branch administrativa conferida: `d0723c789677d70c78bf3eb1e01139a2fc6e55c7`. Este registro será incluído em commit posterior de documentação, sem mudança nos scripts da main.
+- As 697 origens foram reconferidas por SHA-256 contra o ZIP fornecido. Os 432 destinos main e 175 destinos de revisão foram reconferidos por caminho e blob; não houve sobreposição entre esses dois conjuntos. Isso confirma integridade e rastreabilidade, não constitui nova homologação funcional dos scripts anteriores.
+- O inventário de `misc_scripts/get_cond.sql` apontava ao commit do lote 011 anterior à errata. A referência foi corrigida para `9095ca3cdad534aa6a96c6f26e8839121c652d3a`, que corresponde ao conteúdo efetivo da branch. Não foi alterado o script.
+- PR #1 segue aberto: oito commits, cinco arquivos; sua documentação é preliminar e o SQL proposto já tem destino canônico na main. Não integrar automaticamente nem usar seus números históricos para substituir este inventário.
+- PR #2 segue Draft, agora com 175 arquivos e 12 commits. Os 174 arquivos anteriores permaneceram intactos. Nenhum PR foi mesclado.
+- Residual 032: leitura integral de `_dba_admin_scripts/link.sql`, preservando DROP/CREATE, sem republicar senha ou identificadores de ambiente. A divergência entre nomes de remoção/criação não foi corrigida por suposição. Publicação sanitizada confirmada no blob `6eb68b2e121561967fdb01ec076d5aeee391b0e8`.
+- Nenhuma conexão Oracle, runtime SQL*Plus/SQLcl, credencial de laboratório ou ambiente descartável foi disponibilizado nesta sessão. Não foram executados DDL, autenticação, testes de recovery nem comandos administrativos.
+
+### Próximo ponto de retomada
+
+Não existe lote de fontes elegíveis ainda sem processamento. A próxima etapa é homologação e resolução de impedimentos, sem repetir lotes 001–032. A seleção deve usar `publicacao` no inventário: 175 linhas iniciadas por `branch verificada` e 49 por `bloqueado para análise de licença`.
+
+Para as propostas administrativas, resolver o contrato e as limitações individuais do cabeçalho e então validar em laboratório descartável da versão alvo. Para `oracle/security/link.sql`, definir primeiro a intenção dos dois nomes, aprovação de escopo PUBLIC e entrada segura de segredo; não remover o bloqueio de execução no repositório. As 49 fontes externas continuam sem publicação até haver evidência de redistribuição permitida.
+
+O trabalho possível de recuperação, reconciliação e sanitização desta retomada está registrado. O projeto permanece **em andamento**, com 224 pendências de integração/publicação na main e sem homologação Oracle declarada.

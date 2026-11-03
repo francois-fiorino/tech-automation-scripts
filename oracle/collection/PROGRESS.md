@@ -391,3 +391,7 @@ Quatro fontes restantes mapeadas a canônicos no PR: VIEW_RCT (limite LONG menor
 ## Relatório reconciliado publicado
 
 [REPORT.md](REPORT.md) reúne números, categorias, problemas, pendências e 31 commits de lote. [VERIFICATION.json](VERIFICATION.json) registra a conferência global de 424 novos blobs main, 174 propostas e 15 preexistentes intactos. Commit de relatório: a1ad7123b28615a55ff97803dacf2060e73367dc. Nenhuma fonte sem classificação; projeto segue pendente de PR/licença/credencial e homologação.
+
+## Retomada e residual 032 — verificados
+
+Reconferidas as 697 origens por SHA-256 e os caminhos/blobs de 432 implementações main e 175 propostas. O residual contém uma proposta sanitizada de link público: commit d0723c789677d70c78bf3eb1e01139a2fc6e55c7, blob 6eb68b2e121561967fdb01ec076d5aeee391b0e8; original sensível retido. Corrigida somente a referência de commit de GET_COND no inventário para a errata 9095ca3cdad534aa6a96c6f26e8839121c652d3a. Scripts anteriores preservados. Sem merge de PR e sem execução Oracle. Ver REPORT.md e RECONCILIATION.json para checkpoint e próxima etapa: homologação das 175 propostas e direitos de redistribuição de 49 fontes, sem reiniciar lotes.
