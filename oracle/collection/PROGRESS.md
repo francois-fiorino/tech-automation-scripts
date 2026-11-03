@@ -8,10 +8,10 @@
 | Novos arquivos documentados (main e propostas) | 598 |
 | Novos arquivos main com alterações SQL/cliente/normalização | 366 |
 | Propostas somente em branch/PR #2 | 174 |
-| Fontes aguardando análise individual | **4** |
+| Fontes aguardando análise individual | **0** |
 | Retidos para verificação de licença | 49 |
 | Retido por credencial literal | 1 |
-| Origens duplicadas/variantes mapeadas | 28 |
+| Origens duplicadas/variantes mapeadas | 32 |
 | Fontes sem implementação funcional | 5 |
 
 [Inventário de 697 arquivos](inventory.csv): 693 fontes SQL e quatro auxiliares. Os itens da branch estão no [PR #2](https://github.com/francois-fiorino/tech-automation-scripts/pull/2), fora do total main. Oito scripts anteriores foram preservados. As seções históricas abaixo pertencem a seus estágios; esta tabela é o estado atual.
@@ -383,3 +383,11 @@ Oito origens lidas e comparadas foram mapeadas a implementações canônicas exi
 ## Lote 031 — verificado
 
 4 arquivos com código e cabeçalhos conferidos por SHA de blob Git, na main. [Commit](https://github.com/francois-fiorino/tech-automation-scripts/commit/573a4a79dd5956a4ee4eced4ba5a31c3a5830894). Sem execução Oracle.
+
+## Reconciliação final de fontes
+
+Quatro fontes restantes mapeadas a canônicos no PR: VIEW_RCT (limite LONG menor), TRANSLATE_SPS (cópia exata), RCT_DB91 (só espaços) e COUNT_B_TEMP (mesmo multiconjunto dos 1290 INSERTs de FILL_SZ, com transcript de cliente). Todos os 697 arquivos têm classificação; metadados Finder e spool vazio não são código elegível. README original foi lido e preparado integralmente. Nenhuma origem pendente de triagem técnica individual; PR, licença, credencial e homologação continuam pendentes e não contam como concluídos na main.
+
+## Relatório reconciliado publicado
+
+[REPORT.md](REPORT.md) reúne números, categorias, problemas, pendências e 31 commits de lote. [VERIFICATION.json](VERIFICATION.json) registra a conferência global de 424 novos blobs main, 174 propostas e 15 preexistentes intactos. Commit de relatório: a1ad7123b28615a55ff97803dacf2060e73367dc. Nenhuma fonte sem classificação; projeto segue pendente de PR/licença/credencial e homologação.
