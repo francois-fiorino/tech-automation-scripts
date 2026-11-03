@@ -218,3 +218,13 @@ Lote 009 confirmado por hashes: [commit 25e45a7](https://github.com/francois-fio
 ## Lote 010 — preparado para publicação
 
 20 arquivos lidos individualmente, com código completo e cabeçalhos técnicos. 13 receberam alterações de SQL/comandos de cliente/normalização. Os cabeçalhos e o inventário descrevem cada correção e limitação. Sem execução ou compilação Oracle. Confirmar apenas após conferência de hashes Git.
+
+Lote 010 confirmado por hashes: [commit 424bd75](https://github.com/francois-fiorino/tech-automation-scripts/commit/424bd7546fe30a1797efa43025cfdbea854ed22a). Vinte SQL e dois controles conferidos; scripts anteriores preservados.
+
+## Lote 011 — revisão administrativa
+
+20 arquivos completos documentados e publicados APENAS na branch do [PR #2](https://github.com/francois-fiorino/tech-automation-scripts/pull/2), commit [436f99a](https://github.com/francois-fiorino/tech-automation-scripts/commit/436f99ad1cd56b8bb7ff9465aa68e53fd624b8ef). Hashes dos vinte conferidos. São 22 propostas no PR, incluindo duas anteriores; não contam como publicadas na main. Seis receberam correções de código. Nenhum comando administrativo foi executado. DBA_RUNNING_STATS/rotinas customizadas, jobs, eventos, CTAS e execução de DML gerado exigem laboratório. DELTA mantém erro de correlação explicitamente bloqueado para implantação; Windows batch mantém riscos de metacaracteres. O auxiliar batsub.txt é cópia exata desse batch e foi mapeado ao mesmo artefato.
+
+## Lote 012 — preparado para publicação
+
+20 arquivos lidos individualmente, com código completo e cabeçalhos técnicos. 18 receberam alterações de SQL/comandos de cliente/normalização. Os cabeçalhos e o inventário descrevem cada correção e limitação. Sem execução ou compilação Oracle. Confirmar apenas após conferência de hashes Git.
