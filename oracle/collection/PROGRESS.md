@@ -133,3 +133,17 @@ Lote 005 confirmado: [00b1493](https://github.com/francois-fiorino/tech-automati
 Após confirmar lote 006: **128 SQL únicos na main** (8 anteriores + 120 novos); **103 dos novos** receberam alterações de código/cliente; 2 propostas documentadas permanecem apenas no PR #2. Continuam **509 fontes aguardando análise**, 45 retidas por licença, 1 por credencial, 7 origens duplicadas mapeadas, 1 referência sem implementação e 4 auxiliares pendentes. Projeto ainda não concluído.
 
 Referências: [ALL_IND_PARTITIONS/DBA_IND_PARTITIONS](https://docs.oracle.com/en/database/oracle/oracle-database/21/refrn/ALL_IND_PARTITIONS.html) e [DBMS_SPACE](https://docs.oracle.com/en/database/oracle/oracle-database/19/arpls/DBMS_SPACE.html).
+
+## Lote 007 — RAC, PX, serviços e ASM
+
+20 consultas com análise/documentação individual; 14 arquivos alterados, incluindo normalização de CR isolado em arquivos históricos. Nova categoria `asm`. Corrigidas médias de espera não ponderadas entre instâncias, inversão de operações/tempo em ASM, divisão analítica por zero e CASE WHEN NULL que nunca correspondia. Acrescentados identificadores dos discos e SERIAL# na associação de sessões PX. Consulta de diskgroup utiliza view STAT para evitar discovery.
+
+Os contadores compostos de hot_segments e gc_top_5_segments foram preservados com ressalvas explícitas de unidades/dupla contagem; não são declarados IOPS ou contabilidade de operações únicas. Interpretação de BYTES do In-Memory e de memória GCS/GES consta nos cabeçalhos. Consultas de ASH e exemplos de tracing não foram incluídos neste lote.
+
+Validação: diffs completos, estrutura e ausência de comandos mutantes; fixtures auxiliares SQLite aprovaram médias ponderadas com instâncias de volumes distintos, ausência de esperas e cálculo de tempo/operação ASM com zero operações. Nenhum banco Oracle/ASM foi acessado e os testes não substituem homologação Oracle.
+
+Lote 006 confirmado: [f58f399](https://github.com/francois-fiorino/tech-automation-scripts/commit/f58f399ab4d227e86f6f112877a885e04ea86248); vinte SQL e controles conferidos por hash, com preservação dos scripts anteriores.
+
+Após verificação do lote 007: **148 SQL únicos na main**, dos quais 140 novos; **117 novos arquivos** com alterações de SQL/cliente/normalização. **489 fontes aguardam análise**, além de 45 retidas por licença, 1 por credencial e 2 no PR #2. Mantidos 7 mapeamentos de origens duplicadas, 1 referência sem implementação e 4 auxiliares pendentes.
+
+Referências: [V$GES_BLOCKING_ENQUEUE](https://docs.oracle.com/en/database/oracle/oracle-database/21/refrn/V-GES_BLOCKING_ENQUEUE.html), [V$IM_SEGMENTS](https://docs.oracle.com/en/database/oracle/oracle-database/26/refrn/V-IM_SEGMENTS.html) e [V$ASM_DISK](https://docs.oracle.com/en/database/oracle/oracle-database/19/refrn/V-ASM_DISK.html).
