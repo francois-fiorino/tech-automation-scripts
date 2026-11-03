@@ -147,3 +147,15 @@ Lote 006 confirmado: [f58f399](https://github.com/francois-fiorino/tech-automati
 Após verificação do lote 007: **148 SQL únicos na main**, dos quais 140 novos; **117 novos arquivos** com alterações de SQL/cliente/normalização. **489 fontes aguardam análise**, além de 45 retidas por licença, 1 por credencial e 2 no PR #2. Mantidos 7 mapeamentos de origens duplicadas, 1 referência sem implementação e 4 auxiliares pendentes.
 
 Referências: [V$GES_BLOCKING_ENQUEUE](https://docs.oracle.com/en/database/oracle/oracle-database/21/refrn/V-GES_BLOCKING_ENQUEUE.html), [V$IM_SEGMENTS](https://docs.oracle.com/en/database/oracle/oracle-database/26/refrn/V-IM_SEGMENTS.html) e [V$ASM_DISK](https://docs.oracle.com/en/database/oracle/oracle-database/19/refrn/V-ASM_DISK.html).
+
+## Lote 008 — cache SQL, esperas e séries customizadas
+
+20 arquivos com documentação individual; 16 com correções de SQL/comandos de cliente. Nova subcategoria `performance/sql`. Corrigidos TO_DATE sobre coluna DATE, nome de parâmetro db_block_size, associação por ADDRESS junto ao hash, limite de extent, divisor zero, máscara numérica e fechamento de SPOOL. Os scripts que dependem de DBA_RUNNING_STATS/STATETAB têm esses pré-requisitos explicitados; não foram apresentados como funcionalidades padrão Oracle.
+
+Mantidos e sinalizados: soma inadequada de campos temporais amostrados ASH, plano iniciado no nó ID=1 e sem filtro de captura, diferença entre disk/memory e disk/total, e filtros de eventos mais amplos que seus títulos. Não houve simplificação/substituição dos corpos históricos.
+
+Validação: cabeçalhos completos, diffs e ausência de DDL/DML direto; fixture auxiliar SQLite com dois textos/endereços diferentes e hash coincidente demonstrou associação correta por ADDRESS+HASH_VALUE. Sem execução/compilação Oracle.
+
+Lote 007 confirmado: [41ab033](https://github.com/francois-fiorino/tech-automation-scripts/commit/41ab033640d39879a4e646c012b332612efcaa72), vinte SQL e dois controles conferidos por hash; scripts anteriores preservados.
+
+Após confirmação do lote 008: **168 scripts SQL únicos na main**, dos quais **160 novos** e **133 novos arquivos com alterações de SQL/cliente/normalização**. Restam **469 fontes com análise individual pendente**, 45 retidas por licença, 1 por credencial, 2 apenas no PR #2, 7 origens duplicadas mapeadas e 1 referência sem código. Quatro auxiliares pendentes. Projeto ainda não concluído; próximo lote 009.
