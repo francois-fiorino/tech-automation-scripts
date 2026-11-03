@@ -109,3 +109,13 @@ Os hashes dos 80 SQL novos foram comparados ao conteúdo UTF-8 publicado. Os 15 
 Usar o ZIP original de 697 arquivos e os SHA-256 do [inventário](inventory.csv). Ler o estado atual da main antes de escrever. Prosseguir pelas linhas com publicação `pendente`, em lotes de 20; não refazer os 80 novos nem os oito anteriores. Reavaliar duplicatas pelo corpo integral e preservar créditos. Arquivos retidos por licença/credencial e os dois do PR não devem ser promovidos automaticamente. O próximo lote será o 005.
 
 Não existe processamento ativo em segundo plano. Este é um checkpoint parcial; não é relatório de conclusão da coleção.
+
+## Lote 005 — arquivos, extents e I/O
+
+20 arquivos com revisão individual e documentação completa; 18 receberam alterações de SQL/comandos de cliente. Sem execução em Oracle. Corrigidos percentuais com total zero, tamanho de bloco de tablespace não padrão, interpretação de status de backup, SQL com aspas/aliases inválidos, GROUP BY ausente e UNION que eliminava subtotais válidos. A consulta de undo agora relaciona SQL_ID juntamente com DBID, sem afirmar que a consulta de maior duração é quem gerou o undo.
+
+FILEIO2.SQL, FILEIO_NH.SQL, datafile2.sql e mapper1.sql tiveram todos os SELECTs comparados com as versões canônicas; as diferenças são de apresentação/cliente e foram registradas no inventário. Nenhuma nova cópia foi publicada para essas variantes.
+
+Após verificação: **108 SQL únicos na main**, sendo 100 publicados nas execuções deste projeto e 84 desses com alterações de código/cliente. **529 fontes** continuam aguardando análise individual, **45** retidas por licença, **1** por credencial, **2** apenas no PR #2, **7** origens duplicadas mapeadas e **1** referência sem implementação. Quatro auxiliares continuam pendentes.
+
+Referências: [V$BACKUP](https://docs.oracle.com/en/database/oracle/oracle-database/26/refrn/V-BACKUP.html), [DBA_HIST_SEG_STAT](https://docs.oracle.com/en/database/oracle/oracle-database/26/refrn/DBA_HIST_SEG_STAT.html). Cabeçalhos detalham privilégios, unidades, dados acumulados versus deltas, dependências customizadas e riscos de tabelas internas.
