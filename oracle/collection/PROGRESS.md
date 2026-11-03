@@ -5,13 +5,13 @@
 |---|---:|
 | Scripts únicos da coleção na main | **428** |
 | Novos publicados na main desde início deste trabalho | 420 |
-| Novos arquivos documentados (main e propostas) | 502 |
+| Novos arquivos documentados (main e propostas) | 522 |
 | Novos arquivos main com alterações SQL/cliente/normalização | 362 |
-| Propostas somente em branch/PR #2 | 82 |
-| Fontes aguardando análise individual | **108** |
+| Propostas somente em branch/PR #2 | 102 |
+| Fontes aguardando análise individual | **80** |
 | Retidos para verificação de licença | 49 |
 | Retido por credencial literal | 1 |
-| Origens duplicadas/variantes mapeadas | 20 |
+| Origens duplicadas/variantes mapeadas | 28 |
 | Fontes sem implementação funcional | 5 |
 
 [Inventário de 697 arquivos](inventory.csv): 693 fontes SQL e quatro auxiliares. Os itens da branch estão no [PR #2](https://github.com/francois-fiorino/tech-automation-scripts/pull/2), fora do total main. Oito scripts anteriores foram preservados. As seções históricas abaixo pertencem a seus estágios; esta tabela é o estado atual.
@@ -351,3 +351,11 @@ Nove origens lidas e comparadas foram mapeadas a implementações canônicas exi
 ## Lote 025 — verificado
 
 20 arquivos com código e cabeçalhos conferidos por SHA de blob Git, na main. [Commit](https://github.com/francois-fiorino/tech-automation-scripts/commit/321616c6f6c3048bd9fba2beac5b0f583af2d4b9). Sem execução Oracle.
+
+## Reconciliação de variantes após lote 025
+
+Oito origens lidas e comparadas foram mapeadas a implementações canônicas existentes, sem criar cópias. Inventário registra diferenças de wrappers, formatação ou comentários. RBKVW/PLAN1 continuam apontando ao PR, fora da main; duplicatas não são contadas como novas publicações.
+
+## Lote 026 — verificado
+
+20 arquivos com código e cabeçalhos conferidos por SHA de blob Git, somente no PR #2 (fora da main). [Commit](https://github.com/francois-fiorino/tech-automation-scripts/commit/b59898337fd6d279755d4239e1228fca6bbe3b96). Sem execução Oracle.
