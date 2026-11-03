@@ -21,8 +21,7 @@ OBJETOS, VIEWS E PACOTES
   CREATE USER, CONNECT, SCOPUS_ROLE, tablespaces de entrada
 
 COMPATIBILIDADE CONHECIDA E LIMITAÇÕES
-  Privilégios administrativos de usuário/grant e role customizada SCOPUS_ROLE. Quota unlimited pode consumir tablespace. Não usar aspas/metacaracteres em entradas; não inserir senha em script/histórico. DDL confirma transações.
-  Não homologado em versões específicas; validar dicionário e plano em laboratório.
+  Ainda exige entrada confiável sem aspas/metacaracteres. USER/DEFAULT/TEMP e PASSWORD são substituições textuais antes do parse; ampliar escaping exige nova interface de fornecimento de segredo. Grants e quota ilimitada precisam aprovação específica; não há cleanup transacional de DDL. Alvo documental das APIs novas: Oracle 19c. Sem compilação ou execução Oracle; grants, versão e resultado ainda exigem laboratório.
 
 EXEMPLO DE EXECUÇÃO
   Somente laboratório: definir USER/DEFAULT/TEMP e executar @cre_user.sql; senha será solicitada sem eco.
@@ -41,11 +40,15 @@ RISCOS E IMPACTOS OPERACIONAIS
   Quando houver SPOOL, o arquivo local pode ser sobrescrito: proteger sua saída.
 
 CORREÇÕES REALIZADAS E PENDÊNCIAS
-  VERIFY/ECHO desabilitados e ACCEPT HIDE evita exposição; senha citada entre aspas e variável removida no final. Roles/quota originais preservadas para revisão. 
-  Revisão estática somente; implantação depende de laboratório e aprovação do PR.
-  Comentários e créditos históricos preservados abaixo.
+  Revisão complementar 036 (2026-11-03): Fluxo não alterado nesta revisão: ACCEPT HIDE não impede interpolação SQL*Plus nem torna a entrada uma bind variable. Casos de homologação: Aspas, ampersand e newline; valores de username/tablespace não confiáveis; falha entre CREATE e GRANT; decidir interface de binds/segredo antes de liberar o script. Comentários/créditos históricos preservados. Não aprovado para implantação.
 
 AVISO DE RESPONSABILIDADE
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de
+qualquer utilização em produção. Sua execução é de responsabilidade do
+profissional responsável pelo ambiente. Os mantenedores deste repositório não
+se responsabilizam por indisponibilidade, perda de dados, alterações indevidas
+ou outros impactos decorrentes de sua utilização.
+
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
 e realize testes em ambiente controlado, preferencialmente desenvolvimento ou
@@ -56,7 +59,6 @@ responsabilidade por danos, perdas de dados, indisponibilidade ou outros impacto
 decorrentes do uso, nos limites permitidos pela legislação aplicável.
 ===============================================================================
 */
-
 /*  */
 set verify off echo off
 accept password char prompt 'Senha do usuário de teste: ' hide

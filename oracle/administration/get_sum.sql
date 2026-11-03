@@ -21,8 +21,7 @@ OBJETOS, VIEWS E PACOTES
   DBA_EXTENTS; função GET_SUM
 
 COMPATIBILIDADE CONHECIDA E LIMITAÇÕES
-  CREATE PROCEDURE e SELECT direto; não filtra OWNER e pode somar homônimos. Exclui TABLE PARTITION/SUBPARTITION, não mede bytes de linhas. Substituição pode impactar dependências.
-  Não homologado em versões específicas; validar dicionário e plano em laboratório.
+  Soma extents SEGMENT_TYPE=TABLE em todos os owners visíveis; NULL quando nenhum. Não mede bytes de linhas nem inclui partições. Evitar uso para atribuição por schema sem decidir nova interface. Alvo documental das APIs novas: Oracle 19c. Sem compilação ou execução Oracle; grants, versão e resultado ainda exigem laboratório.
 
 EXEMPLO DE EXECUÇÃO
   Somente laboratório: @get_sum.sql
@@ -41,11 +40,15 @@ RISCOS E IMPACTOS OPERACIONAIS
   Quando houver SPOOL, o arquivo local pode ser sobrescrito: proteger sua saída.
 
 CORREÇÕES REALIZADAS E PENDÊNCIAS
-  Corpo original preservado. 
-  Revisão estática somente; implantação depende de testes e aprovação do PR.
-  Comentários e créditos históricos preservados abaixo.
+  Revisão complementar 036 (2026-11-03): Função preservada: acrescentar owner ou partições mudaria seu contrato atual de soma global por nome. Casos de homologação: Nomes homônimos em dois schemas; tabela particionada; tabela vazia/deferred; nenhum extent; definir se escopo global é pretendido. Comentários/créditos históricos preservados. Não aprovado para implantação.
 
 AVISO DE RESPONSABILIDADE
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de
+qualquer utilização em produção. Sua execução é de responsabilidade do
+profissional responsável pelo ambiente. Os mantenedores deste repositório não
+se responsabilizam por indisponibilidade, perda de dados, alterações indevidas
+ou outros impactos decorrentes de sua utilização.
+
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
 e realize testes em ambiente controlado, preferencialmente desenvolvimento ou
@@ -56,7 +59,6 @@ responsabilidade por danos, perdas de dados, indisponibilidade ou outros impacto
 decorrentes do uso, nos limites permitidos pela legislação aplicável.
 ===============================================================================
 */
-
 /*  */
 create or replace function get_sum(table_name in varchar2)
 return number as

@@ -9,7 +9,7 @@ OBJETIVO E FINALIDADE
   Preservar variante TDMS que tenta inserir apenas valores ausentes.
 
 FUNCIONAMENTO DETALHADO
-  Três INSERT VALUES seguidos de WHERE NOT IN consultam OFFICE/TRUNK_GROUP/MEASUREMENT, COMMIT e handler ERROR_LOG.
+  Três INSERT SELECT FROM DUAL condicionados pelos filtros legados NOT IN, COMMIT e registro de erro em ERROR_LOG.
 
 PRÉ-REQUISITOS E PRIVILÉGIOS
   SQL*Plus ou SQLcl; conexão ao banco/container que se deseja diagnosticar.
@@ -20,13 +20,10 @@ OBJETOS, VIEWS E PACOTES
   OFFICE, TRUNK_GROUP, MEASUREMENT, ERROR_LOG
 
 COMPATIBILIDADE CONHECIDA E LIMITAÇÕES
-  INSERT VALUES WHERE é sintaxe inválida; transformação em INSERT SELECT e chaves adequadas exigem testes para não mudar regra por escritório/trunk/time. NOT IN tem efeitos NULL e concorrência não resolvida. Handler pode ocultar falhas e confirmar dados parcialmente.
-  Não homologado em versões específicas; validar dicionário e plano em laboratório.
+  Dependências OFFICE/TRUNK_GROUP/MEASUREMENT/ERROR_LOG e chaves desconhecidas. NOT IN preserva sua semântica de NULL; não garante unicidade concorrente. Filtro de trunk_group ainda global por nome, não por escritório. Handler continua registrando sem relançar; não foi inventada política transacional. Alvo documental das APIs novas: Oracle 19c. Sem compilação ou execução Oracle; grants, versão e resultado ainda exigem laboratório.
 
 EXEMPLO DE EXECUÇÃO
-  Somente inspeção; não compila sem corrigir INSERT VALUES WHERE e revisar chaves de negócio.
-  Executar a partir do diretório do arquivo, ou informar seu caminho completo.
-  Variáveis de substituição devem receber apenas valores controlados pelo DBA.
+  Somente schema descartável com todas as dependências e chaves fornecidas. Sintaxe de INSERT foi corrigida estaticamente; compilação e regra de deduplicação ainda precisam de teste.
 
 SAÍDA ESPERADA E INTERPRETAÇÃO
   Proposta de procedimento, sem garantia de compilação Oracle.
@@ -40,11 +37,18 @@ RISCOS E IMPACTOS OPERACIONAIS
   Quando houver SPOOL, o arquivo local pode ser sobrescrito: proteger sua saída.
 
 CORREÇÕES REALIZADAS E PENDÊNCIAS
-  Fonte integral preservada com três erros de sintaxe e limitações de deduplicação explícitos; não substituída por MERGE simplificado. 
-  Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
-  Comentários e créditos históricos preservados abaixo.
+  Revisão complementar 036 (2026-11-03): Corrigidos os três INSERT VALUES WHERE para INSERT SELECT FROM DUAL WHERE, sem alterar campos, filtros NOT IN ou COMMIT. Casos de homologação: NULL nos campos/chaves; mesmo trunk em escritórios diferentes; cargas concorrentes; erro intermediário; rollback e confirmação. Comentários/créditos históricos preservados. Não aprovado para implantação.
+
+REFERÊNCIAS TÉCNICAS DA REVISÃO 036
+ https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/INSERT.html
 
 AVISO DE RESPONSABILIDADE
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de
+qualquer utilização em produção. Sua execução é de responsabilidade do
+profissional responsável pelo ambiente. Os mantenedores deste repositório não
+se responsabilizam por indisponibilidade, perda de dados, alterações indevidas
+ou outros impactos decorrentes de sua utilização.
+
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
 e realize testes em ambiente controlado, preferencialmente desenvolvimento ou
@@ -55,7 +59,6 @@ responsabilidade por danos, perdas de dados, indisponibilidade ou outros impacto
 decorrentes do uso, nos limites permitidos pela legislação aplicável.
 ===============================================================================
 */
-
 /*  */
 create or replace procedure tdms(                                               
 	psSwitchTypeNm	IN	VARCHAR2,                                             
@@ -85,14 +88,12 @@ BEGIN
 	lsDateTime := psDate || ' '  || psTime;
 	INSERT INTO office                                                              
 		( office_nm, responsibility_cd )                                                
-	VALUES
-		( psOfficeNm, NULL )
+	SELECT psOfficeNm, NULL FROM dual
 	WHERE
 		psOfficeNm NOT IN (select office_nm FROM office);
 	INSERT INTO trunk_group                                                         
 		( office_nm, trunk_group_nm, trunk_group_no )                                   
-	VALUES 
-		( psOfficeNm, psTrunkGroupNm, pnTrunkGroupNo )
+	SELECT psOfficeNm, psTrunkGroupNm, pnTrunkGroupNo FROM dual
 	WHERE 
 		psTrunkGroupNm not in (select trunk_group_nm from trunk_group);                          
 	INSERT INTO    measurement                                                      
@@ -100,13 +101,13 @@ BEGIN
 		outgoing_peg_qty, overflow_peg_qty, overflow_pct,                               
 		circuits_in_service_qty, call_duration_sec_qty, usage,                          
 		busy_circuit_qty, switch_type_nm, record_no)                                    
-	VALUES
-		(psOfficeNm, psTrunkGroupNm, TO_DATE(lsDateTime, 'MM/DD/YY HH24:MI'),     
+	SELECT psOfficeNm, psTrunkGroupNm, TO_DATE(lsDateTime, 'MM/DD/YY HH24:MI'),     
 		NVL(psRoutingCd, NULL), NVL(pnIncomingPegQty, NULL),                            
 		NVL(pnOutgoingPegQty, NULL), NVL(pnOverflowPegQty, NULL),                       
 		NVL(pnOverflowPct, NULL), NVL(pnCircuitsInServiceQty, NULL),                    
 		NVL(pnCallDurationSecQty, NULL), NVL(pnUsage, NULL),                            
-		NVL(pnBusyCircuitQty, NULL), NVL(psSwitchTypeNm, NULL), pnRecordNo)
+		NVL(pnBusyCircuitQty, NULL), NVL(psSwitchTypeNm, NULL), pnRecordNo
+	FROM dual
 	WHERE 
 		TO_DATE(lsDateTime, 'MM/DD/YY HH24:MI') not in 
 		(SELECT report_dttm 

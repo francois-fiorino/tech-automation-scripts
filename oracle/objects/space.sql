@@ -18,11 +18,10 @@ PRÉ-REQUISITOS E PRIVILÉGIOS
   Não requer AWR/ASH nesta implementação.
 
 OBJETOS, VIEWS E PACOTES
-  SYS.DBA_FREE_SPACE, V$DATAFILE, V$DATABASE, DBMS_OUTPUT
+  SYS.DBA_DATA_FILES, SYS.DBA_FREE_SPACE, V$DATABASE e DBMS_OUTPUT.
 
 COMPATIBILIDADE CONHECIDA E LIMITAÇÕES
-  CREATE PROCEDURE e SELECT diretos. Arquivos sem linha livre são omitidos, logo não mostra datafiles totalmente ocupados. Não considera autoextend potencial nem tempfiles.
-  Não homologado em versões específicas; validar dicionário e plano em laboratório.
+  Zero em DBA_FREE_SPACE também pode refletir indisponibilidade de metadados/arquivo offline; não inferir ocupação exata sem verificar status e acesso. Continua sem tempfiles ou potencial AUTOEXTEND; valores exibidos são KiB apesar do rótulo histórico KB. Alvo documental das APIs novas: Oracle 19c. Sem compilação ou execução Oracle; grants, versão e resultado ainda exigem laboratório.
 
 EXEMPLO DE EXECUÇÃO
   Somente laboratório: @space.sql; executar rotina depois de grants diretos.
@@ -41,11 +40,19 @@ RISCOS E IMPACTOS OPERACIONAIS
   Quando houver SPOOL, o arquivo local pode ser sobrescrito: proteger sua saída.
 
 CORREÇÕES REALIZADAS E PENDÊNCIAS
-  NULLIF protege tamanho de arquivo zero; nome de banco ampliado para 128 em buffer. 
-  Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
-  Comentários e créditos históricos preservados abaixo.
+  Revisão complementar 036 (2026-11-03): DBA_DATA_FILES conduz o relatório com LEFT JOIN de espaço livre; arquivos sem extents livres aparecem com zero. Detalhe do arquivo usa a mesma família de views/container em vez de cruzar V$DATAFILE. Casos de homologação: Datafile com zero extents livres; vários extents; arquivo offline; tamanho zero; PDB com FILE_ID local. Comentários/créditos históricos preservados. Não aprovado para implantação.
+
+REFERÊNCIAS TÉCNICAS DA REVISÃO 036
+ https://docs.oracle.com/en/database/oracle/oracle-database/19/refrn/DBA_DATA_FILES.html
+ https://docs.oracle.com/en/database/oracle/oracle-database/19/refrn/DBA_FREE_SPACE.html
 
 AVISO DE RESPONSABILIDADE
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de
+qualquer utilização em produção. Sua execução é de responsabilidade do
+profissional responsável pelo ambiente. Os mantenedores deste repositório não
+se responsabilizam por indisponibilidade, perda de dados, alterações indevidas
+ou outros impactos decorrentes de sua utilização.
+
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
 e realize testes em ambiente controlado, preferencialmente desenvolvimento ou
@@ -56,19 +63,18 @@ responsabilidade por danos, perdas de dados, indisponibilidade ou outros impacto
 decorrentes do uso, nos limites permitidos pela legislação aplicável.
 ===============================================================================
 */
-
 /*  */
 create or replace procedure space as
  CURSOR datafile1 IS
-  SELECT tablespace_name, file_id, max(bytes) largeextent,
-    sum(bytes) totalfreespace
-    FROM sys.dba_free_space
-    GROUP BY tablespace_name, file_id
-    ORDER BY tablespace_name, file_id;
+  SELECT d.tablespace_name,d.file_id,NVL(MAX(f.bytes),0) largeextent,
+    NVL(SUM(f.bytes),0) totalfreespace
+    FROM sys.dba_data_files d LEFT JOIN sys.dba_free_space f ON f.file_id=d.file_id
+    GROUP BY d.tablespace_name,d.file_id
+    ORDER BY d.tablespace_name,d.file_id;
  CURSOR datafile2 (fileid INTEGER) IS
-  SELECT name, bytes
-    FROM v$datafile
-    WHERE file# = fileid;
+  SELECT file_name name,bytes
+    FROM sys.dba_data_files
+    WHERE file_id=fileid;
 dbname VARCHAR2(128);
 BEGIN
 SELECT name INTO dbname

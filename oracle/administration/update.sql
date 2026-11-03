@@ -21,8 +21,7 @@ OBJETOS, VIEWS E PACOTES
   TEMP_TAB, DBMS_SQL, DBMS_OUTPUT, tabela alvo com ENTRY_TS
 
 COMPATIBILIDADE CONHECIDA E LIMITAÇÕES
-  CREATE PROCEDURE/DDL/DML diretos. Nome concatenado sem validação é inseguro; data vira string NLS, ROWID fica obsoleto se linhas movem, ROWS<=0 pode impedir avanço. Sem cleanup em erro e buffers 100 limitam SQL. Exige redesenho homologado antes de deployment.
-  Não homologado em versões específicas; validar dicionário e plano em laboratório.
+  TEMP_TAB ainda é compartilhada e truncada, com COMMIT por lote e possível confirmação do trabalho do chamador; proibir concorrência. ROWID pode ficar obsoleto por movimento de linha. SQL_OBJECT_NAME não verifica autorização de negócio nem fixa identidade do objeto. Somente tabela heap/ROWID físico e ENTRY_TS compatível; não homologado para IOT/UROWID/remote. Falha deixa lotes anteriores confirmados. Alvo documental das APIs novas: Oracle 19c. Sem compilação ou execução Oracle; grants, versão e resultado ainda exigem laboratório.
 
 EXEMPLO DE EXECUÇÃO
   Revisão somente; não chamar contra dados reais.
@@ -41,11 +40,19 @@ RISCOS E IMPACTOS OPERACIONAIS
   Quando houver SPOOL, o arquivo local pode ser sobrescrito: proteger sua saída.
 
 CORREÇÕES REALIZADAS E PENDÊNCIAS
-  Terminador / adicionado; algoritmo, lotes e commits preservados com pendências específicas. 
-  Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
-  Comentários e créditos históricos preservados abaixo.
+  Revisão complementar 036 (2026-11-03): Validação de lote inteiro positivo antes de TRUNCATE; nome alvo validado por SQL_OBJECT_NAME; DATE e ROWID passam por bind; buffer ampliado, NATIVE e cleanup em erro. Limite inclusivo BETWEEN corrigido para rowcount+rows-1, respeitando tamanho solicitado. Casos de homologação: NULL/zero/negativo/fracionário; lote1/exato/resíduo; alvo vazio; nome malicioso/inexistente; NLS de data; movimento de linha; erro no lote2; concorrência proibida. Comentários/créditos históricos preservados. Não aprovado para implantação.
+
+REFERÊNCIAS TÉCNICAS DA REVISÃO 036
+ https://docs.oracle.com/en/database/oracle/oracle-database/19/arpls/DBMS_SQL.html
+ https://docs.oracle.com/en/database/oracle/oracle-database/19/arpls/DBMS_ASSERT.html
 
 AVISO DE RESPONSABILIDADE
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de
+qualquer utilização em produção. Sua execução é de responsabilidade do
+profissional responsável pelo ambiente. Os mantenedores deste repositório não
+se responsabilizam por indisponibilidade, perda de dados, alterações indevidas
+ou outros impactos decorrentes de sua utilização.
+
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
 e realize testes em ambiente controlado, preferencialmente desenvolvimento ou
@@ -56,10 +63,9 @@ responsabilidade por danos, perdas de dados, indisponibilidade ou outros impacto
 decorrentes do uso, nos limites permitidos pela legislação aplicável.
 ===============================================================================
 */
-
 /*  */
 create or replace procedure update_it (rows IN NUMBER, tab_name IN VARCHAR2) AS
-  cursor_name 	INTEGER;
+  cursor_name 	INTEGER:=NULL;
   ret 		INTEGER;
   rowcount 	NUMBER:=1;
   maxrows 	NUMBER;
@@ -67,29 +73,34 @@ create or replace procedure update_it (rows IN NUMBER, tab_name IN VARCHAR2) AS
   i		INTEGER:=1;
   CURSOR proc_row(row NUMBER, maxr NUMBER) IS 
 	SELECT idrow FROM temp_tab WHERE numrow BETWEEN row and maxr;
-  sql_com 	VARCHAR2(100);
+  sql_com 	VARCHAR2(32767);
+  safe_table VARCHAR2(1000);
   new_date 	DATE;
   maxcount	NUMBER;
 BEGIN
+  IF rows IS NULL OR rows<=0 OR rows<>TRUNC(rows) THEN
+    RAISE_APPLICATION_ERROR(-20018,'Tamanho do lote deve ser inteiro positivo.');
+  END IF;
+  safe_table:=DBMS_ASSERT.SQL_OBJECT_NAME(tab_name);
   --
   -- First clear out the temp_tab of old entries
   --
   sql_com:='TRUNCATE TABLE temp_tab';
   cursor_name:=DBMS_SQL.OPEN_CURSOR;
-  DBMS_SQL.PARSE(cursor_name,sql_com,dbms_sql.v7);
+  DBMS_SQL.PARSE(cursor_name,sql_com,dbms_sql.native);
   ret:=DBMS_SQL.EXECUTE(cursor_name);
-  DBMS_SQL.CLOSE_CURSOR(cursor_name);
+  DBMS_SQL.CLOSE_CURSOR(cursor_name); cursor_name:=NULL;
   --
   -- Add the where clause for a specific retrieval at the end of the next command
   --
-  sql_com:='INSERT INTO temp_tab SELECT rownum, rowid FROM '||tab_name;
+  sql_com:='INSERT INTO temp_tab SELECT rownum, rowid FROM '||safe_table;
   cursor_name:=DBMS_SQL.OPEN_CURSOR;
-  DBMS_SQL.PARSE(cursor_name,sql_com,dbms_sql.v7);
+  DBMS_SQL.PARSE(cursor_name,sql_com,dbms_sql.native);
   ret:=DBMS_SQL.EXECUTE(cursor_name);
-  DBMS_SQL.CLOSE_CURSOR(cursor_name);
+  DBMS_SQL.CLOSE_CURSOR(cursor_name); cursor_name:=NULL;
   SELECT MAX(numrow) INTO maxcount FROM temp_tab;
   IF maxcount>0 THEN 
-  maxrows:=rowcount+rows; 
+  maxrows:=rowcount+rows-1; 
   new_date:=sysdate+2;
   LOOP
 	DBMS_OUTPUT.PUT_LINE('Rowcount:'||TO_CHAR(rowcount)||' Maxrows:'||TO_CHAR(maxrows));
@@ -97,25 +108,32 @@ BEGIN
 	FETCH proc_row into temp_id;
 	LOOP
 	EXIT WHEN proc_row%NOTFOUND;
-		sql_com:='UPDATE '||tab_name||'
-			SET entry_ts='||chr(39)||new_date||chr(39)||'
-			WHERE rowid='||chr(39)||temp_id||chr(39);
+		sql_com:='UPDATE '||safe_table||' SET entry_ts=:entry_value WHERE rowid=:target_rowid';
 		cursor_name:=DBMS_SQL.OPEN_CURSOR;
-		DBMS_SQL.PARSE(cursor_name,sql_com,dbms_sql.v7);
+		DBMS_SQL.PARSE(cursor_name,sql_com,dbms_sql.native);
+		DBMS_SQL.BIND_VARIABLE(cursor_name,':entry_value',new_date);
+		DBMS_SQL.BIND_VARIABLE_ROWID(cursor_name,':target_rowid',temp_id);
 		ret:=DBMS_SQL.EXECUTE(cursor_name);
-		DBMS_SQL.CLOSE_CURSOR(cursor_name);
+		DBMS_SQL.CLOSE_CURSOR(cursor_name); cursor_name:=NULL;
 		rowcount:=rowcount+1;
 		FETCH proc_row INTO TEMP_ID;
 		DBMS_OUTPUT.PUT_LINE(to_char(rowcount));
 	END LOOP;
 	CLOSE proc_row;
 	COMMIT;
- 	maxrows:=rowcount+rows;
+ 	maxrows:=rowcount+rows-1;
   	IF rowcount=maxcount+1 
 	THEN 
 		EXIT;
 	END IF;
   END LOOP;
   END IF;
+EXCEPTION WHEN OTHERS THEN
+  BEGIN
+    IF cursor_name IS NOT NULL AND DBMS_SQL.IS_OPEN(cursor_name) THEN DBMS_SQL.CLOSE_CURSOR(cursor_name); cursor_name:=NULL; END IF;
+    IF proc_row%ISOPEN THEN CLOSE proc_row; END IF;
+  EXCEPTION WHEN OTHERS THEN NULL;
+  END;
+  RAISE;
 END;
 /

@@ -9,7 +9,7 @@ OBJETIVO E FINALIDADE
   Criar procedimento histórico que devolve data de startup por layout KEY/VALUE.
 
 FUNCIONAMENTO DETALHADO
-  Lê dia juliano/segundos de V$INSTANCE, decompõe horário, imprime e devolve OUT DATE.
+  Consulta a coluna DATE STARTUP_TIME da instância local, preserva parâmetro OUT DATE e imprime diagnóstico sem depender de NLS.
 
 PRÉ-REQUISITOS E PRIVILÉGIOS
   SQL*Plus ou SQLcl; conexão ao banco/container que se deseja diagnosticar.
@@ -20,8 +20,7 @@ OBJETOS, VIEWS E PACOTES
   V$INSTANCE (KEY/VALUE legado), DBMS_OUTPUT
 
 COMPATIBILIDADE CONHECIDA E LIMITAÇÕES
-  CREATE PROCEDURE/SELECT direto. V$INSTANCE moderno não tem KEY/VALUE. DATE vira string implícita e depois máscara DD-MON-YY, dependente de NLS; sem garantia moderna. NO_DATA_FOUND deixa OUT sem data.
-  Não homologado em versões específicas; validar dicionário e plano em laboratório.
+  Reimplementação da obtenção da mesma informação por coluna documentada. CREATE PROCEDURE e SELECT direto em SYS.V_$INSTANCE necessários. Data é da instância local, não uptime da PDB nem conjunto RAC. Alvo documental das APIs novas: Oracle 19c. Sem compilação ou execução Oracle; grants, versão e resultado ainda exigem laboratório.
 
 EXEMPLO DE EXECUÇÃO
   Revisão em versão legada compatível: @startup_date.sql.
@@ -29,7 +28,7 @@ EXEMPLO DE EXECUÇÃO
   Variáveis de substituição devem receber apenas valores controlados pelo DBA.
 
 SAÍDA ESPERADA E INTERPRETAÇÃO
-  Procedimento criado apenas se catálogo compatível; OUT DATE e mensagens quando chamado.
+  Procedimento criado; chamada retorna DATE de startup da instância e imprime YYYY-MM-DD HH24:MI:SS.
 
 RISCOS E IMPACTOS OPERACIONAIS
   ALTO RISCO / PR DE REVISÃO: efeitos administrativos, dados, arquivos ou sessão
@@ -40,11 +39,18 @@ RISCOS E IMPACTOS OPERACIONAIS
   Quando houver SPOOL, o arquivo local pode ser sobrescrito: proteger sua saída.
 
 CORREÇÕES REALIZADAS E PENDÊNCIAS
-  Teste de minuto padding 0 corrigido para 1 e terminador / adicionado; algoritmo histórico completo preservado para estudo. 
-  Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
-  Comentários e créditos históricos preservados abaixo.
+  Revisão complementar 036 (2026-11-03): Retorno DATE obtido diretamente de V$INSTANCE.STARTUP_TIME; eliminados KEY/VALUE obsoletos, montagem juliana e roundtrip NLS. Saída de diagnóstico em ISO; OUT inicializado NULL no caso sem linha. Casos de homologação: Comparar OUT a V$INSTANCE.STARTUP_TIME com NLS_DATE_FORMAT distintos; NULL/erro de acesso; instâncias RAC diferentes. Comentários/créditos históricos preservados. Não aprovado para implantação.
+
+REFERÊNCIAS TÉCNICAS DA REVISÃO 036
+ https://docs.oracle.com/en/database/oracle/oracle-database/19/refrn/V-INSTANCE.html
 
 AVISO DE RESPONSABILIDADE
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de
+qualquer utilização em produção. Sua execução é de responsabilidade do
+profissional responsável pelo ambiente. Os mantenedores deste repositório não
+se responsabilizam por indisponibilidade, perda de dados, alterações indevidas
+ou outros impactos decorrentes de sua utilização.
+
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
 e realize testes em ambiente controlado, preferencialmente desenvolvimento ou
@@ -55,53 +61,15 @@ responsabilidade por danos, perdas de dados, indisponibilidade ou outros impacto
 decorrentes do uso, nos limites permitidos pela legislação aplicável.
 ===============================================================================
 */
-
 /*  */
 create or replace PROCEDURE startup_date (good_date out date)
 AS
-	jdate 		DATE;
-	jsec 		NUMBER;
-	hr 		VARCHAR2(2);
-	sec 		VARCHAR2(2);
-	minute 		VARCHAR2(2);
-	startup_date 	VARCHAR2(32);
-	show_date	DATE;
 BEGIN
- SELECT 
-TO_DATE(TO_NUMBER(value,'99999999'),'J') 
-  INTO 
-jdate 
-  FROM
-  	v$instance 
-  WHERE 
-	key='STARTUP TIME - JULIAN';
- SELECT 
-	(TO_NUMBER(value,'9999999')) 
-  INTO 
-	jsec 
-  FROM 
-	v$instance
-  WHERE 
-	key='STARTUP TIME - SECONDS';
- hr:=TO_CHAR(TRUNC(jsec/3600,0));
- minute:= TO_CHAR(TRUNC(((jsec/3600)-hr)*60,0));
- sec:= TO_CHAR(TRUNC((((((jsec/3600)-hr)*60)-minute)*60),0));
- IF length(hr)=1 THEN
-  	hr:='0'||hr;
-END IF;
-IF length(minute)=1 THEN
-  	minute:='0'||minute;
-END IF;
-IF length(sec)=1 THEN
-  	sec:='0'||sec;
-END IF;
-startup_date:=jdate||' '||hr||':'||minute||':'||sec;
-dbms_output.put_line('date:'||startup_date);
-good_date := TO_DATE(startup_date, 'dd-mon-yy hh24:mi:ss');
-show_date := TO_DATE(startup_date, 'dd-mon-yy hh24:mi:ss');
-dbms_output.put_line('date:'||to_char(show_date, 'dd-mon-yy hh24:mi:ss'));
+ SELECT startup_time INTO good_date FROM v$instance;
+ DBMS_OUTPUT.PUT_LINE('Startup Date: '||TO_CHAR(good_date,'YYYY-MM-DD HH24:MI:SS'));
 EXCEPTION
-    WHEN NO_DATA_FOUND THEN
- dbms_output.put_line('Startup Date: unknown');
+ WHEN NO_DATA_FOUND THEN
+   good_date:=NULL;
+   DBMS_OUTPUT.PUT_LINE('Startup Date: unknown');
 END;
 /

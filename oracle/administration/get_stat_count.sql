@@ -21,8 +21,7 @@ OBJETOS, VIEWS E PACOTES
   DBA_TABLES, DBA_UTILITIES.GET_COUNT, DBMS_OUTPUT; GET_STAT_ROWS
 
 COMPATIBILIDADE CONHECIDA E LIMITAÇÕES
-  CREATE PROCEDURE e grants diretos. Pacote customizado pode resolver tabela no schema errado se nome não qualificado; NUM_ROWS pode estar desatualizado. Contagem é custosa.
-  Não homologado em versões específicas; validar dicionário e plano em laboratório.
+  DBA_UTILITIES.GET_COUNT recebe apenas nome da tabela e pode contar objeto de schema errado. Schema permanece case-sensitive conforme interface existente. NUM_ROWS pode estar desatualizado; helper/grants/chaves precisam ser fornecidos e revisados. Alvo documental das APIs novas: Oracle 19c. Sem compilação ou execução Oracle; grants, versão e resultado ainda exigem laboratório.
 
 EXEMPLO DE EXECUÇÃO
   Somente laboratório: @get_stat_count.sql; validar dependência e testar schema pequeno.
@@ -41,11 +40,18 @@ RISCOS E IMPACTOS OPERACIONAIS
   Quando houver SPOOL, o arquivo local pode ser sobrescrito: proteger sua saída.
 
 CORREÇÕES REALIZADAS E PENDÊNCIAS
-  EXIT WHEN %NOTFOUND movido para depois do FETCH, evitando processar registro inválido/última tabela duplicada; cursor fechado ao final. 
-  Revisão estática somente; implantação depende de laboratório e aprovação do PR.
-  Comentários e créditos históricos preservados abaixo.
+  Revisão complementar 036 (2026-11-03): Buffer ancorado em DBA_TABLES.TABLE_NAME e cursor fechado em exceção; chamada do helper mantida para não presumir contrato de nome qualificado. Casos de homologação: Owner do chamador diferente do schema; tabelas homônimas; nome >32 caracteres; helper ausente/com erro; cursor fechado após falha. Comentários/créditos históricos preservados. Não aprovado para implantação.
+
+REFERÊNCIAS TÉCNICAS DA REVISÃO 036
+ https://docs.oracle.com/en/database/oracle/oracle-database/19/refrn/DBA_TABLES.html
 
 AVISO DE RESPONSABILIDADE
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de
+qualquer utilização em produção. Sua execução é de responsabilidade do
+profissional responsável pelo ambiente. Os mantenedores deste repositório não
+se responsabilizam por indisponibilidade, perda de dados, alterações indevidas
+ou outros impactos decorrentes de sua utilização.
+
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
 e realize testes em ambiente controlado, preferencialmente desenvolvimento ou
@@ -56,10 +62,9 @@ responsabilidade por danos, perdas de dados, indisponibilidade ou outros impacto
 decorrentes do uso, nos limites permitidos pela legislação aplicável.
 ===============================================================================
 */
-
 /*  */
 create or replace procedure get_stat_rows(schema IN varchar2) as
-tab_name varchar2(32);
+tab_name dba_tables.table_name%TYPE;
 rows number;
 stat_rows number;
 cursor get_tabs is
@@ -75,5 +80,8 @@ select a.num_rows into stat_rows from dba_tables a where a.owner=schema
 dbms_output.put_line('Table: '||tab_name||' stat_rows: '||TO_CHAR(stat_rows)||' actual rows: '||to_char(rows));
 end loop;
 close get_tabs;
+exception when others then
+ if get_tabs%isopen then close get_tabs; end if;
+ raise;
 end;
 /

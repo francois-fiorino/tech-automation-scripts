@@ -20,8 +20,7 @@ OBJETOS, VIEWS E PACOTES
   OFFICE, TRUNK_GROUP, MEASUREMENT, ERROR_LOG
 
 COMPATIBILIDADE CONHECIDA E LIMITAÇÕES
-  CREATE PROCEDURE/DML diretos. CHAR(14) acomoda exatamente MM/DD/YY + espaço + HH24:MI; formatos maiores falham e a entrada precisa validar. Duplicatas são descartadas sem auditoria e handler não relança nem confirma error_log. Alternativa incompatível com NEW_FPRC homônimo.
-  Não homologado em versões específicas; validar dicionário e plano em laboratório.
+  Contrato/chaves e política de erro precisam ser definidos. TDMS é homônimo incompatível com NEW_FPRC; não instalar ambos em sequência. COMMIT é global à transação do chamador e handler pode deixar inserções anteriores pendentes. Alvo documental das APIs novas: Oracle 19c. Sem compilação ou execução Oracle; grants, versão e resultado ainda exigem laboratório.
 
 EXEMPLO DE EXECUÇÃO
   Somente schema de aplicação de laboratório com contratos/chaves equivalentes.
@@ -40,11 +39,15 @@ RISCOS E IMPACTOS OPERACIONAIS
   Quando houver SPOOL, o arquivo local pode ser sobrescrito: proteger sua saída.
 
 CORREÇÕES REALIZADAS E PENDÊNCIAS
-  Código completo preservado; não inventadas regras de deduplicação, cardinalidade ou commit. 
-  Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
-  Comentários e créditos históricos preservados abaixo.
+  Revisão complementar 036 (2026-11-03): Corpo reavaliado e mantido: ignorar DUP_VAL_ON_INDEX não prova equivalência entre a linha existente e a recebida. Casos de homologação: Chaves de escritório/trunk/data; duplicata divergente; concorrência; erro no ERROR_LOG; confirmar resultado/estado transacional em cada falha. Comentários/créditos históricos preservados. Não aprovado para implantação.
 
 AVISO DE RESPONSABILIDADE
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de
+qualquer utilização em produção. Sua execução é de responsabilidade do
+profissional responsável pelo ambiente. Os mantenedores deste repositório não
+se responsabilizam por indisponibilidade, perda de dados, alterações indevidas
+ou outros impactos decorrentes de sua utilização.
+
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
 e realize testes em ambiente controlado, preferencialmente desenvolvimento ou
@@ -55,7 +58,6 @@ responsabilidade por danos, perdas de dados, indisponibilidade ou outros impacto
 decorrentes do uso, nos limites permitidos pela legislação aplicável.
 ===============================================================================
 */
-
 /*  */
 create or replace procedure tdms(                                               
 	psSwitchTypeNm	IN	VARCHAR2,                                             

@@ -21,8 +21,7 @@ OBJETOS, VIEWS E PACOTES
   USER_TAB_PRIVS; função CHK_PRIV
 
 COMPATIBILIDADE CONHECIDA E LIMITAÇÕES
-  CREATE PROCEDURE e grants diretos. Não filtra owner/grantee ou roles, portanto não calcula privilégio efetivo. Nome de tabela de 32 caracteres e UPPER são limites legados.
-  Não homologado em versões específicas; validar dicionário e plano em laboratório.
+  Consulta a existência de linha em USER_TAB_PRIVS por nome/privilégio, sem filtrar owner/grantee; não é verificação de autorização efetiva nem expande roles. UPPER ainda limita identificadores quoted. BOOLEAN é contrato PL/SQL, não SQL BOOLEAN portátil. Alvo documental das APIs novas: Oracle 19c. Sem compilação ou execução Oracle; grants, versão e resultado ainda exigem laboratório.
 
 EXEMPLO DE EXECUÇÃO
   Somente laboratório: @chk_priv.sql; chamar em PL/SQL em versões sem BOOLEAN SQL.
@@ -41,11 +40,18 @@ RISCOS E IMPACTOS OPERACIONAIS
   Quando houver SPOOL, o arquivo local pode ser sobrescrito: proteger sua saída.
 
 CORREÇÕES REALIZADAS E PENDÊNCIAS
-  Cursor fechado antes do retorno; sem redesenhar a semântica de privilégio efetivo. 
-  Revisão estática somente; implantação depende de laboratório e aprovação do PR.
-  Comentários e créditos históricos preservados abaixo.
+  Revisão complementar 036 (2026-11-03): Buffer de tabela ancorado em USER_TAB_PRIVS.TABLE_NAME; parâmetros de cursor desambiguados e cursor fechado em exceção. Casos de homologação: Tabela >32 caracteres; nenhuma linha; privilégios de owners/grantees distintos; quoted misto; exceção durante FETCH. Comentários/créditos históricos preservados. Não aprovado para implantação.
+
+REFERÊNCIAS TÉCNICAS DA REVISÃO 036
+ https://docs.oracle.com/en/database/oracle/oracle-database/19/refrn/USER_TAB_PRIVS.html
 
 AVISO DE RESPONSABILIDADE
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de
+qualquer utilização em produção. Sua execução é de responsabilidade do
+profissional responsável pelo ambiente. Os mantenedores deste repositório não
+se responsabilizam por indisponibilidade, perda de dados, alterações indevidas
+ou outros impactos decorrentes de sua utilização.
+
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
 e realize testes em ambiente controlado, preferencialmente desenvolvimento ou
@@ -56,17 +62,16 @@ responsabilidade por danos, perdas de dados, indisponibilidade ou outros impacto
 decorrentes do uso, nos limites permitidos pela legislação aplicável.
 ===============================================================================
 */
-
 /*  */
 create or replace function chk_priv(tab_name varchar2, priv varchar2)
 return boolean is
-	tab_nam varchar2(32);
+	tab_nam user_tab_privs.table_name%TYPE;
 	privil varchar2(30);
 	priv_there boolean;
-	cursor get_stat (tab varchar2, priv varchar2) is
+	cursor get_stat (p_table_name varchar2, p_privilege varchar2) is
 		select table_name 
 		from user_tab_privs 
-		where table_name=upper(tab_name) and privilege=upper(priv);
+		where table_name=upper(p_table_name) and privilege=upper(p_privilege);
 begin
 	open get_stat(tab_name,priv);
 	fetch get_stat into tab_nam;
@@ -78,5 +83,8 @@ begin
 	end if;
 	close get_stat;
 	return priv_there;
+exception when others then
+ if get_stat%isopen then close get_stat; end if;
+ raise;
 end;
 /

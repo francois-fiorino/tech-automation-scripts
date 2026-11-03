@@ -20,8 +20,7 @@ OBJETOS, VIEWS E PACOTES
   DBA_SEQUENCES, V$DATABASE, SEQ_TEMP
 
 COMPATIBILIDADE CONHECIDA E LIMITAÇÕES
-  DDL confirma transações e saída pode causar perda de sequência/privilégios. LAST_NUMBER com cache não é próximo exato; uso em ambiente vivo pode gerar repetição/gaps. Buffers 255 e nomes sem quoting limitam fidelidade.
-  Não homologado em versões específicas; validar dicionário e plano em laboratório.
+  LAST_NUMBER não é próximo valor exato com cache; restauração em ambiente ativo pode gerar gaps/repetição. Não exporta grants ou propriedades modernas como SCALE/SHARD/SESSION/KEEP. SEQ_TEMP não deve preexistir; cria/remove staging e confirma transações. Alvo documental das APIs novas: Oracle 19c. Sem compilação ou execução Oracle; grants, versão e resultado ainda exigem laboratório.
 
 EXEMPLO DE EXECUÇÃO
   Somente schema descartável; nunca aplicar saída sobre sequência ativa sem projeto de migração.
@@ -40,11 +39,19 @@ RISCOS E IMPACTOS OPERACIONAIS
   Quando houver SPOOL, o arquivo local pode ser sobrescrito: proteger sua saída.
 
 CORREÇÕES REALIZADAS E PENDÊNCIAS
-  $$cr corrigido para &&cr; FETCH cycle/order alinhado ao cursor e spool usa variável DB com separador correto. Fluxo completo preservado. 
-  Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
-  Comentários e créditos históricos preservados abaixo.
+  Revisão complementar 036 (2026-11-03): Staging/texto/buffer ampliados para 128/4000; owners e sequências citados por DBMS_ASSERT.ENQUOTE_NAME(FALSE); saída deixa de quebrar linhas em 60 caracteres. Todos os campos, DROP/CREATE e algoritmo de staging preservados. Casos de homologação: Owners e nomes longos/quoted; múltiplos schemas; cache zero/grande; CYCLE/ORDER; sequências existentes no destino; verificar integridade do spool e valores sem aplicar em produção. Comentários/créditos históricos preservados. Não aprovado para implantação.
+
+REFERÊNCIAS TÉCNICAS DA REVISÃO 036
+ https://docs.oracle.com/en/database/oracle/oracle-database/19/refrn/DBA_SEQUENCES.html
+ https://docs.oracle.com/en/database/oracle/oracle-database/19/arpls/DBMS_ASSERT.html
 
 AVISO DE RESPONSABILIDADE
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de
+qualquer utilização em produção. Sua execução é de responsabilidade do
+profissional responsável pelo ambiente. Os mantenedores deste repositório não
+se responsabilizam por indisponibilidade, perda de dados, alterações indevidas
+ou outros impactos decorrentes de sua utilização.
+
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
 e realize testes em ambiente controlado, preferencialmente desenvolvimento ou
@@ -55,7 +62,6 @@ responsabilidade por danos, perdas de dados, indisponibilidade ou outros impacto
 decorrentes do uso, nos limites permitidos pela legislação aplicável.
 ===============================================================================
 */
-
 /*  */
 REM
 REM    FUNCTION: SCRIPT FOR RE-CREATING DATABASE SEQUENCES
@@ -81,14 +87,16 @@ set feedback off
 rem set termout off
 set echo off
 set pagesize 0
+set linesize 32767
+set sqlblanklines on
 define cr='chr(10)'
  
 set termout on
 select 'Creating sequence build script...' from dual;
 rem set termout off
  
-create table seq_temp (grantor_owner varchar2(30),
-text VARCHAR2(255))
+create table seq_temp (grantor_owner varchar2(128),
+text VARCHAR2(4000))
 / 
 DECLARE
    CURSOR seq_cursor IS select   sequence_owner,
@@ -110,9 +118,9 @@ DECLARE
 	seq_inc         dba_sequences.increment_by%TYPE;
 	seq_order       VARCHAR2(7);
 	seq_cycle       VARCHAR2(7);
-	seq_cache       VARCHAR2(15);
+	seq_cache       VARCHAR2(50);
 	seq_lnum        dba_sequences.last_number%TYPE;   
-	seq_string     VARCHAR2(255);
+	seq_string     VARCHAR2(4000);
    procedure write_out(p_string VARCHAR2) is
    begin
       insert into seq_temp (grantor_owner,text) 
@@ -132,8 +140,8 @@ BEGIN
 				seq_cache,
 				seq_lnum;
       EXIT WHEN seq_cursor%NOTFOUND;
-	seq_string:=('DROP SEQUENCE '||seq_owner||'.'||seq_name||';'||&&cr||
-			'CREATE SEQUENCE '||seq_owner||'.'||seq_name||&&cr||
+	seq_string:=('DROP SEQUENCE '||DBMS_ASSERT.ENQUOTE_NAME(seq_owner,FALSE)||'.'||DBMS_ASSERT.ENQUOTE_NAME(seq_name,FALSE)||';'||&&cr||
+			'CREATE SEQUENCE '||DBMS_ASSERT.ENQUOTE_NAME(seq_owner,FALSE)||'.'||DBMS_ASSERT.ENQUOTE_NAME(seq_name,FALSE)||&&cr||
 				'INCREMENT BY '||seq_inc||&&cr||
 				'START WITH '||seq_lnum||&&cr||
 				'MAXVALUE '||seq_max||&&cr||
@@ -150,7 +158,7 @@ END;
 select name dbname from v$database;
 spool &&db._crt_seqs.sql
 break on downer skip 1
-col text format a60 word_wrap
+col text format a4000
 col downer noprint 
 select    grantor_owner downer,text
 from     seq_temp 
