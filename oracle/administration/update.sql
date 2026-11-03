@@ -40,7 +40,7 @@ RISCOS E IMPACTOS OPERACIONAIS
   Quando houver SPOOL, o arquivo local pode ser sobrescrito: proteger sua saída.
 
 CORREÇÕES REALIZADAS E PENDÊNCIAS
-  Revisão complementar 036 (2026-11-03): Validação de lote inteiro positivo antes de TRUNCATE; nome alvo validado por SQL_OBJECT_NAME; DATE e ROWID passam por bind; buffer ampliado, NATIVE e cleanup em erro. Limite inclusivo BETWEEN corrigido para rowcount+rows-1, respeitando tamanho solicitado. Casos de homologação: NULL/zero/negativo/fracionário; lote1/exato/resíduo; alvo vazio; nome malicioso/inexistente; NLS de data; movimento de linha; erro no lote2; concorrência proibida. Comentários/créditos históricos preservados. Não aprovado para implantação.
+  Revisão complementar 036 (2026-11-03): Validação de lote inteiro positivo antes de TRUNCATE; nome alvo validado por SQL_OBJECT_NAME; DATE e ROWID passam por bind; buffer ampliado, NATIVE e cleanup em erro. Limite inclusivo BETWEEN corrigido para rowcount+rows-1, respeitando tamanho solicitado. Parâmetros internos do cursor renomeados para evitar ROW reservado no SQL, sem alterar a interface pública. Casos de homologação: NULL/zero/negativo/fracionário; lote1/exato/resíduo; alvo vazio; nome malicioso/inexistente; NLS de data; movimento de linha; erro no lote2; concorrência proibida. Comentários/créditos históricos preservados. Não aprovado para implantação.
 
 REFERÊNCIAS TÉCNICAS DA REVISÃO 036
  https://docs.oracle.com/en/database/oracle/oracle-database/19/arpls/DBMS_SQL.html
@@ -71,8 +71,8 @@ create or replace procedure update_it (rows IN NUMBER, tab_name IN VARCHAR2) AS
   maxrows 	NUMBER;
   temp_id	ROWID;
   i		INTEGER:=1;
-  CURSOR proc_row(row NUMBER, maxr NUMBER) IS 
-	SELECT idrow FROM temp_tab WHERE numrow BETWEEN row and maxr;
+  CURSOR proc_row(p_first_row NUMBER, p_last_row NUMBER) IS 
+	SELECT idrow FROM temp_tab WHERE numrow BETWEEN p_first_row and p_last_row;
   sql_com 	VARCHAR2(32767);
   safe_table VARCHAR2(1000);
   new_date 	DATE;
