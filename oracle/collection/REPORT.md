@@ -88,8 +88,16 @@ Filtro de container exige validação no ambiente: views históricas podem armaz
 - Os 49 originais com avisos restritivos continuam retidos. A fila técnica avança por implementações novas dos requisitos, sem alegar autorização para republicar o acervo original.
 - Cinco origens sem implementação funcional e auxiliares sem código seguem classificados no inventário; não são pendências fictícias de publicação de SQL.
 
+## Revisão administrativa complementar — lote 036
+
+Foram reavaliados 20 scripts do PR #2: 16 receberam alterações de código e quatro tiveram as pendências detalhadas com corpo preservado. Commit: [0c6e9ce71d](https://github.com/francois-fiorino/tech-automation-scripts/commit/0c6e9ce71d3ffa3d8d4da1bd303a827474ae5d8a). Os 20 arquivos e o teste auxiliar foram conferidos após publicação; nenhum foi executado em Oracle.
+
+Correções incluem INSERT SELECT válido, validação de SID/SERIAL, quoting e invoker rights em rotinas sensíveis, coluna STARTUP_TIME documentada, datafiles sem extents livres, conversões/duração, chamadas LogMiner sem SQL concatenado, buffers/quoting de sequências e binds DATE/ROWID na atualização por lotes. Permanecem as limitações e dependências individuais, sem aprovação de implantação.
+
+[Revisão e testes por script](ADMIN_REVIEW.md) · [Hashes e fila de continuidade](ADMIN_REVIEW_VERIFICATION.json). Restam **157 de 177** scripts para esta revisão complementar; homologação Oracle continua pendente nos 177. O arquivo auxiliar `oracle/collection/tests/review036_lab.sql` não aumenta a contagem de implementações da coleção. Os totais permanecem **476 main e 177 revisão**.
+
 ## Próximo ponto de retomada
 
-Os 49 requisitos anteriormente retidos já possuem destinos novos confirmados. Não há requisito restante dessa fila para publicar. A próxima etapa é resolver limitações e homologar as propostas administrativas no PR #2 em laboratório descartável, com contratos/objetos, versão e resultados verificáveis.
+Os 49 requisitos anteriormente retidos já possuem destinos novos confirmados. Não há requisito restante dessa fila para publicar. Continuar a revisão complementar das 157 propostas restantes pela fila `next_batch` de ADMIN_REVIEW_VERIFICATION.json, em lotes de até 20. Resolver limitações e homologar em laboratório descartável, com contratos/objetos, versão e resultados verificáveis.
 
 Nenhum merge automático está autorizado. O projeto não é declarado concluído enquanto as propostas e homologações pendentes permanecerem abertas. Não há execução em segundo plano.

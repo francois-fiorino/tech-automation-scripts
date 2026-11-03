@@ -408,3 +408,7 @@ Reconferidas as 697 origens por SHA-256 e os caminhos/blobs de 432 implementaç�
 | 035 | 2 | oracle/review-legacy-admin-20261103 | [c00e04d00c](https://github.com/francois-fiorino/tech-automation-scripts/commit/c00e04d00c9b76e58a325fbfbeeb6b481b26b007) |
 
 Ver REPORT.md, INDEPENDENT_IMPLEMENTATIONS.md e INDEPENDENT_VERIFICATION.json. Revisão estática e fixtures locais; nenhuma execução Oracle e nenhum merge.
+
+## Lote 036 — revisão complementar administrativa confirmada
+
+20 scripts do PR #2 reavaliados (16 alterações de código, quatro revisões documentais); commit 0c6e9ce71d3ffa3d8d4da1bd303a827474ae5d8a. Conteúdo e SHA conferidos após publicação. Roteiro de laboratório adicional, não executado. Os 157 scripts restantes desta fase estão em ADMIN_REVIEW_VERIFICATION.json; nenhuma alteração em scripts main ou merge. Totais preservados: 476 main e 177 revisão. Ver ADMIN_REVIEW.md para correções, limitações e testes individuais.
