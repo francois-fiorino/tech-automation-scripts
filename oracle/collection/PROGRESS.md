@@ -67,3 +67,15 @@ Duplicação exata confirmada: `_rac_grid_scripts/cache_conv.sql` e `_i_o_script
 Após verificação do lote 003, o total esperado é **68 arquivos SQL únicos publicados**, com **60 novos documentados individualmente**, dos quais **52 receberam alterações de SQL ou comandos de cliente**. Há 575 fontes aguardando análise individual, 2 aguardando revisão administrativa, 45 retidas para análise de licença, 1 retida por credencial, 1 duplicata mapeada e 1 referência sem código. Quatro auxiliares permanecem pendentes. O projeto NÃO está concluído.
 
 Lote 002 verificado: [aeae553](https://github.com/francois-fiorino/tech-automation-scripts/commit/aeae553fff3f92a6afa9be31b17f3812bc680794); 22 conteúdos conferidos (20 SQL e 2 controles); scripts anteriores preservados.
+
+## Lote 004
+
+20 scripts de memória, advisors, buffers, I/O de sessões, jobs legados e coleta customizada. 14 arquivos com alterações de SQL/cliente; seis corpos preservados. Corrigidos denominadores, formatos de cliente, máscaras de data, ordenação cronológica e rótulo enganoso de leituras estimadas.
+
+Dois novos mapeamentos de duplicação confirmados: `seg_top_logreads.sql` é cópia exata de `reads_10g.sql`; `cache_transfer.sql` contém o mesmo corpo de `forced_reads_writes.sql`, diferindo no comentário de nome/whitespace. Nenhum arquivo adicional foi criado para essas cópias.
+
+Lote 003 verificado: [70f71f8](https://github.com/francois-fiorino/tech-automation-scripts/commit/70f71f803a4d7fb45f3fb9329f6caf59d906f9a4). Vinte SQL e dois controles conferidos por hash; scripts anteriores idênticos.
+
+Após confirmação do lote 004: **88 SQL únicos publicados** (8 anteriores + 80 novos), **80 novos com análise técnica individual e cabeçalhos completos**, **66 novos com alterações de SQL/cliente**. Permanecem 553 fontes aguardando análise, 2 para branch/PR administrativa, 45 para análise de licença e 1 com credencial. Há ainda 3 origens duplicadas mapeadas, 1 referência sem implementação e 4 auxiliares pendentes.
+
+Esses números não significam homologação de execução Oracle. O projeto permanece em andamento e o inventário é o ponto de retomada obrigatório.
