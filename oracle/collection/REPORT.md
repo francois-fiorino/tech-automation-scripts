@@ -96,6 +96,8 @@ Correções incluem INSERT SELECT válido, validação de SID/SERIAL, quoting e 
 
 [Revisão e testes por script](ADMIN_REVIEW.md) · [Hashes e fila de continuidade](ADMIN_REVIEW_VERIFICATION.json). Restam **157 de 177** scripts para esta revisão complementar; homologação Oracle continua pendente nos 177. O arquivo auxiliar `oracle/collection/tests/review036_lab.sql` não aumenta a contagem de implementações da coleção. Os totais permanecem **476 main e 177 revisão**.
 
+Ajuste final da revisão 036: [parâmetros internos do cursor UPDATE_IT desambiguados](https://github.com/francois-fiorino/tech-automation-scripts/commit/256f3206a5c43e46ccff203a13ff3fe3fa99ac48); não altera a quantidade de scripts revisados. Branch administrativa confirmada em `256f3206a5c43e46ccff203a13ff3fe3fa99ac48`.
+
 ## Próximo ponto de retomada
 
 Os 49 requisitos anteriormente retidos já possuem destinos novos confirmados. Não há requisito restante dessa fila para publicar. Continuar a revisão complementar das 157 propostas restantes pela fila `next_batch` de ADMIN_REVIEW_VERIFICATION.json, em lotes de até 20. Resolver limitações e homologar em laboratório descartável, com contratos/objetos, versão e resultados verificáveis.

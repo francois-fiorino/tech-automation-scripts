@@ -1,6 +1,6 @@
 {
   "batch": "036",
-  "review_head": "0c6e9ce71d3ffa3d8d4da1bd303a827474ae5d8a",
+  "review_head": "256f3206a5c43e46ccff203a13ff3fe3fa99ac48",
   "reviewed": 20,
   "code_changed": 16,
   "documentation_only": 4,
@@ -221,12 +221,12 @@
     {
       "path": "oracle/administration/update.sql",
       "before_blob": "663b12c2b2019cdf0e392346f42225f407ed7ee4",
-      "blob_sha": "48cce4c7f8eb60229f4cfe9e8bcc6a4aa46bc7c9",
+      "blob_sha": "48830f89eaa79af34c90dd527faf513b7f75808d",
       "code_changed": true,
-      "changes": "Validação de lote inteiro positivo antes de TRUNCATE; nome alvo validado por SQL_OBJECT_NAME; DATE e ROWID passam por bind; buffer ampliado, NATIVE e cleanup em erro. Limite inclusivo BETWEEN corrigido para rowcount+rows-1, respeitando tamanho solicitado.",
+      "changes": "Validação de lote inteiro positivo antes de TRUNCATE; nome alvo validado por SQL_OBJECT_NAME; DATE e ROWID passam por bind; buffer ampliado, NATIVE e cleanup em erro. Limite inclusivo BETWEEN corrigido para rowcount+rows-1, respeitando tamanho solicitado. Parâmetros internos do cursor renomeados para evitar ROW reservado no SQL, sem alterar a interface pública.",
       "limitations": "TEMP_TAB ainda é compartilhada e truncada, com COMMIT por lote e possível confirmação do trabalho do chamador; proibir concorrência. ROWID pode ficar obsoleto por movimento de linha. SQL_OBJECT_NAME não verifica autorização de negócio nem fixa identidade do objeto. Somente tabela heap/ROWID físico e ENTRY_TS compatível; não homologado para IOT/UROWID/remote. Falha deixa lotes anteriores confirmados.",
       "tests": "NULL/zero/negativo/fracionário; lote1/exato/resíduo; alvo vazio; nome malicioso/inexistente; NLS de data; movimento de linha; erro no lote2; concorrência proibida.",
-      "commit": "0c6e9ce71d3ffa3d8d4da1bd303a827474ae5d8a"
+      "commit": "256f3206a5c43e46ccff203a13ff3fe3fa99ac48"
     }
   ],
   "laboratory_script": {

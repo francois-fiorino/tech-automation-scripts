@@ -29,7 +29,7 @@ Os scripts continuam no [PR #2](https://github.com/francois-fiorino/tech-automat
 | [oracle/administration/chk_tab.sql](https://github.com/francois-fiorino/tech-automation-scripts/blob/0c6e9ce71d3ffa3d8d4da1bd303a827474ae5d8a/oracle/administration/chk_tab.sql) | código e cabeçalho | `b48dfc34deceb8328554f92f6fc28868b10cd34d` |
 | [oracle/administration/get_stat_count.sql](https://github.com/francois-fiorino/tech-automation-scripts/blob/0c6e9ce71d3ffa3d8d4da1bd303a827474ae5d8a/oracle/administration/get_stat_count.sql) | código e cabeçalho | `651fbf2ab2202008ba8d88c7afc575888dce3ec2` |
 | [oracle/administration/upsert.sql](https://github.com/francois-fiorino/tech-automation-scripts/blob/0c6e9ce71d3ffa3d8d4da1bd303a827474ae5d8a/oracle/administration/upsert.sql) | código e cabeçalho | `4b5fe56286f3d9b860050064b7a8bd07ca4c214f` |
-| [oracle/administration/update.sql](https://github.com/francois-fiorino/tech-automation-scripts/blob/0c6e9ce71d3ffa3d8d4da1bd303a827474ae5d8a/oracle/administration/update.sql) | código e cabeçalho | `48cce4c7f8eb60229f4cfe9e8bcc6a4aa46bc7c9` |
+| [oracle/administration/update.sql](https://github.com/francois-fiorino/tech-automation-scripts/blob/256f3206a5c43e46ccff203a13ff3fe3fa99ac48/oracle/administration/update.sql) | código e cabeçalho | `48830f89eaa79af34c90dd527faf513b7f75808d` |
 
 ## Achados, correções e homologação individual
 
@@ -200,6 +200,8 @@ Foram analisados por parser SQLGlot em dialeto Oracle os quatro INSERTs do TDMS 
 O [roteiro Oracle review036_lab.sql](https://github.com/francois-fiorino/tech-automation-scripts/blob/0c6e9ce71d3ffa3d8d4da1bd303a827474ae5d8a/oracle/collection/tests/review036_lab.sql) cobre conversores, duração (incluindo >24h) e data de startup, após instalação individual em schema descartável. Não instala rotinas nem chama KILL SESSION, ALTER USER, LogMiner, ANALYZE ou atualização em lotes. Não foi executado neste trabalho. As demais rotinas dependem dos casos específicos listados acima e de objetos/contratos do laboratório.
 
 Os cabeçalhos agora incluem as referências oficiais das APIs usadas. Foram preservados algoritmos essenciais ou substituída a obtenção obsoleta da mesma informação por APIs completas documentadas, com a diferença explicitada. Não houve uso de pseudocódigo para substituir implementação.
+
+Ajuste final do mesmo lote: parâmetros internos do cursor de UPDATE_IT renomeados para evitar ROW reservado, preservando a interface pública. Commit [256f3206a5c43e46ccff203a13ff3fe3fa99ac48](https://github.com/francois-fiorino/tech-automation-scripts/commit/256f3206a5c43e46ccff203a13ff3fe3fa99ac48); blob conferido após publicação.
 
 ## Continuidade
 
