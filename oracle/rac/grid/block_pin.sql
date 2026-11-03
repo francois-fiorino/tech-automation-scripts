@@ -24,8 +24,10 @@ SAÍDA ESPERADA
   Os valores são razões de contadores acumulados, não latências instantâneas.
 
 RISCOS E LIMITAÇÕES
-  O SQL original não protege contra divisão por zero quando a estatística
-  global cache current blocks served vale 0; pode ocorrer ORA-01476.
+  A versão original não protegia contra divisão por zero quando a estatística
+  global cache current blocks served valia 0; podia ocorrer ORA-01476.
+  CORREÇÃO: NULLIF(D.value, 0) retorna NULL quando não há blocos servidos,
+  evitando ORA-01476. Não altera as estatísticas nem o banco.
   Validar unidades de tempo na versão Oracle e interpretar diferenças RAC.
   Compatibilidade e impacto operacional não foram homologados.
 
@@ -35,7 +37,11 @@ AVISO DE RESPONSABILIDADE
   Os mantenedores não se responsabilizam por danos decorrentes do uso,
   nos limites permitidos pela legislação aplicável.
 
-STATUS: revisão estática; não executado em banco Oracle.
+ALTERAÇÕES DESTA VERSÃO
+  2026-11-03: proteção contra divisão por zero nas três razões de tempo.
+  Original preservado no histórico Git do arquivo.
+
+STATUS: revisão estática; correção não testada em banco Oracle.
 ===============================================================================
 */
 
@@ -43,9 +49,9 @@ STATUS: revisão estática; não executado em banco Oracle.
 
 SELECT
    A.inst_id "Instance",
-   (A.value/D.value) "Current Block Pin",
-   (B.value/D.value) "Log Flush Wait",
-   (C.value/D.value) "Send Time"
+   (A.value/NULLIF(D.value,0)) "Current Block Pin",
+   (B.value/NULLIF(D.value,0)) "Log Flush Wait",
+   (C.value/NULLIF(D.value,0)) "Send Time"
 FROM
   GV$SYSSTAT A,
   GV$SYSSTAT B,
