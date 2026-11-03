@@ -3,15 +3,15 @@
 
 | Situação | Quantidade |
 |---|---:|
-| Scripts únicos da coleção na main | **348** |
-| Novos publicados na main desde início deste trabalho | 340 |
-| Novos arquivos documentados (main e propostas) | 402 |
-| Novos arquivos main com alterações SQL/cliente/normalização | 288 |
+| Scripts únicos da coleção na main | **368** |
+| Novos publicados na main desde início deste trabalho | 360 |
+| Novos arquivos documentados (main e propostas) | 422 |
+| Novos arquivos main com alterações SQL/cliente/normalização | 308 |
 | Propostas somente em branch/PR #2 | 62 |
-| Fontes aguardando análise individual | **217** |
+| Fontes aguardando análise individual | **188** |
 | Retidos para verificação de licença | 49 |
 | Retido por credencial literal | 1 |
-| Origens duplicadas/variantes mapeadas | 11 |
+| Origens duplicadas/variantes mapeadas | 20 |
 | Fontes sem implementação funcional | 5 |
 
 [Inventário de 697 arquivos](inventory.csv): 693 fontes SQL e quatro auxiliares. Os itens da branch estão no [PR #2](https://github.com/francois-fiorino/tech-automation-scripts/pull/2), fora do total main. Oito scripts anteriores foram preservados. As seções históricas abaixo pertencem a seus estágios; esta tabela é o estado atual.
@@ -311,3 +311,15 @@ Lote 016 confirmado por hashes: [commit 46b6d76](https://github.com/francois-fio
 ## Lote 020 — verificado
 
 20 arquivos com código e cabeçalhos conferidos por SHA de blob Git, somente no PR #2 (fora da main). [Commit](https://github.com/francois-fiorino/tech-automation-scripts/commit/bfe9b7c1c856c8434a3d56ce74f2a7c3383d302b). Sem execução Oracle.
+
+## Reconciliação de variantes após lote 020
+
+Nove origens lidas e comparadas foram mapeadas a implementações canônicas existentes, sem criar cópias. Inventário registra diferenças de wrappers, formatação ou comentários. RBKVW/PLAN1 continuam apontando ao PR, fora da main; duplicatas não são contadas como novas publicações.
+
+## Lote 021 — preparado para publicação
+
+20 arquivos lidos individualmente, com código completo e cabeçalhos técnicos. 20 receberam alterações de SQL/comandos de cliente/normalização. Os cabeçalhos e o inventário descrevem cada correção e limitação. Sem execução ou compilação Oracle. Confirmar apenas após conferência de hashes Git.
+
+## Lote 021 — verificado
+
+20 arquivos com código e cabeçalhos conferidos por SHA de blob Git, na main. [Commit](https://github.com/francois-fiorino/tech-automation-scripts/commit/2cc417902145f25db58dce04e07863bd295898ec). Sem execução Oracle.
