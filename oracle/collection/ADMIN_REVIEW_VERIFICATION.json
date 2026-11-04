@@ -1,11 +1,11 @@
 {
-  "review_head": "0c166abfb7ae7feb2b08a436ff1f36e6544141a3",
-  "reviewed": 100,
-  "code_changed": 49,
-  "documentation_only": 51,
+  "review_head": "3fc3bdcee0403d9e6620375eb3fb00fc39fe3085",
+  "reviewed": 120,
+  "code_changed": 62,
+  "documentation_only": 58,
   "main_implementations": 476,
   "review_implementations": 177,
-  "pending_complementary_review": 77,
+  "pending_complementary_review": 57,
   "oracle_compilation": false,
   "oracle_execution": false,
   "files": [
@@ -1108,6 +1108,226 @@
       "tests": "Erro de parse/execução seguido de próximo tablespace, nome quoted, estado do cursor, grants diretos e rollback de submissão de job.",
       "commit": "0c166abfb7ae7feb2b08a436ff1f36e6544141a3",
       "batch": "040"
+    },
+    {
+      "path": "oracle/administration/tbsp1_rct81.sql",
+      "before_blob": "f15852de8f1bcc3249f88461d94c846b8e4035a9",
+      "blob_sha": "4d27dfd23a6ec207bd3bbceb04a3c1a9ab78b0bc",
+      "code_changed": true,
+      "changes": "Interrupção SQL antes de CREATE/TRUNCATE; autoextend usa BLOCK_SIZE do tablespace e buffer MAXSIZE ampliado.",
+      "limitations": "REUSE, buffers800, caminhos sem escaping e TEMP/UNDO/ASSM/criptografia continuam não homologados. Consulta BLOCK_SIZE exige catálogo com essa coluna, sem presumir Oracle8i só pelo nome.",
+      "tests": "TS_TEMP existente; tablespaces 8K/16K com mesmo INCREMENT_BY; MAXSIZE grande, múltiplos arquivos e DMT/LMT.",
+      "commit": "3fc3bdcee0403d9e6620375eb3fb00fc39fe3085",
+      "batch": "041"
+    },
+    {
+      "path": "oracle/administration/tbsp_it_rct81.sql",
+      "before_blob": "a71f545623d78a06734eda3fd3eb9fd387bf65d6",
+      "blob_sha": "b51f2817cd34fc98b902055ff68afc0ecb14044b",
+      "code_changed": true,
+      "changes": "Autoextend por BLOCK_SIZE; MAXSIZE ampliado; FIRST/NEXT nos dois percursos da coleção; erro UTL_FILE relançado com fechamento protegido.",
+      "limitations": "Caminho Windows UTL_FILE_DIR histórico e arquivo W fixo continuam pendentes; sem tradução fictícia para DIRECTORY. Sequência compartilhada ainda necessária e linhas/buffers limitam saída REUSE.",
+      "tests": "Coleção vazia, índices iniciando100 e lacunas; erro FOPEN/PUT/FCLOSE; grants/diretório controlados, sem escrever no servidor nesta revisão.",
+      "commit": "3fc3bdcee0403d9e6620375eb3fb00fc39fe3085",
+      "batch": "041"
+    },
+    {
+      "path": "oracle/administration/tbsp_rct81.sql",
+      "before_blob": "5967d21b73048c919bfd4fba88931a580b32a999",
+      "blob_sha": "7612cfd018d5081863a62bb69b3f598c1b274e8b",
+      "code_changed": true,
+      "changes": "Interrupção SQL antes de instalar/executar; BLOCK_SIZE por tablespace e MAXSIZE ampliado.",
+      "limitations": "TS_TEMP preexistente não é limpa e mistura execuções; contrato/posse/concorrência devem ser definidos. REUSE e modelo8i não são backup moderno.",
+      "tests": "Staging sujo, falha de compilação, grants diretos, blocksizes diferentes e saída completa.",
+      "commit": "3fc3bdcee0403d9e6620375eb3fb00fc39fe3085",
+      "batch": "041"
+    },
+    {
+      "path": "oracle/security/chg_role.sql",
+      "before_blob": "65dd72531e227f1ca7ec9cd766a30d02e6485ca5",
+      "blob_sha": "0d5e06186cde0b8a86d6971c0242f4d3d720ea82",
+      "code_changed": false,
+      "changes": "Função histórica preservada; segurança/contexto impedem homologação.",
+      "limitations": "Concatenação role/senha permite injeção, definer rights conflita com SET ROLE e erro vaza cursor. Remover impressão de senha não torna rotina segura; não usar credenciais reais nem conceder EXECUTE amplo.",
+      "tests": "Definir contrato seguro de autenticação/role, invoker rights e testes negativos antes de reimplementar chamada; não testar com senha produtiva.",
+      "commit": "3fc3bdcee0403d9e6620375eb3fb00fc39fe3085",
+      "batch": "041"
+    },
+    {
+      "path": "oracle/objects/ck_conv.sql",
+      "before_blob": "c462acea5b0c6c2f7fb85763d7e133133bca199f",
+      "blob_sha": "dff24a1cbd40455879a4ab5ec527eda78e0db19d",
+      "code_changed": true,
+      "changes": "FETCH e INSERT explícito alinhados a TABLE_NAME/SEARCH_CONDITION; DEFINE CR e interrupção de staging acrescentados.",
+      "limitations": "V é view check option, não DEFAULT. DF_/DEFAULT preservado como algoritmo histórico não homologado; nomes/condições2000/NOT NULL e renomeações podem invalidar saída.",
+      "tests": "CHECK longo, tabela/condição diferentes, view check option, quoted e CONS_TEMP existente; não aplicar DROP/ADD sem revisão.",
+      "commit": "3fc3bdcee0403d9e6620375eb3fb00fc39fe3085",
+      "batch": "041"
+    },
+    {
+      "path": "oracle/administration/clus_rep.sql",
+      "before_blob": "2043b04e8cd9f7a259cb10fce727a5b7045ba094",
+      "blob_sha": "70a260cde130644a3bff0a6e7d57eb04946155f8",
+      "code_changed": false,
+      "changes": "Corpo preservado; junção por owner continua correta.",
+      "limitations": "EXIT pode confirmar transação do chamador; não é RAC. Formatos de nomes curtos podem truncar exibição e ordenação não fixa posição das colunas do cluster.",
+      "tests": "Dois owners com cluster homônimo, cluster multi-coluna, spool e EXIT em sessão descartável.",
+      "commit": "3fc3bdcee0403d9e6620375eb3fb00fc39fe3085",
+      "batch": "041"
+    },
+    {
+      "path": "oracle/security/colg_rct.sql",
+      "before_blob": "e788095ed93a312947e7d8f35c59245fc2919b6f",
+      "blob_sha": "38d3761f6b9ceb95216581455e2ffb71e0c30a83",
+      "code_changed": true,
+      "changes": "BREAK agora referencia LINE1, alias efetivamente selecionado para CONNECT.",
+      "limitations": "Não resolve cadeia de grantor nem quoted names; OUTPUT colunas/linhas pode quebrar comandos. EXIT confirma transação; grants de coluna ausentes por filtros são intencionais.",
+      "tests": "Mais de um grantor/destinatário, grant option, nomes longos e PUBLIC; conferir todas as conexões sem senha.",
+      "commit": "3fc3bdcee0403d9e6620375eb3fb00fc39fe3085",
+      "batch": "041"
+    },
+    {
+      "path": "oracle/security/col_grnt.sql",
+      "before_blob": "57a360a5381ca0f0cfc095f5149572e9ae07830a",
+      "blob_sha": "589d1ea661b8fa65e933e1cd8d48d6a0636f9d37",
+      "code_changed": true,
+      "changes": "HEADING OFF no spool evita cabeçalhos SQL*Plus na saída de grants.",
+      "limitations": "Nomes sem quoting e tamanho padrão das duas expressões ainda podem quebrar DDL; ordem de grantor não garante topologia. Scripts gerados exigem revisão manual.",
+      "tests": "Conexões de dois grantors, duas colunas, nomes quoted e largura; não conceder privilégios durante revisão.",
+      "commit": "3fc3bdcee0403d9e6620375eb3fb00fc39fe3085",
+      "batch": "041"
+    },
+    {
+      "path": "oracle/objects/con2_rct.sql",
+      "before_blob": "a2fc5dfcbae3e40e6c6e50316c0ff1fdd544c05b",
+      "blob_sha": "68a0fec89052f0cc0ba4317f9c889baebd8b114e",
+      "code_changed": true,
+      "changes": "Interrupção SQL antes de CREATE de CONS_TEMP.",
+      "limitations": "FK exige pai presente no staging USER; pai cross-schema pode ser omitido. Assume índice=constraint, DROP de índice FK presume existência e filtro %NULL% elimina CHECK legítimo. Estados/deferrability/NOT NULL não completos.",
+      "tests": "FK externa, PK com índice de nome diferente, CHECK contendo NULL e staging existente; inspecionar três arquivos.",
+      "commit": "3fc3bdcee0403d9e6620375eb3fb00fc39fe3085",
+      "batch": "041"
+    },
+    {
+      "path": "oracle/objects/con3_rct.sql",
+      "before_blob": "a8d577e22c7054aeaa121cadf9a848da992a1683",
+      "blob_sha": "eee89459de1b719c2e1c0d538c7ca92c85821da4",
+      "code_changed": true,
+      "changes": "Interrupção SQL antes de staging, sem mudar exclusão de SYS ou nomes de FK.",
+      "limitations": "Mesmas limitações de pais cross-schema, índices por nome, checks NULL e estados. CONS_TEMP64 permanece após execução e não suporta nomes128 integralmente.",
+      "tests": "Comparar nomes de FK originais, pai fora do usuário, índices diferentes e reexecução com staging existente.",
+      "commit": "3fc3bdcee0403d9e6620375eb3fb00fc39fe3085",
+      "batch": "041"
+    },
+    {
+      "path": "oracle/objects/cons_rep.sql",
+      "before_blob": "1c0c3624ad390dec850c14104c77298abecbe67e",
+      "blob_sha": "b9feb3db431146888a5fa4f15ce6cf14b24a15a4",
+      "code_changed": true,
+      "changes": "Interrupção SQL protege CONS_TEMP antes de TRUNCATE.",
+      "limitations": "Buffers30/2000 e UPPER no nome da constraint omitem quoted mixed case; numeração de FKs agrega tabelas homônimas entre owners, embora relatório relacione owner referenciado.",
+      "tests": "Owners homônimos, constraints quoted, FK composta por posição e staging preexistente; validar relatório e contratos.",
+      "commit": "3fc3bdcee0403d9e6620375eb3fb00fc39fe3085",
+      "batch": "041"
+    },
+    {
+      "path": "oracle/objects/con_rct.sql",
+      "before_blob": "90dd33ada443705803244005e3e63752c871fa35",
+      "blob_sha": "6e76eb4da44f768734b9c94b1a2f2dce30688c6a",
+      "code_changed": true,
+      "changes": "Corrigida troca TABLE_NAME/SEARCH_CONDITION por FETCH alinhado e lista explícita no INSERT; interrupção de staging.",
+      "limitations": "Filtro HM mantido; FKs sem índice homônimo ou pai fora de HM continuam omitidas. CHECK %NULL%, status/deferrability/quoting e nomes30 não completos.",
+      "tests": "Tabela e CHECK distintos; FK externa, índices distintos e NOT NULL; comparar staging e todos os scripts, sem replay automático.",
+      "commit": "3fc3bdcee0403d9e6620375eb3fb00fc39fe3085",
+      "batch": "041"
+    },
+    {
+      "path": "oracle/objects/con_rct2.sql",
+      "before_blob": "8a699987f278af3a0bcb85f5cbe027a7efff13c1",
+      "blob_sha": "b8d737fec263fcc8cd95e5aaefc16691894e269b",
+      "code_changed": true,
+      "changes": "Corrigida troca TABLE_NAME/SEARCH_CONDITION por FETCH e INSERT explícito; interrupção de staging.",
+      "limitations": "Só tabela selecionada entra no staging, então pais em outras tabelas ausentes impedem geração de FK. USER_INDEXES pode selecionar owner errado; macros sem validação e estados não cobertos.",
+      "tests": "Pai diferente/mesma tabela, owner fora do usuário, casoquoted e staging; verificar omissões antes de qualquer execução.",
+      "commit": "3fc3bdcee0403d9e6620375eb3fb00fc39fe3085",
+      "batch": "041"
+    },
+    {
+      "path": "oracle/administration/crt_pvw.sql",
+      "before_blob": "1edb735892119803edee39aa257ab1a6c090d5ea",
+      "blob_sha": "ff141a14c0a78642f38bacfcec55799492ba26f1",
+      "code_changed": false,
+      "changes": "CREATE VIEW integral preservado.",
+      "limitations": "Conta registros de DBA_SOURCE, incluindo texto wrapped, não linhas físicas de arquivo/bytes ou qualidade. CREATE simples falha se existe e DDL confirma transação.",
+      "tests": "Procedure e package/body separados, source ausente e view existente; grants diretos para compilar.",
+      "commit": "3fc3bdcee0403d9e6620375eb3fb00fc39fe3085",
+      "batch": "041"
+    },
+    {
+      "path": "oracle/administration/db_rct.sql",
+      "before_blob": "88fd75b2d7f1769943157eded81b0b0690b5a9fb",
+      "blob_sha": "2e477b0dbe5249b611e104f154e6e8aa7d9ce78b",
+      "code_changed": true,
+      "changes": "WRITE_OUT usa parâmetros; grupos redo ordenados por GROUP# e interrupção SQL antes de staging.",
+      "limitations": "LOG_ARCHIVE_START obsoleto ainda impede releases atuais; sem charset/CDB/UNDO/arquivos completos. REUSE destrutivo, buffers255 e member vazio; saída não recupera banco.",
+      "tests": "Grupos3/1/7 ordenados, membros multiplexados, SYSTEM múltiplo e parâmetro ausente; apenas inspecionar, nunca executar CREATE DATABASE gerado.",
+      "commit": "3fc3bdcee0403d9e6620375eb3fb00fc39fe3085",
+      "batch": "041"
+    },
+    {
+      "path": "oracle/administration/independent/dictionary_tablespace_coalesce_plan.sql",
+      "before_blob": "d88057372f9d46de449056b2bcdfaef45394327a",
+      "blob_sha": "5a800d7039bd06480755257b8d4ebe9353676ef4",
+      "code_changed": false,
+      "changes": "Plano novo preservado, sem executar COALESCE.",
+      "limitations": "Contagem>1 não comprova adjacência nem ganho. DMT/PERMANENT/ONLINE e exclusões não cobrem necessidade de todos os ambientes; saída requer revisão administrativa.",
+      "tests": "DMT online com 0/1/2extents e LMT/temp/offline excluídos; quoted names; nenhuma aplicação de DDL.",
+      "commit": "3fc3bdcee0403d9e6620375eb3fb00fc39fe3085",
+      "batch": "041"
+    },
+    {
+      "path": "oracle/administration/defrg73.sql",
+      "before_blob": "268af3497c910f40f0c5cf2b6d1e45d4bc80f1da",
+      "blob_sha": "7cc060a240bb292bbef5d611dd522155cff9f86c",
+      "code_changed": false,
+      "changes": "Fluxo histórico preservado; execução administrativa explícita.",
+      "limitations": "FREE_SPACE por arquivo pode gerar COALESCE duplicado por tablespace. Não filtra DMT/ONLINE/TEMP/SYSTEM; @DEF executa automaticamente e HOST DEL remove intermediário.",
+      "tests": "Vários arquivos, contrato de FREE_SPACE, helper FREE_SPC e falha parcial; nunca usar acervo como automação produtiva.",
+      "commit": "3fc3bdcee0403d9e6620375eb3fb00fc39fe3085",
+      "batch": "041"
+    },
+    {
+      "path": "oracle/security/exe_fprc.sql",
+      "before_blob": "302f49dbc577936fb3ce1b1aced6ce045552ad12",
+      "blob_sha": "2139b2b71f7b326433028a9e1e7ae00c37cc4fb4",
+      "code_changed": false,
+      "changes": "Procedimento integral preservado com impedimentos de segurança e negócio detalhados.",
+      "limitations": "Senha6 previsível, concatenação insegura e aspas duplicadas em listas. DEFAULT exclude é string NULL citada, não SQL NULL: compara com usuário chamado NULL, não elimina todos como NOT IN(NULL). DDL parcial não é revertida; handlers ocultam erros.",
+      "tests": "Contrato Discoverer/EUL, lista de usuários/roles e política de autenticação; corrigir com dados fictícios e plano de recuperação antes de habilitar rotina.",
+      "commit": "3fc3bdcee0403d9e6620375eb3fb00fc39fe3085",
+      "batch": "041"
+    },
+    {
+      "path": "oracle/objects/fprc_rct.sql",
+      "before_blob": "d618472be3931601bba5b67ce57b23849f3e13e1",
+      "blob_sha": "14639fdf62f3d9db7f38a49080ca335168ec3130",
+      "code_changed": false,
+      "changes": "Texto de recriação preservado.",
+      "limitations": "A1000 WORD_WRAP pode alterar fonte; prefixo CREATE OR REPLACE assume linha1 convencional. JOIN DBA_OBJECTS pode duplicar linhas em certos escopos; sem edição/settings/grants e sem quoting.",
+      "tests": "Fonte com linha>1000, wrapped, package/body, ausência de objeto e edição; comparar bytes antes de compilar saída.",
+      "commit": "3fc3bdcee0403d9e6620375eb3fb00fc39fe3085",
+      "batch": "041"
+    },
+    {
+      "path": "oracle/administration/getcom.sql",
+      "before_blob": "e70a24ce68b41af8ebca5948e96092f73709d151",
+      "blob_sha": "5f5bc3ecb47fbfe9d88bccc6c679ad702f332682",
+      "code_changed": true,
+      "changes": "Apóstrofos de owner/tabela escapados nas chamadas geradas; DEFINE OFF no arquivo antes do START.",
+      "limitations": "Macro OWNER da consulta original continua aceitando somente entrada confiável. TABLE_HELP usa UPPER e não resolve quoted mixed case; DBMS_OUTPUT4000 e paths/DEL Windows limitam saída.",
+      "tests": "Nomes com apóstrofo/ampersand, duas tabelas e comentários longos; revisar helper e arquivo antes de START.",
+      "commit": "3fc3bdcee0403d9e6620375eb3fb00fc39fe3085",
+      "batch": "041"
     }
   ],
   "laboratory_script": {
@@ -1117,26 +1337,6 @@
     "executed": false
   },
   "next_queue": [
-    "oracle/administration/tbsp1_rct81.sql",
-    "oracle/administration/tbsp_it_rct81.sql",
-    "oracle/administration/tbsp_rct81.sql",
-    "oracle/security/chg_role.sql",
-    "oracle/objects/ck_conv.sql",
-    "oracle/administration/clus_rep.sql",
-    "oracle/security/colg_rct.sql",
-    "oracle/security/col_grnt.sql",
-    "oracle/objects/con2_rct.sql",
-    "oracle/objects/con3_rct.sql",
-    "oracle/objects/cons_rep.sql",
-    "oracle/objects/con_rct.sql",
-    "oracle/objects/con_rct2.sql",
-    "oracle/administration/crt_pvw.sql",
-    "oracle/administration/db_rct.sql",
-    "oracle/administration/independent/dictionary_tablespace_coalesce_plan.sql",
-    "oracle/administration/defrg73.sql",
-    "oracle/security/exe_fprc.sql",
-    "oracle/objects/fprc_rct.sql",
-    "oracle/administration/getcom.sql",
     "oracle/administration/init_rct.sql",
     "oracle/administration/none.sql",
     "oracle/backup-recovery/oline_bu.sql",
@@ -1196,26 +1396,26 @@
     "oracle/backup-recovery/vms_oline_bu.sql"
   ],
   "next_batch": [
-    "oracle/administration/tbsp1_rct81.sql",
-    "oracle/administration/tbsp_it_rct81.sql",
-    "oracle/administration/tbsp_rct81.sql",
-    "oracle/security/chg_role.sql",
-    "oracle/objects/ck_conv.sql",
-    "oracle/administration/clus_rep.sql",
-    "oracle/security/colg_rct.sql",
-    "oracle/security/col_grnt.sql",
-    "oracle/objects/con2_rct.sql",
-    "oracle/objects/con3_rct.sql",
-    "oracle/objects/cons_rep.sql",
-    "oracle/objects/con_rct.sql",
-    "oracle/objects/con_rct2.sql",
-    "oracle/administration/crt_pvw.sql",
-    "oracle/administration/db_rct.sql",
-    "oracle/administration/independent/dictionary_tablespace_coalesce_plan.sql",
-    "oracle/administration/defrg73.sql",
-    "oracle/security/exe_fprc.sql",
-    "oracle/objects/fprc_rct.sql",
-    "oracle/administration/getcom.sql"
+    "oracle/administration/init_rct.sql",
+    "oracle/administration/none.sql",
+    "oracle/backup-recovery/oline_bu.sql",
+    "oracle/objects/pk_fk2.sql",
+    "oracle/objects/rbd_con.sql",
+    "oracle/security/rct_usrs.sql",
+    "oracle/security/restrict.sql",
+    "oracle/security/rgnt_rct.sql",
+    "oracle/administration/shrt_cal.sql",
+    "oracle/administration/size.sql",
+    "oracle/objects/sort_view.sql",
+    "oracle/objects/syno_rct.sql",
+    "oracle/administration/tx_rbkv.sql",
+    "oracle/administration/val_proc.sql",
+    "oracle/administration/chk_tab2.sql",
+    "oracle/administration/clean_temp_temp.sql",
+    "oracle/administration/connect.sql",
+    "oracle/administration/crea_fs.sql",
+    "oracle/administration/db_rct81.sql",
+    "oracle/administration/db_rct91.sql"
   ],
   "validations": {
     "036": {
@@ -1309,6 +1509,22 @@
         "tablespace quoting and unique line-order fixtures",
         "DBMS_SQL cursor cleanup inspected statically"
       ]
+    },
+    "041": {
+      "reviewed": 20,
+      "code_changed": 13,
+      "documentation_only": 7,
+      "oracle_execution": false,
+      "oracle_compilation": false,
+      "windows_execution": false,
+      "checks": [
+        "três mapeamentos INSERT de constraints analisados em dialeto Oracle e exercitados em SQLite",
+        "chamada GETCOM gerada exercitada com apóstrofo e ampersand",
+        "sete corpos inalterados comparados integralmente",
+        "fixtures de coleção esparsa e cálculo de autoextend para blocos8K/16K",
+        "posições de interrupção do staging e cleanup UTL_FILE inspecionados",
+        "CREATE VIEW PROC_COUNT e SELECT de coalescência analisados em dialeto Oracle"
+      ]
     }
   },
   "batches": [
@@ -1316,6 +1532,7 @@
     "037",
     "038",
     "039",
-    "040"
+    "040",
+    "041"
   ]
 }
