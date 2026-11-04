@@ -1,6 +1,6 @@
 # Revisão complementar das propostas administrativas
 
-Atualizado em 04/11/2026. **160 de 177 scripts reavaliados nesta fase; 83 com alteração de código e 77 com comportamento mantido. Nenhuma compilação/execução Oracle.**
+Atualizado em 04/11/2026. **177 de 177 scripts reavaliados nesta fase; 91 com alteração de código e 86 com comportamento mantido. Nenhuma compilação/execução Oracle.**
 
 Commit da revisão 036: [0c6e9ce71d3ffa3d8d4da1bd303a827474ae5d8a](https://github.com/francois-fiorino/tech-automation-scripts/commit/0c6e9ce71d3ffa3d8d4da1bd303a827474ae5d8a). Todos os 20 scripts e o roteiro auxiliar de laboratório foram conferidos após publicação, por conteúdo/caminho/blob. O roteiro não foi executado.
 
@@ -1641,24 +1641,195 @@ nove corpos preservados comparados integralmente; 450 comandos PK_RCT conferidos
 
 Fixtures locais e parser não validam compilação PL/SQL, catálogo, privilégios ou comportamento das APIs Oracle. Não houve execução Oracle/Windows nem homologação de implantação.
 
-## Continuidade
+## Revisão administrativa complementar — lote 044 (04/11/2026)
 
-Restam **17 de 177** para revisão complementar. Próximo lote 044; fila exata também em ADMIN_REVIEW_VERIFICATION.json.
+17 scripts revisados: 8 alterações de código e 9 revisões documentais. Commit confirmado: [bc277eba3fb4a3c9b45705efd1f0969dc4e19b4b](https://github.com/francois-fiorino/tech-automation-scripts/commit/bc277eba3fb4a3c9b45705efd1f0969dc4e19b4b). Todos os caminhos/conteúdos/blobs conferidos após publicação na branch do PR #2. Pendências individuais e validações locais em ADMIN_REVIEW.md e ADMIN_REVIEW_VERIFICATION.json. Sem compilação/execução Oracle, comandos administrativos ou merge.
 
-- `oracle/objects/recreate_table.sql`
-- `oracle/objects/ref_prac.sql`
-- `oracle/administration/rep_outsietadrop_anal_ind.sql`
-- `oracle/administration/submit_checks.sql`
-- `oracle/administration/submit_flush.sql`
-- `oracle/administration/submit_running_stats.sql`
-- `oracle/administration/submit_test.sql`
-- `oracle/backup-recovery/thot_bu.sql`
-- `oracle/objects/tk_ind.sql`
-- `oracle/administration/tkp.sql`
-- `oracle/objects/translate_param.sql`
-- `oracle/objects/trig.sql`
-- `oracle/security/umaint.sql`
-- `oracle/backup-recovery/unix_oline_bu.sql`
-- `oracle/administration/user_blocks_used_v_alloc.sql`
-- `oracle/objects/utl_long.sql`
-- `oracle/backup-recovery/vms_oline_bu.sql`
+Acumulado atual: **177/177**, sendo **91 alterações de código e 86 revisões documentais**. Restam **0** na revisão complementar, além da homologação dos 177. Totais preservados: 476 implementações main e 177 propostas. Fila estática encerrada; próxima ação: homologação individual, sem promoção automática.
+
+### `oracle/objects/recreate_table.sql`
+
+Fechamentos SUBPART_KEY/SUBPART_TBSP/PART_CURSOR movidos para os respectivos caminhos corretos; algoritmo completo preservado.
+
+**Pendências:** Sempre gera RANGE/HASH mesmo com outros tipos. T_TEMP não grava owner e ordenação externa por nome mistura homônimos; buffers2000/LONG, nomes LOWER, defaults/LOB/constraints/storage incompletos. Não é backup fiel.
+
+**Homologação necessária:** Zero/uma/várias subchaves/partições, duas tabelas homônimas em owners distintos e LONG longo; comparar catálogo sem executar DROP gerado.
+
+**Blob confirmado:** `77c14554c86f27e01eccc715b1daf1de4fa53ba7`.
+
+### `oracle/objects/ref_prac.sql`
+
+Quatro tipos, tabelas objeto, REF/SCOPE/DEREF e dados ilustrativos preservados.
+
+**Pendências:** CREATE OR REPLACE TYPE pode invalidar dependentes; DDL confirma DML anterior. Reexecução conflita/duplica e referências dependem de dados. Endereços são exemplos históricos, sem inferência de cadastro atual.
+
+**Homologação necessária:** Schema descartável, referência nula/dangling, duas locations e reexecução; sem substituir modelo por tabelas relacionais.
+
+**Blob confirmado:** `2ccc1eb603c8f85b905bbac58dfb7e67d94e4d02`.
+
+### `oracle/administration/rep_outsietadrop_anal_ind.sql`
+
+EXIT incondicional antes dos1043 ANALYZE INDEX DELETE STATISTICS; lista integral mantida.
+
+**Pendências:** Todos1043nomes literais não qualificados dependem do schema, incluindo índices internos. Remover estatísticas pode degradar planos; não é DROP INDEX nem limpeza de espaço.
+
+**Homologação necessária:** Barreira antes do primeiro ANALYZE; plano de export/restauração de estatísticas e seleção de objetos exigem projeto separado, sem aplicação ao catálogo.
+
+**Blob confirmado:** `90cf81933d135da26c725b4d030ead4c7f65e35c`.
+
+### `oracle/administration/submit_checks.sql`
+
+Procedimento SUBMIT_CHECKS preservado; não agenda job diretamente.
+
+**Pendências:** Depende de DBA_UTILITIES completo e de contratos CHECK_TABLES/FLUSH_IT; números10/10000/85/100 não foram redefinidos. Instalação homônima pode alterar comportamento de jobs existentes.
+
+**Homologação necessária:** Fornecer pacote/grants diretos; confirmar sequência e efeitos das duas chamadas com dados fictícios.
+
+**Blob confirmado:** `5a206d232d313d0e8dba066e8d015033037db67f`.
+
+### `oracle/administration/submit_flush.sql`
+
+Agenda de3horas eCOMMIT preservados.
+
+**Pendências:** DBMS_JOB dispara após confirmação; nova execução do arquivo cria outro job e COMMIT confirma transação do chamador. FLUSH_IT85/10 depende de definição compatível, não equivale a chamada85/100.
+
+**Homologação necessária:** Revisar rotina/grants/usuárioexecutor, duplicidade de job e intervalo; não agendar nesta revisão.
+
+**Blob confirmado:** `cff169f202d0b3603594b1646c47a51c7e8a33d6`.
+
+### `oracle/administration/submit_running_stats.sql`
+
+Agenda horária DBA_UTILITIES.JUST_STATISTICS(FALSE) preservada.
+
+**Pendências:** Contrato com parâmetro BOOLEAN não equivale à procedure JUST_STATISTICS sem argumentos. Dependência/package e permissões precisam confirmação; repetição duplica job.
+
+**Homologação necessária:** Pacote instalado, argumentos e escrita de histórico; validar janela/duplicidade/retorno em laboratório sem coletar produção.
+
+**Blob confirmado:** `12fea47e6b2b869f06cf428d1a5467f2b060a797`.
+
+### `oracle/administration/submit_test.sql`
+
+Chamada diária comOWNER eCOMMIT preservados.
+
+**Pendências:** Macro&&owner pode injetar texto no bloco/job se entrada não confiável. TRUNC(SYSDATE) já passou e job pode rodar imediatamente; reexecução cria duplicata e confirma trabalho do chamador.
+
+**Homologação necessária:** Ownerliteral confiável, pacote/rotina real, primeira execução e timezone; não persistir job no banco nesta revisão.
+
+**Blob confirmado:** `ca585c4297f7be1fab6803e783b3d0b06b032b51`.
+
+### `oracle/backup-recovery/thot_bu.sql`
+
+EXIT incondicional antes do backup OpenVMS gerado; ordem e todos caminhos históricos preservados.
+
+**Pendências:** RAWDAT01 fora da janela RAW_DATA; mistura pathsUnix/sintaxeVMS, BACKUP/IGNORE, cópiaredo e /DELETE archives podem comprometer recuperação. Sem inventar fita/diretório/plano homologado.
+
+**Homologação necessária:** Inspecionar BEGIN/END e cada cópia; testar restauração em ambiente isolado somente após redesenhar plano. Nenhum HOST ou archive removido.
+
+**Blob confirmado:** `19f40f5e45cc2799a3fff71ce9131b6c065163ae`.
+
+### `oracle/objects/tk_ind.sql`
+
+Seis índices únicos e ordem das colunas preservados.
+
+**Pendências:** Índices parecidos não são recomendação universal; duplicatas nas chaves podem falhar e criação é parcial. CNET_INDEXES e TKP_EXAMPLE faltantes dependem do laboratório.
+
+**Homologação necessária:** Tabelas fictícias, cardinalidade/NULL/unicidade e espaço de seis índices; não aplicar em aplicação.
+
+**Blob confirmado:** `7e84cf9c37e0c80b5fd94d26991fdbe3a1b23f54`.
+
+### `oracle/administration/tkp.sql`
+
+DROP/CTAS integral preservado.
+
+**Pendências:** DROP destrói TKP_EXAMPLE2 e confirmaDDL. Join por owner/nome multiplica partições/tipos e não garante chave única para TK_IND; não presumir inventário umregistro/objeto.
+
+**Homologação necessária:** Objeto particionado, semsegmento e homônimos; tabela alvo descartável e comparação de cardinalidade.
+
+**Blob confirmado:** `3761a571d9b037ae8e6c3d44205eef4e3130f965`.
+
+### `oracle/objects/translate_param.sql`
+
+Algoritmo original de conversão K/M/G preservado.
+
+**Pendências:** LTRIM/RTRIM operam conjuntos de caracteres, não parser de unidades: decimais/T/sinal/strings podem produzir0 ou erro, não conversão confiável. NO_DATA_FOUND/VALUE_ERROR retornamNULL; INVALID_NUMBER pode propagar pelo handlergeral.
+
+**Homologação necessária:** Valores simples,K/M/G,decimal,T,NULL e inválido; definir contrato antes de reescrever semântica.
+
+**Blob confirmado:** `e92569a29b3d4a8c09c8c2d8a6d9a374f53aa3f7`.
+
+### `oracle/objects/trig.sql`
+
+Oito triggers e regras de integridade/cascata preservados.
+
+**Pendências:** COUNT porlinha não impõe integridade sob DELETEconcorrente dos pais; SITE_IDNULL falha por contagenszero. CNET.UPDATE_TABLES ausente pode alterar outras tabelas; não presumir FK equivalente.
+
+**Homologação necessária:** Pais0/1/2, SITE_IDNULL, mudança/desligamento de pais e cascata; clone com DDL completo, sem instalar em schema genérico.
+
+**Blob confirmado:** `96eb6ef7b314292ace56900471715c3ea8610b52`.
+
+### `oracle/security/umaint.sql`
+
+EXIT incondicional antes de instalar UMAINT ou consultar verificadores.
+
+**Pendências:** OLD_PASSglobal não vincula usuário; RESET_PASS chama CHANGE_PASS que sobrescreve OLD_PASS. Hashlegado/injeção/definerrights e erros ocultos impedem adaptação segura sem contrato de autenticação moderno.
+
+**Homologação necessária:** Confirmar barreira antes de CREATE PACKAGE; definir processo homologado de autenticação/rotação sem usar contas reais.
+
+**Blob confirmado:** `5fb0e754b12c461aebd40ee286a971820675d364`.
+
+### `oracle/backup-recovery/unix_oline_bu.sql`
+
+Interrupção SQL antes de CREATE/TRUNCATE BU_TEMP; gerador completo mantido.
+
+**Pendências:** tar cvrf emstream, HOSTinterativo/exit, wildcardcompress, cópiaredo e controlfile semaspas continuam não homologados. Não filtra tablespacetemp e falhas podem manter backupmode.
+
+**Homologação necessária:** Staging existente, múltiplos arquivos, pathscomespaços e erro de pipeline; apenas simular saída, sem Shell ou backup.
+
+**Blob confirmado:** `c6615f8a06a6f4d888dae3fbc1d7ce7bcadae6c5`.
+
+### `oracle/administration/user_blocks_used_v_alloc.sql`
+
+Interrupção SQL no script e no INDEX_SZ gerado antes de CREATE/TRUNCATE STAT_TEMP.
+
+**Pendências:** DELETEinicial e DDL podem confirmar dados; chavessemowner, ROWIDrestrito e blocksizepadrão misturam identidade. Nomes/macros semescaping e STARTautomático continuam impedindo uso seguro.
+
+**Homologação necessária:** STAT_TEMPpreexistente deve interromper antes deTRUNCATE; ownershomônimos, multiblocksize e arquivoSQLpreexistente; não usar resultado para shrink.
+
+**Blob confirmado:** `9f54f513d7e9ade76bfed7de0418e5a56e3bee06`.
+
+### `oracle/objects/utl_long.sql`
+
+AUTHID CURRENT_USER, nomes de catálogo citados, inicialização dentro do bloco protegido e WRITEAPPEND por caracteres; offsetsLONG continuam embytes. Linha ausente retorna0; cleanup preservado.
+
+**Pendências:** DBMS_ASSERTnão é usado: identificadores vêm do catálogo e são escapados individualmente. ROWIDfísico/ALL_OBJECTS/DATA_OBJECT_ID ainda requer testes de partições/move; CLOB/INSTRNULL, charsets suplementares e limitesgrandes dependem de homologaçãoOracle.
+
+**Homologação necessária:** LONGnulo/vazio, 0/1/várioschunks, padrão atravessandochunks, acentos/suplementares, ROWIDinexistente e erros de resolução/acesso; verificar cursor/LOBtemporário.
+
+**Blob confirmado:** `585425e1a571ee146a7e25e0a71b613491d21040`.
+
+### `oracle/backup-recovery/vms_oline_bu.sql`
+
+Interrupção SQL antes de CREATE/TRUNCATE BU_TEMP; todas etapasVMS preservadas.
+
+**Pendências:** LINENO repete entre últimoarquivo/END e entre tablespaces; comandosBACKUP/IGNORE e /DELETEarchives, fitaMUA0 e controlfilesemaspas impedem recoverygarantido. Não remover exclusão silenciosamente como se plano fosse equivalente.
+
+**Homologação necessária:** Comparar ordenação e save_sets emfixture, catálogo/diretórios e plano de restore; não escrever fita nem apagararchives.
+
+**Blob confirmado:** `b372b5c65ffb4d3631225b1dd4f6c386111ec31b`.
+
+### Validação local
+
+nove corpos preservados comparados integralmente; todos1043 ANALYZE INDEX validados por padrão estrito e mantidos sob barreira de execução; THOT_BU integral preservado sob barreira e RAWDAT01 após END BACKUP confirmado como impedimento; seis CREATE INDEX analisados em dialeto Oracle; fixture BMP de offsets LONG embytes e append CLOB emcaracteres,padrão entrechunks; caminhos de fechamento de três cursores,quoting,invoker rights e guards de staging inspecionados.
+
+Fixtures locais e parser não validam compilação PL/SQL, catálogo, privilégios ou comportamento das APIs Oracle. Não houve execução Oracle/Windows nem homologação de implantação.
+
+## Encerramento da revisão estática complementar — 04/11/2026
+
+Fila encerrada: **177/177 scripts revisados**, com **91 alterações de código e 86 revisões documentais**. A última etapa foi o lote 044, com 17 arquivos (oito alterações de código e nove revisões documentais). Todos os caminhos e blobs dos 177 foram confirmados no commit de revisão e no commit individual registrado. Não houve compilação/execução Oracle nem testes em Windows/OpenVMS.
+
+A auditoria atual conferiu **697 linhas classificadas**, **476 caminhos únicos de implementações na main** e **177 caminhos únicos em revisão**, sem sobreposição entre esses conjuntos. As demais linhas representam duplicatas, fontes mapeadas, placeholders/referências ou auxiliares, com classificação individual. Há ainda um auxiliar publicado na main e um roteiro auxiliar de testes no PR que não aumentam as contagens de implementações. Blobs e caminhos da main estão no campo `publication_audit.main_files` do JSON; os arquivos RECONCILIATION/VERIFICATION/INDEPENDENT_VERIFICATION permanecem snapshots históricos.
+
+As 49 fontes originais anteriormente retidas não foram republicadas/relicenciadas. Seus requisitos já foram mapeados a 46 implementações novas (44 main e duas no PR), conforme relatório da etapa anterior. Encerrar esta fila estática não resolve os impedimentos técnicos individuais nem equivale a homologar implantação.
+
+**Projeto ainda não concluído:** os 177 scripts do PR #2 continuam fora da main, com pendências individuais de runtime, contratos de aplicação, privilégios, segurança, compatibilidade e/ou comportamento administrativo. Não foram promovidos automaticamente. O PR #2 permanece Draft; o PR #1 continua aberto como documentação histórica, sem merge. O próximo trabalho é homologar e resolver cada impedimento em laboratório descartável com versão/DDL/dados e resultados verificáveis, seguido de seleção individual de publicação. Não existe lote 045 pendente nesta fila, nem execução em segundo plano.
+

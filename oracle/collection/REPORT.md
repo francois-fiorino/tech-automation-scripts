@@ -140,10 +140,21 @@ Acumulado após lote 042: **140/177**, sendo **72 alterações de código e 68 r
 
 20 scripts revisados: 11 alterações de código e 9 revisões documentais. Commit confirmado: [2c4c02ee55b1472605695a93eddb7c4b39ab5578](https://github.com/francois-fiorino/tech-automation-scripts/commit/2c4c02ee55b1472605695a93eddb7c4b39ab5578). Todos os caminhos/conteúdos/blobs conferidos após publicação na branch do PR #2. Pendências individuais e validações locais em ADMIN_REVIEW.md e ADMIN_REVIEW_VERIFICATION.json. Sem compilação/execução Oracle, comandos administrativos ou merge.
 
-Acumulado atual: **160/177**, sendo **83 alterações de código e 77 revisões documentais**. Restam **17** na revisão complementar, além da homologação dos 177. Totais preservados: 476 implementações main e 177 propostas. Próxima fila: 044.
+Acumulado após lote 043: **160/177**, sendo **83 alterações de código e 77 revisões documentais**. Restam **17** na revisão complementar, além da homologação dos 177. Totais preservados: 476 implementações main e 177 propostas. Próxima fila: 044.
 
-## Próximo ponto de retomada
+## Revisão administrativa complementar — lote 044 (04/11/2026)
 
-Os 49 requisitos anteriormente retidos já possuem destinos novos confirmados. Não há requisito restante dessa fila para publicar. Continuar a revisão complementar das 17 propostas restantes pela fila `next_batch` de ADMIN_REVIEW_VERIFICATION.json, em lotes de até 20. Resolver limitações e homologar em laboratório descartável, com contratos/objetos, versão e resultados verificáveis.
+17 scripts revisados: 8 alterações de código e 9 revisões documentais. Commit confirmado: [bc277eba3fb4a3c9b45705efd1f0969dc4e19b4b](https://github.com/francois-fiorino/tech-automation-scripts/commit/bc277eba3fb4a3c9b45705efd1f0969dc4e19b4b). Todos os caminhos/conteúdos/blobs conferidos após publicação na branch do PR #2. Pendências individuais e validações locais em ADMIN_REVIEW.md e ADMIN_REVIEW_VERIFICATION.json. Sem compilação/execução Oracle, comandos administrativos ou merge.
 
-Nenhum merge automático está autorizado. O projeto não é declarado concluído enquanto as propostas e homologações pendentes permanecerem abertas. Não há execução em segundo plano.
+Acumulado atual: **177/177**, sendo **91 alterações de código e 86 revisões documentais**. Restam **0** na revisão complementar, além da homologação dos 177. Totais preservados: 476 implementações main e 177 propostas. Fila estática encerrada; próxima ação: homologação individual, sem promoção automática.
+
+## Encerramento da revisão estática complementar — 04/11/2026
+
+Fila encerrada: **177/177 scripts revisados**, com **91 alterações de código e 86 revisões documentais**. A última etapa foi o lote 044, com 17 arquivos (oito alterações de código e nove revisões documentais). Todos os caminhos e blobs dos 177 foram confirmados no commit de revisão e no commit individual registrado. Não houve compilação/execução Oracle nem testes em Windows/OpenVMS.
+
+A auditoria atual conferiu **697 linhas classificadas**, **476 caminhos únicos de implementações na main** e **177 caminhos únicos em revisão**, sem sobreposição entre esses conjuntos. As demais linhas representam duplicatas, fontes mapeadas, placeholders/referências ou auxiliares, com classificação individual. Há ainda um auxiliar publicado na main e um roteiro auxiliar de testes no PR que não aumentam as contagens de implementações. Blobs e caminhos da main estão no campo `publication_audit.main_files` do JSON; os arquivos RECONCILIATION/VERIFICATION/INDEPENDENT_VERIFICATION permanecem snapshots históricos.
+
+As 49 fontes originais anteriormente retidas não foram republicadas/relicenciadas. Seus requisitos já foram mapeados a 46 implementações novas (44 main e duas no PR), conforme relatório da etapa anterior. Encerrar esta fila estática não resolve os impedimentos técnicos individuais nem equivale a homologar implantação.
+
+**Projeto ainda não concluído:** os 177 scripts do PR #2 continuam fora da main, com pendências individuais de runtime, contratos de aplicação, privilégios, segurança, compatibilidade e/ou comportamento administrativo. Não foram promovidos automaticamente. O PR #2 permanece Draft; o PR #1 continua aberto como documentação histórica, sem merge. O próximo trabalho é homologar e resolver cada impedimento em laboratório descartável com versão/DDL/dados e resultados verificáveis, seguido de seleção individual de publicação. Não existe lote 045 pendente nesta fila, nem execução em segundo plano.
+
