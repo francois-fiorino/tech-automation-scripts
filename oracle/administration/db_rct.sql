@@ -44,6 +44,17 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
   Comentários e créditos históricos preservados abaixo.
 
+REVISÃO COMPLEMENTAR 041 — 04/11/2026
+  Correções e melhorias: WRITE_OUT usa parâmetros; grupos redo ordenados por GROUP# e interrupção SQL antes de staging.
+  Limitações e pendências: LOG_ARCHIVE_START obsoleto ainda impede releases atuais; sem charset/CDB/UNDO/arquivos completos. REUSE destrutivo, buffers255 e member vazio; saída não recupera banco.
+  Homologação necessária: Grupos3/1/7 ordenados, membros multiplexados, SYSTEM múltiplo e parâmetro ausente; apenas inspecionar, nunca executar CREATE DATABASE gerado.
+  Parâmetros e execução: contratos acima e no corpo; só ambiente controlado.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação: leitura integral e comparação estática; sem compilação/execução
+  Oracle, Windows, alteração de privilégio ou gravação de arquivo no servidor.
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
+
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
@@ -72,6 +83,7 @@ set termout on
 prompt Creating db build script...
 set termout off; 
 
+WHENEVER SQLERROR EXIT FAILURE ROLLBACK
 create table db_temp
      (lineno NUMBER,  text VARCHAR2(255))
 /
@@ -81,7 +93,7 @@ DECLARE
 	from  dba_data_files
 	where tablespace_name='SYSTEM';
    CURSOR grp_cursor IS
-	select group# from v$log; 
+	select group# from v$log order by group#; 
    CURSOR mem_cursor (grp_num number) IS
 	select   a.member, b.bytes from v$logfile a, v$log b
 	where    a.group#=grp_num
@@ -102,7 +114,7 @@ DECLARE
 		       p_string VARCHAR2) is
    	begin
    	   insert into db_temp (lineno,text) 
-		     values (db_lineno,db_string);
+		     values (p_line,p_string);
 	   end;
 BEGIN
 	select max(group#) into max_group from v$log;

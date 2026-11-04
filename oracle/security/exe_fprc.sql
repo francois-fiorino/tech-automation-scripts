@@ -13,14 +13,14 @@ FUNCIONAMENTO DETALHADO
 
 PRÉ-REQUISITOS E PRIVILÉGIOS
   SQL*Plus ou SQLcl; conexão ao banco/container que se deseja diagnosticar.
-  Grants DIRETOS e permissões administrativas conforme limitações individuais. EXECUTE em DBMS_OUTPUT e SERVEROUTPUT habilitado (o script o configura).
+  Grants DIRETOS e permissões administrativas conforme limitações individuais. EXECUTE em DBMS_OUTPUT e SERVEROUTPUT habilitado pelo chamador (não configurado aqui).
   Não requer AWR/ASH nesta implementação.
 
 OBJETOS, VIEWS E PACOTES
   EUL_EUL_USERS no schema informado, DBA_USERS, DBA_ROLE_PRIVS, V$TIMER, EXECUTE IMMEDIATE, DBMS_OUTPUT
 
 COMPATIBILIDADE CONHECIDA E LIMITAÇÕES
-  CREATE PROCEDURE/ALTER ROLE/ALTER USER/grants diretos. Gerador de seis letras previsível; exclusões/listas concatenadas e quoting incorreto podem invalidar SQL/injetar. DEFAULT exclude literal NULL pode excluir tudo por NOT IN. Handler oculta erros após alterações parciais, sem rollback de DDL.
+  CREATE PROCEDURE/ALTER ROLE/ALTER USER/grants diretos. Gerador de seis letras previsível; exclusões/listas concatenadas e quoting incorreto podem invalidar SQL/injetar. DEFAULT exclude vira literal de texto 'NULL' nas consultas; não confundir com SQL NULL. Handler oculta erros após alterações parciais, sem rollback de DDL.
   Não homologado em versões específicas; validar dicionário e plano em laboratório.
 
 EXEMPLO DE EXECUÇÃO
@@ -43,6 +43,17 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Rotina completa preservada com dependências de negócio explícitas; nenhuma role/conta alterada. 
   Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
   Comentários e créditos históricos preservados abaixo.
+
+REVISÃO COMPLEMENTAR 041 — 04/11/2026
+  Correções e melhorias: Procedimento integral preservado com impedimentos de segurança e negócio detalhados.
+  Limitações e pendências: Senha6 previsível, concatenação insegura e aspas duplicadas em listas. DEFAULT exclude é string NULL citada, não SQL NULL: compara com usuário chamado NULL, não elimina todos como NOT IN(NULL). DDL parcial não é revertida; handlers ocultam erros.
+  Homologação necessária: Contrato Discoverer/EUL, lista de usuários/roles e política de autenticação; corrigir com dados fictícios e plano de recuperação antes de habilitar rotina.
+  Parâmetros e execução: contratos acima e no corpo; só ambiente controlado.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação: leitura integral e comparação estática; sem compilação/execução
+  Oracle, Windows, alteração de privilégio ou gravação de arquivo no servidor.
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
 
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.

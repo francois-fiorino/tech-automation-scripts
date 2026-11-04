@@ -45,6 +45,17 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
   Comentários e créditos históricos preservados abaixo.
 
+REVISÃO COMPLEMENTAR 041 — 04/11/2026
+  Correções e melhorias: Interrupção SQL protege CONS_TEMP antes de TRUNCATE.
+  Limitações e pendências: Buffers30/2000 e UPPER no nome da constraint omitem quoted mixed case; numeração de FKs agrega tabelas homônimas entre owners, embora relatório relacione owner referenciado.
+  Homologação necessária: Owners homônimos, constraints quoted, FK composta por posição e staging preexistente; validar relatório e contratos.
+  Parâmetros e execução: contratos acima e no corpo; só ambiente controlado.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação: leitura integral e comparação estática; sem compilação/execução
+  Oracle, Windows, alteração de privilégio ou gravação de arquivo no servidor.
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
+
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
@@ -81,6 +92,7 @@ SET TERMOUT ON
 SELECT 'Creating constraint documentation script...' FROM dual;
 SET TERMOUT OFF
  
+WHENEVER SQLERROR EXIT FAILURE ROLLBACK
 CREATE TABLE cons_temp (owner VARCHAR2(30),
           constraint_name VARCHAR2(30),
           constraint_type VARCHAR2(11),

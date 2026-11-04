@@ -46,6 +46,17 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Revisão estática somente; implantação depende de laboratório e aprovação do PR.
   Comentários e créditos históricos preservados abaixo.
 
+REVISÃO COMPLEMENTAR 041 — 04/11/2026
+  Correções e melhorias: Apóstrofos de owner/tabela escapados nas chamadas geradas; DEFINE OFF no arquivo antes do START.
+  Limitações e pendências: Macro OWNER da consulta original continua aceitando somente entrada confiável. TABLE_HELP usa UPPER e não resolve quoted mixed case; DBMS_OUTPUT4000 e paths/DEL Windows limitam saída.
+  Homologação necessária: Nomes com apóstrofo/ampersand, duas tabelas e comentários longos; revisar helper e arquivo antes de START.
+  Parâmetros e execução: contratos acima e no corpo; só ambiente controlado.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação: leitura integral e comparação estática; sem compilação/execução
+  Oracle, Windows, alteração de privilégio ou gravação de arquivo no servidor.
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
+
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
@@ -63,9 +74,10 @@ rem
 rem FUNCTION: Get all of a tables comments
 rem
 set heading off pages 0 verify off feedback off termout off
-spool do_tabhp.sql 
+spool do_tabhp.sql
+select 'set define off' from dual; 
 select
- unique 'execute table_help('||''''||owner||''''||','||''''||table_name||''''||');'
+ unique 'execute table_help('||''''||replace(owner,chr(39),chr(39)||chr(39))||''''||','||''''||replace(table_name,chr(39),chr(39)||chr(39))||''''||');'
  from dba_col_comments where owner='&OWNER' and length(comments)>0;
 spool off
 set echo off lines 132

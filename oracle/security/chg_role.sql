@@ -45,6 +45,17 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
   Comentários e créditos históricos preservados abaixo.
 
+REVISÃO COMPLEMENTAR 041 — 04/11/2026
+  Correções e melhorias: Função histórica preservada; segurança/contexto impedem homologação.
+  Limitações e pendências: Concatenação role/senha permite injeção, definer rights conflita com SET ROLE e erro vaza cursor. Remover impressão de senha não torna rotina segura; não usar credenciais reais nem conceder EXECUTE amplo.
+  Homologação necessária: Definir contrato seguro de autenticação/role, invoker rights e testes negativos antes de reimplementar chamada; não testar com senha produtiva.
+  Parâmetros e execução: contratos acima e no corpo; só ambiente controlado.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação: leitura integral e comparação estática; sem compilação/execução
+  Oracle, Windows, alteração de privilégio ou gravação de arquivo no servidor.
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
+
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento

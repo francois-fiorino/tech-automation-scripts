@@ -45,6 +45,17 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
   Comentários e créditos históricos preservados abaixo.
 
+REVISÃO COMPLEMENTAR 041 — 04/11/2026
+  Correções e melhorias: Interrupção SQL antes de staging, sem mudar exclusão de SYS ou nomes de FK.
+  Limitações e pendências: Mesmas limitações de pais cross-schema, índices por nome, checks NULL e estados. CONS_TEMP64 permanece após execução e não suporta nomes128 integralmente.
+  Homologação necessária: Comparar nomes de FK originais, pai fora do usuário, índices diferentes e reexecução com staging existente.
+  Parâmetros e execução: contratos acima e no corpo; só ambiente controlado.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação: leitura integral e comparação estática; sem compilação/execução
+  Oracle, Windows, alteração de privilégio ou gravação de arquivo no servidor.
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
+
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
@@ -78,7 +89,8 @@ set termout on
 select 'Creating constraint build script...' from dual;
 rem set termout off
  
-create table cons_temp (owner varchar2(64),
+WHENEVER SQLERROR EXIT FAILURE ROLLBACK
+CREATE TABLE cons_temp (owner varchar2(64),
 			constraint_name varchar2(64),
 			constraint_type varchar2(15),
 			table_name varchar2(64),

@@ -45,6 +45,17 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
   Comentários e créditos históricos preservados abaixo.
 
+REVISÃO COMPLEMENTAR 041 — 04/11/2026
+  Correções e melhorias: FETCH e INSERT explícito alinhados a TABLE_NAME/SEARCH_CONDITION; DEFINE CR e interrupção de staging acrescentados.
+  Limitações e pendências: V é view check option, não DEFAULT. DF_/DEFAULT preservado como algoritmo histórico não homologado; nomes/condições2000/NOT NULL e renomeações podem invalidar saída.
+  Homologação necessária: CHECK longo, tabela/condição diferentes, view check option, quoted e CONS_TEMP existente; não aplicar DROP/ADD sem revisão.
+  Parâmetros e execução: contratos acima e no corpo; só ambiente controlado.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação: leitura integral e comparação estática; sem compilação/execução
+  Oracle, Windows, alteração de privilégio ou gravação de arquivo no servidor.
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
+
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
@@ -83,7 +94,8 @@ set termout on
 select 'Creating constraint build script...' from dual;
 rem set termout off
  
-create table cons_temp (owner varchar2(30),
+WHENEVER SQLERROR EXIT FAILURE ROLLBACK
+CREATE TABLE cons_temp (owner varchar2(30),
 			constraint_name varchar2(30),
 			constraint_type varchar2(11),
 			search_condition varchar2(2000),
@@ -157,8 +169,8 @@ BEGIN
       FETCH cons_cursor INTO 	cons_owner,
       				cons_name,
       				cons_type,
-      				cons_sc,
       				cons_tname,
+      				cons_sc,
       				cons_rowner,
 				cons_rcons,
       				cons_dr;
@@ -183,7 +195,9 @@ BEGIN
 		end if;
 	end loop;
 	close cons_col;
-	insert into cons_temp values (cons_owner,
+	insert into cons_temp (owner, constraint_name, constraint_type, table_name,
+ search_condition, referenced_owner, referenced_constraint, delete_rule,
+ constraint_columns, con_number) values (cons_owner,
 				      cons_name,
 				      cons_type,
 				      cons_tname,
@@ -233,6 +247,7 @@ create index lk_cons_temp2 on cons_temp(referenced_constraint);
 set heading off feedback off pages 0 termout off echo off
 set recsep off verify off
 set embedded on
+define cr='chr(10)'
 spool ck_rct.sql
 select 'alter table '||a.table_name||' drop constraint '||a.constraint_name||';'||&&cr||
 'alter table '||a.table_name||' add constraint '||constraint_type||a.table_name||'_'||a.con_number||&&cr||

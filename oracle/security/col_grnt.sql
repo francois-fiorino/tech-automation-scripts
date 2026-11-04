@@ -44,6 +44,17 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
   Comentários e créditos históricos preservados abaixo.
 
+REVISÃO COMPLEMENTAR 041 — 04/11/2026
+  Correções e melhorias: HEADING OFF no spool evita cabeçalhos SQL*Plus na saída de grants.
+  Limitações e pendências: Nomes sem quoting e tamanho padrão das duas expressões ainda podem quebrar DDL; ordem de grantor não garante topologia. Scripts gerados exigem revisão manual.
+  Homologação necessária: Conexões de dois grantors, duas colunas, nomes quoted e largura; não conceder privilégios durante revisão.
+  Parâmetros e execução: contratos acima e no corpo; só ambiente controlado.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação: leitura integral e comparação estática; sem compilação/execução
+  Oracle, Windows, alteração de privilégio ou gravação de arquivo no servidor.
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
+
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
@@ -87,6 +98,7 @@ set termout off
 break on line1
 column dbname new_value db noprint
 select value dbname from v$parameter where name='db_name';
+set heading off
 spool rep_out\&db\grt_cols.sql
  
 select 'CONNECT '||grantor line1,
@@ -98,6 +110,7 @@ order by grantor,grantee
 /
 spool off
 set verify on feedback on termout on echo on pagesize 22 embedded off
+set heading on
 clear columns
 clear computes
 clear breaks

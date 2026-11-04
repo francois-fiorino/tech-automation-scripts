@@ -13,7 +13,7 @@ FUNCIONAMENTO DETALHADO
 
 PRÉ-REQUISITOS E PRIVILÉGIOS
   SQL*Plus ou SQLcl; conexão ao banco/container que se deseja diagnosticar.
-  Grants DIRETOS e permissões administrativas conforme limitações individuais. EXECUTE em DBMS_OUTPUT e SERVEROUTPUT habilitado (o script o configura).
+  Grants DIRETOS e permissões administrativas conforme limitações individuais. EXECUTE em DBMS_OUTPUT e SERVEROUTPUT habilitado pelo chamador (não configurado aqui).
   Não requer AWR/ASH nesta implementação.
 
 OBJETOS, VIEWS E PACOTES
@@ -44,6 +44,19 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
   Comentários e créditos históricos preservados abaixo.
 
+REVISÃO COMPLEMENTAR 041 — 04/11/2026
+  Correções e melhorias: Autoextend por BLOCK_SIZE; MAXSIZE ampliado; FIRST/NEXT nos dois percursos da coleção; erro UTL_FILE relançado com fechamento protegido.
+  Limitações e pendências: Caminho Windows UTL_FILE_DIR histórico e arquivo W fixo continuam pendentes; sem tradução fictícia para DIRECTORY. Sequência compartilhada ainda necessária e linhas/buffers limitam saída REUSE.
+  Homologação necessária: Coleção vazia, índices iniciando100 e lacunas; erro FOPEN/PUT/FCLOSE; grants/diretório controlados, sem escrever no servidor nesta revisão.
+  Parâmetros e execução: contratos acima e no corpo; só ambiente controlado.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação: leitura integral e comparação estática; sem compilação/execução
+  Oracle, Windows, alteração de privilégio ou gravação de arquivo no servidor.
+
+REFERÊNCIA: https://docs.oracle.com/en/database/oracle/oracle-database/19/refrn/DBA_TABLESPACES.html
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
+
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
@@ -59,6 +72,7 @@ decorrentes do uso, nos limites permitidos pela legislação aplicável.
 /*  */
 CREATE OR REPLACE PROCEDURE RCT_IT_TBSP AS
 lineno_count INTEGER;
+output_index BINARY_INTEGER;
 file_handle UTL_FILE.FILE_TYPE;
 --
 TYPE ts_temp IS TABLE OF VARCHAR2(2048)
@@ -120,7 +134,7 @@ ts_table TS_TEMP;
    lv_logging           sys.dba_tablespaces.logging%TYPE;
    lv_extent_man        sys.dba_tablespaces.extent_management%TYPE;
    lv_allocation        sys.dba_tablespaces.allocation_type%TYPE;
-   sub_strg             VARCHAR2(20); 
+   sub_strg             VARCHAR2(128); 
 PROCEDURE write_out(
                  p_string VARCHAR2) IS
    BEGIN
@@ -149,6 +163,8 @@ BEGIN
               Lv_allocation,
               lv_contents;
       EXIT WHEN ts_cursor%NOTFOUND;
+      SELECT t.block_size INTO block_size FROM sys.dba_tablespaces t
+      WHERE t.tablespace_name = lv_tablespace_name;
       lv_string := ('CREATE TABLESPACE '||lower(lv_tablespace_name));
       lv_first_rec := TRUE;
       write_out(lv_string);
@@ -222,19 +238,27 @@ BEGIN
    CLOSE ts_cursor;
 BEGIN
  file_handle:=UTL_FILE.FOPEN('d:\oracle\sql_scripts\','rebuild_tbsp81.sql','W',2048);
- FOR i in 1..lineno_count LOOP
-  UTL_FILE.PUT_LINE(file_handle,ts_table(i));
-  DBMS_OUTPUT.PUT_LINE(ts_table(i));
+ output_index := ts_table.FIRST;
+ WHILE output_index IS NOT NULL LOOP
+  UTL_FILE.PUT_LINE(file_handle,ts_table(output_index));
+  DBMS_OUTPUT.PUT_LINE(ts_table(output_index));
+  output_index := ts_table.NEXT(output_index);
  END LOOP;
  UTL_FILE.FCLOSE(file_handle);
 EXCEPTION
 WHEN others THEN
-UTL_FILE.FCLOSE(file_handle);
+ BEGIN
+  IF UTL_FILE.IS_OPEN(file_handle) THEN UTL_FILE.FCLOSE(file_handle); END IF;
+ EXCEPTION WHEN OTHERS THEN NULL; -- preserve original exception
+ END;
+ RAISE;
 END;
 BEGIN
 dbms_output.put_line(to_char(lineno_count));
- FOR i in 1..lineno_count LOOP
-  DBMS_OUTPUT.PUT_LINE(ts_table(i));
+ output_index := ts_table.FIRST;
+ WHILE output_index IS NOT NULL LOOP
+  DBMS_OUTPUT.PUT_LINE(ts_table(output_index));
+  output_index := ts_table.NEXT(output_index);
  END LOOP;
 EXCEPTION
 WHEN others THEN

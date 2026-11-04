@@ -53,6 +53,15 @@ REFERÊNCIAS
  https://docs.oracle.com/en/database/oracle/oracle-database/19/refrn/DBA_FREE_SPACE.html
  https://docs.oracle.com/en/database/oracle/oracle-database/19/refrn/DBA_TABLESPACES.html
 
+REVISÃO COMPLEMENTAR 041 — 04/11/2026
+  Correções e melhorias: Plano novo preservado, sem executar COALESCE.
+  Limitações e pendências: Contagem>1 não comprova adjacência nem ganho. DMT/PERMANENT/ONLINE e exclusões não cobrem necessidade de todos os ambientes; saída requer revisão administrativa.
+  Homologação necessária: DMT online com 0/1/2extents e LMT/temp/offline excluídos; quoted names; nenhuma aplicação de DDL.
+  Parâmetros e execução: contratos acima e no corpo; só ambiente controlado.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação: leitura integral e comparação estática; sem compilação/execução
+  Oracle, Windows, alteração de privilégio ou gravação de arquivo no servidor.
+
 AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de
 qualquer utilização em produção. Sua execução é de responsabilidade do
 profissional responsável pelo ambiente. Os mantenedores deste repositório não

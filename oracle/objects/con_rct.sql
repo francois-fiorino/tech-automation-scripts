@@ -45,6 +45,17 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
   Comentários e créditos históricos preservados abaixo.
 
+REVISÃO COMPLEMENTAR 041 — 04/11/2026
+  Correções e melhorias: Corrigida troca TABLE_NAME/SEARCH_CONDITION por FETCH alinhado e lista explícita no INSERT; interrupção de staging.
+  Limitações e pendências: Filtro HM mantido; FKs sem índice homônimo ou pai fora de HM continuam omitidas. CHECK %NULL%, status/deferrability/quoting e nomes30 não completos.
+  Homologação necessária: Tabela e CHECK distintos; FK externa, índices distintos e NOT NULL; comparar staging e todos os scripts, sem replay automático.
+  Parâmetros e execução: contratos acima e no corpo; só ambiente controlado.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação: leitura integral e comparação estática; sem compilação/execução
+  Oracle, Windows, alteração de privilégio ou gravação de arquivo no servidor.
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
+
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
@@ -92,7 +103,8 @@ set termout on
 select 'Creating constraint build script...' from dual;
 rem set termout off
  
-create table cons_temp (owner varchar2(30),
+WHENEVER SQLERROR EXIT FAILURE ROLLBACK
+CREATE TABLE cons_temp (owner varchar2(30),
 			constraint_name varchar2(30),
 			constraint_type varchar2(11),
 			search_condition varchar2(2000),
@@ -167,8 +179,8 @@ BEGIN
       FETCH cons_cursor INTO 	cons_owner,
       				cons_name,
       				cons_type,
-      				cons_sc,
       				cons_tname,
+      				cons_sc,
       				cons_rowner,
 				cons_rcons,
       				cons_dr;
@@ -193,7 +205,9 @@ BEGIN
 		end if;
 	end loop;
 	close cons_col;
-	insert into cons_temp values (cons_owner,
+	insert into cons_temp (owner, constraint_name, constraint_type, table_name,
+ search_condition, referenced_owner, referenced_constraint, delete_rule,
+ constraint_columns, con_number) values (cons_owner,
 				      cons_name,
 				      cons_type,
 				      cons_tname,

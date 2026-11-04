@@ -44,6 +44,19 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
   Comentários e créditos históricos preservados abaixo.
 
+REVISÃO COMPLEMENTAR 041 — 04/11/2026
+  Correções e melhorias: Interrupção SQL antes de instalar/executar; BLOCK_SIZE por tablespace e MAXSIZE ampliado.
+  Limitações e pendências: TS_TEMP preexistente não é limpa e mistura execuções; contrato/posse/concorrência devem ser definidos. REUSE e modelo8i não são backup moderno.
+  Homologação necessária: Staging sujo, falha de compilação, grants diretos, blocksizes diferentes e saída completa.
+  Parâmetros e execução: contratos acima e no corpo; só ambiente controlado.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação: leitura integral e comparação estática; sem compilação/execução
+  Oracle, Windows, alteração de privilégio ou gravação de arquivo no servidor.
+
+REFERÊNCIA: https://docs.oracle.com/en/database/oracle/oracle-database/19/refrn/DBA_TABLESPACES.html
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
+
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
@@ -80,6 +93,7 @@ PROMPT 'Creating tablespace build script...'
 rem SET TERMOUT OFF;
 rem
 
+WHENEVER SQLERROR EXIT FAILURE ROLLBACK
 CREATE OR REPLACE PROCEDURE recreate_tbsp as
    CURSOR get_block IS
      SELECT value 
@@ -136,7 +150,7 @@ CREATE OR REPLACE PROCEDURE recreate_tbsp as
    lv_logging           sys.dba_tablespaces.logging%TYPE;
    lv_extent_man        sys.dba_tablespaces.extent_management%TYPE;
    lv_allocation        sys.dba_tablespaces.allocation_type%TYPE;
-   sub_strg             VARCHAR2(20); 
+   sub_strg             VARCHAR2(128); 
    PROCEDURE write_out(p_line INTEGER, p_name VARCHAR2, 
              p_string VARCHAR2) is
    BEGIN
@@ -163,6 +177,8 @@ BEGIN
               Lv_allocation,
               lv_contents;
       EXIT WHEN ts_cursor%NOTFOUND;
+      SELECT t.block_size INTO block_size FROM sys.dba_tablespaces t
+      WHERE t.tablespace_name = lv_tablespace_name;
       lv_lineno := 1;
       lv_string := ('CREATE TABLESPACE '||lower(lv_tablespace_name));
       lv_first_rec := TRUE;
