@@ -44,6 +44,17 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
   Comentários e créditos históricos preservados abaixo.
 
+REVISÃO COMPLEMENTAR 039 — 04/11/2026
+  Correções e melhorias: Corpo preservado; não substituído por DBMS_STATS silenciosamente.
+  Limitações e pendências: Macros METHOD/NUM_OF_ROWS/PERCENT_TO_USE são texto SQL e permitem injeção; START aplica análise a todos os owners não excluídos. Estatísticas/locks podem afetar planos.
+  Homologação necessária: Métodos e números confiáveis, owners adicionais internos, falha parcial e custo; laboratório isolado.
+  Parâmetros/execução: manter contrato descrito acima e no corpo histórico.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação realizada: leitura integral e comparação estática; sem compilação
+  ou execução Oracle, sem execução de comandos administrativos.
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
+
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento

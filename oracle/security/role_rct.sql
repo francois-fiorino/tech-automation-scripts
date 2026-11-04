@@ -44,6 +44,17 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
   Comentários e créditos históricos preservados abaixo.
 
+REVISÃO COMPLEMENTAR 039 — 04/11/2026
+  Correções e melhorias: Gerador histórico preservado, com bloqueio incondicional antes de consultar hashes.
+  Limitações e pendências: Exportação de PASSWORD/USER$ permanece apenas como referência histórica inacessível pelo fluxo normal. Roles modernas e autenticação externa exigem outra implementação homologada.
+  Homologação necessária: Confirmar EXIT antes de SELECT/Spool; não coletar verificadores reais.
+  Parâmetros/execução: manter contrato descrito acima e no corpo histórico.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação realizada: leitura integral e comparação estática; sem compilação
+  ou execução Oracle, sem execução de comandos administrativos.
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
+
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
@@ -55,6 +66,9 @@ responsabilidade por danos, perdas de dados, indisponibilidade ou outros impacto
 decorrentes do uso, nos limites permitidos pela legislação aplicável.
 ===============================================================================
 */
+PROMPT BLOQUEADO: gerador historico de verificadores de roles; somente revisao.
+EXIT FAILURE ROLLBACK
+
 
 /*  */
 REM

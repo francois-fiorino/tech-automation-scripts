@@ -45,6 +45,17 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Revisão estática somente; implantação depende de laboratório e aprovação do PR.
   Comentários e créditos históricos preservados abaixo.
 
+REVISÃO COMPLEMENTAR 039 — 04/11/2026
+  Correções e melhorias: View de sete colunas mantida como variante alternativa.
+  Limitações e pendências: Arquivos sem extents livres não aparecem. Sem FSFI, incompatível com relatórios que exigem oitava coluna; offline/temp/multitenant exigem tratamento próprio.
+  Homologação necessária: Arquivo cheio, vários extents, ausência de livre e variante CREA_FS em schemas separados.
+  Parâmetros/execução: manter contrato descrito acima e no corpo histórico.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação realizada: leitura integral e comparação estática; sem compilação
+  ou execução Oracle, sem execução de comandos administrativos.
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
+
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento

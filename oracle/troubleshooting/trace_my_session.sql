@@ -45,6 +45,17 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
   Comentários e créditos históricos preservados abaixo.
 
+REVISÃO COMPLEMENTAR 039 — 04/11/2026
+  Correções e melhorias: Corpo preservado; TRUE/TRUE mantém coleta de waits e binds.
+  Limitações e pendências: Binds podem conter dados pessoais/segredos. Definir janela, quota e desativação; SID é local à instância e conexão atual.
+  Homologação necessária: Usar binds fictícios, validar arquivo/overhead e helper de desativação na mesma sessão.
+  Parâmetros/execução: manter contrato descrito acima e no corpo histórico.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação realizada: leitura integral e comparação estática; sem compilação
+  ou execução Oracle, sem execução de comandos administrativos.
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
+
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento

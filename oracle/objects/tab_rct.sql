@@ -45,6 +45,17 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
   Comentários e créditos históricos preservados abaixo.
 
+REVISÃO COMPLEMENTAR 039 — 04/11/2026
+  Correções e melhorias: Falhas SQL interrompem o script; T_TEMP excluída do cursor de tabelas.
+  Limitações e pendências: Saída ainda tem DROP, omite precisão NUMBER/defaults/LOB/partições e usa LOWER sem quoting; não é recuperação fiel. DDL confirma transação; staging não é temporário de sessão.
+  Homologação necessária: T_TEMP existente, erro de INSERT, NUMBER(p,s) e schema pequeno descartável; nunca aplicar saída em aplicação.
+  Parâmetros/execução: manter contrato descrito acima e no corpo histórico.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação realizada: leitura integral e comparação estática; sem compilação
+  ou execução Oracle, sem execução de comandos administrativos.
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
+
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
@@ -89,6 +100,7 @@ set termout on
 select 'Creating table build script...' from dual;
 rem set termout off
  
+whenever sqlerror exit failure rollback
 create table t_temp
      (lineno NUMBER, tb_owner VARCHAR2(30), tb_name VARCHAR2(30),
       text VARCHAR2(2000))
@@ -109,6 +121,7 @@ DECLARE
 				freelists,
 				freelist_groups
 			from     user_tables
+                            where table_name <> 'T_TEMP'
 			order by  table_name;
    CURSOR col_cursor (c_tab VARCHAR2) IS select   
 						  column_name,

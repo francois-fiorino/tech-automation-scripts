@@ -44,6 +44,17 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
   Comentários e créditos históricos preservados abaixo.
 
+REVISÃO COMPLEMENTAR 039 — 04/11/2026
+  Correções e melhorias: WRITE_OUT agora usa seus parâmetros; falhas SQL interrompem antes de reutilizar G_TEMP.
+  Limitações e pendências: SYS.OBJAUTH$ é interface interna; buffers 20/255, nomes LOWER e ordem de grantor ainda limitam fidelidade. Não adicionar senhas ao arquivo apesar da recomendação histórica.
+  Homologação necessária: G_TEMP preexistente, falha intermediária, grants em cadeia e nomes quoted; comparar grantor e ordem.
+  Parâmetros/execução: manter contrato descrito acima e no corpo histórico.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação realizada: leitura integral e comparação estática; sem compilação
+  ou execução Oracle, sem execução de comandos administrativos.
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
+
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
@@ -99,6 +110,7 @@ set termout on
 select 'Creating object grant script by user...' from dual;
 rem set termout off
  
+whenever sqlerror exit failure rollback
 create table g_temp (seq NUMBER, grantor_owner varchar2(20),
                     text VARCHAR2(255))
 / 
@@ -128,7 +140,7 @@ DECLARE
    procedure write_out(p_seq INTEGER, p_owner VARCHAR2, p_string VARCHAR2) is
    begin
       insert into g_temp (seq, grantor_owner,text)
-             values (lv_sequence, lv_grantor, lv_string);
+             values (p_seq, p_owner, p_string);
    end;
  
 BEGIN

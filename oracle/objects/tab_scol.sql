@@ -45,6 +45,17 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
   Comentários e créditos históricos preservados abaixo.
 
+REVISÃO COMPLEMENTAR 039 — 04/11/2026
+  Correções e melhorias: Colunas projetadas/agrupadas qualificadas com alias A para evitar ambiguidades com DBA_TAB_COLUMNS.
+  Limitações e pendências: INNER JOIN omite tabelas sem colunas visíveis; estatísticas podem ser NULL/desatualizadas. CREATE simples preservado; grant direto obrigatório.
+  Homologação necessária: Compilar view em laboratório; comparar duas tabelas homônimas em owners distintos, estatísticas NULL e contagem de colunas.
+  Parâmetros/execução: manter contrato descrito acima e no corpo histórico.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação realizada: leitura integral e comparação estática; sem compilação
+  ou execução Oracle, sem execução de comandos administrativos.
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
+
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
@@ -60,13 +71,13 @@ decorrentes do uso, nos limites permitidos pela legislação aplicável.
 /*  */
 create view tab_stat_col as
 select
-a.OWNER,a.TABLE_NAME,TABLESPACE_NAME,
-CLUSTER_NAME,PCT_FREE,PCT_USED,INI_TRANS,MAX_TRANS,      
-INITIAL_EXTENT,NEXT_EXTENT,    
-MIN_EXTENTS,MAX_EXTENTS,PCT_INCREASE,FREELISTS,      
-FREELIST_GROUPS,BACKED_UP,NUM_ROWS,BLOCKS,         
-EMPTY_BLOCKS,AVG_SPACE,CHAIN_CNT,      
-AVG_ROW_LEN,DEGREE,INSTANCES,CACHE,TABLE_LOCK,     
+a.OWNER,a.TABLE_NAME,a.TABLESPACE_NAME,
+a.CLUSTER_NAME,a.PCT_FREE,a.PCT_USED,a.INI_TRANS,a.MAX_TRANS,      
+a.INITIAL_EXTENT,a.NEXT_EXTENT,    
+a.MIN_EXTENTS,a.MAX_EXTENTS,a.PCT_INCREASE,a.FREELISTS,      
+a.FREELIST_GROUPS,a.BACKED_UP,a.NUM_ROWS,a.BLOCKS,         
+a.EMPTY_BLOCKS,a.AVG_SPACE,a.CHAIN_CNT,      
+a.AVG_ROW_LEN,a.DEGREE,a.INSTANCES,a.CACHE,a.TABLE_LOCK,     
  count(b.table_name) no_of_cols
 from
  dba_tables a, dba_tab_columns b
@@ -74,11 +85,11 @@ where
  a. owner = b.owner and
  a.table_name=b.table_name
 group by
-a.OWNER,a.TABLE_NAME,TABLESPACE_NAME,
-CLUSTER_NAME,PCT_FREE,PCT_USED,INI_TRANS,MAX_TRANS,      
-INITIAL_EXTENT,NEXT_EXTENT,    
-MIN_EXTENTS,MAX_EXTENTS,PCT_INCREASE,FREELISTS,      
-FREELIST_GROUPS,BACKED_UP,NUM_ROWS,BLOCKS,         
-EMPTY_BLOCKS,AVG_SPACE,CHAIN_CNT,      
-AVG_ROW_LEN,DEGREE,INSTANCES,CACHE,TABLE_LOCk  
+a.OWNER,a.TABLE_NAME,a.TABLESPACE_NAME,
+a.CLUSTER_NAME,a.PCT_FREE,a.PCT_USED,a.INI_TRANS,a.MAX_TRANS,      
+a.INITIAL_EXTENT,a.NEXT_EXTENT,    
+a.MIN_EXTENTS,a.MAX_EXTENTS,a.PCT_INCREASE,a.FREELISTS,      
+a.FREELIST_GROUPS,a.BACKED_UP,a.NUM_ROWS,a.BLOCKS,         
+a.EMPTY_BLOCKS,a.AVG_SPACE,a.CHAIN_CNT,      
+a.AVG_ROW_LEN,a.DEGREE,a.INSTANCES,a.CACHE,a.TABLE_LOCK  
 /

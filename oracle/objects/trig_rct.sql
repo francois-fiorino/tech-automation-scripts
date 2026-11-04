@@ -45,6 +45,17 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
   Comentários e créditos históricos preservados abaixo.
 
+REVISÃO COMPLEMENTAR 039 — 04/11/2026
+  Correções e melhorias: Falhas SQL interrompem antes de reutilizar TRIG_TEMP.
+  Limitações e pendências: LONG 4000 pode truncar body, prefixo ON cabe em variável de owner limitada, WHEN sem parênteses pode ser inválido. Separador inicial / pode repetir buffer; tipos modernos não cobertos. Não usar saída como backup.
+  Homologação necessária: Staging existente, body maior que 4000, WHEN, multi-event, UPDATE OF e estado DISABLED; inspecionar cada DDL sem executá-lo automaticamente.
+  Parâmetros/execução: manter contrato descrito acima e no corpo histórico.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação realizada: leitura integral e comparação estática; sem compilação
+  ou execução Oracle, sem execução de comandos administrativos.
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
+
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
@@ -73,6 +84,7 @@ set termout on arraysize 1
 select 'Creating trigger build script...' from dual;
 rem set termout off
 set echo on
+whenever sqlerror exit failure rollback
 create table trig_temp (owner varchar2(30),
 			trigger_name varchar2(30),
 			trigger_type varchar2(16),

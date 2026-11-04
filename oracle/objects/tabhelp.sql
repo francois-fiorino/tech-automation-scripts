@@ -14,7 +14,7 @@ FUNCIONAMENTO DETALHADO
 PRÉ-REQUISITOS E PRIVILÉGIOS
   SQL*Plus ou SQLcl; conexão ao banco/container que se deseja diagnosticar.
   Privilégios administrativos e grants DIRETOS conforme LIMITAÇÕES; roles não
-  bastam para compilar dependências de rotinas armazenadas. EXECUTE em DBMS_OUTPUT e SERVEROUTPUT habilitado (o script o configura).
+  bastam para compilar dependências de rotinas armazenadas. EXECUTE em DBMS_OUTPUT e SERVEROUTPUT habilitado pelo chamador (o script não o configura).
   Não requer AWR/ASH nesta implementação.
 
 OBJETOS, VIEWS E PACOTES
@@ -44,6 +44,17 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Buffers de nomes ampliados para 128 e comentários para 4000 caracteres, evitando limites antigos 32/2000; cursores preservados. 
   Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
   Comentários e créditos históricos preservados abaixo.
+
+REVISÃO COMPLEMENTAR 039 — 04/11/2026
+  Correções e melhorias: Corpo preservado; corrigida afirmação documental sobre SERVEROUTPUT.
+  Limitações e pendências: UPPER não resolve quoted mixed case; comentários de colunas sem ordenação e tabela inexistente sem mensagem explícita. EXECUTE permite visualizar comentários via direitos do definidor.
+  Homologação necessária: SET SERVEROUTPUT ON; EXEC table_help('HR','EMPLOYEES'); testar tabela ausente e comentários longos.
+  Parâmetros/execução: manter contrato descrito acima e no corpo histórico.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação realizada: leitura integral e comparação estática; sem compilação
+  ou execução Oracle, sem execução de comandos administrativos.
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
 
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
