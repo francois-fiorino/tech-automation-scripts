@@ -45,6 +45,17 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
   Comentários e créditos históricos preservados abaixo.
 
+REVISÃO COMPLEMENTAR 044 — 04/11/2026
+  Correções e melhorias: Interrupção SQL antes de CREATE/TRUNCATE BU_TEMP; gerador completo mantido.
+  Limitações e pendências: tar cvrf emstream, HOSTinterativo/exit, wildcardcompress, cópiaredo e controlfile semaspas continuam não homologados. Não filtra tablespacetemp e falhas podem manter backupmode.
+  Homologação necessária: Staging existente, múltiplos arquivos, pathscomespaços e erro de pipeline; apenas simular saída, sem Shell ou backup.
+  Parâmetros/execução: contratos descritos acima e no corpo; somente laboratório.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação: leitura integral e análise estática; sem compilação/execução Oracle,
+  submissão de jobs, backup/recovery, Shell/Windows/VMS ou coleta de credenciais.
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
+
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
@@ -61,6 +72,7 @@ decorrentes do uso, nos limites permitidos pela legislação aplicável.
 REM Script to create a hot backup script on UNIX
 REM Created 6/23/98 MRA
 REM
+WHENEVER SQLERROR EXIT FAILURE ROLLBACK
 create table bu_temp (line_no number,line_txt varchar2(2000))
 storage (initial 1m next 1m pctincrease 0);
 truncate table bu_temp;

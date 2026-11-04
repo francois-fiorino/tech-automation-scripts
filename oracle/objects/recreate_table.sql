@@ -44,6 +44,17 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
   Comentários e créditos históricos preservados abaixo.
 
+REVISÃO COMPLEMENTAR 044 — 04/11/2026
+  Correções e melhorias: Fechamentos SUBPART_KEY/SUBPART_TBSP/PART_CURSOR movidos para os respectivos caminhos corretos; algoritmo completo preservado.
+  Limitações e pendências: Sempre gera RANGE/HASH mesmo com outros tipos. T_TEMP não grava owner e ordenação externa por nome mistura homônimos; buffers2000/LONG, nomes LOWER, defaults/LOB/constraints/storage incompletos. Não é backup fiel.
+  Homologação necessária: Zero/uma/várias subchaves/partições, duas tabelas homônimas em owners distintos e LONG longo; comparar catálogo sem executar DROP gerado.
+  Parâmetros/execução: contratos descritos acima e no corpo; somente laboratório.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação: leitura integral e análise estática; sem compilação/execução Oracle,
+  submissão de jobs, backup/recovery, Shell/Windows/VMS ou coleta de credenciais.
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
+
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
@@ -351,8 +362,8 @@ BEGIN
            nul_cnt:=nul_cnt+1;
          end if;  
         END LOOP;
-       CLOSE subpart_key;
        end if;
+       CLOSE subpart_key;
 --  
        if lv_subpartition_count>1 then
         OPEN subpart_tbsp(lv_owner,lv_table_name);
@@ -369,8 +380,8 @@ BEGIN
           nul_cnt:=nul_cnt+1;
          end if;
         END LOOP;
-       end if;
        CLOSE subpart_tbsp;
+       end if;
 --
        lv_string := 'SUBPARTITION BY HASH ('||tmp_string||')';
        write_out(lv_table_name, lv_string);
@@ -510,8 +521,8 @@ BEGIN
         close subpart_cursor;
         end if;  
        END LOOP;
-       close part_cursor;
       end if;
+      close part_cursor;
 --
       lv_string := ')'||chr(10)||'/';
       write_out(lv_table_name, lv_string);

@@ -45,6 +45,17 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
   Comentários e créditos históricos preservados abaixo.
 
+REVISÃO COMPLEMENTAR 044 — 04/11/2026
+  Correções e melhorias: Oito triggers e regras de integridade/cascata preservados.
+  Limitações e pendências: COUNT porlinha não impõe integridade sob DELETEconcorrente dos pais; SITE_IDNULL falha por contagenszero. CNET.UPDATE_TABLES ausente pode alterar outras tabelas; não presumir FK equivalente.
+  Homologação necessária: Pais0/1/2, SITE_IDNULL, mudança/desligamento de pais e cascata; clone com DDL completo, sem instalar em schema genérico.
+  Parâmetros/execução: contratos descritos acima e no corpo; somente laboratório.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação: leitura integral e análise estática; sem compilação/execução Oracle,
+  submissão de jobs, backup/recovery, Shell/Windows/VMS ou coleta de credenciais.
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
+
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento

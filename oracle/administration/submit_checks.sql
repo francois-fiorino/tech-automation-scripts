@@ -45,6 +45,17 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Revisão estática somente; implantação depende de testes e aprovação do PR.
   Comentários e créditos históricos preservados abaixo.
 
+REVISÃO COMPLEMENTAR 044 — 04/11/2026
+  Correções e melhorias: Procedimento SUBMIT_CHECKS preservado; não agenda job diretamente.
+  Limitações e pendências: Depende de DBA_UTILITIES completo e de contratos CHECK_TABLES/FLUSH_IT; números10/10000/85/100 não foram redefinidos. Instalação homônima pode alterar comportamento de jobs existentes.
+  Homologação necessária: Fornecer pacote/grants diretos; confirmar sequência e efeitos das duas chamadas com dados fictícios.
+  Parâmetros/execução: contratos descritos acima e no corpo; somente laboratório.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação: leitura integral e análise estática; sem compilação/execução Oracle,
+  submissão de jobs, backup/recovery, Shell/Windows/VMS ou coleta de credenciais.
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
+
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento

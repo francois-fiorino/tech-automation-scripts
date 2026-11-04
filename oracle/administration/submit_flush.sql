@@ -45,6 +45,17 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Revisão estática somente; implantação depende de testes e aprovação do PR.
   Comentários e créditos históricos preservados abaixo.
 
+REVISÃO COMPLEMENTAR 044 — 04/11/2026
+  Correções e melhorias: Agenda de3horas eCOMMIT preservados.
+  Limitações e pendências: DBMS_JOB dispara após confirmação; nova execução do arquivo cria outro job e COMMIT confirma transação do chamador. FLUSH_IT85/10 depende de definição compatível, não equivale a chamada85/100.
+  Homologação necessária: Revisar rotina/grants/usuárioexecutor, duplicidade de job e intervalo; não agendar nesta revisão.
+  Parâmetros/execução: contratos descritos acima e no corpo; somente laboratório.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação: leitura integral e análise estática; sem compilação/execução Oracle,
+  submissão de jobs, backup/recovery, Shell/Windows/VMS ou coleta de credenciais.
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
+
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento

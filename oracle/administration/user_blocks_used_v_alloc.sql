@@ -45,6 +45,17 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
   Comentários e créditos históricos preservados abaixo.
 
+REVISÃO COMPLEMENTAR 044 — 04/11/2026
+  Correções e melhorias: Interrupção SQL no script e no INDEX_SZ gerado antes de CREATE/TRUNCATE STAT_TEMP.
+  Limitações e pendências: DELETEinicial e DDL podem confirmar dados; chavessemowner, ROWIDrestrito e blocksizepadrão misturam identidade. Nomes/macros semescaping e STARTautomático continuam impedindo uso seguro.
+  Homologação necessária: STAT_TEMPpreexistente deve interromper antes deTRUNCATE; ownershomônimos, multiblocksize e arquivoSQLpreexistente; não usar resultado para shrink.
+  Parâmetros/execução: contratos descritos acima e no corpo; somente laboratório.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação: leitura integral e análise estática; sem compilação/execução Oracle,
+  submissão de jobs, backup/recovery, Shell/Windows/VMS ou coleta de credenciais.
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
+
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
@@ -69,6 +80,7 @@ column db_block_size new_value blocksize noprint
 ttitle off
 define cr='chr(10)'
 define qt='chr(39)'
+WHENEVER SQLERROR EXIT FAILURE ROLLBACK
 delete temp_size_table;
 select value db_block_size from v$parameter where name='db_block_size';
 SPOOL fill_sz.sql
@@ -80,6 +92,7 @@ SELECT 'INSERT INTO temp_size_table'||&&cr||
  WHERE segment_type ='TABLE' AND owner = upper('&owner');
 SPOOL OFF
 spool index_sz.sql
+select 'whenever sqlerror exit failure rollback' from dual;
 select 'create table stat_temp storage (initial 1m next 1m) as select * from index_stats ;'||&&cr||
 'truncate table stat_temp;'  
 from dual;

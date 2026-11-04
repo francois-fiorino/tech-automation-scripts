@@ -14,7 +14,7 @@ FUNCIONAMENTO DETALHADO
 PRÉ-REQUISITOS E PRIVILÉGIOS
   SQL*Plus ou SQLcl; conexão ao banco/container que se deseja diagnosticar.
   Grants DIRETOS de criação/execução/consulta e permissões administrativas
-  conforme limitações; não instalar variantes sobre objetos de trabalho. EXECUTE em DBMS_OUTPUT e SERVEROUTPUT habilitado (o script o configura).
+  conforme limitações; não instalar variantes sobre objetos de trabalho. EXECUTE em DBMS_OUTPUT e SERVEROUTPUT habilitado pelo chamador (não configurado aqui).
   Não requer AWR/ASH nesta implementação.
 
 OBJETOS, VIEWS E PACOTES
@@ -45,6 +45,17 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
   Comentários e créditos históricos preservados abaixo.
 
+REVISÃO COMPLEMENTAR 044 — 04/11/2026
+  Correções e melhorias: EXIT incondicional antes de instalar UMAINT ou consultar verificadores.
+  Limitações e pendências: OLD_PASSglobal não vincula usuário; RESET_PASS chama CHANGE_PASS que sobrescreve OLD_PASS. Hashlegado/injeção/definerrights e erros ocultos impedem adaptação segura sem contrato de autenticação moderno.
+  Homologação necessária: Confirmar barreira antes de CREATE PACKAGE; definir processo homologado de autenticação/rotação sem usar contas reais.
+  Parâmetros/execução: contratos descritos acima e no corpo; somente laboratório.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação: leitura integral e análise estática; sem compilação/execução Oracle,
+  submissão de jobs, backup/recovery, Shell/Windows/VMS ou coleta de credenciais.
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
+
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
@@ -56,6 +67,9 @@ responsabilidade por danos, perdas de dados, indisponibilidade ou outros impacto
 decorrentes do uso, nos limites permitidos pela legislação aplicável.
 ===============================================================================
 */
+PROMPT BLOQUEADO: operacao legada critica; somente revisao.
+EXIT FAILURE ROLLBACK
+
 
 /*  */
 create or replace package umaint as

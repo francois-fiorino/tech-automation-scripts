@@ -45,6 +45,17 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
   Comentários e créditos históricos preservados abaixo.
 
+REVISÃO COMPLEMENTAR 044 — 04/11/2026
+  Correções e melhorias: EXIT incondicional antes dos1043 ANALYZE INDEX DELETE STATISTICS; lista integral mantida.
+  Limitações e pendências: Todos1043nomes literais não qualificados dependem do schema, incluindo índices internos. Remover estatísticas pode degradar planos; não é DROP INDEX nem limpeza de espaço.
+  Homologação necessária: Barreira antes do primeiro ANALYZE; plano de export/restauração de estatísticas e seleção de objetos exigem projeto separado, sem aplicação ao catálogo.
+  Parâmetros/execução: contratos descritos acima e no corpo; somente laboratório.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação: leitura integral e análise estática; sem compilação/execução Oracle,
+  submissão de jobs, backup/recovery, Shell/Windows/VMS ou coleta de credenciais.
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
+
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
@@ -56,6 +67,9 @@ responsabilidade por danos, perdas de dados, indisponibilidade ou outros impacto
 decorrentes do uso, nos limites permitidos pela legislação aplicável.
 ===============================================================================
 */
+PROMPT BLOQUEADO: operacao legada critica; somente revisao.
+EXIT FAILURE ROLLBACK
+
 
 /*  */
 analyze index SYS_IL0000071676C00036$$ delete statistics;                       

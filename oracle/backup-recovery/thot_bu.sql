@@ -45,6 +45,17 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
   Comentários e créditos históricos preservados abaixo.
 
+REVISÃO COMPLEMENTAR 044 — 04/11/2026
+  Correções e melhorias: EXIT incondicional antes do backup OpenVMS gerado; ordem e todos caminhos históricos preservados.
+  Limitações e pendências: RAWDAT01 fora da janela RAW_DATA; mistura pathsUnix/sintaxeVMS, BACKUP/IGNORE, cópiaredo e /DELETE archives podem comprometer recuperação. Sem inventar fita/diretório/plano homologado.
+  Homologação necessária: Inspecionar BEGIN/END e cada cópia; testar restauração em ambiente isolado somente após redesenhar plano. Nenhum HOST ou archive removido.
+  Parâmetros/execução: contratos descritos acima e no corpo; somente laboratório.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação: leitura integral e análise estática; sem compilação/execução Oracle,
+  submissão de jobs, backup/recovery, Shell/Windows/VMS ou coleta de credenciais.
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
+
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
@@ -56,6 +67,9 @@ responsabilidade por danos, perdas de dados, indisponibilidade ou outros impacto
 decorrentes do uso, nos limites permitidos pela legislação aplicável.
 ===============================================================================
 */
+PROMPT BLOQUEADO: operacao legada critica; somente revisao.
+EXIT FAILURE ROLLBACK
+
 
 /*  */
 REM Online Backup Script for ORCNETP1 instance                                                                                      

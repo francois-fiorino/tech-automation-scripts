@@ -45,6 +45,20 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
   Comentários e créditos históricos preservados abaixo.
 
+REVISÃO COMPLEMENTAR 044 — 04/11/2026
+  Correções e melhorias: AUTHID CURRENT_USER, nomes de catálogo citados, inicialização dentro do bloco protegido e WRITEAPPEND por caracteres; offsetsLONG continuam embytes. Linha ausente retorna0; cleanup preservado.
+  Limitações e pendências: DBMS_ASSERTnão é usado: identificadores vêm do catálogo e são escapados individualmente. ROWIDfísico/ALL_OBJECTS/DATA_OBJECT_ID ainda requer testes de partições/move; CLOB/INSTRNULL, charsets suplementares e limitesgrandes dependem de homologaçãoOracle.
+  Homologação necessária: LONGnulo/vazio, 0/1/várioschunks, padrão atravessandochunks, acentos/suplementares, ROWIDinexistente e erros de resolução/acesso; verificar cursor/LOBtemporário.
+  Parâmetros/execução: contratos descritos acima e no corpo; somente laboratório.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação: leitura integral e análise estática; sem compilação/execução Oracle,
+  submissão de jobs, backup/recovery, Shell/Windows/VMS ou coleta de credenciais.
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
+
+REFERÊNCIAS: https://docs.oracle.com/en/database/oracle/oracle-database/19/arpls/DBMS_SQL.html
+https://docs.oracle.com/en/database/oracle/oracle-database/19/arpls/DBMS_LOB.html
+
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
@@ -58,7 +72,7 @@ decorrentes do uso, nos limites permitidos pela legislação aplicável.
 */
 
 /*  */
-CREATE OR REPLACE PACKAGE utl_long AS
+CREATE OR REPLACE PACKAGE utl_long AUTHID CURRENT_USER AS
 
   /* SubType for object names */
   SUBTYPE st_object_name IS all_objects.object_name%TYPE;
@@ -112,28 +126,37 @@ CREATE OR REPLACE PACKAGE BODY utl_long AS
     v_pos PLS_INTEGER := 0;
     v_len PLS_INTEGER := 0;
     v_pce VARCHAR2 (32767);
-    v_cur PLS_INTEGER := DBMS_SQL.OPEN_CURSOR;
-    v_col rt_column := rowid_to_column (vp_row);
+    v_cur PLS_INTEGER := NULL;
+    v_col rt_column;
   BEGIN
+    v_col := rowid_to_column(vp_row);
+    v_cur := DBMS_SQL.OPEN_CURSOR;
     DBMS_LOB.CREATETEMPORARY (v_clb, TRUE, DBMS_LOB.CALL);
-	DBMS_SQL.PARSE (v_cur, 'SELECT ' || v_col.column_name || ' FROM ' || 
-	  v_col.owner || '.' || v_col.table_name || ' WHERE ROWID = :v_row', DBMS_SQL.NATIVE);
+	DBMS_SQL.PARSE (v_cur, 'SELECT "' || REPLACE(v_col.column_name,'"','""') || '" FROM "' ||
+      REPLACE(v_col.owner,'"','""') || '"."' || REPLACE(v_col.table_name,'"','""') || '" WHERE ROWID = :v_row', DBMS_SQL.NATIVE);
 	DBMS_SQL.BIND_VARIABLE (v_cur, 'v_row', vp_row);
     DBMS_SQL.DEFINE_COLUMN_LONG (v_cur, 1);
     v_exe := DBMS_SQL.EXECUTE_AND_FETCH (v_cur);
+    IF v_exe=0 THEN
+      DBMS_SQL.CLOSE_CURSOR(v_cur);
+      v_cur := NULL;
+      DBMS_LOB.FREETEMPORARY(v_clb);
+      RETURN 0;
+    END IF;
 	LOOP
       DBMS_SQL.COLUMN_VALUE_LONG (v_cur, 1, 32767, v_pos, v_pce, v_len);
       EXIT WHEN v_len = 0;
-      DBMS_LOB.WRITE(v_clb, v_len, v_pos + 1, v_pce);
+      DBMS_LOB.WRITEAPPEND(v_clb, LENGTH(v_pce), v_pce);
       v_pos := v_pos + v_len;
     END LOOP;
     DBMS_SQL.CLOSE_CURSOR (v_cur);
+    v_cur := NULL;
 	v_result:=DBMS_LOB.INSTR(v_clb,vp_exp);
     DBMS_LOB.FREETEMPORARY(v_clb);
     RETURN v_result;
   EXCEPTION
     WHEN OTHERS THEN
-	  if DBMS_SQL.IS_OPEN(v_cur) then DBMS_SQL.CLOSE_CURSOR(v_cur); end if;
+	  if v_cur IS NOT NULL AND DBMS_SQL.IS_OPEN(v_cur) then DBMS_SQL.CLOSE_CURSOR(v_cur); end if;
       if DBMS_LOB.ISTEMPORARY(v_clb)=1 then DBMS_LOB.FREETEMPORARY(v_clb); end if;
 	RAISE;
   END;
