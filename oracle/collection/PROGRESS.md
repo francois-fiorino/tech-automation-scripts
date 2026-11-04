@@ -418,3 +418,7 @@ Ajuste final do mesmo lote 036: parâmetros internos do cursor UPDATE_IT renomea
 ## Lote 037 — revisão complementar administrativa confirmada
 
 20 scripts (11 alterações de código, nove corpos preservados com pendências documentadas); commit 5c46898439576d594ef844d4575660995fb4fadf. Todos conferidos após publicação. Acumulado40/177; restam137 para revisão complementar. Parser local dos UPDATEs e fixtures passaram, sem runtime Oracle/Windows. Inventário e ADMIN_REVIEW_VERIFICATION.json atualizados com próxima fila038. Nenhum script main alterado, nenhuma integração automática.
+
+## Lote 038 — revisão complementar confirmada em 04/11/2026
+
+20 arquivos (nove alterações de código,11 revisões documentais); commit 169cc5270f3af21fc0a336badeda46c314beb09c; conteúdo/caminho/blob dos20 confirmados após publicação. FILL_SZ teve todos os1290 INSERTs analisados, com corpo preservado. Fixtures locais e sh -n passaram, sem Oracle/Windows/ajuste administrativo de SO. Acumulado60/177; restam117, próxima fila039 em ADMIN_REVIEW_VERIFICATION.json. Totais476 main e177 revisão preservados; nenhum merge.

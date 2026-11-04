@@ -1,6 +1,6 @@
 # Relatório de revisão e publicação da coleção Oracle 2015
 
-Atualizado em 03/11/2026. **Projeto em andamento: revisão estática e publicação de implementações novas; homologação Oracle e propostas administrativas continuam pendentes.**
+Atualizado em 04/11/2026. **Projeto em andamento: revisão estática e publicação de implementações novas; homologação Oracle e propostas administrativas continuam pendentes.**
 
 ## Estado atual reconciliado
 
@@ -102,10 +102,18 @@ Ajuste final da revisão 036: [parâmetros internos do cursor UPDATE_IT desambig
 
 Mais 20 scripts reavaliados: 11 alterações de código e nove corpos preservados com pendências explícitas. Commit confirmado: [5c46898439](https://github.com/francois-fiorino/tech-automation-scripts/commit/5c46898439576d594ef844d4575660995fb4fadf). O gerador de links usa metadados sem leitura de senha e gera saída bloqueada; o ciclo da tabela de reparo evita purge/drop de evidências; o template de cluster inclui índice/mapeamento correto; a amostragem de subconjunto tem proteção de visita e emissão de percentual sem dependência de NLS; shared pool recebe validação/cleanup; HITRATIO trata denominador zero sem inserir segunda coleta artificial.
 
-Acumulado desta fase: **40 de 177** scripts reavaliados (**27 alterações de código e 13 revisões documentais**). Restam **137** na fila complementar, além de homologação dos 177. Os 20 arquivos do lote 037 foram confirmados por caminho/conteúdo/blob. Parser local e fixtures passaram; nenhum Oracle/Windows foi executado. Detalhes em [ADMIN_REVIEW.md](ADMIN_REVIEW.md) e [ADMIN_REVIEW_VERIFICATION.json](ADMIN_REVIEW_VERIFICATION.json). Totais permanecem 476 main e 177 propostas; nenhum merge.
+Acumulado desta fase: **40 de 177** scripts reavaliados (**27 alterações de código e 13 revisões documentais**). Após o lote 037 restavam **137** na fila complementar, além de homologação dos 177. Os 20 arquivos do lote 037 foram confirmados por caminho/conteúdo/blob. Parser local e fixtures passaram; nenhum Oracle/Windows foi executado. Detalhes em [ADMIN_REVIEW.md](ADMIN_REVIEW.md) e [ADMIN_REVIEW_VERIFICATION.json](ADMIN_REVIEW_VERIFICATION.json). Totais permanecem 476 main e 177 propostas; nenhum merge.
+
+## Revisão administrativa complementar — lote 038 (04/11/2026)
+
+Mais 20 scripts: **nove alterações de código e 11 revisões documentais**. Publicação confirmada no commit [169cc5270f](https://github.com/francois-fiorino/tech-automation-scripts/commit/169cc5270f3af21fc0a336badeda46c314beb09c). Corrigidos gerador de identidade ROWID, colisão de nomes no staging de índices, quoting/buffers, CTAS externo, lista IN e guardas contra TRUNCATE após CREATE falho. O Shell legado agora tem barreira incondicional antes de hdparm/escritas em /proc; valores/comandos históricos permanecem abaixo para revisão, sem execução.
+
+Todos os 1.290 INSERTs de FILL_SZ foram conferidos por parser e estrutura; corpo integral preservado. Fixtures locais e `sh -n` passaram. Não houve compilação/execução Oracle nem ajuste de kernel/disco; não foram declarados homólogos os algoritmos preservados. As pendências por script constam em [ADMIN_REVIEW.md](ADMIN_REVIEW.md).
+
+Acumulado atual: **60/177 scripts reavaliados**, **36 alterações de código e 24 revisões documentais**, com **117** na fila complementar. Os 20 arquivos deste lote foram conferidos por conteúdo/caminho/blob após publicação. Totais da coleção permanecem **476 main e 177 propostas**; nenhum merge. [Checkpoint e próxima fila](ADMIN_REVIEW_VERIFICATION.json).
 
 ## Próximo ponto de retomada
 
-Os 49 requisitos anteriormente retidos já possuem destinos novos confirmados. Não há requisito restante dessa fila para publicar. Continuar a revisão complementar das 137 propostas restantes pela fila `next_batch` de ADMIN_REVIEW_VERIFICATION.json, em lotes de até 20. Resolver limitações e homologar em laboratório descartável, com contratos/objetos, versão e resultados verificáveis.
+Os 49 requisitos anteriormente retidos já possuem destinos novos confirmados. Não há requisito restante dessa fila para publicar. Continuar a revisão complementar das 117 propostas restantes pela fila `next_batch` de ADMIN_REVIEW_VERIFICATION.json, em lotes de até 20. Resolver limitações e homologar em laboratório descartável, com contratos/objetos, versão e resultados verificáveis.
 
 Nenhum merge automático está autorizado. O projeto não é declarado concluído enquanto as propostas e homologações pendentes permanecerem abertas. Não há execução em segundo plano.

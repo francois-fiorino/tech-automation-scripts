@@ -1,6 +1,6 @@
 # Revisão complementar das propostas administrativas
 
-Data: 03/11/2026. **40 de 177 scripts reavaliados nesta fase; 27 com alteração de código e 13 com comportamento mantido. Nenhuma compilação/execução Oracle.**
+Atualizado em 04/11/2026. **60 de 177 scripts reavaliados nesta fase; 36 com alteração de código e 24 com comportamento mantido. Nenhuma compilação/execução Oracle.**
 
 Commit da revisão 036: [0c6e9ce71d3ffa3d8d4da1bd303a827474ae5d8a](https://github.com/francois-fiorino/tech-automation-scripts/commit/0c6e9ce71d3ffa3d8d4da1bd303a827474ae5d8a). Todos os 20 scripts e o roteiro auxiliar de laboratório foram conferidos após publicação, por conteúdo/caminho/blob. O roteiro não foi executado.
 
@@ -394,29 +394,224 @@ Denominador do ratio de período protegido por NULLIF; erro deixa de inserir seg
 
 Os dois UPDATEs de HITRATIO passaram pelo parser SQLGlot em dialeto Oracle. Inspeções locais verificaram ausência de leitura de senha em SYS.LINK$ no novo gerador, barreira EXIT no arquivo gerado, ciclo create-only da tabela DBMS_REPAIR, template de cluster com índice e coluna local correta, guards de shared pool e cleanup. Fixtures locais cobriram grafos com ciclo/diamante/self-edge, denominador zero e quoting de HOST. Modelos de grafo não equivalem a executar o pacote SUBSETDATA. Nenhum script foi executado ou compilado em Oracle/Windows; os erros e limitações de domínio permanecem descritos individualmente.
 
+## Revisão 038 — 04/11/2026
+
+Mais 20 scripts reavaliados: nove alterações de código e 11 revisões documentais. Commit [169cc5270f3af21fc0a336badeda46c314beb09c](https://github.com/francois-fiorino/tech-automation-scripts/commit/169cc5270f3af21fc0a336badeda46c314beb09c); todos os arquivos foram conferidos por conteúdo/caminho/blob após publicação. Permanecem no PR #2; nenhum merge ou execução Oracle/Windows.
+
+| Script | Tratamento | Blob SHA confirmado |
+|---|---|---|
+| [oracle/memory/keep_them.sql](https://github.com/francois-fiorino/tech-automation-scripts/blob/169cc5270f3af21fc0a336badeda46c314beb09c/oracle/memory/keep_them.sql) | cabeçalho; corpo preservado | `115347eab932ffddcac5e5c178e17cbed5025637` |
+| [oracle/security/link.sql](https://github.com/francois-fiorino/tech-automation-scripts/blob/169cc5270f3af21fc0a336badeda46c314beb09c/oracle/security/link.sql) | cabeçalho; corpo preservado | `72040599c65733dc2a0d406c70ff9f824c7c423b` |
+| [oracle/administration/map_db.sql](https://github.com/francois-fiorino/tech-automation-scripts/blob/169cc5270f3af21fc0a336badeda46c314beb09c/oracle/administration/map_db.sql) | cabeçalho; corpo preservado | `d226af302bdd1c384f2c430baee762e676487706` |
+| [oracle/security/pword_gen.sql](https://github.com/francois-fiorino/tech-automation-scripts/blob/169cc5270f3af21fc0a336badeda46c314beb09c/oracle/security/pword_gen.sql) | cabeçalho; corpo preservado | `dae1219f444867d38d152ac0fee104aaf2bcbd1c` |
+| [oracle/administration/rbk_views.sql](https://github.com/francois-fiorino/tech-automation-scripts/blob/169cc5270f3af21fc0a336badeda46c314beb09c/oracle/administration/rbk_views.sql) | cabeçalho; corpo preservado | `39b3d09e49be91b57c3dfde0d0822be87d69bf05` |
+| [oracle/administration/version.sql](https://github.com/francois-fiorino/tech-automation-scripts/blob/169cc5270f3af21fc0a336badeda46c314beb09c/oracle/administration/version.sql) | código/cabeçalho | `e1998946bcdf80e6b5953c37a53f4f480fed63be` |
+| [oracle/administration/count_blocks.sql](https://github.com/francois-fiorino/tech-automation-scripts/blob/169cc5270f3af21fc0a336badeda46c314beb09c/oracle/administration/count_blocks.sql) | código/cabeçalho | `8f3b1d5ac41aac6b70205a5b2086dc8219c5e6c5` |
+| [oracle/administration/fill_sz.sql](https://github.com/francois-fiorino/tech-automation-scripts/blob/169cc5270f3af21fc0a336badeda46c314beb09c/oracle/administration/fill_sz.sql) | cabeçalho; corpo preservado | `bb370032dc24652e7e7e2b43e38cee32799818e6` |
+| [oracle/administration/new_dba_free.sql](https://github.com/francois-fiorino/tech-automation-scripts/blob/169cc5270f3af21fc0a336badeda46c314beb09c/oracle/administration/new_dba_free.sql) | cabeçalho; corpo preservado | `6c4c13f1032937a3b25046ee215f04bbb71832e4` |
+| [oracle/administration/brown.sql](https://github.com/francois-fiorino/tech-automation-scripts/blob/169cc5270f3af21fc0a336badeda46c314beb09c/oracle/administration/brown.sql) | código/cabeçalho | `8690bc9198f111c1578d1f4726a618ea43079a71` |
+| [oracle/administration/explain.sql](https://github.com/francois-fiorino/tech-automation-scripts/blob/169cc5270f3af21fc0a336badeda46c314beb09c/oracle/administration/explain.sql) | cabeçalho; corpo preservado | `a7a7c5ff0ac5d4120817003300aa6e2496c540b7` |
+| [oracle/objects/in_rct.sql](https://github.com/francois-fiorino/tech-automation-scripts/blob/169cc5270f3af21fc0a336badeda46c314beb09c/oracle/objects/in_rct.sql) | código/cabeçalho | `3aeb44298dceace7db9da870554b90a61a446812` |
+| [oracle/objects/in_rct2.sql](https://github.com/francois-fiorino/tech-automation-scripts/blob/169cc5270f3af21fc0a336badeda46c314beb09c/oracle/objects/in_rct2.sql) | código/cabeçalho | `2e68dcab21ef116c079d50b8a8847cef59114d5f` |
+| [oracle/administration/exp_ext_tab.sql](https://github.com/francois-fiorino/tech-automation-scripts/blob/169cc5270f3af21fc0a336badeda46c314beb09c/oracle/administration/exp_ext_tab.sql) | código/cabeçalho | `347bc5102b315a682aaa43e48d77d01af67b8dbd` |
+| [oracle/performance/explain1.sql](https://github.com/francois-fiorino/tech-automation-scripts/blob/169cc5270f3af21fc0a336badeda46c314beb09c/oracle/performance/explain1.sql) | cabeçalho; corpo preservado | `8641e304de88e07956528da609e1b00be99e3965` |
+| [oracle/administration/in_siz_es.sql](https://github.com/francois-fiorino/tech-automation-scripts/blob/169cc5270f3af21fc0a336badeda46c314beb09c/oracle/administration/in_siz_es.sql) | código/cabeçalho | `468fd1b3982ad32fdc38f4ded7c2b0babf30f464` |
+| [oracle/administration/index_size.sql](https://github.com/francois-fiorino/tech-automation-scripts/blob/169cc5270f3af21fc0a336badeda46c314beb09c/oracle/administration/index_size.sql) | cabeçalho; corpo preservado | `4b1c63a704164a6a1a799b22db953d1a0e253a3d` |
+| [oracle/administration/index_sz.sql](https://github.com/francois-fiorino/tech-automation-scripts/blob/169cc5270f3af21fc0a336badeda46c314beb09c/oracle/administration/index_sz.sql) | código/cabeçalho | `9fbe7f04e65e80d66a0aededdc03c1390d046b9e` |
+| [oracle/administration/legacy-linux/proc_sys_net.sh](https://github.com/francois-fiorino/tech-automation-scripts/blob/169cc5270f3af21fc0a336badeda46c314beb09c/oracle/administration/legacy-linux/proc_sys_net.sh) | código/cabeçalho | `a19827df6b32ba67298e1e9a787a2464e19792e3` |
+| [oracle/rac/staggered_sequence_trigger.sql](https://github.com/francois-fiorino/tech-automation-scripts/blob/169cc5270f3af21fc0a336badeda46c314beb09c/oracle/rac/staggered_sequence_trigger.sql) | cabeçalho; corpo preservado | `546ab33ac74dbf0af58f6584dc892067932c466e` |
+
+### `oracle/memory/keep_them.sql`
+
+Chamadas/ordem mantidas; não escolhidos flags de KEEP sem confrontar tipo/versão dos objetos.
+
+**Pendências:** Lista fixa de objetos Oracle antigos, com tipos mistos e flags vazios; pode falhar parcialmente e pressionar shared pool. Duplicata de WRI$_ADV_HDM_T preservada como parte do exemplo histórico. Não é recomendação de pinning geral.
+
+**Testes de laboratório necessários:** Confrontar DBA_OBJECTS/flags da API para cada um dos33 comandos; objeto ausente; impacto de memória; efeito parcial; nenhum KEEP foi executado.
+
+### `oracle/security/link.sql`
+
+Proposta sanitizada e os dois bloqueios anteriores preservados; não removido EXIT nem trocados os dois nomes por suposição.
+
+**Pendências:** Intenção de DROP/CREATE com nomes diferentes e fornecimento seguro do segredo precisam de definição. Autorização de DDL público e plano de recuperação permanecem pendentes.
+
+**Testes de laboratório necessários:** Confirmar que ambas as barreiras precedem todo DDL; revisar os dois nomes e o escopo PUBLIC em laboratório descartável.
+
+### `oracle/administration/map_db.sql`
+
+Relatório/UNION/QUIT preservados; registrados efeitos do cliente e ambiguidade de segmentos homônimos.
+
+**Pendências:** QUIT pode confirmar a transação do chamador e encerra o cliente; usar sessão dedicada sem trabalho pendente. Relatório não inclui owner/partição na identidade textual, nem tempfiles. Nomes de host/banco compõem o spool e requerem ambiente confiável.
+
+**Testes de laboratório necessários:** Extents em arquivos distintos; segmento homônimo; lacunas livres; spool existente; sessão dedicada; aliases de COMPUTE versus cabeçalhos do cliente.
+
+### `oracle/security/pword_gen.sql`
+
+Algoritmo histórico preservado para estudo e mantido como inadequado para autenticação. Não transformado em gerador seguro apenas mudando seed ou nomes.
+
+**Pendências:** Seis caracteres A–Z têm no máximo26^6 combinações e seed temporal é previsível. Uma geração criptográfica com tamanho adequado exige definir novo contrato de tamanho/caracteres/armazenamento; não configurar contas reais com esta função.
+
+**Testes de laboratório necessários:** Analisar repetição e domínio sem registrar senhas reais; validar requisitos de uma futura interface e compatibilidade dos consumidores antes de substituir o retorno de6 caracteres.
+
+### `oracle/administration/rbk_views.sql`
+
+Definições e outer joins preservados; exemplos de teste do autor permanecem históricos, sem equivaler a homologação desta revisão.
+
+**Pendências:** Undo manual/rollback e informações locais; não oferece topologia RAC ou histórico. CREATE OR REPLACE invalida dependentes e confirma DDL; campos de segmentos offline podem ser NULL.
+
+**Testes de laboratório necessários:** Segmento ONLINE/OFFLINE; AUM versus manual; atributos presentes no RU alvo; valores NULL; dependentes e grants diretos.
+
+### `oracle/administration/version.sql`
+
+Cursor fecha em exceção e erro é propagado. Extração do banner e contrato de versão curta preservados.
+
+**Pendências:** Banner não é inventário completo de RU/patch. Se houver várias linhas Oracle ou nenhuma, primeiro FETCH pode ser ambíguo/NULL; não escolher outra fonte e alterar contrato silenciosamente.
+
+**Testes de laboratório necessários:** Banner19c, formatos antigos, ausência/múltiplas linhas, erro de acesso; comparação com inventário de patches em laboratório.
+
+### `oracle/administration/count_blocks.sql`
+
+Contagem gerada usa OBJECT/RELATIVE_FNO/BLOCK_NUMBER com delimitadores em vez do prefixo de ROWID restrito; owners/nomes citados e literal do staging escapado. Saída ordenada e arquivo dedicado count_blocks_generated.sql, executado conforme fluxo original.
+
+**Pendências:** Continua full scan/DML automático ao executar o script. Contabiliza blocos com linhas, não HWM ou blocos alocados. Sem owner no staging, homônimos são indistinguíveis; reexecução duplica dados. TABLE não cobre partições/IOT/UROWID; contexto de BIGFILE exige laboratório.
+
+**Testes de laboratório necessários:** Nomes com apóstrofo/aspas; mesmo número de bloco em arquivos/objetos distintos; tabela vazia; staging e permissões; custo com clone representativo; script gerado íntegro.
+
+### `oracle/administration/fill_sz.sql`
+
+Corpo integral dos1290 INSERTs preservado. Todas as instruções foram lidas por parser SQLGlot em dialeto Oracle e conferidas estruturalmente: alvo TEMP_SIZE_TABLE e COUNT DISTINCT com três componentes ROWID.
+
+**Pendências:** Lista fixa de ambiente histórico; não é inventário portável. Full scans e staging sem owner/PK, com possibilidade de dados parciais/repetidos e commits do cliente. Apenas revisão estática; parsing não valida existência, case dos três nomes XDB com hífen, privilégios ou custo.
+
+**Testes de laboratório necessários:** Validar as1290 tabelas/owners e três nomes XDB citados; IOT/UROWID; múltiplos arquivos; casos vazios; comparar contagem com fixture Oracle; nenhuma coleta massiva foi executada.
+
+### `oracle/administration/new_dba_free.sql`
+
+Definição interna mantida e finalidade real reforçada: extents alocados, não espaço livre.
+
+**Pendências:** SYS.UET$ e X$KTFBUE não são interface estável; layout e interpretação de campos dependem de versão. UNION ALL pode refletir duas estratégias de gestão; não usar resultado como DBA_FREE_SPACE.
+
+**Testes de laboratório necessários:** Verificar layout/RU, LMT/DMT, unidade LENGTH e identidade dos segmentos; comparar ao dicionário documentado em clone.
+
+### `oracle/administration/brown.sql`
+
+Arquivo gerado dedicado evita sobrescrever o helper index_sz.sql. ANALYZE usa owner/índice citados. Conversão USED_SPACE/bytes por bloco usa DBA_TABLESPACES do índice, não DB_BLOCK_SIZE global; metadado ausente preserva linha com NULL.
+
+**Pendências:** DROP/CREATE/TRUNCATE e ANALYZE são destrutivos/custosos; commits do fluxo mantidos. Requer SELECT adicional DBA_TABLESPACES. Índices particionados/ausentes e nome de INDEX_STATS precisam validação. TRUNC preserva a aproximação original de bytes usados por blocos; não é tamanho real alocado nem recomendação de rebuild.
+
+**Testes de laboratório necessários:** Dois tablespaces com blocos diferentes; nomes quoted; índice particionado; erro de ANALYZE; staging existente; arquivo gerado preexistente; parâmetros/colunas INDEX_STATS no alvo.
+
+### `oracle/administration/explain.sql`
+
+Wrapper e chamada @@plan.sql preservados; não executado SQL fornecido por substituição.
+
+**Pendências:** SQL_STATEMENT é SQL livre por definição e ID também é substituição textual; somente entrada confiável. O helper PLAN pode TRUNCATE, abrir editor e confirmar transações. Não é análise isolada sem efeito no cliente.
+
+**Testes de laboratório necessários:** Helper resolvido na pasta correta; statement_id; SQL terminador/multilinha; plano compartilhado; sessão de laboratório sem transações de aplicação.
+
+### `oracle/objects/in_rct.sql`
+
+Staging inclui owner e ordena por owner/índice/linha, evitando intercalar nomes homônimos; texto CLOB e buffer32767; identificadores emitidos citados sem LOWER. Todos os cursores/ramos/storage e delimitadores de geração preservados. CREATE de staging falho interrompe antes do TRUNCATE; saída inclui DEFINE OFF/SQLCASE MIXED para nomes citados.
+
+**Pendências:** Não é exportação fiel de índices function-based, DESC, domain, particionados ou recursos modernos; staging é privado ao fluxo e sua estrutura foi ampliada. Grants DBMS_ASSERT e tamanho de saída exigem teste. Filtros OWNER/TABLE ainda são substituições SQL*Plus confiáveis. Não executar variantes simultaneamente ou aplicar a saída sem revisão.
+
+**Testes de laboratório necessários:** Dois schemas com índice homônimo; nomes mixed/quoted; lista longa; armazenamento/partições; spool CLOB íntegro; tabela I_TEMP existente; falha no meio do fluxo.
+
+### `oracle/objects/in_rct2.sql`
+
+Staging inclui owner e ordena por owner/índice/linha, evitando intercalar nomes homônimos; texto CLOB e buffer32767; identificadores emitidos citados sem LOWER. Tamanho em blocos usa BLOCK_SIZE do tablespace e índice não único passa a incluir owner. Todos os cursores/ramos/storage e delimitadores de geração preservados. CREATE de staging falho interrompe antes do TRUNCATE; saída inclui DEFINE OFF/SQLCASE MIXED para nomes citados.
+
+**Pendências:** Não é exportação fiel de índices function-based, DESC, domain, particionados ou recursos modernos; staging é privado ao fluxo e sua estrutura foi ampliada. Grants DBMS_ASSERT e tamanho de saída exigem teste. Filtros OWNER/TABLE ainda são substituições SQL*Plus confiáveis. SIZE_IT ainda está associado apenas por nome, sem contrato de owner/medida; pode multiplicar homônimos e permanece bloqueio. Não executar variantes simultaneamente ou aplicar a saída sem revisão.
+
+**Testes de laboratório necessários:** Dois schemas com índice homônimo; nomes mixed/quoted; lista longa; armazenamento/partições; spool CLOB íntegro; tabela I_TEMP existente; falha no meio do fluxo.
+
+### `oracle/administration/exp_ext_tab.sql`
+
+DEFAULT DIRECTORY substitui token DEFAULT_DIRECTORY inválido; CTAS deixa de declarar tipos no cabeçalho e os mantém por CAST explícito nas sete expressões, sem SELECT *. Driver Data Pump e três nomes de arquivo originais preservados.
+
+**Pendências:** CTAS grava binário Data Pump no servidor, apesar da extensão .txt; não é CSV. Requer DIRECTORY SQL_DIR autorizado, READ/WRITE, espaço, quota, SELECT origem e tipos/conversões válidos. CASTs podem rejeitar/truncar conforme tipo; arquivos existentes e falha de unload exigem plano de limpeza.
+
+**Testes de laboratório necessários:** Origem com colunas em outra ordem/extras; tamanhos acima20/64; conversão de data/número; falta de grant/DIRECTORY; arquivo existente; roundtrip em clone; parallel e custo.
+
+### `oracle/performance/explain1.sql`
+
+Algoritmo e créditos Christian Adams preservados; não promovida subtração de custos a métrica de tempo.
+
+**Pendências:** TRUNCATE/COMMIT e arquivo AFIEDT.BUF REPLACE afetam estado compartilhado e sessão. Custo CBO não é necessariamente aditivo e percentuais são heurísticos. Precisa das colunas customizadas e PLAN_TABLE exclusiva.
+
+**Testes de laboratório necessários:** Plano com múltiplos filhos/custoNULL/zero; custo não aditivo; arquivo buffer existente; sessão paralela; SQL de entrada não confiável proibido; grants e colunas customizadas.
+
+### `oracle/administration/in_siz_es.sql`
+
+Lista de colunas passa a IN (&clist), removendo UPPER aplicado a múltiplos argumentos (inválido para exemplo com duas colunas). Entradas devem ser literais normalizados confiáveis, sem SQL arbitrário.
+
+**Pendências:** Ainda usa substituição textual e execução automática do script gerado. A lista deve usar nomes na forma do dicionário; SQLCASE do cliente e quoted mixed exigem teste. Sem função/LOB/compressão e sem fidelidade de storage; coluna inexistente pode deixar geração incompleta.
+
+**Testes de laboratório necessários:** Lista de uma/duas colunas uppercase; coluna desconhecida; schema/tabela quoted; entrada não confiável proibida; tabela vazia; SQLCASE e NLS; verificar saída antes de executar.
+
+### `oracle/administration/index_size.sql`
+
+Modelo VSIZE e cálculo por COUNT(*) preservados como estimativa legada, sem alegação de medir o índice.
+
+**Pendências:** Contagem inclui linhas com todas as chaves NULL, que podem não existir em B-tree; overheads e compressão não são cobertos. Ordenar por COLUMN_ID não reproduz ordem das chaves. Entradas SQL*Plus e arquivo gerado são superfícies de execução; sem expressão/LOB/function-based seguro.
+
+**Testes de laboratório necessários:** Todas as chaves NULL; chaves compostas/parcialmenteNULL; tabelas vazias; function-based; compressão; nomes mixed; definir domínio e fórmula antes de uma reimplementação física.
+
+### `oracle/administration/index_sz.sql`
+
+WHENEVER SQLERROR EXIT FAILURE ROLLBACK impede chegar ao TRUNCATE se CREATE falhar, protegendo uma STAT_TEMP já existente. CTAS/algoritmo e layout espelhado de INDEX_STATS preservados.
+
+**Pendências:** INDEX_STATS representa validação na sessão e pode estar vazio/desatualizado. STAT_TEMP pode preexistir; DDL confirma transação. SELECT * segue deliberado para espelhar o layout do catálogo no staging, cuja versão precisa ser validada.
+
+**Testes de laboratório necessários:** Sessão sem ANALYZE; INDEX_STATS populado; STAT_TEMP já existente; layout do RU; quota/storage; sem tratar sucesso do CREATE como homologação de coleta.
+
+### `oracle/administration/legacy-linux/proc_sys_net.sh`
+
+Barreira incondicional adicionada antes de qualquer escrita /proc ou hdparm. Comandos/valores históricos permanecem abaixo, sem tradução especulativa para kernel atual.
+
+**Pendências:** Exige estudo e homologação de kernel/driver/disco antes de adaptar uma cópia privada; não remover bloqueio no repositório. Não há restauração/persistência de parâmetros.
+
+**Testes de laboratório necessários:** sh -n apenas; confirmar EXIT antes das duas chamadas hdparm e das sete escritas em /proc; nenhum ajuste de SO foi executado.
+
+### `oracle/rac/staggered_sequence_trigger.sql`
+
+Fórmula e política de sobrescrever EMP_ID preservadas; acrescentado contraexemplo concreto de colisão.
+
+**Pendências:** Instância1 com NEXTVAL100001 e instância2 com NEXTVAL1 resultam em100001. O offset pode destruir a unicidade de uma sequência global. Política de chaves e codificação de instância precisam de decisão; não trocar algoritmo de negócio silenciosamente.
+
+**Testes de laboratório necessários:** Unicidade entre instâncias/faixas; CYCLE/RESTART/cache; chave fornecida pelo chamador; capacidade de EMP_ID; apenas contraexemplo aritmético local, sem trigger Oracle executado.
+
+### Validação local do lote 038
+
+Os 1.290 INSERTs de FILL_SZ foram integralmente analisados pelo parser SQLGlot em dialeto Oracle: todos inserem em TEMP_SIZE_TABLE, todos têm COUNT DISTINCT com OBJECT/RELATIVE_FNO/BLOCK_NUMBER e suas fontes abrangem 19 owners. O corpo original publicado foi preservado integralmente. As três referências XDB com hífen continuam citadas; parser não valida existência/case/permissão no catálogo Oracle.
+
+Uma fixture SQLite executou o SELECT do gerador COUNT_BLOCKS, expandindo apenas macros de apresentação, e executou a instrução produzida com funções ROWID substituídas por funções locais de fixture. O caso cobriu aspas/apóstrofo/ampersand em nomes e quatro identidades de bloco com linhas repetidas, objetos e arquivos diferentes. Não equivale à implementação DBMS_ROWID ou execução no banco Oracle.
+
+O SELECT de sete CASTs do CTAS foi analisado em dialeto Oracle. A gramática de external table foi confrontada à documentação oficial; não se declarou compilação do CREATE no Oracle nem validação completa dessa extensão pelo parser local. Fixtures adicionais conferiram ordenação do staging por owner/índice/linha, IN com várias colunas, e o contraexemplo aritmético de colisão do trigger RAC. O Shell passou somente por `sh -n`, com inspeção de EXIT antes de todas as escritas e hdparm; seu conteúdo não foi executado.
+
 ## Continuidade
 
-Restam **137 de 177** scripts para revisão complementar; homologação continua pendente nos 177. A fila exata está em ADMIN_REVIEW_VERIFICATION.json (`next_queue` e `next_batch`). O inventário identifica os 40 já reavaliados por revisão/commit/blob e registra o impedimento e os testes por arquivo. As contagens da coleção continuam 476 main e 177 propostas; o roteiro de teste é auxiliar.
+Restam **117 de 177** scripts para revisão complementar, além da homologação dos 177. Os 60 já revisados têm commit/blob e testes/impedimentos individuais no inventário. A fila exata está em ADMIN_REVIEW_VERIFICATION.json, campos `next_queue` e `next_batch`. Não repetir arquivos já marcados sem evidência nova. O roteiro auxiliar de laboratório não entra na contagem de implementações da coleção.
 
-Próximo lote planejado (038), em ordem de inventário:
+Próximo lote planejado (039), em ordem de inventário:
 
-- `oracle/memory/keep_them.sql`
-- `oracle/security/link.sql`
-- `oracle/administration/map_db.sql`
-- `oracle/security/pword_gen.sql`
-- `oracle/administration/rbk_views.sql`
-- `oracle/administration/version.sql`
-- `oracle/administration/count_blocks.sql`
-- `oracle/administration/fill_sz.sql`
-- `oracle/administration/new_dba_free.sql`
-- `oracle/administration/brown.sql`
-- `oracle/administration/explain.sql`
-- `oracle/objects/in_rct.sql`
-- `oracle/administration/exp_ext_tab.sql`
-- `oracle/performance/explain1.sql`
-- `oracle/objects/in_rct2.sql`
-- `oracle/administration/in_siz_es.sql`
-- `oracle/administration/index_size.sql`
-- `oracle/administration/index_sz.sql`
-- `oracle/administration/legacy-linux/proc_sys_net.sh`
-- `oracle/rac/staggered_sequence_trigger.sql`
+- `oracle/troubleshooting/no_trace_my_session.sql`
+- `oracle/troubleshooting/trace_my_session.sql`
+- `oracle/security/grant_rc.sql`
+- `oracle/security/role_rct.sql`
+- `oracle/security/sys_gran.sql`
+- `oracle/security/sys_grnt.sql`
+- `oracle/security/tab_grnt.sql`
+- `oracle/administration/dba_user_privs.sql`
+- `oracle/administration/display_buffer_contents.sql`
+- `oracle/administration/plan.sql`
+- `oracle/administration/analyze_all.sql`
+- `oracle/performance/big_plan.sql`
+- `oracle/administration/garbage_view.sql`
+- `oracle/performance/sql/get_sql.sql`
+- `oracle/administration/rowsize.sql`
+- `oracle/objects/tabhelp.sql`
+- `oracle/objects/tab_rct.sql`
+- `oracle/objects/tab_scol.sql`
+- `oracle/objects/trig_rct.sql`
+- `oracle/administration/view.sql`
