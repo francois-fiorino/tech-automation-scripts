@@ -116,10 +116,16 @@ Acumulado após lote 038: **60/177 scripts reavaliados**, **36 alterações de c
 
 20 scripts revisados: cinco alterações de código e 15 revisões documentais. Commit confirmado: [4c88d359890cc82a98e6ae3f1a5307a1072a3266](https://github.com/francois-fiorino/tech-automation-scripts/commit/4c88d359890cc82a98e6ae3f1a5307a1072a3266). Corrigidos parâmetros de WRITE_OUT, interrupção em falha SQL de três geradores, exclusão da tabela de trabalho no gerador de tabelas e qualificação de colunas em TAB_STAT_COL. ROLE_RCT bloqueado antes de extração de verificadores. Pendências individuais e validações locais em ADMIN_REVIEW.md e ADMIN_REVIEW_VERIFICATION.json; sem Oracle ou merge.
 
-Acumulado atual: **80/177**, sendo **41 alterações de código e 39 revisões documentais**. Restam **97** na revisão complementar. Totais preservados: 476 implementações na main e 177 propostas. Próxima fila: 040.
+Acumulado após lote 039: **80/177**, sendo **41 alterações de código e 39 revisões documentais**. Restam **97** na revisão complementar. Totais preservados: 476 implementações na main e 177 propostas. Próxima fila: 040.
+
+## Revisão administrativa complementar — lote 040 (04/11/2026)
+
+20 scripts revisados: oito alterações de código e 12 revisões documentais. Commit confirmado: [0c166abfb7ae7feb2b08a436ff1f36e6544141a3](https://github.com/francois-fiorino/tech-automation-scripts/commit/0c166abfb7ae7feb2b08a436ff1f36e6544141a3). Corrigidos PCTFREE/PCTUSED, direitos do invocador em L_LENGTH, interrupção SQL em cinco geradores de staging, ordem do status em dois geradores de tablespace e cleanup/quoting em AUTO_DEFRAG. Pendências individuais e validações locais em ADMIN_REVIEW.md e ADMIN_REVIEW_VERIFICATION.json; sem Oracle ou merge.
+
+Acumulado atual: **100/177**, sendo **49 alterações de código e 51 revisões documentais**. Restam **77** na revisão complementar. Totais preservados: 476 implementações na main e 177 propostas. Próxima fila: 041.
 
 ## Próximo ponto de retomada
 
-Os 49 requisitos anteriormente retidos já possuem destinos novos confirmados. Não há requisito restante dessa fila para publicar. Continuar a revisão complementar das 97 propostas restantes pela fila `next_batch` de ADMIN_REVIEW_VERIFICATION.json, em lotes de até 20. Resolver limitações e homologar em laboratório descartável, com contratos/objetos, versão e resultados verificáveis.
+Os 49 requisitos anteriormente retidos já possuem destinos novos confirmados. Não há requisito restante dessa fila para publicar. Continuar a revisão complementar das 77 propostas restantes pela fila `next_batch` de ADMIN_REVIEW_VERIFICATION.json, em lotes de até 20. Resolver limitações e homologar em laboratório descartável, com contratos/objetos, versão e resultados verificáveis.
 
 Nenhum merge automático está autorizado. O projeto não é declarado concluído enquanto as propostas e homologações pendentes permanecerem abertas. Não há execução em segundo plano.
