@@ -17,11 +17,10 @@ PRÉ-REQUISITOS E PRIVILÉGIOS
   Não requer AWR/ASH nesta implementação.
 
 OBJETOS, VIEWS E PACOTES
-  DBA_INDEXES, DBA_IND_COLUMNS, SIZE_IT (customizada), I_TEMP, V$DATABASE
+  DBA_INDEXES, DBA_IND_COLUMNS, DBMS_ASSERT, I_TEMP ampliada e metadados de banco; SIZE_IT e DBA_TABLESPACES na variante estimada.
 
 COMPATIBILIDADE CONHECIDA E LIMITAÇÕES
-  8 KB fixos podem estar errados e SIZE_IT só unido por nome pode cruzar owners. Não cobre bitmap/LOB/expressões/partições como variante IN_RCT. DDL/staging confirma transações; nomes e limites exigem revisão.
-  Não homologado em versões específicas; validar dicionário e plano em laboratório.
+  Não é exportação fiel de índices function-based, DESC, domain, particionados ou recursos modernos; staging é privado ao fluxo e sua estrutura foi ampliada. Grants DBMS_ASSERT e tamanho de saída exigem teste. Filtros OWNER/TABLE ainda são substituições SQL*Plus confiáveis. SIZE_IT ainda está associado apenas por nome, sem contrato de owner/medida; pode multiplicar homônimos e permanece bloqueio. Não executar variantes simultaneamente ou aplicar a saída sem revisão. Alvo documental das APIs novas: Oracle 19c. Sem compilação ou execução Oracle; grants, versão e resultado ainda exigem laboratório.
 
 EXEMPLO DE EXECUÇÃO
   Somente laboratório com contrato SIZE_IT revisado e sem I_TEMP valiosa.
@@ -40,11 +39,19 @@ RISCOS E IMPACTOS OPERACIONAIS
   Quando houver SPOOL, o arquivo local pode ser sobrescrito: proteger sua saída.
 
 CORREÇÕES REALIZADAS E PENDÊNCIAS
-  Owner acrescentado ao cursor de colunas; fórmula/fluxo de DROP e estimativa de tamanho preservados para homologação. 
-  Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
-  Comentários e créditos históricos preservados abaixo.
+  Revisão complementar 038 (2026-11-04): Staging inclui owner e ordena por owner/índice/linha, evitando intercalar nomes homônimos; texto CLOB e buffer32767; identificadores emitidos citados sem LOWER. Tamanho em blocos usa BLOCK_SIZE do tablespace e índice não único passa a incluir owner. Todos os cursores/ramos/storage e delimitadores de geração preservados. Falha no CREATE de staging interrompe antes do TRUNCATE; saída inclui DEFINE OFF/SQLCASE MIXED para nomes citados. Casos de homologação: Dois schemas com índice homônimo; nomes mixed/quoted; lista longa; armazenamento/partições; spool CLOB íntegro; tabela I_TEMP existente; falha no meio do fluxo. Comentários/créditos históricos preservados. Não aprovado para implantação.
+
+REFERÊNCIAS DA REVISÃO038
+ https://docs.oracle.com/en/database/oracle/oracle-database/19/arpls/DBMS_ASSERT.html
+ https://docs.oracle.com/en/database/oracle/oracle-database/19/refrn/DBA_TABLESPACES.html
 
 AVISO DE RESPONSABILIDADE
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de
+qualquer utilização em produção. Sua execução é de responsabilidade do
+profissional responsável pelo ambiente. Os mantenedores deste repositório não
+se responsabilizam por indisponibilidade, perda de dados, alterações indevidas
+ou outros impactos decorrentes de sua utilização.
+
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
 e realize testes em ambiente controlado, preferencialmente desenvolvimento ou
@@ -55,7 +62,11 @@ responsabilidade por danos, perdas de dados, indisponibilidade ou outros impacto
 decorrentes do uso, nos limites permitidos pela legislação aplicável.
 ===============================================================================
 */
-
+set define on
+set echo off
+set verify off
+set sqlcase mixed
+whenever sqlerror exit failure rollback
 /*  */
 REM
 REM in_rct.sql
@@ -94,8 +105,8 @@ select 'Creating index build script...' from dual;
 rem set termout off;
  
 create table i_temp 
-     (lineno NUMBER, id_name VARCHAR2(30), 
-      text VARCHAR2(2000)) storage (initial 100k next 100k)
+     (lineno NUMBER, id_owner VARCHAR2(128), id_name VARCHAR2(128), 
+      text CLOB) storage (initial 100k next 100k)
 /
 truncate table i_temp;
  
@@ -109,17 +120,18 @@ DECLARE
 				 a.tablespace_name,
 				 a.ini_trans,
 				 a.max_trans,
-				 b.size_in_blocks*8192 initial_extent,
-				 b.size_in_blocks*8192 next_extent,
+				 b.size_in_blocks*t.block_size initial_extent,
+				 b.size_in_blocks*t.block_size next_extent,
 				 a.min_extents,
 				 a.max_extents,
 				 a.pct_increase,
 				 a.pct_free
-			from     dba_indexes a, size_it b
+			from     dba_indexes a, size_it b, dba_tablespaces t
 			where a.table_name like upper('%&table%')
 			and a.owner like upper('%&owner%')
 			and a.tablespace_name != 'INDEX_TS'
 			and a.index_name=b.segment_name
+                        and t.tablespace_name=a.tablespace_name
 			order by b.size_in_blocks desc,a.owner,a.index_name;
    CURSOR col_cursor ( c_ind VARCHAR2, c_tab VARCHAR2, c_owner VARCHAR2) IS
 	       select   column_name
@@ -144,14 +156,14 @@ DECLARE
    lv_pct_free          dba_indexes.pct_free%TYPE;
    lv_column_name       dba_ind_columns.column_name%TYPE;
    lv_first_rec         BOOLEAN;
-   lv_string            VARCHAR2(2000);
+   lv_string            VARCHAR2(32767);
    lv_lineno            number := 0;
  
    procedure write_out(p_line INTEGER, p_name VARCHAR2, 
 		       p_string VARCHAR2) is
    begin
-      insert into i_temp (lineno, id_name,text) 
-	     values (p_line,p_name,p_string);
+      insert into i_temp (lineno,id_owner,id_name,text) 
+	     values (p_line,lv_owner,p_name,p_string);
    end;
  
 BEGIN
@@ -176,12 +188,12 @@ BEGIN
 	lv_lineno := 1;
       lv_first_rec := TRUE;
       if (lv_uniqueness = 'UNIQUE') then
-	 lv_string:= 'DROP INDEX '||lower(lv_owner)||'.'||lower(lv_index_name)||';'||chr(10)||
-		     'CREATE UNIQUE INDEX '||lower(lv_owner)||'.'||lower(lv_index_name);
+	 lv_string:= 'DROP INDEX '||DBMS_ASSERT.ENQUOTE_NAME(lv_owner,FALSE)||'.'||DBMS_ASSERT.ENQUOTE_NAME(lv_index_name,FALSE)||';'||chr(10)||
+		     'CREATE UNIQUE INDEX '||DBMS_ASSERT.ENQUOTE_NAME(lv_owner,FALSE)||'.'||DBMS_ASSERT.ENQUOTE_NAME(lv_index_name,FALSE);
 	 write_out(lv_lineno, lv_index_name, lv_string);
 	 lv_lineno := lv_lineno + 1;
       else
-	 lv_string:= 'CREATE INDEX ' || lower(lv_index_name);
+	 lv_string:= 'CREATE INDEX ' || DBMS_ASSERT.ENQUOTE_NAME(lv_owner,FALSE)||'.'||DBMS_ASSERT.ENQUOTE_NAME(lv_index_name,FALSE);
 	 write_out(lv_lineno,  lv_index_name, lv_string);
 	 lv_lineno := lv_lineno + 1;
       end if;
@@ -190,13 +202,13 @@ BEGIN
 	 FETCH col_cursor INTO  lv_column_name;
 	 EXIT WHEN col_cursor%NOTFOUND;
 	 if (lv_first_rec) then
-	    lv_string := '   ON '|| lower(lv_table_owner) || '.' || 
-			 lower(lv_table_name)||' (';
+	    lv_string := '   ON '|| DBMS_ASSERT.ENQUOTE_NAME(lv_table_owner,FALSE) || '.' || 
+			 DBMS_ASSERT.ENQUOTE_NAME(lv_table_name,FALSE)||' (';
 	 lv_first_rec := FALSE;
 	 else
 	    lv_string := lv_string || ',';
 	 end if;
-	 lv_string := lv_string || lower(lv_column_name);
+	 lv_string := lv_string || DBMS_ASSERT.ENQUOTE_NAME(lv_column_name,FALSE);
       END LOOP;
       CLOSE col_cursor;
       lv_string := lv_string || ')';
@@ -210,7 +222,7 @@ BEGIN
 		' MAXTRANS ' || to_char(lv_max_trans);
       write_out(lv_lineno,  lv_index_name, lv_string);
       lv_lineno := lv_lineno + 1;
-      lv_string := 'TABLESPACE ' || lv_tablespace_name || ' STORAGE (';
+      lv_string := 'TABLESPACE ' || DBMS_ASSERT.ENQUOTE_NAME(lv_tablespace_name,FALSE) || ' STORAGE (';
       write_out(lv_lineno,  lv_index_name, lv_string);
       lv_lineno := lv_lineno + 1;
       lv_string := 'INITIAL ' || to_char(lv_initial_extent) ||
@@ -235,13 +247,18 @@ END;
  column dbname new_value db noprint;
 select name dbname from v$database;
 spool rep_out\&db\crt_indx.sql
+prompt SET DEFINE OFF
+prompt SET SQLCASE MIXED
 set heading off
 set recsep off
-col text format a80 word_wrap
+set long 1000000
+set longchunksize 32767
+set linesize 32767
+col text format a32767
  
 select   text
 from     I_temp
-order by  id_name, lineno;
+order by id_owner,id_name,lineno;
  
 spool off
  

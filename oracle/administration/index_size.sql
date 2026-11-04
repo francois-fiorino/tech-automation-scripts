@@ -21,8 +21,7 @@ OBJETOS, VIEWS E PACOTES
   DBA_TAB_COLUMNS, DBA_IND_COLUMNS, DUAL, tabela alvo
 
 COMPATIBILIDADE CONHECIDA E LIMITAÇÕES
-  Varre tabela, não mede estrutura real do índice, excludes all-NULL keys incorretamente por COUNT(*) e não trata function-based/LOB/compressão. Entradas sem quoting são superfície de injeção.
-  Não homologado em versões específicas; validar dicionário e plano em laboratório.
+  Contagem inclui linhas com todas as chaves NULL, que podem não existir em B-tree; overheads e compressão não são cobertos. Ordenar por COLUMN_ID não reproduz ordem das chaves. Entradas SQL*Plus e arquivo gerado são superfícies de execução; sem expressão/LOB/function-based seguro. Alvo documental das APIs novas: Oracle 19c. Sem compilação ou execução Oracle; grants, versão e resultado ainda exigem laboratório.
 
 EXEMPLO DE EXECUÇÃO
   Somente laboratório: @index_size.sql; nomes simples e arquivo local controlado.
@@ -41,11 +40,15 @@ RISCOS E IMPACTOS OPERACIONAIS
   Quando houver SPOOL, o arquivo local pode ser sobrescrito: proteger sua saída.
 
 CORREÇÕES REALIZADAS E PENDÊNCIAS
-  ORDER BY 1 nos fragmentos, NULLIF no COUNT e UPPER no filtro de tabela inconsistente; algoritmo completo preservado. 
-  Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
-  Comentários e créditos históricos preservados abaixo.
+  Revisão complementar 038 (2026-11-04): Modelo VSIZE e cálculo por COUNT(*) preservados como estimativa legada, sem alegação de medir o índice. Casos de homologação: Todas as chaves NULL; chaves compostas/parcialmenteNULL; tabelas vazias; function-based; compressão; nomes mixed; definir domínio e fórmula antes de uma reimplementação física. Comentários/créditos históricos preservados. Não aprovado para implantação.
 
 AVISO DE RESPONSABILIDADE
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de
+qualquer utilização em produção. Sua execução é de responsabilidade do
+profissional responsável pelo ambiente. Os mantenedores deste repositório não
+se responsabilizam por indisponibilidade, perda de dados, alterações indevidas
+ou outros impactos decorrentes de sua utilização.
+
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
 e realize testes em ambiente controlado, preferencialmente desenvolvimento ou
@@ -56,7 +59,6 @@ responsabilidade por danos, perdas de dados, indisponibilidade ou outros impacto
 decorrentes do uso, nos limites permitidos pela legislação aplicável.
 ===============================================================================
 */
-
 /*  */
 rem  *******************************************************
 rem

@@ -48,6 +48,12 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Fórmula, nomes e atribuição integralmente preservados para revisão técnica.
   Projetar unicidade e implantação/rollback é pendência obrigatória do PR.
 
+REVISÃO COMPLEMENTAR 038 — 2026-11-04
+Alterações: Fórmula e política de sobrescrever EMP_ID preservadas; acrescentado contraexemplo concreto de colisão.
+Limitações: Instância1 com NEXTVAL100001 e instância2 com NEXTVAL1 resultam em100001. O offset pode destruir a unicidade de uma sequência global. Política de chaves e codificação de instância precisam de decisão; não trocar algoritmo de negócio silenciosamente.
+Testes pendentes: Unicidade entre instâncias/faixas; CYCLE/RESTART/cache; chave fornecida pelo chamador; capacidade de EMP_ID; apenas contraexemplo aritmético local, sem trigger Oracle executado.
+Sem execução/compilação Oracle ou execução administrativa de SO.
+
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento

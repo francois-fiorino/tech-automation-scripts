@@ -46,6 +46,12 @@
 # corrigido para # e shebang adicionado. Demais comandos preservados.
 # Nenhuma alteração de valores ou alegação de modernização segura do tuning.
 #
+# REVISÃO COMPLEMENTAR 038 — 2026-11-04
+# Alterações: Barreira incondicional adicionada antes de qualquer escrita /proc ou hdparm. Comandos/valores históricos permanecem abaixo, sem tradução especulativa para kernel atual.
+# Limitações: Exige estudo e homologação de kernel/driver/disco antes de adaptar uma cópia privada; não remover bloqueio no repositório. Não há restauração/persistência de parâmetros.
+# Testes pendentes: sh -n apenas; confirmar EXIT antes das duas chamadas hdparm e das sete escritas em /proc; nenhum ajuste de SO foi executado.
+# Sem execução/compilação Oracle ou execução administrativa de SO.
+# 
 # AVISO DE RESPONSABILIDADE
 # Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 # Antes da utilização, analise integralmente o código, compreenda seu funcionamento
@@ -57,6 +63,9 @@
 # decorrentes do uso, nos limites permitidos pela legislação aplicável.
 
 # proc_sys_net
+
+printf '%s\n' 'Exemplo legado bloqueado: revisar kernel, discos e plano de restauracao em VM descartavel.' >&2
+exit 1
 
 echo '100 5000 640 2560 150 30000 5000 1884 2'>/proc/sys/vm/bdflush
 hdparm -m16 -c1 -d1 -a8 /dev/hda

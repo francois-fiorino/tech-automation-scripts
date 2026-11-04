@@ -21,8 +21,7 @@ OBJETOS, VIEWS E PACOTES
   V$PARAMETER, USER_INDEXES, INDEX_STATS, STAT_TEMP, TEMP_SIZE_TABLE, DUAL
 
 COMPATIBILIDADE CONHECIDA E LIMITAÇÕES
-  DDL destrutivo, ANALYZE pode bloquear/consumir I/O, commits por índice. Campos de INDEX_STATS e DB_BLOCK_SIZE precisam validação por tablespace. Percentual browned não justifica rebuild automático; DISTINCTIVENESS é heurística.
-  Não homologado em versões específicas; validar dicionário e plano em laboratório.
+  DROP/CREATE/TRUNCATE e ANALYZE são destrutivos/custosos; commits do fluxo mantidos. Requer SELECT adicional DBA_TABLESPACES. Índices particionados/ausentes e nome de INDEX_STATS precisam validação. TRUNC preserva a aproximação original de bytes usados por blocos; não é tamanho real alocado nem recomendação de rebuild. Alvo documental das APIs novas: Oracle 19c. Sem compilação ou execução Oracle; grants, versão e resultado ainda exigem laboratório.
 
 EXEMPLO DE EXECUÇÃO
   Somente revisão em schema descartável sem STAT_TEMP valiosa.
@@ -41,11 +40,19 @@ RISCOS E IMPACTOS OPERACIONAIS
   Quando houver SPOOL, o arquivo local pode ser sobrescrito: proteger sua saída.
 
 CORREÇÕES REALIZADAS E PENDÊNCIAS
-  Comentário #accept convertido em REM para evitar execução inválida; fluxo administrativo preservado. 
-  Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
-  Comentários e créditos históricos preservados abaixo.
+  Revisão complementar 038 (2026-11-04): Arquivo gerado dedicado evita sobrescrever o helper index_sz.sql. ANALYZE usa owner/índice citados. Conversão USED_SPACE/bytes por bloco usa DBA_TABLESPACES do índice, não DB_BLOCK_SIZE global; metadado ausente preserva linha com NULL. Casos de homologação: Dois tablespaces com blocos diferentes; nomes quoted; índice particionado; erro de ANALYZE; staging existente; arquivo gerado preexistente; parâmetros/colunas INDEX_STATS no alvo. Comentários/créditos históricos preservados. Não aprovado para implantação.
+
+REFERÊNCIAS DA REVISÃO038
+ https://docs.oracle.com/en/database/oracle/oracle-database/19/refrn/INDEX_STATS.html
+ https://docs.oracle.com/en/database/oracle/oracle-database/19/refrn/DBA_TABLESPACES.html
 
 AVISO DE RESPONSABILIDADE
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de
+qualquer utilização em produção. Sua execução é de responsabilidade do
+profissional responsável pelo ambiente. Os mantenedores deste repositório não
+se responsabilizam por indisponibilidade, perda de dados, alterações indevidas
+ou outros impactos decorrentes de sua utilização.
+
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
 e realize testes em ambiente controlado, preferencialmente desenvolvimento ou
@@ -56,7 +63,7 @@ responsabilidade por danos, perdas de dados, indisponibilidade ou outros impacto
 decorrentes do uso, nos limites permitidos pela legislação aplicável.
 ===============================================================================
 */
-
+set define on
 -- comment: index fragmemtation report
 rem  **************************************************************************
 rem
@@ -70,23 +77,27 @@ define quote=chr(39)
 select value from v$parameter where name='db_block_size';
 REM accept tab_owner prompt 'Enter Table Owner for Indexes:'
 set heading off verify off termout off pages 0 recsep 0 feedback off
-spool index_sz.sql
+spool brown_index_analysis_generated.sql
 select 
         'drop table stat_temp;'||&&cr||
 	'create table stat_temp as select * from index_stats;'||&&cr||
 	'truncate table stat_temp;'  
 from dual;
 select	
-	'analyze index '||index_name||
+	'analyze index "'||REPLACE(USER,'"','""')||'"."'||REPLACE(index_name,'"','""')||'"'||
         ' validate structure;'||&&cr||
 	'insert into stat_temp select * from index_stats;'||&&cr||
 	'commit;'
 from user_indexes;
 spool off
 set feedback on termout on lines 80
-start index_sz.sql
-insert into temp_size_table select name,trunc(used_space/&&blocksize)
-from stat_temp;
+set define off
+set sqlcase mixed
+start brown_index_analysis_generated.sql
+insert into temp_size_table
+select s.name,trunc(s.used_space/nullif(t.block_size,0))
+from stat_temp s left join user_indexes i on i.index_name=s.name
+left join dba_tablespaces t on t.tablespace_name=i.tablespace_name;
 rem drop table stat_temp;
 clear columns
 set lines 132 pages 55

@@ -21,8 +21,7 @@ OBJETOS, VIEWS E PACOTES
   V$VERSION, REGEXP_SUBSTR; função RETURN_VERSION
 
 COMPATIBILIDADE CONHECIDA E LIMITAÇÕES
-  Versão modernizada requer REGEXP_SUBSTR (Oracle 10g+), CREATE PROCEDURE e SELECT direto. Banner não garante nível completo de RU/patch; consultar inventário apropriado para isso.
-  Não homologado em versões específicas; validar dicionário e plano em laboratório.
+  Banner não é inventário completo de RU/patch. Se houver várias linhas Oracle ou nenhuma, primeiro FETCH pode ser ambíguo/NULL; não escolher outra fonte e alterar contrato silenciosamente. Alvo documental das APIs novas: Oracle 19c. Sem compilação ou execução Oracle; grants, versão e resultado ainda exigem laboratório.
 
 EXEMPLO DE EXECUÇÃO
   Somente laboratório: @version.sql; testar RETURN_VERSION em ambiente-alvo.
@@ -41,11 +40,18 @@ RISCOS E IMPACTOS OPERACIONAIS
   Quando houver SPOOL, o arquivo local pode ser sobrescrito: proteger sua saída.
 
 CORREÇÕES REALIZADAS E PENDÊNCIAS
-  Filtro apenas 7/8 e offset fixo substituídos por extração de versão; buffers ampliados e cursor fechado. Não executado em Oracle. 
-  Revisão estática somente; implantação depende de laboratório e aprovação do PR.
-  Comentários e créditos históricos preservados abaixo.
+  Revisão complementar 038 (2026-11-04): Cursor fecha em exceção e erro é propagado. Extração do banner e contrato de versão curta preservados. Casos de homologação: Banner19c, formatos antigos, ausência/múltiplas linhas, erro de acesso; comparação com inventário de patches em laboratório. Comentários/créditos históricos preservados. Não aprovado para implantação.
+
+REFERÊNCIAS DA REVISÃO038
+ https://docs.oracle.com/en/database/oracle/oracle-database/19/refrn/V-VERSION.html
 
 AVISO DE RESPONSABILIDADE
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de
+qualquer utilização em produção. Sua execução é de responsabilidade do
+profissional responsável pelo ambiente. Os mantenedores deste repositório não
+se responsabilizam por indisponibilidade, perda de dados, alterações indevidas
+ou outros impactos decorrentes de sua utilização.
+
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
 e realize testes em ambiente controlado, preferencialmente desenvolvimento ou
@@ -56,7 +62,6 @@ responsabilidade por danos, perdas de dados, indisponibilidade ou outros impacto
 decorrentes do uso, nos limites permitidos pela legislação aplicável.
 ===============================================================================
 */
-
 /*  */
 create or replace function return_version
 return varchar2 as
@@ -73,5 +78,8 @@ fetch get_version into version;
 close get_version;
 short_version:=regexp_substr(version,'[0-9]+(\.[0-9]+){2,4}');
 return short_version;
+exception when others then
+ if get_version%isopen then close get_version; end if;
+ raise;
 end;
 /

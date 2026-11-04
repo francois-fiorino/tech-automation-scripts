@@ -21,8 +21,7 @@ OBJETOS, VIEWS E PACOTES
   INDEX_STATS; nova tabela STAT_TEMP
 
 COMPATIBILIDADE CONHECIDA E LIMITAÇÕES
-  CREATE TABLE/quota e acesso direto. DDL/TRUNCATE confirmam transações. Falha se STAT_TEMP existir; INDEX_STATS depende de coleta de validação de índice na sessão. Não mede tamanho por si só.
-  Não homologado em versões específicas; validar dicionário e plano em laboratório.
+  INDEX_STATS representa validação na sessão e pode estar vazio/desatualizado. STAT_TEMP pode preexistir; DDL confirma transação. SELECT * segue deliberado para espelhar o layout do catálogo no staging, cuja versão precisa ser validada. Alvo documental das APIs novas: Oracle 19c. Sem compilação ou execução Oracle; grants, versão e resultado ainda exigem laboratório.
 
 EXEMPLO DE EXECUÇÃO
   Somente schema descartável: @index_sz.sql
@@ -41,11 +40,15 @@ RISCOS E IMPACTOS OPERACIONAIS
   Quando houver SPOOL, o arquivo local pode ser sobrescrito: proteger sua saída.
 
 CORREÇÕES REALIZADAS E PENDÊNCIAS
-  Código original preservado; sem executar criação/truncate. 
-  Revisão estática somente; implantação depende de testes e aprovação do PR.
-  Comentários e créditos históricos preservados abaixo.
+  Revisão complementar 038 (2026-11-04): WHENEVER SQLERROR EXIT FAILURE ROLLBACK impede chegar ao TRUNCATE se CREATE falhar, protegendo uma STAT_TEMP já existente. CTAS/algoritmo e layout espelhado de INDEX_STATS preservados. Casos de homologação: Sessão sem ANALYZE; INDEX_STATS populado; STAT_TEMP já existente; layout do RU; quota/storage; sem tratar sucesso do CREATE como homologação de coleta. Comentários/créditos históricos preservados. Não aprovado para implantação.
 
 AVISO DE RESPONSABILIDADE
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de
+qualquer utilização em produção. Sua execução é de responsabilidade do
+profissional responsável pelo ambiente. Os mantenedores deste repositório não
+se responsabilizam por indisponibilidade, perda de dados, alterações indevidas
+ou outros impactos decorrentes de sua utilização.
+
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
 e realize testes em ambiente controlado, preferencialmente desenvolvimento ou
@@ -56,7 +59,7 @@ responsabilidade por danos, perdas de dados, indisponibilidade ou outros impacto
 decorrentes do uso, nos limites permitidos pela legislação aplicável.
 ===============================================================================
 */
-
+whenever sqlerror exit failure rollback
 /*  */
 create table stat_temp storage (initial 1m next 1m) as select * from index_stats
  ;                                                                              

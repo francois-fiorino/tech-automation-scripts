@@ -75,6 +75,12 @@ REFERÊNCIAS TÉCNICAS
   https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-DATABASE-LINK.html
   https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/DROP-DATABASE-LINK.html
 
+REVISÃO COMPLEMENTAR 038 — 2026-11-04
+Proposta sanitizada e os dois bloqueios anteriores preservados; não removido EXIT nem trocados os dois nomes por suposição.
+Pendências: Intenção de DROP/CREATE com nomes diferentes e fornecimento seguro do segredo precisam de definição. Autorização de DDL público e plano de recuperação permanecem pendentes.
+Testes necessários: Confirmar que ambas as barreiras precedem todo DDL; revisar os dois nomes e o escopo PUBLIC em laboratório descartável.
+Sem execução Oracle.
+
 AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de
 qualquer utilização em produção. Sua execução é de responsabilidade do
 profissional responsável pelo ambiente. Os mantenedores deste repositório não

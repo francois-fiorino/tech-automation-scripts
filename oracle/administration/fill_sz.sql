@@ -21,8 +21,7 @@ OBJETOS, VIEWS E PACOTES
   TEMP_SIZE_TABLE, DBMS_ROWID e 1290 tabelas literais de FLOWS_030000/SYSMAN/XDB/PERFSTAT e demais owners no corpo
 
 COMPATIBILIDADE CONHECIDA E LIMITAÇÕES
-  Full scans massivos e DML/undo/redo no staging. Lista de ambiente histórico não é portátil; sem owner na chave, homônimos não se distinguem e reexecução duplica linhas. ROWID físico não suporta IOT/UROWID genericamente. Não é HWM ou blocos alocados.
-  Não homologado em versões específicas; validar dicionário e plano em laboratório.
+  Lista fixa de ambiente histórico; não é inventário portável. Full scans e staging sem owner/PK, com possibilidade de dados parciais/repetidos e commits do cliente. Apenas revisão estática; parsing não valida existência, case dos três nomes XDB com hífen, privilégios ou custo. Alvo documental das APIs novas: Oracle 19c. Sem compilação ou execução Oracle; grants, versão e resultado ainda exigem laboratório.
 
 EXEMPLO DE EXECUÇÃO
   Somente clone isolado com staging descartável e lista integral revisada; não executar em produção.
@@ -41,11 +40,18 @@ RISCOS E IMPACTOS OPERACIONAIS
   Quando houver SPOOL, o arquivo local pode ser sobrescrito: proteger sua saída.
 
 CORREÇÕES REALIZADAS E PENDÊNCIAS
-  Prefixo ambíguo de ROWID restrito substituído por identidade OBJECT/RELATIVE_FNO/BLOCK_NUMBER com delimitadores em todos os 1290 comandos; três nomes XDB com hífen receberam aspas exatas, a validar case no catálogo. Nenhum comando/lista foi removido. 
-  Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
-  Comentários e créditos históricos preservados abaixo.
+  Revisão complementar 038 (2026-11-04): Corpo integral dos1290 INSERTs preservado. Todas as instruções foram lidas por parser SQLGlot em dialeto Oracle e conferidas estruturalmente: alvo TEMP_SIZE_TABLE e COUNT DISTINCT com três componentes ROWID. Casos de homologação: Validar as1290 tabelas/owners e três nomes XDB citados; IOT/UROWID; múltiplos arquivos; casos vazios; comparar contagem com fixture Oracle; nenhuma coleta massiva foi executada. Comentários/créditos históricos preservados. Não aprovado para implantação.
+
+REFERÊNCIAS DA REVISÃO038
+ https://docs.oracle.com/en/database/oracle/oracle-database/19/arpls/DBMS_ROWID.html
 
 AVISO DE RESPONSABILIDADE
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de
+qualquer utilização em produção. Sua execução é de responsabilidade do
+profissional responsável pelo ambiente. Os mantenedores deste repositório não
+se responsabilizam por indisponibilidade, perda de dados, alterações indevidas
+ou outros impactos decorrentes de sua utilização.
+
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
 e realize testes em ambiente controlado, preferencialmente desenvolvimento ou
@@ -56,7 +62,6 @@ responsabilidade por danos, perdas de dados, indisponibilidade ou outros impacto
 decorrentes do uso, nos limites permitidos pela legislação aplicável.
 ===============================================================================
 */
-
 /*  */
 INSERT INTO temp_size_table                                                     
 SELECT 'WWV_FLOW_ICON_BAR'                                                      

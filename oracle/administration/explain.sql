@@ -20,8 +20,7 @@ OBJETOS, VIEWS E PACOTES
   PLAN_TABLE, instrução SQL informada, PLAN.SQL
 
 COMPATIBILIDADE CONHECIDA E LIMITAÇÕES
-  EXPLAIN PLAN não executa DML alvo, mas preenche PLAN_TABLE; privilégios de objetos alvo e plano são necessários. PLAN proposto faz TRUNCATE/ED e pode confirmar transação. Não usar instrução ou helper não confiável.
-  Não homologado em versões específicas; validar dicionário e plano em laboratório.
+  SQL_STATEMENT é SQL livre por definição e ID também é substituição textual; somente entrada confiável. O helper PLAN pode TRUNCATE, abrir editor e confirmar transações. Não é análise isolada sem efeito no cliente. Alvo documental das APIs novas: Oracle 19c. Sem compilação ou execução Oracle; grants, versão e resultado ainda exigem laboratório.
 
 EXEMPLO DE EXECUÇÃO
   Somente PLAN_TABLE descartável: definir owner/id/sql_statement e revisar helpers antes.
@@ -40,11 +39,15 @@ RISCOS E IMPACTOS OPERACIONAIS
   Quando houver SPOOL, o arquivo local pode ser sobrescrito: proteger sua saída.
 
 CORREÇÕES REALIZADAS E PENDÊNCIAS
-  Aspas que transformavam SQL em literal removidas após FOR; chamada @@plan.sql fixa helper da mesma pasta de revisão. 
-  Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
-  Comentários e créditos históricos preservados abaixo.
+  Revisão complementar 038 (2026-11-04): Wrapper e chamada @@plan.sql preservados; não executado SQL fornecido por substituição. Casos de homologação: Helper resolvido na pasta correta; statement_id; SQL terminador/multilinha; plano compartilhado; sessão de laboratório sem transações de aplicação. Comentários/créditos históricos preservados. Não aprovado para implantação.
 
 AVISO DE RESPONSABILIDADE
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de
+qualquer utilização em produção. Sua execução é de responsabilidade do
+profissional responsável pelo ambiente. Os mantenedores deste repositório não
+se responsabilizam por indisponibilidade, perda de dados, alterações indevidas
+ou outros impactos decorrentes de sua utilização.
+
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
 e realize testes em ambiente controlado, preferencialmente desenvolvimento ou
@@ -55,7 +58,6 @@ responsabilidade por danos, perdas de dados, indisponibilidade ou outros impacto
 decorrentes do uso, nos limites permitidos pela legislação aplicável.
 ===============================================================================
 */
-
 /*  */
 explain plan set statement_id ='&id'
 for &sql_statement

@@ -21,8 +21,7 @@ OBJETOS, VIEWS E PACOTES
   DBA_EXTENTS, DBA_FREE_SPACE, V$DATABASE, V$INSTANCE, DUAL, SQL*Plus QUIT
 
 COMPATIBILIDADE CONHECIDA E LIMITAÇÕES
-  QUIT pode confirmar transação; não é seguro chamar como consulta isolada em sessão de trabalho. Varredura do mapa de extents pode ser cara; saída expõe topologia e nomes de segmentos.
-  Não homologado em versões específicas; validar dicionário e plano em laboratório.
+  QUIT pode confirmar a transação do chamador e encerra o cliente; usar sessão dedicada sem trabalho pendente. Relatório não inclui owner/partição na identidade textual, nem tempfiles. Nomes de host/banco compõem o spool e requerem ambiente confiável. Alvo documental das APIs novas: Oracle 19c. Sem compilação ou execução Oracle; grants, versão e resultado ainda exigem laboratório.
 
 EXEMPLO DE EXECUÇÃO
   Somente sessão descartável sem transação pendente: revisar @map_db.sql.
@@ -41,11 +40,15 @@ RISCOS E IMPACTOS OPERACIONAIS
   Quando houver SPOOL, o arquivo local pode ser sobrescrito: proteger sua saída.
 
 CORREÇÕES REALIZADAS E PENDÊNCIAS
-  Continuação BREAK incompleta corrigida; consulta UNION e QUIT preservados. 
-  Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
-  Comentários e créditos históricos preservados abaixo.
+  Revisão complementar 038 (2026-11-04): Relatório/UNION/QUIT preservados; registrados efeitos do cliente e ambiguidade de segmentos homônimos. Casos de homologação: Extents em arquivos distintos; segmento homônimo; lacunas livres; spool existente; sessão dedicada; aliases de COMPUTE versus cabeçalhos do cliente. Comentários/créditos históricos preservados. Não aprovado para implantação.
 
 AVISO DE RESPONSABILIDADE
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de
+qualquer utilização em produção. Sua execução é de responsabilidade do
+profissional responsável pelo ambiente. Os mantenedores deste repositório não
+se responsabilizam por indisponibilidade, perda de dados, alterações indevidas
+ou outros impactos decorrentes de sua utilização.
+
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
 e realize testes em ambiente controlado, preferencialmente desenvolvimento ou
@@ -56,7 +59,6 @@ responsabilidade por danos, perdas de dados, indisponibilidade ou outros impacto
 decorrentes do uso, nos limites permitidos pela legislação aplicável.
 ===============================================================================
 */
-
 /*  */
 column today noprint new_value xdate
 select substr(to_char(sysdate,'fmMonth DD, YYYY HH:MI:SS P.M.'),1,35) today

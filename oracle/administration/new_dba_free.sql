@@ -20,8 +20,7 @@ OBJETOS, VIEWS E PACOTES
   SYS.UET$, SYS.X$KTFBUE; view NEW_DBA_FREE_SPACE
 
 COMPATIBILIDADE CONHECIDA E LIMITAÇÕES
-  Apesar do nome free, fontes representam extents alocados: não usar como espaço livre. Tabelas internas e tamanhos têm compatibilidade incerta; varredura pode ser cara. CREATE VIEW e SELECT direto.
-  Não homologado em versões específicas; validar dicionário e plano em laboratório.
+  SYS.UET$ e X$KTFBUE não são interface estável; layout e interpretação de campos dependem de versão. UNION ALL pode refletir duas estratégias de gestão; não usar resultado como DBA_FREE_SPACE. Alvo documental das APIs novas: Oracle 19c. Sem compilação ou execução Oracle; grants, versão e resultado ainda exigem laboratório.
 
 EXEMPLO DE EXECUÇÃO
   Somente laboratório com grants diretos: @new_dba_free.sql
@@ -40,11 +39,15 @@ RISCOS E IMPACTOS OPERACIONAIS
   Quando houver SPOOL, o arquivo local pode ser sobrescrito: proteger sua saída.
 
 CORREÇÕES REALIZADAS E PENDÊNCIAS
-  UET$ qualificada com SYS; definição completa preservada. 
-  Revisão estática somente; implantação depende de laboratório e aprovação do PR.
-  Comentários e créditos históricos preservados abaixo.
+  Revisão complementar 038 (2026-11-04): Definição interna mantida e finalidade real reforçada: extents alocados, não espaço livre. Casos de homologação: Verificar layout/RU, LMT/DMT, unidade LENGTH e identidade dos segmentos; comparar ao dicionário documentado em clone. Comentários/créditos históricos preservados. Não aprovado para implantação.
 
 AVISO DE RESPONSABILIDADE
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de
+qualquer utilização em produção. Sua execução é de responsabilidade do
+profissional responsável pelo ambiente. Os mantenedores deste repositório não
+se responsabilizam por indisponibilidade, perda de dados, alterações indevidas
+ou outros impactos decorrentes de sua utilização.
+
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
 e realize testes em ambiente controlado, preferencialmente desenvolvimento ou
@@ -55,7 +58,6 @@ responsabilidade por danos, perdas de dados, indisponibilidade ou outros impacto
 decorrentes do uso, nos limites permitidos pela legislação aplicável.
 ===============================================================================
 */
-
 -- comment:  create view new_dba_free_space
 create view new_dba_free_space (segment_file#,seg_block#,extent#,file#,block#,length) as
 select segfile#, 

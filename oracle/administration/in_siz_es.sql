@@ -21,8 +21,7 @@ OBJETOS, VIEWS E PACOTES
   DBA_TAB_COLUMNS, V$DATABASE, DUAL, tabela informada
 
 COMPATIBILIDADE CONHECIDA E LIMITAÇÕES
-  Full scan e execução de código gerado. IN(UPPER(&clist)) não aceita lista de várias expressões sem erro; nomes podem injetar SQL. Ordem por COLUMN_ID não reproduz ordem do índice. Tipos LOB/expressões/compressão não são estimados.
-  Não homologado em versões específicas; validar dicionário e plano em laboratório.
+  Ainda usa substituição textual e execução automática do script gerado. A lista deve usar nomes na forma do dicionário; SQLCASE do cliente e quoted mixed exigem teste. Sem função/LOB/compressão e sem fidelidade de storage; coluna inexistente pode deixar geração incompleta. Alvo documental das APIs novas: Oracle 19c. Sem compilação ou execução Oracle; grants, versão e resultado ainda exigem laboratório.
 
 EXEMPLO DE EXECUÇÃO
   Somente tabela pequena de laboratório; revisar CLIST e arquivo gerado antes de execução.
@@ -41,11 +40,15 @@ RISCOS E IMPACTOS OPERACIONAIS
   Quando houver SPOOL, o arquivo local pode ser sobrescrito: proteger sua saída.
 
 CORREÇÕES REALIZADAS E PENDÊNCIAS
-  ORDER BY 1 garante ordem de fragmentos; NULLIF protege COUNT zero. Dependência CLIST mantida e sinalizada, sem interpretar texto de entrada arbitrariamente. 
-  Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
-  Comentários e créditos históricos preservados abaixo.
+  Revisão complementar 038 (2026-11-04): Lista de colunas passa a IN (&clist), removendo UPPER aplicado a múltiplos argumentos (inválido para exemplo com duas colunas). Entradas devem ser literais normalizados confiáveis, sem SQL arbitrário. Casos de homologação: Lista de uma/duas colunas uppercase; coluna desconhecida; schema/tabela quoted; entrada não confiável proibida; tabela vazia; SQLCASE e NLS; verificar saída antes de executar. Comentários/créditos históricos preservados. Não aprovado para implantação.
 
 AVISO DE RESPONSABILIDADE
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de
+qualquer utilização em produção. Sua execução é de responsabilidade do
+profissional responsável pelo ambiente. Os mantenedores deste repositório não
+se responsabilizam por indisponibilidade, perda de dados, alterações indevidas
+ou outros impactos decorrentes de sua utilização.
+
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
 e realize testes em ambiente controlado, preferencialmente desenvolvimento ou
@@ -56,7 +59,6 @@ responsabilidade por danos, perdas de dados, indisponibilidade ou outros impacto
 decorrentes do uso, nos limites permitidos pela legislação aplicável.
 ===============================================================================
 */
-
 /*  */
 rem  ******************************************************
 rem  NAME:  IN_ES_SZ.sql     
@@ -102,23 +104,23 @@ SELECT column_id,
 FROM dba_tab_columns 
 WHERE table_name = '&tname' 
    AND owner = '&towner'
-   AND column_name in (upper(&clist))
+   AND column_name IN (&clist)
    AND column_id <> (SELECT MAX(column_id)
                      FROM dba_tab_columns
                       WHERE table_name = UPPER('&tname') 
                         AND owner = UPPER('&towner')
-                        AND column_name IN (upper(&clist))) 
+                        AND column_name IN (&clist)) 
 UNION
 SELECT column_id,
       'SUM(NVL(VSIZE('||column_name||'),0)) + 1)'
  FROM dba_tab_columns 
  WHERE table_name = upper('&tname')
-   AND owner = upper('&towner') AND column_name IN (upper(&clist))
+   AND owner = upper('&towner') AND column_name IN (&clist)
    AND column_id = (SELECT MAX(column_id)
                     FROM dba_tab_columns
                      WHERE table_name = upper('&tname')  
                       AND owner = upper('&towner')
-                      AND column_name IN (upper(&clist))) 
+                      AND column_name IN (&clist)) 
 UNION 
 SELECT 997, '/ NULLIF(COUNT(*),0) + 11 isize, '' bytes each.''' 
 FROM dual 

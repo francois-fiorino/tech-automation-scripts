@@ -9,7 +9,7 @@ OBJETIVO E FINALIDADE
   Criar tabela externa por unload Data Pump de tabela interna.
 
 FUNCIONAMENTO DETALHADO
-  CREATE TABLE externa com colunas fixas, DIRECTORY SQL_DIR, três locais e PARALLEL AS SELECT de SQL_SCRIPTS_INT.
+  CTAS de tabela externa ORACLE_DATAPUMP descarrega sete colunas tipadas explicitamente em três arquivos de SQL_DIR.
 
 PRÉ-REQUISITOS E PRIVILÉGIOS
   SQL*Plus ou SQLcl; conexão ao banco/container que se deseja diagnosticar.
@@ -21,8 +21,7 @@ OBJETOS, VIEWS E PACOTES
   SQL_SCRIPTS_INT, DIRECTORY SQL_DIR; nova SQL_SCRIPTS_EXT; ORACLE_DATAPUMP
 
 COMPATIBILIDADE CONHECIDA E LIMITAÇÕES
-  CREATE TABLE/quota, leitura da origem e READ/WRITE no DIRECTORY. Arquivos com extensão .txt terão formato binário Data Pump, não CSV; pode usar paralelismo e escrever no SO do servidor.
-  Não homologado em versões específicas; validar dicionário e plano em laboratório.
+  CTAS grava binário Data Pump no servidor, apesar da extensão .txt; não é CSV. Requer DIRECTORY SQL_DIR autorizado, READ/WRITE, espaço, quota, SELECT origem e tipos/conversões válidos. CASTs podem rejeitar/truncar conforme tipo; arquivos existentes e falha de unload exigem plano de limpeza. Alvo documental das APIs novas: Oracle 19c. Sem compilação ou execução Oracle; grants, versão e resultado ainda exigem laboratório.
 
 EXEMPLO DE EXECUÇÃO
   Somente laboratório com diretório dedicado vazio: @exp_ext_tab.sql
@@ -41,11 +40,19 @@ RISCOS E IMPACTOS OPERACIONAIS
   Quando houver SPOOL, o arquivo local pode ser sobrescrito: proteger sua saída.
 
 CORREÇÕES REALIZADAS E PENDÊNCIAS
-  Driver inválido ORACLE_INTERNAL corrigido para ORACLE_DATAPUMP, que suporta CTAS externo; nomes/colunas/arquivos preservados e exigem homologação. 
-  Revisão estática somente; implantação depende de testes e aprovação do PR.
-  Comentários e créditos históricos preservados abaixo.
+  Revisão complementar 038 (2026-11-04): DEFAULT DIRECTORY substitui token DEFAULT_DIRECTORY inválido; CTAS deixa de declarar tipos no cabeçalho e os mantém por CAST explícito nas sete expressões, sem SELECT *. Driver Data Pump e três nomes de arquivo originais preservados. Casos de homologação: Origem com colunas em outra ordem/extras; tamanhos acima20/64; conversão de data/número; falta de grant/DIRECTORY; arquivo existente; roundtrip em clone; parallel e custo. Comentários/créditos históricos preservados. Não aprovado para implantação.
+
+REFERÊNCIAS DA REVISÃO038
+ https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-TABLE.html
+ https://docs.oracle.com/en/database/oracle/oracle-database/19/sutil/oracle_datapump-access-driver.html
 
 AVISO DE RESPONSABILIDADE
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de
+qualquer utilização em produção. Sua execução é de responsabilidade do
+profissional responsável pelo ambiente. Os mantenedores deste repositório não
+se responsabilizam por indisponibilidade, perda de dados, alterações indevidas
+ou outros impactos decorrentes de sua utilização.
+
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
 e realize testes em ambiente controlado, preferencialmente desenvolvimento ou
@@ -56,17 +63,18 @@ responsabilidade por danos, perdas de dados, indisponibilidade ou outros impacto
 decorrentes do uso, nos limites permitidos pela legislação aplicável.
 ===============================================================================
 */
-
 /*  */
- CREATE TABLE sql_scripts_ext (permissions VARCHAR2(20),
-  filetype NUMBER(3),owner VARCHAR2(20),
-  group_name varchar2(20), size_in_bytes number,
-  date_edited date , script_name VARCHAR2(64))
+CREATE TABLE sql_scripts_ext
  ORGANIZATION EXTERNAL
-( TYPE ORACLE_DATAPUMP
-  DEFAULT_DIRECTORY sql_dir
-  LOCATION (sql_dir:'scripts1.txt',
-            sql_dir:'scripts2.txt',
-            sql_dir:'scripts3.txt'))
-  PARALLEL
-  AS SELECT * FROM sql_scripts_int;
+ (TYPE ORACLE_DATAPUMP
+  DEFAULT DIRECTORY sql_dir
+  LOCATION ('scripts1.txt','scripts2.txt','scripts3.txt'))
+ PARALLEL
+ AS SELECT CAST(permissions AS VARCHAR2(20)) permissions,
+           CAST(filetype AS NUMBER(3)) filetype,
+           CAST(owner AS VARCHAR2(20)) owner,
+           CAST(group_name AS VARCHAR2(20)) group_name,
+           CAST(size_in_bytes AS NUMBER) size_in_bytes,
+           CAST(date_edited AS DATE) date_edited,
+           CAST(script_name AS VARCHAR2(64)) script_name
+ FROM sql_scripts_int;

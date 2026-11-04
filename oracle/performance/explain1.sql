@@ -20,8 +20,7 @@ OBJETOS, VIEWS E PACOTES
   PLAN_TABLE com MYCOST/MYSUBCOST, SQL*Plus buffer/SAVE/GET/RUN
 
 COMPATIBILIDADE CONHECIDA E LIMITAÇÕES
-  TRUNCATE/COMMIT confirmam transação e apagam todos os planos. Custo do CBO não é sempre aditivo: subtração de filhos pode ser negativa/enganosa, não tempo real. Não executar sobre PLAN_TABLE compartilhada; colunas customizadas precisam existir.
-  Não homologado em versões específicas; validar dicionário e plano em laboratório.
+  TRUNCATE/COMMIT e arquivo AFIEDT.BUF REPLACE afetam estado compartilhado e sessão. Custo CBO não é necessariamente aditivo e percentuais são heurísticos. Precisa das colunas customizadas e PLAN_TABLE exclusiva. Alvo documental das APIs novas: Oracle 19c. Sem compilação ou execução Oracle; grants, versão e resultado ainda exigem laboratório.
 
 EXEMPLO DE EXECUÇÃO
   Somente sessão descartável, SQL controlado e PLAN_TABLE exclusiva de teste.
@@ -40,11 +39,15 @@ RISCOS E IMPACTOS OPERACIONAIS
   Quando houver SPOOL, o arquivo local pode ser sobrescrito: proteger sua saída.
 
 CORREÇÕES REALIZADAS E PENDÊNCIAS
-  Código completo e aviso Christian Adams preservados; sem converter estimativa em métrica de tempo ou remover manipulação do buffer. 
-  Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
-  Comentários e créditos históricos preservados abaixo.
+  Revisão complementar 038 (2026-11-04): Algoritmo e créditos Christian Adams preservados; não promovida subtração de custos a métrica de tempo. Casos de homologação: Plano com múltiplos filhos/custoNULL/zero; custo não aditivo; arquivo buffer existente; sessão paralela; SQL de entrada não confiável proibido; grants e colunas customizadas. Comentários/créditos históricos preservados. Não aprovado para implantação.
 
 AVISO DE RESPONSABILIDADE
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de
+qualquer utilização em produção. Sua execução é de responsabilidade do
+profissional responsável pelo ambiente. Os mantenedores deste repositório não
+se responsabilizam por indisponibilidade, perda de dados, alterações indevidas
+ou outros impactos decorrentes de sua utilização.
+
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
 e realize testes em ambiente controlado, preferencialmente desenvolvimento ou
@@ -55,7 +58,6 @@ responsabilidade por danos, perdas de dados, indisponibilidade ou outros impacto
 decorrentes do uso, nos limites permitidos pela legislação aplicável.
 ===============================================================================
 */
-
 /*  */
 SET ECHO OFF
 SET FEEDBACK OFF

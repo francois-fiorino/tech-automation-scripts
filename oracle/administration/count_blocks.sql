@@ -9,7 +9,7 @@ OBJETIVO E FINALIDADE
   Gerar e executar INSERTs de contagem de blocos estimada para tabelas de schemas selecionados.
 
 FUNCIONAMENTO DETALHADO
-  Spool COUNT_B_TEMP.SQL contém INSERT INTO TEMP_SIZE_TABLE SELECT nome e COUNT DISTINCT prefixo de ROWID; START executa arquivo gerado.
+  Gera INSERT SELECT COUNT DISTINCT por tabela heap da lista de segmentos, com identidade ROWID completa, e executa o arquivo gerado como no fluxo original.
 
 PRÉ-REQUISITOS E PRIVILÉGIOS
   SQL*Plus ou SQLcl; conexão ao banco/container que se deseja diagnosticar.
@@ -21,8 +21,7 @@ OBJETOS, VIEWS E PACOTES
   DBA_SEGMENTS, DBMS_ROWID, tabelas selecionadas, TEMP_SIZE_TABLE
 
 COMPATIBILIDADE CONHECIDA E LIMITAÇÕES
-  Scans completos potencialmente muito caros. Prefixo de ROWID restrito pode omitir identificação do arquivo e subcontar blocos. Nomes não escapados, modelo de TEMP_SIZE_TABLE desconhecido e DML real automático.
-  Não homologado em versões específicas; validar dicionário e plano em laboratório.
+  Continua full scan/DML automático ao executar o script. Contabiliza blocos com linhas, não HWM ou blocos alocados. Sem owner no staging, homônimos são indistinguíveis; reexecução duplica dados. TABLE não cobre partições/IOT/UROWID; contexto de BIGFILE exige laboratório. Alvo documental das APIs novas: Oracle 19c. Sem compilação ou execução Oracle; grants, versão e resultado ainda exigem laboratório.
 
 EXEMPLO DE EXECUÇÃO
   Não executar em produção; laboratório com cópia dos dados e staging validado.
@@ -41,11 +40,18 @@ RISCOS E IMPACTOS OPERACIONAIS
   Quando houver SPOOL, o arquivo local pode ser sobrescrito: proteger sua saída.
 
 CORREÇÕES REALIZADAS E PENDÊNCIAS
-  Algoritmo integral mantido em revisão; não removida execução automática para fingir equivalência funcional. 
-  Revisão estática somente; implantação depende de testes e aprovação do PR.
-  Comentários e créditos históricos preservados abaixo.
+  Revisão complementar 038 (2026-11-04): Contagem gerada usa OBJECT/RELATIVE_FNO/BLOCK_NUMBER com delimitadores em vez do prefixo de ROWID restrito; owners/nomes citados e literal do staging escapado. Saída ordenada e arquivo dedicado count_blocks_generated.sql, executado conforme fluxo original. Casos de homologação: Nomes com apóstrofo/aspas; mesmo número de bloco em arquivos/objetos distintos; tabela vazia; staging e permissões; custo com clone representativo; script gerado íntegro. Comentários/créditos históricos preservados. Não aprovado para implantação.
+
+REFERÊNCIAS DA REVISÃO038
+ https://docs.oracle.com/en/database/oracle/oracle-database/19/arpls/DBMS_ROWID.html
 
 AVISO DE RESPONSABILIDADE
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de
+qualquer utilização em produção. Sua execução é de responsabilidade do
+profissional responsável pelo ambiente. Os mantenedores deste repositório não
+se responsabilizam por indisponibilidade, perda de dados, alterações indevidas
+ou outros impactos decorrentes de sua utilização.
+
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
 e realize testes em ambiente controlado, preferencialmente desenvolvimento ou
@@ -56,18 +62,23 @@ responsabilidade por danos, perdas de dados, indisponibilidade ou outros impacto
 decorrentes do uso, nos limites permitidos pela legislação aplicável.
 ===============================================================================
 */
-
 /*  */
-spool count_b_temp.sql
-define qt=chr(39);
-define cr=chr(10);
-set heading off lines 200 pages 0
+set define on
+set sqlcase mixed
+define qt=chr(39)
+define cr=chr(10)
+set echo off verify off feedback off heading off linesize 32767 pagesize 0
+spool count_blocks_generated.sql
 select 'INSERT INTO temp_size_table'||&&cr||
-       'SELECT '||&&qt||segment_name||&&qt||&&cr||
-       ',COUNT( DISTINCT( SUBSTR( dbms_rowid.rowid_to_restricted(ROWID,1),1,8))) blocks'||&&cr||
-       'FROM '||owner||'.'||segment_name||';'
-  FROM dba_segments
- WHERE segment_type ='TABLE' AND owner not in ('SYS','SYSTEM','MDSYS','CTXSYS','OUTLN','Burleson Consulting')
-/
+       'SELECT '||&&qt||REPLACE(segment_name,CHR(39),CHR(39)||CHR(39))||&&qt||&&cr||
+       ',COUNT(DISTINCT DBMS_ROWID.ROWID_OBJECT(ROWID)||'':''||'||
+       'DBMS_ROWID.ROWID_RELATIVE_FNO(ROWID)||'':''||'||
+       'DBMS_ROWID.ROWID_BLOCK_NUMBER(ROWID)) blocks'||&&cr||
+       'FROM "'||REPLACE(owner,'"','""')||'"."'||REPLACE(segment_name,'"','""')||'";'
+from dba_segments
+where segment_type='TABLE'
+ and owner not in ('SYS','SYSTEM','MDSYS','CTXSYS','OUTLN','Burleson Consulting')
+order by owner,segment_name;
 spool off
-start count_b_temp
+set define off
+start count_blocks_generated.sql

@@ -21,8 +21,7 @@ OBJETOS, VIEWS E PACOTES
   V$ROLLNAME, V$ROLLSTAT, DBA_ROLLBACK_SEGS; ROLLBACK1/ROLLBACK2
 
 COMPATIBILIDADE CONHECIDA E LIMITAÇÕES
-  CREATE VIEW/SELECT direto. Views antigas de undo/rollback; valores podem ser NULL para offline. CREATE OR REPLACE invalida dependentes e confirma DDL.
-  Não homologado em versões específicas; validar dicionário e plano em laboratório.
+  Undo manual/rollback e informações locais; não oferece topologia RAC ou histórico. CREATE OR REPLACE invalida dependentes e confirma DDL; campos de segmentos offline podem ser NULL. Alvo documental das APIs novas: Oracle 19c. Sem compilação ou execução Oracle; grants, versão e resultado ainda exigem laboratório.
 
 EXEMPLO DE EXECUÇÃO
   Somente laboratório: @rbk_views.sql; revisar grants diretos antes.
@@ -41,11 +40,15 @@ RISCOS E IMPACTOS OPERACIONAIS
   Quando houver SPOOL, o arquivo local pode ser sobrescrito: proteger sua saída.
 
 CORREÇÕES REALIZADAS E PENDÊNCIAS
-  SQL preservado; comentário funcional de RBKVW incorporado para consolidar cópia equivalente sem perder aviso histórico. 
-  Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
-  Comentários e créditos históricos preservados abaixo.
+  Revisão complementar 038 (2026-11-04): Definições e outer joins preservados; exemplos de teste do autor permanecem históricos, sem equivaler a homologação desta revisão. Casos de homologação: Segmento ONLINE/OFFLINE; AUM versus manual; atributos presentes no RU alvo; valores NULL; dependentes e grants diretos. Comentários/créditos históricos preservados. Não aprovado para implantação.
 
 AVISO DE RESPONSABILIDADE
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de
+qualquer utilização em produção. Sua execução é de responsabilidade do
+profissional responsável pelo ambiente. Os mantenedores deste repositório não
+se responsabilizam por indisponibilidade, perda de dados, alterações indevidas
+ou outros impactos decorrentes de sua utilização.
+
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
 e realize testes em ambiente controlado, preferencialmente desenvolvimento ou
@@ -56,7 +59,6 @@ responsabilidade por danos, perdas de dados, indisponibilidade ou outros impacto
 decorrentes do uso, nos limites permitidos pela legislação aplicável.
 ===============================================================================
 */
-
 REM FUNCTION: create views required for rbk1 and rbk2 reports (também em RBKVW.SQL).
 /*  */
 REM
