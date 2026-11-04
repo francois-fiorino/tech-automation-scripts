@@ -45,6 +45,17 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
   Comentários e créditos históricos preservados abaixo.
 
+REVISÃO COMPLEMENTAR 042 — 04/11/2026
+  Correções e melhorias: Interrupção SQL antes de DB_TEMP; MAXSIZE ampliado para128.
+  Limitações e pendências: LOG_ARCHIVE_START obsoleto, filelist255 e REUSE impedem recuperação moderna. SYSTEM/redo apenas, sem charset/CDB/restante da base. Ordem de grupos já preservada; saída só rascunho.
+  Homologação necessária: DB_TEMP existente, múltiplos SYSTEM/redo, MAXSIZE grande e parâmetro ausente; não executar CREATE DATABASE gerado.
+  Parâmetros e execução: contratos descritos acima e no corpo histórico.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação: leitura integral e análise estática; sem compilação/execução Oracle,
+  backup/recovery, comandos Windows/Unix ou uso de credenciais reais.
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
+
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
@@ -73,6 +84,7 @@ SET TERMOUT ON
 PROMPT Creating db build script...
 rem SET TERMOUT OFF; 
 set echo on
+WHENEVER SQLERROR EXIT FAILURE ROLLBACK
 CREATE TABLE db_temp
      (lineno NUMBER,  text VARCHAR2(255))
 /
@@ -135,7 +147,7 @@ CURSOR mem_cursor (grp_num number) IS
    lv_min_extlen        sys.dba_tablespaces.min_extlen%TYPE;
    lv_extent_man        sys.dba_tablespaces.extent_management%TYPE;
    lv_allocation        sys.dba_tablespaces.allocation_type%TYPE;
-   sub_strg             VARCHAR2(20); 
+   sub_strg             VARCHAR2(128); 
    grp_member           v$logfile.member%TYPE;
    bytes                v$log.bytes%TYPE;
    db_name              VARCHAR2(8);

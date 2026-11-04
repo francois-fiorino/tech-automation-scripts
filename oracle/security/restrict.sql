@@ -44,6 +44,17 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
   Comentários e créditos históricos preservados abaixo.
 
+REVISÃO COMPLEMENTAR 042 — 04/11/2026
+  Correções e melhorias: Dezesseis regras e COMMIT preservados.
+  Limitações e pendências: Inclui SELECT apesar do comentário histórico. PRODUCT_USER_PROFILE é restrição de cliente, não controle do servidor, e pode estar ausente/descontinuada no alvo. Macro USERNAME permite injeção e padrões podem atingir mais usuários.
+  Homologação necessária: Confirmar estrutura/versão de SQL*Plus, todas16regras, usuário literal versus padrões e rollback planejado em sessão descartável.
+  Parâmetros e execução: contratos descritos acima e no corpo histórico.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação: leitura integral e análise estática; sem compilação/execução Oracle,
+  backup/recovery, comandos Windows/Unix ou uso de credenciais reais.
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
+
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento

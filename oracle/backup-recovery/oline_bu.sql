@@ -45,6 +45,17 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
   Comentários e créditos históricos preservados abaixo.
 
+REVISÃO COMPLEMENTAR 042 — 04/11/2026
+  Correções e melhorias: Falha SQL interrompe antes de reutilizar BU_TEMP; LINENO incrementado no início de cada tablespace.
+  Limitações e pendências: TABLESPACE TEMP pode ser temporário e invalidar CREATE. Saída sem checks/cleanup de BEGIN BACKUP, cópia de redo online e compress wildcard não constituem backup consistente. Mesmos basenames podem sobrescrever destino.
+  Homologação necessária: Dois tablespaces/múltiplos arquivos e ordem BEGIN/cópia/END; ARCHIVELOG e plano de recovery devem ser definidos em laboratório; não executar Shell.
+  Parâmetros e execução: contratos descritos acima e no corpo histórico.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação: leitura integral e análise estática; sem compilação/execução Oracle,
+  backup/recovery, comandos Windows/Unix ou uso de credenciais reais.
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
+
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
@@ -58,6 +69,7 @@ decorrentes do uso, nos limites permitidos pela legislação aplicável.
 */
 
 /*  */
+WHENEVER SQLERROR EXIT FAILURE ROLLBACK
 create table bu_temp (line_no number,line_txt varchar2(2000)) tablespace temp; 
 set verify off
 define dest_dir=&1;
@@ -94,11 +106,11 @@ line_num number:=0;
 line_text varchar2(2000);
 
 begin
-line_num := line_num+1;
 open get_tbsp;
 loop
 	fetch get_tbsp into tbsp_name;
 	exit when get_tbsp%NOTFOUND;
+  line_num := line_num+1;
   	open bbu_com (tbsp_name);
   	fetch bbu_com into line_text;
   	insert into bu_temp values (line_num,line_text);

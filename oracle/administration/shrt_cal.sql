@@ -44,6 +44,19 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
   Comentários e créditos históricos preservados abaixo.
 
+REVISÃO COMPLEMENTAR 042 — 04/11/2026
+  Correções e melhorias: Startup usa V$INSTANCE.STARTUP_TIME e GET_COUNT usa parâmetro STAT; algoritmos/commits restantes preservados.
+  Limitações e pendências: Razões sem proteção zero e handlers que fecham cursores já fechados continuam defeituosos. FETCH vazio não levanta NO_DATA_FOUND; categorias/unidades e fórmula histórica de hit ratio não foram homologadas. DBA_TEMP é compartilhada/destrutiva.
+  Homologação necessária: Startup com NLS variável, contador ausente, denominador zero e falha parcial; comparar todas métricas e transações em staging descartável.
+  Parâmetros e execução: contratos descritos acima e no corpo histórico.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação: leitura integral e análise estática; sem compilação/execução Oracle,
+  backup/recovery, comandos Windows/Unix ou uso de credenciais reais.
+
+REFERÊNCIA: https://docs.oracle.com/en/database/oracle/oracle-database/19/refrn/V-INSTANCE.html
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
+
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
@@ -124,20 +137,13 @@ select
 from 
 	v$waitstat  
 where 
-	CLASS = STAT_NAME; 
+	CLASS = STAT; 
 
 BEGIN 
   DELETE DBA_TEMP;
 begin
-	select to_date(to_number(value,'99999999'),'J') into jdate from
-		v$instance where key='STARTUP TIME - JULIAN';
-	select (to_number(value,'9999999')) into jsec from v$instance
-		where key='STARTUP TIME - SECONDS';
-	hr:=trunc(jsec/3600,0);
-	minute:= trunc(((jsec/3600)-hr)*60,0);
-	sec:= trunc((((((jsec/3600)-hr)*60)-minute)*60),0);
-	startup_date:=jdate||' '||to_char(hr)||':'||to_char(minute)||':'||
-	to_char(sec);
+  SELECT TO_CHAR(startup_time,'YYYY-MM-DD HH24:MI:SS')
+  INTO startup_date FROM v$instance;
 	insert into dba_temp values ('Startup Date: '||startup_date,0,1);
 EXCEPTION
     when no_data_found then

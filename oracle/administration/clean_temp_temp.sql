@@ -45,6 +45,17 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Revisão estática somente; implantação depende de testes e aprovação do PR.
   Comentários e créditos históricos preservados abaixo.
 
+REVISÃO COMPLEMENTAR 042 — 04/11/2026
+  Correções e melhorias: Bloqueio EXIT incondicional antes do evento interno.
+  Limitações e pendências: DROP_SEGMENTS e regra TS#+1 não possuem garantia de segurança/compatibilidade moderna; comando histórico permanece abaixo apenas para inspeção com suporte do fabricante.
+  Homologação necessária: Verificar barreira antes do ALTER SESSION; não executar evento ou fornecer nível em banco real.
+  Parâmetros e execução: contratos descritos acima e no corpo histórico.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação: leitura integral e análise estática; sem compilação/execução Oracle,
+  backup/recovery, comandos Windows/Unix ou uso de credenciais reais.
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
+
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
@@ -56,6 +67,9 @@ responsabilidade por danos, perdas de dados, indisponibilidade ou outros impacto
 decorrentes do uso, nos limites permitidos pela legislação aplicável.
 ===============================================================================
 */
+PROMPT BLOQUEADO: evento interno DROP_SEGMENTS; somente revisao.
+EXIT FAILURE ROLLBACK
+
 
 /*  */
 rem Used to clean up temp segments in temporary tablespace

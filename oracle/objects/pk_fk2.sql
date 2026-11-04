@@ -45,6 +45,17 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
   Comentários e créditos históricos preservados abaixo.
 
+REVISÃO COMPLEMENTAR 042 — 04/11/2026
+  Correções e melhorias: Interrupção SQL antes de CREATE/TRUNCATE; comparação de constraint preserva case em vez de UPPER.
+  Limitações e pendências: Staging30/2000 e USER_* não resolvem pais externos; outer join também mostra constraints não PK/UK sem filtro específico. Commits e DROP staging persistem; helper TITLE132 externo.
+  Homologação necessária: Constraint quoted e FK composta; pai ausente, chave sem filha e staging preexistente; verificar colunas em ordem.
+  Parâmetros e execução: contratos descritos acima e no corpo histórico.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação: leitura integral e análise estática; sem compilação/execução Oracle,
+  backup/recovery, comandos Windows/Unix ou uso de credenciais reais.
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
+
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
@@ -83,6 +94,7 @@ set termout on
 select 'Creating constraint build script...' from dual;
 rem set termout off
  
+WHENEVER SQLERROR EXIT FAILURE ROLLBACK
 create table cons_temp (owner varchar2(30),
 			constraint_name varchar2(30),
 			constraint_type varchar2(11),
@@ -120,7 +132,7 @@ DECLARE
 		column_name
      from user_cons_columns 
      where owner not in ('SYS','SYSTEM') and
-	constraint_name = upper(cons_name)
+	constraint_name = cons_name
      order by owner, constraint_name, 
 				position;
 

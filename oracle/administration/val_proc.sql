@@ -44,6 +44,19 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
   Comentários e créditos históricos preservados abaixo.
 
+REVISÃO COMPLEMENTAR 042 — 04/11/2026
+  Correções e melhorias: Pacote usa AUTHID CURRENT_USER, nomes validados/citados e cursores fechados em erro; NATIVE substitui V7.
+  Limitações e pendências: DBMS_ASSERT não autoriza ANALYZE/DML; exige privilégios do chamador. ANALYZE pode bloquear e confirma DDL; INSERT SELECT* exige contrato INDEX_STATS compatível e COMMIT confirma trabalho do chamador.
+  Homologação necessária: Nome inválido, quoted, destino ausente/contrato divergente, falta de grants e erro em cada cursor; analisar apenas índice descartável.
+  Parâmetros e execução: contratos descritos acima e no corpo histórico.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação: leitura integral e análise estática; sem compilação/execução Oracle,
+  backup/recovery, comandos Windows/Unix ou uso de credenciais reais.
+
+REFERÊNCIA: https://docs.oracle.com/en/database/oracle/oracle-database/19/arpls/DBMS_ASSERT.html
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
+
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
@@ -57,27 +70,33 @@ decorrentes do uso, nos limites permitidos pela legislação aplicável.
 */
 
 /*  */
-create or replace package dbms_local is
+create or replace package dbms_local AUTHID CURRENT_USER is
 procedure validate_index (schema in varchar2, index_name in varchar2,table_name in varchar2);
 end dbms_local;
 /
 create or replace package body dbms_local is
 procedure validate_index (schema in varchar2, index_name in varchar2,table_name in varchar2)
 is
-cid1 integer;
-cid2 integer;
+cid1 integer := NULL;
+cid2 integer := NULL;
 rows_processed integer;
 begin
 cid1:=dbms_sql.open_cursor;
 cid2:=dbms_sql.open_cursor;
-dbms_output.put_line('ANALYZE INDEX '||schema||'.'||index_name||' validate structure  '||table_name);
-dbms_sql.parse(cid1,'ANALYZE INDEX '||schema||'.'||index_name||' validate structure',dbms_sql.v7);
-dbms_sql.parse(cid2,'INSERT INTO '||table_name||' SELECT * FROM index_stats ',dbms_sql.v7);
+dbms_output.put_line('ANALYZE INDEX '||dbms_assert.enquote_name(schema)||'.'||dbms_assert.enquote_name(index_name)||' validate structure  '||table_name);
+dbms_sql.parse(cid1,'ANALYZE INDEX '||dbms_assert.enquote_name(schema)||'.'||dbms_assert.enquote_name(index_name)||' validate structure',dbms_sql.NATIVE);
+dbms_sql.parse(cid2,'INSERT INTO '||dbms_assert.sql_object_name(table_name)||' SELECT * FROM index_stats ',dbms_sql.NATIVE);
 rows_processed:=dbms_sql.execute(cid1);
 rows_processed:=dbms_sql.execute(cid2);
 commit;
 dbms_sql.close_cursor(cid1);
+cid1 := NULL;
 dbms_sql.close_cursor(cid2);
+cid2 := NULL;
+EXCEPTION WHEN OTHERS THEN
+ if cid1 is not null and dbms_sql.is_open(cid1) then dbms_sql.close_cursor(cid1); end if;
+ if cid2 is not null and dbms_sql.is_open(cid2) then dbms_sql.close_cursor(cid2); end if;
+ raise;
 end validate_index;
 end dbms_local;
 /

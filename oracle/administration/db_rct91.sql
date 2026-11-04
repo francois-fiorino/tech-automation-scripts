@@ -45,6 +45,17 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
   Comentários e créditos históricos preservados abaixo.
 
+REVISÃO COMPLEMENTAR 042 — 04/11/2026
+  Correções e melhorias: Interrupção SQL antes de CREATE/TRUNCATE; bloco BEGIN END vazio recebe NULL; MAXSIZE ampliado.
+  Limitações e pendências: Procedimento RECREATE_DB permanece dependente de DB_TEMP removida; LOG_ARCHIVE_START obsoleto. Limites controlfile, ausência de undo/temp e linha repetida podem invalidar saída; REUSE não é restore.
+  Homologação necessária: Compilar em laboratório, validar undo/temp ausentes, charset/timezone, múltiplos arquivos e falha parcial sem executar DDL de criação.
+  Parâmetros e execução: contratos descritos acima e no corpo histórico.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação: leitura integral e análise estática; sem compilação/execução Oracle,
+  backup/recovery, comandos Windows/Unix ou uso de credenciais reais.
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
+
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
@@ -73,6 +84,7 @@ SET TERMOUT ON
 PROMPT Creating db build script...
 rem SET TERMOUT OFF;
 set verify on feedback on echo on
+WHENEVER SQLERROR EXIT FAILURE ROLLBACK
 CREATE TABLE db_temp
      (lineno NUMBER,  text VARCHAR2(255))
 /
@@ -207,7 +219,7 @@ CURSOR get_max_values IS
    lv_type		database_properties.property_name%TYPE;
    lv_max_var		VARCHAR2(15);
    lv_max_val           NUMBER;
-   sub_strg             VARCHAR2(20);
+   sub_strg             VARCHAR2(128);
    grp_member           v$logfile.member%TYPE;
    bytes                v$log.bytes%TYPE;
    db_name              VARCHAR2(8);
@@ -394,7 +406,7 @@ LOOP
 END LOOP;
 END;
 BEGIN
-
+ NULL; -- bloco historico sem operacao
 END;
 BEGIN
 OPEN undo_ts_cursor;

@@ -44,6 +44,17 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
   Comentários e créditos históricos preservados abaixo.
 
+REVISÃO COMPLEMENTAR 042 — 04/11/2026
+  Correções e melhorias: Nomes de roles e grantees agora citados/escapados; PUBLIC tratado como palavra-chave.
+  Limitações e pendências: Não inclui default/common/inherited/estado de roles; ordem não cria dependências. Saída deve ter largura cliente adequada e DEFINE OFF para nomes com ampersand; não executa GRANT.
+  Homologação necessária: Role mixed case, aspas, ampersand, PUBLIC e ADMIN OPTION; comparar cada comando sem conceder acesso.
+  Parâmetros e execução: contratos descritos acima e no corpo histórico.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação: leitura integral e análise estática; sem compilação/execução Oracle,
+  backup/recovery, comandos Windows/Unix ou uso de credenciais reais.
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
+
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
@@ -92,7 +103,7 @@ set termout off
  
 spool rep_out\&db\grt_role.sql
  
-select 'GRANT ' || lower(granted_role) || ' TO ' || lower(grantee) ||
+select 'GRANT ' || '"'||replace(granted_role,'"','""')||'"' || ' TO ' || case when grantee='PUBLIC' then 'PUBLIC' else '"'||replace(grantee,'"','""')||'"' end ||
        decode(admin_option,'YES',' WITH ADMIN OPTION;',';')
   from sys.dba_role_privs
   where grantee != 'SYS'

@@ -13,7 +13,7 @@ FUNCIONAMENTO DETALHADO
 
 PRÉ-REQUISITOS E PRIVILÉGIOS
   SQL*Plus ou SQLcl; conexão ao banco/container que se deseja diagnosticar.
-  Privilégios administrativos e grants DIRETOS conforme limitações de cada arquivo. EXECUTE em DBMS_OUTPUT e SERVEROUTPUT habilitado (o script o configura).
+  Privilégios administrativos e grants DIRETOS conforme limitações de cada arquivo. EXECUTE em DBMS_OUTPUT e SERVEROUTPUT habilitado pelo chamador (não configurado aqui).
   Não requer AWR/ASH nesta implementação.
 
 OBJETOS, VIEWS E PACOTES
@@ -43,6 +43,17 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Adicionado / final sem reescrever política de amostragem/commits ou remover funcionalidades. 
   Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
   Comentários e créditos históricos preservados abaixo.
+
+REVISÃO COMPLEMENTAR 042 — 04/11/2026
+  Correções e melhorias: Cleanup/log de erro movidos antes de RAISE, com cursor inicializado e guarda; handler externo preservado.
+  Limitações e pendências: Handler externo ainda silencia erro e COMMIT por iteração confirma parcial. SET_CLOSE_CACHED_OPEN_CURSORS legado e GET_COUNT homônimo não homologado; nomes e limiares sem validação.
+  Homologação necessária: Erro de parse/execução/log, contagem0 e limiar negativo; cursor e histórico após falha; variante CHECK_TABLES não instalar sobre outra sem revisão.
+  Parâmetros e execução: contratos descritos acima e no corpo histórico.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação: leitura integral e análise estática; sem compilação/execução Oracle,
+  backup/recovery, comandos Windows/Unix ou uso de credenciais reais.
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
 
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
@@ -76,7 +87,7 @@ CURSOR get_tab_count (own varchar2) IS
 tab_name 	VARCHAR2(64);
 rows 		NUMBER;
 string 		VARCHAR2(255);
-cur 		INTEGER;
+cur 		INTEGER := NULL;
 ret 		INTEGER;
 row_count 	NUMBER;
 com_string 	VARCHAR2(255);
@@ -128,15 +139,16 @@ DBMS_OUTPUT.PUT_LINE('Beginning analysis');
            DBMS_SQL.PARSE(cur,string,dbms_sql.native);
            ret := DBMS_SQL.EXECUTE(cur)  ;
            DBMS_SQL.CLOSE_CURSOR(cur);
+           cur := NULL;
            DBMS_OUTPUT.PUT_LINE(' Table: '||tab_name||' had to be analyzed.');
            write_out(' Table: '||tab_name||' had to be analyzed.', row_count/rows,33,sysdate,0);
            EXCEPTION
            WHEN OTHERS THEN
-            raise_application_error(-20002,'Error in analyze: '||to_char(sqlcode)||' on '||tab_name,TRUE);
-           write_out(' Table: '||tab_name||' error during analyze. '||to_char(sqlcode), row_count/rows,33,sysdate,0);
-            IF dbms_sql.is_open(cur) THEN
+            IF cur IS NOT NULL AND dbms_sql.is_open(cur) THEN
                 dbms_sql.close_cursor(cur);
               END IF;
+           write_out(' Table: '||tab_name||' error during analyze. '||to_char(sqlcode), row_count/rows,33,sysdate,0);
+            raise_application_error(-20002,'Error in analyze: '||to_char(sqlcode)||' on '||tab_name,TRUE);
            END;
         END IF;
 EXCEPTION
