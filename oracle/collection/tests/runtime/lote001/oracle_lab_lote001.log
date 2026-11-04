@@ -1,0 +1,260 @@
+SQL> 
+SQL> prompt === CONTEXTO ===
+=== CONTEXTO ===
+SQL> select sys_context('USERENV','SESSION_USER') usuario,
+  2  	    sys_context('USERENV','CON_NAME') container
+  3  from dual;
+
+USUARIO                                                                                                                                                                                                 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+CONTAINER                                                                                                                                                                                               
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ORACLE_SCRIPT_LAB                                                                                                                                                                                       
+PDB1                                                                                                                                                                                                    
+                                                                                                                                                                                                        
+
+1 row selected.
+
+SQL> 
+SQL> begin
+  2    if sys_context('USERENV','SESSION_USER') <> 'ORACLE_SCRIPT_LAB'
+  3  	  or sys_context('USERENV','CON_NAME') <> 'PDB1'
+  4    then
+  5  	 raise_application_error(-20001,'Usuario/container incorretos.');
+  6    end if;
+  7  end;
+  8  /
+
+PL/SQL procedure successfully completed.
+
+SQL> 
+SQL> prompt === INSTALACAO DA FUNCAO REVISADA ===
+=== INSTALACAO DA FUNCAO REVISADA ===
+SQL> @get_count2.sql
+SQL> /*
+SQL> ===============================================================================
+SQL> SCRIPT: get_count2.sql
+SQL> CATEGORIA: Oracle / administration
+SQL> ORIGEM: Oracle Script Collection 2015 / misc_scripts/get_count2.sql
+SQL> REVISÃO: 2026-11-03; análise estática individual, sem execução em banco Oracle.
+SQL> 
+SQL> OBJETIVO E FINALIDADE
+SQL>   Criar função GET_COUNT para contagem exata por objeto informado.
+SQL> 
+SQL> FUNCIONAMENTO DETALHADO
+SQL>   DBMS_SQL abre/parseia SELECT COUNT, define coluna, executa, faz FETCH_ROWS e lê resultado; fecha cursor inclusive em erro.
+SQL> 
+SQL> PRÉ-REQUISITOS E PRIVILÉGIOS
+SQL>   SQL*Plus ou SQLcl; conexão ao banco/container que se deseja diagnosticar.
+SQL>   Privilégios de criação/execução e SELECT DIRETO conforme LIMITAÇÕES; roles
+SQL>   podem não atender compilação de objetos armazenados.
+SQL>   Não requer AWR/ASH nesta implementação.
+SQL> 
+SQL> OBJETOS, VIEWS E PACOTES
+SQL>   DBMS_SQL, DBMS_ASSERT.SQL_OBJECT_NAME; função GET_COUNT
+SQL> 
+SQL> COMPATIBILIDADE CONHECIDA E LIMITAÇÕES
+SQL>   CREATE PROCEDURE, EXECUTE direto e direitos de leitura no alvo. Varredura pode ser cara; definer rights exige avaliar quem recebe EXECUTE. Oracle 10.2+ para DBMS_ASSERT. Alternativa incompatível com procedimento homônimo GET_COUNT.
+SQL>   Não homologado em versões específicas; validar dicionário e plano em laboratório.
+SQL> 
+SQL> EXEMPLO DE EXECUÇÃO
+SQL>   Somente laboratório: @get_count2.sql; testar tabela pequena e nome inválido.
+SQL>   Executar a partir do diretório do arquivo, ou informar seu caminho completo.
+SQL>   Variáveis de substituição devem receber apenas valores controlados pelo DBA.
+SQL> 
+SQL> SAÍDA ESPERADA E INTERPRETAÇÃO
+SQL>   Número de linhas; função criada/substituída.
+SQL> 
+SQL> RISCOS E IMPACTOS OPERACIONAIS
+SQL>   ALTO RISCO / PR DE REVISÃO: cria/modifica objetos, dados, credenciais ou sessão
+SQL>   conforme FUNCIONAMENTO. Não executar em produção.
+SQL>   Leituras do dicionário consomem recursos; avaliar custo antes de uso repetido.
+SQL>   Relatórios podem expor nomes de usuários, sessões ou caminhos de arquivos.
+SQL>   Comandos SET/COLUMN/BREAK/TTITLE podem alterar a apresentação da sessão cliente.
+SQL>   Quando houver SPOOL, o arquivo local pode ser sobrescrito: proteger sua saída.
+SQL> 
+SQL> CORREÇÕES REALIZADAS E PENDÊNCIAS
+SQL>   Nome validado com DBMS_ASSERT, ; removido do SQL dinâmico, FETCH_ROWS adicionado, buffer ampliado e limpeza em exceção sem ocultar erro.
+SQL>   Revisão estática somente; implantação depende de laboratório e aprovação do PR.
+SQL>   Comentários e créditos históricos preservados abaixo.
+SQL> 
+SQL> REVISÃO COMPLEMENTAR 043 — 04/11/2026
+SQL>   Correções e melhorias: AUTHID CURRENT_USER evita emprestar SELECT do definidor; NATIVE e cursor inicializado; contagem NUMBER.
+SQL>   Limitações e pendências: DBMS_ASSERT valida nome, não autorização. COUNT exato pode fullscan; função GET_COUNT é alternativa incompatível com procedimento homônimo e depende de grants do invocador.
+SQL>   Homologação necessária: Nome inválido/quoted, ausência deSELECT, tabela vazia, cursor em erro e número além de inteiro32; não instalar sobre variante sem decisão.
+SQL>   Parâmetros/execução: contratos acima e corpo histórico; somente laboratório.
+SQL>   Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+SQL>   Validação: leitura integral/análise estática; sem compilação ou execução Oracle,
+SQL>   Windows, escrita de arquivo no servidor, backup/recovery ou alteração de contas.
+SQL> 
+SQL> AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
+SQL> 
+SQL> AVISO DE RESPONSABILIDADE
+SQL> Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
+SQL> Antes da utilização, analise integralmente o código, compreenda seu funcionamento
+SQL> e realize testes em ambiente controlado, preferencialmente desenvolvimento ou
+SQL> homologação. Conteúdo fornecido no estado em que se encontra (AS IS), sem garantias
+SQL> de funcionamento, compatibilidade, desempenho ou adequação a ambientes específicos.
+SQL> A utilização ocorre por conta e risco de quem executa. Os mantenedores não assumem
+SQL> responsabilidade por danos, perdas de dados, indisponibilidade ou outros impactos
+SQL> decorrentes do uso, nos limites permitidos pela legislação aplicável.
+SQL> ===============================================================================
+SQL> */
+SQL> 
+SQL> /*  */
+SQL> create or replace function get_count (tab_name varchar2) return number AUTHID CURRENT_USER as
+  2  cur integer := NULL;
+  3  sql_text varchar2(32767);
+  4  rowcount NUMBER;
+  5  row_proc integer;
+  6  BEGIN
+  7  	 cur:=dbms_sql.open_cursor;
+  8  	 sql_text:='select count(1) rowcount from '||dbms_assert.sql_object_name(tab_name);
+  9  	 dbms_sql.parse(cur,sql_text,dbms_sql.NATIVE);
+ 10  	 dbms_sql.define_column(cur,1,rowcount);
+ 11  	 row_proc:=dbms_sql.execute(cur);
+ 12  	 row_proc:=dbms_sql.fetch_rows(cur);
+ 13  	 dbms_sql.column_value(cur,1,rowcount);
+ 14  	 dbms_sql.close_cursor(cur);
+ 15  	 return rowcount;
+ 16  exception
+ 17   when others then
+ 18    if cur is not null and dbms_sql.is_open(cur) then dbms_sql.close_cursor(cur); end if;
+ 19    raise;
+ 20  end;
+ 21  /
+
+Function created.
+
+SQL> 
+SQL> show errors function get_count
+No errors.
+SQL> 
+SQL> declare
+  2    v_n number;
+  3  begin
+  4    select count(*) into v_n
+  5    from user_objects
+  6    where object_name = 'GET_COUNT'
+  7  	 and object_type = 'FUNCTION'
+  8  	 and status = 'VALID';
+  9  
+ 10    if v_n <> 1 then
+ 11  	 raise_application_error(-20002,'GET_COUNT nao compilou.');
+ 12    end if;
+ 13  
+ 14    select count(*) into v_n
+ 15    from user_procedures
+ 16    where object_name = 'GET_COUNT'
+ 17  	 and authid = 'CURRENT_USER';
+ 18  
+ 19    if v_n <> 1 then
+ 20  	 raise_application_error(-20003,'AUTHID inesperado.');
+ 21    end if;
+ 22  end;
+ 23  /
+
+PL/SQL procedure successfully completed.
+
+SQL> 
+SQL> prompt === DADOS FICTICIOS ===
+=== DADOS FICTICIOS ===
+SQL> create table lab_count_fixture (id number, texto varchar2(30));
+
+Table created.
+
+SQL> create table "Lab Count" (id number);
+
+Table created.
+
+SQL> 
+SQL> prompt === TESTES ===
+=== TESTES ===
+SQL> declare
+  2    v_count	  number;
+  3    v_rejected boolean := false;
+  4  
+  5    procedure conferir(p_nome varchar2, p_esperado number) is
+  6  	 v_obtido number;
+  7    begin
+  8  	 v_obtido := get_count(p_nome);
+  9  
+ 10  	 if v_obtido is null or v_obtido <> p_esperado then
+ 11  	   raise_application_error(-20010,
+ 12  	     'FALHA: ' || p_nome || ' esperado=' || p_esperado ||
+ 13  	     ' obtido=' || nvl(to_char(v_obtido),'NULL'));
+ 14  	 end if;
+ 15  
+ 16  	 dbms_output.put_line('PASS: ' || p_nome || ' = ' || v_obtido);
+ 17    end;
+ 18  begin
+ 19    conferir('LAB_COUNT_FIXTURE', 0);
+ 20  
+ 21    insert into lab_count_fixture values (1, 'linha 1');
+ 22    insert into lab_count_fixture values (2, null);
+ 23    insert into lab_count_fixture values (null, null);
+ 24  
+ 25    conferir('LAB_COUNT_FIXTURE', 3);
+ 26    conferir('lab_count_fixture', 3);
+ 27    conferir('ORACLE_SCRIPT_LAB.LAB_COUNT_FIXTURE', 3);
+ 28  
+ 29    insert into "Lab Count" values (1);
+ 30    insert into "Lab Count" values (2);
+ 31  
+ 32    conferir('"Lab Count"', 2);
+ 33  
+ 34    begin
+ 35  	 v_count := get_count('LAB_COUNT_FIXTURE where 1=1');
+ 36    exception
+ 37  	 when others then
+ 38  	   if sqlcode not in (-44002, -44003, -44004) then
+ 39  	     raise;
+ 40  	   end if;
+ 41  	   v_rejected := true;
+ 42  	   dbms_output.put_line('PASS: entrada SQL rejeitada: ' || sqlcode);
+ 43    end;
+ 44  
+ 45    if not v_rejected then
+ 46  	 raise_application_error(-20011,'Entrada SQL nao foi rejeitada.');
+ 47    end if;
+ 48  
+ 49    conferir('LAB_COUNT_FIXTURE', 3);
+ 50  
+ 51    delete from lab_count_fixture;
+ 52    conferir('LAB_COUNT_FIXTURE', 0);
+ 53  
+ 54    dbms_output.put_line('RESULTADO: TODOS OS TESTES DESTE LOTE PASSARAM.');
+ 55  end;
+ 56  /
+PASS: LAB_COUNT_FIXTURE = 0                                                                                                                                                                             
+PASS: LAB_COUNT_FIXTURE = 3                                                                                                                                                                             
+PASS: lab_count_fixture = 3                                                                                                                                                                             
+PASS: ORACLE_SCRIPT_LAB.LAB_COUNT_FIXTURE = 3                                                                                                                                                           
+PASS: "Lab Count" = 2                                                                                                                                                                                   
+PASS: entrada SQL rejeitada: -44002                                                                                                                                                                     
+PASS: LAB_COUNT_FIXTURE = 3                                                                                                                                                                             
+PASS: LAB_COUNT_FIXTURE = 0                                                                                                                                                                             
+RESULTADO: TODOS OS TESTES DESTE LOTE PASSARAM.                                                                                                                                                         
+
+PL/SQL procedure successfully completed.
+
+SQL> 
+SQL> commit;
+
+Commit complete.
+
+SQL> 
+SQL> select object_name, object_type, status
+  2  from user_objects
+  3  order by object_type, object_name;
+
+OBJECT_NAME                                                                                                                      OBJECT_TYPE             STATUS                                         
+-------------------------------------------------------------------------------------------------------------------------------- ----------------------- -------                                        
+GET_COUNT                                                                                                                        FUNCTION                VALID                                          
+LAB_COUNT_FIXTURE                                                                                                                TABLE                   VALID                                          
+Lab Count                                                                                                                        TABLE                   VALID                                          
+
+3 rows selected.
+
+SQL> 
+SQL> spool off

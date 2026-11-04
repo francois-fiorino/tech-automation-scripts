@@ -1657,7 +1657,8 @@
       "limitations": "DBMS_ASSERT valida nome, não autorização. COUNT exato pode fullscan; função GET_COUNT é alternativa incompatível com procedimento homônimo e depende de grants do invocador.",
       "tests": "Nome inválido/quoted, ausência deSELECT, tabela vazia, cursor em erro e número além de inteiro32; não instalar sobre variante sem decisão.",
       "commit": "2c4c02ee55b1472605695a93eddb7c4b39ab5578",
-      "batch": "043"
+      "batch": "043",
+      "runtime_evidence": "oracle/collection/tests/runtime/lote001/evidence.json"
     },
     {
       "path": "oracle/objects/get_count_proc.sql",
@@ -4074,5 +4075,11 @@
       "VERIFICATION.json",
       "INDEPENDENT_VERIFICATION.json"
     ]
+  },
+  "runtime_user_evidence": {
+    "partially_validated": 1,
+    "not_executed": 176,
+    "fully_homologated": 0,
+    "evidence": "oracle/collection/tests/runtime/lote001/evidence.json"
   }
 }

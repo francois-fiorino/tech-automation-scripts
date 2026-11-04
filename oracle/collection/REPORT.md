@@ -158,3 +158,11 @@ As 49 fontes originais anteriormente retidas não foram republicadas/relicenciad
 
 **Projeto ainda não concluído:** os 177 scripts do PR #2 continuam fora da main, com pendências individuais de runtime, contratos de aplicação, privilégios, segurança, compatibilidade e/ou comportamento administrativo. Não foram promovidos automaticamente. O PR #2 permanece Draft; o PR #1 continua aberto como documentação histórica, sem merge. O próximo trabalho é homologar e resolver cada impedimento em laboratório descartável com versão/DDL/dados e resultados verificáveis, seguido de seleção individual de publicação. Não existe lote 045 pendente nesta fila, nem execução em segundo plano.
 
+
+## Evidência de laboratório fornecida pelo usuário — GET_COUNT
+
+O usuário executou `oracle/administration/get_count2.sql` na VM Oracle 19c Enterprise Edition, usuário `ORACLE_SCRIPT_LAB`, container `PDB1`. O fonte enviado corresponde byte a byte ao commit `bc277eba3fb4a3c9b45705efd1f0969dc4e19b4b`, blob `e30dc6197607075008e3cd7ed6b46d8d265872b3`. A versão 19c vem do preflight anterior; o RU não foi coletado. Não houve execução Oracle pelo agente.
+
+Compilação VALID e AUTHID CURRENT_USER confirmados; oito asserções passaram: tabela vazia, três linhas com NULL, nome minúsculo, nome qualificado, identificador quoted, rejeição de entrada SQL com ORA-44002, recuperação após erro e tabela esvaziada. Log, roteiro executado e hashes em `tests/runtime/lote001/`.
+
+**Homologação parcial:** um script exercitado, 176 ainda sem execução registrada; zero integralmente homologados. Permanecem 177 pendentes de homologação completa e de decisão individual de publicação. Para GET_COUNT faltam isolamento de privilégios entre usuários, medição de cursores em erros repetidos e contagem acima de inteiro de 32 bits; desempenho, concorrência e outras versões também não foram validados. Recuperar uma chamada após erro não prova ausência de vazamento. Nenhum script foi promovido e nenhum PR foi mesclado. Próxima retomada: concluir os casos pendentes de GET_COUNT antes da seleção individual para main.

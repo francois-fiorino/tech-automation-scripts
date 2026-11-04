@@ -1,0 +1,40 @@
+{
+  "status": "validacao_parcial",
+  "executor": "usuario em sua VM VirtualBox; resultados fornecidos por upload",
+  "ambiente": {
+    "versao": "Oracle Database 19c Enterprise Edition; RU não informado",
+    "origem_versao": "preflight fornecido anteriormente pelo usuário",
+    "container": "PDB1",
+    "usuario": "ORACLE_SCRIPT_LAB"
+  },
+  "script": "oracle/administration/get_count2.sql",
+  "source_commit": "bc277eba3fb4a3c9b45705efd1f0969dc4e19b4b",
+  "source_blob": "e30dc6197607075008e3cd7ed6b46d8d265872b3",
+  "source_sha256": "ee83a1065eafe5f982dd621e9e755127cc69ff7da87a8f61f0b6dfeb21277d95",
+  "source_exact_match": true,
+  "compilation": "VALID; SHOW ERRORS: No errors.",
+  "authid": "CURRENT_USER confirmado por asserção",
+  "passed_cases": 8,
+  "cases": [
+    "tabela vazia: 0",
+    "três linhas incluindo NULL: 3",
+    "nome minúsculo: 3",
+    "nome qualificado: 3",
+    "identificador quoted: 2",
+    "entrada SQL rejeitada: ORA-44002",
+    "contagem após erro: 3",
+    "tabela após DELETE: 0"
+  ],
+  "remaining": [
+    "ausência de SELECT entre usuários distintos",
+    "medição de cursores antes/depois de erros repetidos",
+    "contagem superior a inteiro de 32 bits",
+    "desempenho e concorrência; outras versões não homologadas"
+  ],
+  "artifacts_sha256": {
+    "oracle_lab_lote001.log": "5cddb257ed0a2c0c1d499a8e03d68c2a0b61d19c6f1b34c405ba30190dd2b5b8",
+    "teste_get_count.sql": "91fee487c05d03bd3c902e29327959c289db42eb8033b733a9f3714543798963"
+  },
+  "promoted_to_main": false,
+  "note": "A recuperação após erro não comprova ausência de vazamento de cursores. O cabeçalho do fonte descreve a fase estática histórica; esta evidência posterior não altera seu corpo."
+}
