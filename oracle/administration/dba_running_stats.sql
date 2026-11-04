@@ -45,6 +45,17 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Revisão estática somente; implantação depende de testes e aprovação do PR.
   Comentários e créditos históricos preservados abaixo.
 
+REVISÃO COMPLEMENTAR 043 — 04/11/2026
+  Correções e melhorias: DDL integral preservado.
+  Limitações e pendências: DBA_RUNNING_STATS é tabela customizada sem PK/retenção/índices; não inferir unicidade de NAME/MEAS_DATE. Variantes usam contratos e semânticas distintos de DELTA.
+  Homologação necessária: Tabela existente, quota/storage e inserções com mesmo nome/data; definir política antes de coleta ou UPDATE.
+  Parâmetros/execução: contratos acima e corpo histórico; somente laboratório.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação: leitura integral/análise estática; sem compilação ou execução Oracle,
+  Windows, escrita de arquivo no servidor, backup/recovery ou alteração de contas.
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
+
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento

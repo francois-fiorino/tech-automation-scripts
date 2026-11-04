@@ -44,6 +44,17 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
   Comentários e créditos históricos preservados abaixo.
 
+REVISÃO COMPLEMENTAR 043 — 04/11/2026
+  Correções e melhorias: EXIT incondicional antes de CREATE DATABASE inválido/perigoso.
+  Limitações e pendências: AUTOEXTEND NEXT sem valor é inválido; não inferir incremento ou descartar funcionalidades. REUSE, pathsWindows, NOARCHIVELOG e layout9i não são estratégia moderna de restore.
+  Homologação necessária: Confirmar barreira antes de CREATE DATABASE; definir parâmetros/arquivos exclusivos e revisar gramática do modelo em ambiente descartável.
+  Parâmetros/execução: contratos acima e corpo histórico; somente laboratório.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação: leitura integral/análise estática; sem compilação ou execução Oracle,
+  Windows, escrita de arquivo no servidor, backup/recovery ou alteração de contas.
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
+
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
@@ -55,6 +66,9 @@ responsabilidade por danos, perdas de dados, indisponibilidade ou outros impacto
 decorrentes do uso, nos limites permitidos pela legislação aplicável.
 ===============================================================================
 */
+PROMPT BLOQUEADO: CREATE DATABASE legado incompleto; somente revisao.
+EXIT FAILURE ROLLBACK
+
 
 /*  */
 CREATE DATABASE AULTDB1

@@ -45,6 +45,17 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Revisão estática somente; implantação depende de testes e aprovação do PR.
   Comentários e créditos históricos preservados abaixo.
 
+REVISÃO COMPLEMENTAR 043 — 04/11/2026
+  Correções e melhorias: Buffer de condição ampliado de2000 para32767; escopo USER_CONSTRAINTS preservado.
+  Limitações e pendências: LONG continua limitado ao buffer/retornoVARCHAR2 e ao contexto SQL/PLSQL. OWNER não amplia USER_* para outro schema; UPPER não resolve quoted mixed case. NO_DATA_FOUND preservado.
+  Homologação necessária: Condição2001/32767/maior, outro owner, nomequoted e constraint sem condição; não declarar suporte a todo LONG.
+  Parâmetros/execução: contratos acima e corpo histórico; somente laboratório.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação: leitura integral/análise estática; sem compilação ou execução Oracle,
+  Windows, escrita de arquivo no servidor, backup/recovery ou alteração de contas.
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
+
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
@@ -60,7 +71,7 @@ decorrentes do uso, nos limites permitidos pela legislação aplicável.
 /*  */
 create or replace function get_cond(con_name varchar2, owner_name varchar2)
 return varchar2 as
-ser_cond varchar2(2000);
+ser_cond varchar2(32767);
 begin
 select search_condition into ser_cond from user_constraints
 where constraint_name=upper(con_name) and owner=upper(owner_name);

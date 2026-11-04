@@ -45,6 +45,17 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
   Comentários e créditos históricos preservados abaixo.
 
+REVISÃO COMPLEMENTAR 043 — 04/11/2026
+  Correções e melhorias: Interrupção SQL antes de CREATE/TRUNCATE BU_TEMP.
+  Limitações e pendências: BAT gerada só copia arquivos, não executa media recovery/mount/recover/open. Paths/OCOPY têm contrato diferente do gerador de backup; LINENO pode empatar entre tablespaces. Redo comentado permanece inativo.
+  Homologação necessária: Conferir simetria nomes backup/restore, arquivos ausentes e sequência de estados do banco; nenhuma cópia/restauração executada.
+  Parâmetros/execução: contratos acima e corpo histórico; somente laboratório.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação: leitura integral/análise estática; sem compilação ou execução Oracle,
+  Windows, escrita de arquivo no servidor, backup/recovery ou alteração de contas.
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
+
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
@@ -61,6 +72,7 @@ decorrentes do uso, nos limites permitidos pela legislação aplicável.
 REM Script to create a hot backup recovery script on NT using ocopy
 REM Created 6/23/98 MRA
 REM 
+WHENEVER SQLERROR EXIT FAILURE ROLLBACK
 create table bu_temp (line_no number,line_txt varchar2(2000)); 
 truncate table bu_temp;
 set verify off embedded off esc ^

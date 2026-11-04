@@ -14,7 +14,7 @@ FUNCIONAMENTO DETALHADO
 PRÉ-REQUISITOS E PRIVILÉGIOS
   SQL*Plus ou SQLcl; conexão ao banco/container que se deseja diagnosticar.
   Privilégios e grants DIRETOS de criação/execução/consulta conforme limitações;
-  não conceder acesso amplo para executar exemplos. EXECUTE em DBMS_OUTPUT e SERVEROUTPUT habilitado (o script o configura).
+  não conceder acesso amplo para executar exemplos. EXECUTE em DBMS_OUTPUT e SERVEROUTPUT habilitado pelo chamador (não configurado aqui).
   Não requer AWR/ASH nesta implementação.
 
 OBJETOS, VIEWS E PACOTES
@@ -45,6 +45,17 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
   Comentários e créditos históricos preservados abaixo.
 
+REVISÃO COMPLEMENTAR 043 — 04/11/2026
+  Correções e melhorias: AUTHID CURRENT_USER e NATIVE no procedimento GET_COUNT; contrato OUT preservado.
+  Limitações e pendências: Grants/autorizações do invocador passam a governar leitura. DBMS_OUTPUT não habilitado aqui; fullscan caro e contrato homônimo da função é incompatível.
+  Homologação necessária: Tabela vazia, nome inválido, falta deSELECT e erro no cliente/DBMS_OUTPUT; verificar OUT e cleanup em laboratório.
+  Parâmetros/execução: contratos acima e corpo histórico; somente laboratório.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação: leitura integral/análise estática; sem compilação ou execução Oracle,
+  Windows, escrita de arquivo no servidor, backup/recovery ou alteração de contas.
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
+
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
@@ -61,7 +72,7 @@ decorrentes do uso, nos limites permitidos pela legislação aplicável.
 create or replace PROCEDURE get_count (
  	tab_name  IN VARCHAR2, 
 	rows OUT NUMBER
-)  AS
+) AUTHID CURRENT_USER AS
   cur     INTEGER:=null;
   ret     INTEGER;
  com_string   VARCHAR2(32767);
@@ -70,7 +81,7 @@ BEGIN
  com_string :=
   'SELECT count(1) row_count FROM '||dbms_assert.sql_object_name(tab_name);
  cur := DBMS_SQL.OPEN_CURSOR;
- DBMS_SQL.PARSE(cur,com_string,dbms_sql.v7);
+ DBMS_SQL.PARSE(cur,com_string,dbms_sql.NATIVE);
  DBMS_SQL.DEFINE_COLUMN(cur, 1, row_count);
  ret := DBMS_SQL.EXECUTE(cur);
  ret := DBMS_SQL.FETCH_ROWS(cur);

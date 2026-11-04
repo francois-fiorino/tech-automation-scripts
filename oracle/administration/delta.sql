@@ -45,6 +45,17 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Revisão estática somente; implantação depende de testes e aprovação do PR.
   Comentários e créditos históricos preservados abaixo.
 
+REVISÃO COMPLEMENTAR 043 — 04/11/2026
+  Correções e melhorias: Subconsulta histórica mantida, bloqueada para implantação pela regra de baseline ausente.
+  Limitações e pendências: Sem correlação à linha alvo, pode atribuir delta de outra amostra ou ORA-01427. Sem par retorna NULL para todas linhas não nulas. Não escolher MAX/AVG/LAG arbitrariamente para resolver ambiguidade.
+  Homologação necessária: Definir amostra anterior, empate e identidade de série; testar 0/1/vários pares na janela25–35min em cópia descartável.
+  Parâmetros/execução: contratos acima e corpo histórico; somente laboratório.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação: leitura integral/análise estática; sem compilação ou execução Oracle,
+  Windows, escrita de arquivo no servidor, backup/recovery ou alteração de contas.
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
+
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento

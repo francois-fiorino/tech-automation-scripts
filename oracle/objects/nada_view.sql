@@ -45,6 +45,17 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
   Comentários e créditos históricos preservados abaixo.
 
+REVISÃO COMPLEMENTAR 043 — 04/11/2026
+  Correções e melhorias: DDL de aplicação integral preservado.
+  Limitações e pendências: DROP TEST/TEST2 destrói homônimos e confirma DDL; DBO_* ausentes. TOTAL_HITS mistura estadoCHAR e contagens em texto; carga de TEST não incluída e UNION elimina duplicatas.
+  Homologação necessária: Clone com DDL de negócio, dadosfictícios, tipo/NULLs/unidades e duas views; não inferir regra de negócio pelos nomes.
+  Parâmetros/execução: contratos acima e corpo histórico; somente laboratório.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação: leitura integral/análise estática; sem compilação ou execução Oracle,
+  Windows, escrita de arquivo no servidor, backup/recovery ou alteração de contas.
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
+
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento

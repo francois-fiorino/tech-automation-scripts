@@ -45,6 +45,17 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Revisão estática somente; implantação depende de laboratório e aprovação do PR.
   Comentários e créditos históricos preservados abaixo.
 
+REVISÃO COMPLEMENTAR 043 — 04/11/2026
+  Correções e melhorias: AUTHID CURRENT_USER evita emprestar SELECT do definidor; NATIVE e cursor inicializado; contagem NUMBER.
+  Limitações e pendências: DBMS_ASSERT valida nome, não autorização. COUNT exato pode fullscan; função GET_COUNT é alternativa incompatível com procedimento homônimo e depende de grants do invocador.
+  Homologação necessária: Nome inválido/quoted, ausência deSELECT, tabela vazia, cursor em erro e número além de inteiro32; não instalar sobre variante sem decisão.
+  Parâmetros/execução: contratos acima e corpo histórico; somente laboratório.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação: leitura integral/análise estática; sem compilação ou execução Oracle,
+  Windows, escrita de arquivo no servidor, backup/recovery ou alteração de contas.
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
+
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
@@ -58,15 +69,15 @@ decorrentes do uso, nos limites permitidos pela legislação aplicável.
 */
 
 /*  */
-create or replace function get_count (tab_name varchar2) return number as
-cur integer;
+create or replace function get_count (tab_name varchar2) return number AUTHID CURRENT_USER as
+cur integer := NULL;
 sql_text varchar2(32767);
-rowcount integer;
+rowcount NUMBER;
 row_proc integer;
 BEGIN
     cur:=dbms_sql.open_cursor;
     sql_text:='select count(1) rowcount from '||dbms_assert.sql_object_name(tab_name);
-    dbms_sql.parse(cur,sql_text,dbms_sql.v7);
+    dbms_sql.parse(cur,sql_text,dbms_sql.NATIVE);
     dbms_sql.define_column(cur,1,rowcount);
     row_proc:=dbms_sql.execute(cur);
     row_proc:=dbms_sql.fetch_rows(cur);

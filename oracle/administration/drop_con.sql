@@ -13,7 +13,7 @@ FUNCIONAMENTO DETALHADO
 
 PRÉ-REQUISITOS E PRIVILÉGIOS
   SQL*Plus ou SQLcl; conexão ao banco/container que se deseja diagnosticar.
-  Grants DIRETOS e privilégios administrativos conforme limitações de cada arquivo. EXECUTE em DBMS_OUTPUT e SERVEROUTPUT habilitado (o script o configura).
+  Grants DIRETOS e privilégios administrativos conforme limitações de cada arquivo. EXECUTE em DBMS_OUTPUT e SERVEROUTPUT habilitado pelo chamador (não configurado aqui).
   Não requer AWR/ASH nesta implementação.
 
 OBJETOS, VIEWS E PACOTES
@@ -43,6 +43,17 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Comentário integral preservado; não reativada rotina destrutiva silenciosamente. 
   Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
   Comentários e créditos históricos preservados abaixo.
+
+REVISÃO COMPLEMENTAR 043 — 04/11/2026
+  Correções e melhorias: Bloco inteiro comentado preservado; não instala rotina.
+  Limitações e pendências: Se reativado, remove constraints com DDL parcial; handler mascara erros e pode deixar cursor aberto. Ordem por tipo não garante remover PK referenciada; nomes não citados.
+  Homologação necessária: Não remover comentário sem projeto de rollback/dependências, quoting, cleanup e política de erro.
+  Parâmetros/execução: contratos acima e corpo histórico; somente laboratório.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação: leitura integral/análise estática; sem compilação ou execução Oracle,
+  Windows, escrita de arquivo no servidor, backup/recovery ou alteração de contas.
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
 
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.

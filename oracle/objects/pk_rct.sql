@@ -9,7 +9,7 @@ OBJETIVO E FINALIDADE
   Preservar DDL gerada de remoção/recriação de 150 chaves de aplicação.
 
 FUNCIONAMENTO DETALHADO
-  450 comandos: 150 DROP CONSTRAINT, 150 DROP INDEX e 150 ADD PRIMARY KEY/UNIQUE USING INDEX com storage HMINDEX.
+  450 comandos: 150 DROP CONSTRAINT, 150 DROP INDEX e 150 ADD PRIMARY KEY/UNIQUE USING INDEX com storage HMINDEX/HMDATA.
 
 PRÉ-REQUISITOS E PRIVILÉGIOS
   SQL*Plus ou SQLcl; conexão ao banco/container que se deseja diagnosticar.
@@ -44,6 +44,17 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Código integral preservado sem executar, resumir ou remover drops; referências/números não reescritos sem catálogo e testes. 
   Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
   Comentários e créditos históricos preservados abaixo.
+
+REVISÃO COMPLEMENTAR 043 — 04/11/2026
+  Correções e melhorias: Identifier MATL_PRICE_GRP_CD recomposto onde quebra de linha havia separado MAT e L_PRICE_GRP_CD. Todas450instruções e150trincas preservadas.
+  Limitações e pendências: 150DROP CONSTRAINT/150DROP INDEX/150ADD podem remover integridade parcialmente; DROP da constraint pode remover índice antes do DROP INDEX. Nome_PK não prova tipoPK: há constraintsUnique com sufixoPK. Tablespaces HMINDEX e HMDATA mantidos.
+  Homologação necessária: Confrontar todas150chaves/colunas/índices e FKs dependentes com catálogo; planejar rollback/indisponibilidade. Não executar acervo para recriar índices em produção.
+  Parâmetros/execução: contratos acima e corpo histórico; somente laboratório.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação: leitura integral/análise estática; sem compilação ou execução Oracle,
+  Windows, escrita de arquivo no servidor, backup/recovery ou alteração de contas.
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
 
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
@@ -2595,8 +2606,7 @@ alter table LKP_SAP_BROKER
 drop constraint LKP_SAP_BROKER_PK;
 drop index LKP_SAP_BROKER_PK;
 alter table LKP_SAP_BROKER add constraint LKP_SAP_BROKER_PK
-Primary Key( SALE_ORG_CD, DSTRB_CHNL_CD, DIV_CD, CUST_GRP_CD, SALE_DSTRC_CD, MAT
-L_PRICE_GRP_CD, VALID_FROM_DT )
+Primary Key( SALE_ORG_CD, DSTRB_CHNL_CD, DIV_CD, CUST_GRP_CD, SALE_DSTRC_CD, MATL_PRICE_GRP_CD, VALID_FROM_DT )
 using index tablespace HMINDEX
 pctfree 10
 initrans 2

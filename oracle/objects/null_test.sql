@@ -14,7 +14,7 @@ FUNCIONAMENTO DETALHADO
 PRÉ-REQUISITOS E PRIVILÉGIOS
   SQL*Plus ou SQLcl; conexão ao banco/container que se deseja diagnosticar.
   Privilégios e grants DIRETOS de criação/execução/consulta conforme limitações;
-  não conceder acesso amplo para executar exemplos. EXECUTE em DBMS_OUTPUT e SERVEROUTPUT habilitado (o script o configura).
+  não conceder acesso amplo para executar exemplos. EXECUTE em DBMS_OUTPUT e SERVEROUTPUT habilitado pelo chamador (não configurado aqui).
   Não requer AWR/ASH nesta implementação.
 
 OBJETOS, VIEWS E PACOTES
@@ -44,6 +44,17 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   TRUE1 inicializado TRUE em coerência com caso declarado; demais casos e classificação preservados. Dependência continua pendente de fornecimento. 
   Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
   Comentários e créditos históricos preservados abaixo.
+
+REVISÃO COMPLEMENTAR 043 — 04/11/2026
+  Correções e melhorias: Quatro chamadas PRICE_INCREASE e classificação TRUE/FALSE/NULL preservadas.
+  Limitações e pendências: PRICE_INCREASE ausente pode ter semântica/efeitos diferentes de AND; não substituí-la por operador apenas pelo rótulo. SERVEROUTPUT não é configurado aqui.
+  Homologação necessária: Fornecer e revisar helper; verificar os4resultados com entradas fictícias e comparar tabela-verdade definida pelo contrato.
+  Parâmetros/execução: contratos acima e corpo histórico; somente laboratório.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação: leitura integral/análise estática; sem compilação ou execução Oracle,
+  Windows, escrita de arquivo no servidor, backup/recovery ou alteração de contas.
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
 
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.

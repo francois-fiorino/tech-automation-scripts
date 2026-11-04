@@ -45,6 +45,17 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
   Comentários e créditos históricos preservados abaixo.
 
+REVISÃO COMPLEMENTAR 043 — 04/11/2026
+  Correções e melhorias: Interrupção SQL antes de CREATE/TRUNCATE BU_TEMP.
+  Limitações e pendências: OCOPY/START WAIT e paths sem quoting são legados; LINENO ainda tem empates e sem cleanup em falha de BEGIN BACKUP. Copiar redo online/archives por wildcard não comprova consistência.
+  Homologação necessária: BU_TEMP existente, vários tablespaces/arquivos, espaços em paths e retorno deOCOPY; laboratório e plano de recovery, sem executar saída nesta revisão.
+  Parâmetros/execução: contratos acima e corpo histórico; somente laboratório.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação: leitura integral/análise estática; sem compilação ou execução Oracle,
+  Windows, escrita de arquivo no servidor, backup/recovery ou alteração de contas.
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
+
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
@@ -66,6 +77,7 @@ REM &&ora_home
 REM &&dest_dir
 REM create holding table for commands
 REM
+WHENEVER SQLERROR EXIT FAILURE ROLLBACK
 create table bu_temp (line_no number,line_txt varchar2(2000)); 
 REM
 REM Empty it if it already exists

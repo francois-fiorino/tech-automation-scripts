@@ -45,6 +45,17 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
   Comentários e créditos históricos preservados abaixo.
 
+REVISÃO COMPLEMENTAR 043 — 04/11/2026
+  Correções e melhorias: Bloco vazio recebe NULL; MAXSIZE ampliado; FIRST/NEXT para coleção esparsa; UTL_FILE fecha com proteção e relança erro; cursor timezone fechado. Interrupção SQL antes de criar sequência/rotina.
+  Limitações e pendências: DROP da sequência continua destrutivo e pode invalidar dependentes. Caminho UTL_FILE_DIR Windows/arquivo W e linhas255/256 mantidos; LOG_ARCHIVE_START obsoleto, limites/undo/temp/REUSE não compõem restore homologado.
+  Homologação necessária: Sequência existente/ausente, coleção vazia/índices com lacunas, erro de arquivo e parâmetros ausentes; inspecionar saída sem executar CREATE DATABASE.
+  Parâmetros/execução: contratos acima e corpo histórico; somente laboratório.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação: leitura integral/análise estática; sem compilação ou execução Oracle,
+  Windows, escrita de arquivo no servidor, backup/recovery ou alteração de contas.
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
+
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
@@ -72,11 +83,13 @@ rem SET VERIFY OFF FEEDBACK OFF ECHO OFF PAGES 0
 SET TERMOUT ON
 PROMPT Creating db build script...
 DROP SEQUENCE lineno_seq;
+WHENEVER SQLERROR EXIT FAILURE ROLLBACK
 CREATE SEQUENCE lineno_seq MINVALUE 1 INCREMENT BY 1 NOCACHE; 
 set verify on feedback on echo on
 CREATE OR REPLACE PROCEDURE recreate_db2 AS
 --
 lineno_count INTEGER;
+output_index BINARY_INTEGER;
 file_handle UTL_FILE.FILE_TYPE;
 --
 TYPE db_temp IS TABLE OF VARCHAR2(255)
@@ -212,7 +225,7 @@ CURSOR get_max_values IS
    lv_type		database_properties.property_name%TYPE;
    lv_max_var		VARCHAR2(15);
    lv_max_val           NUMBER;
-   sub_strg             VARCHAR2(20);
+   sub_strg             VARCHAR2(128);
    grp_member           v$logfile.member%TYPE;
    bytes                v$log.bytes%TYPE;
    db_name              VARCHAR2(8);
@@ -384,7 +397,7 @@ LOOP
 END LOOP;
 END;
 BEGIN
-
+ NULL; -- bloco historico sem operacao
 END;
 BEGIN
 OPEN undo_ts_cursor;
@@ -545,6 +558,7 @@ END;
 BEGIN
 OPEN get_timezone;
 FETCH get_timezone into lv_timezone;
+CLOSE get_timezone;
      db_string:='SET TIME_ZONE ='||chr(39)||lv_timezone||chr(39);
      write_out(db_string);
 END;
@@ -559,13 +573,19 @@ CLOSE grp_cursor;
 END;
 BEGIN
  file_handle:=UTL_FILE.FOPEN('d:\oracle\sql_scripts\','rebuild_db91.sql','W',256);
- FOR i in 1..lineno_count LOOP
-  UTL_FILE.PUT_LINE(file_handle,db_table(i));
+ output_index := db_table.FIRST;
+ WHILE output_index IS NOT NULL LOOP
+  UTL_FILE.PUT_LINE(file_handle,db_table(output_index));
+  output_index := db_table.NEXT(output_index);
  END LOOP;
  UTL_FILE.FCLOSE(file_handle);
 EXCEPTION
 WHEN others THEN
-UTL_FILE.FCLOSE(file_handle);
+ BEGIN
+  IF UTL_FILE.IS_OPEN(file_handle) THEN UTL_FILE.FCLOSE(file_handle); END IF;
+ EXCEPTION WHEN OTHERS THEN NULL; -- preservar erro original
+ END;
+ RAISE;
 END;
 END;
 /

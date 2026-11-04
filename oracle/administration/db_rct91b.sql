@@ -44,6 +44,17 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
   Comentários e créditos históricos preservados abaixo.
 
+REVISÃO COMPLEMENTAR 043 — 04/11/2026
+  Correções e melhorias: Interrupção SQL antes de CREATE SEQUENCE e chamada do helper.
+  Limitações e pendências: DROP LINENO_SEQ confirma e invalida dependentes; RECREATE_DB2 precisa existir na versão revista. Helper escreve em caminho de servidor e não é recuperação completa.
+  Homologação necessária: CREATE SEQUENCE negado e helper inválido devem impedir chamada; somente schema descartável, sem arquivo útil no destino.
+  Parâmetros/execução: contratos acima e corpo histórico; somente laboratório.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação: leitura integral/análise estática; sem compilação ou execução Oracle,
+  Windows, escrita de arquivo no servidor, backup/recovery ou alteração de contas.
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
+
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
@@ -71,6 +82,7 @@ rem SET VERIFY OFF FEEDBACK OFF ECHO OFF PAGES 0
 SET TERMOUT ON
 PROMPT Creating db build script...
 DROP SEQUENCE lineno_seq;
+WHENEVER SQLERROR EXIT FAILURE ROLLBACK
 CREATE SEQUENCE lineno_seq MINVALUE 1 INCREMENT BY 1 NOCACHE; 
 set verify on feedback on echo on
 

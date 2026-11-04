@@ -14,7 +14,7 @@ FUNCIONAMENTO DETALHADO
 PRÉ-REQUISITOS E PRIVILÉGIOS
   SQL*Plus ou SQLcl; conexão ao banco/container que se deseja diagnosticar.
   Grants DIRETOS de criação/execução/consulta e permissões administrativas
-  conforme limitações; não instalar variantes sobre objetos de trabalho. EXECUTE em DBMS_OUTPUT e SERVEROUTPUT habilitado (o script o configura).
+  conforme limitações; não instalar variantes sobre objetos de trabalho. EXECUTE em DBMS_OUTPUT e SERVEROUTPUT habilitado pelo chamador (não configurado aqui).
   Não requer AWR/ASH nesta implementação.
 
 OBJETOS, VIEWS E PACOTES
@@ -45,6 +45,17 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
   Comentários e créditos históricos preservados abaixo.
 
+REVISÃO COMPLEMENTAR 043 — 04/11/2026
+  Correções e melhorias: EXIT incondicional antes de instalar gerador fraco e rotinas de provisionamento.
+  Limitações e pendências: CREATE_USER exige3argumentos mas INSERT_USERS passa1; roles/profile não definidos. Senha6 previsível e gravação clara permanecem só como código histórico inacessível pelo fluxo normal.
+  Homologação necessária: Confirmar barreira antes de CREATE; definir contrato de provisionamento seguro sem escolher roles/profile ou publicar credenciais.
+  Parâmetros/execução: contratos acima e corpo histórico; somente laboratório.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação: leitura integral/análise estática; sem compilação ou execução Oracle,
+  Windows, escrita de arquivo no servidor, backup/recovery ou alteração de contas.
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
+
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
@@ -56,6 +67,9 @@ responsabilidade por danos, perdas de dados, indisponibilidade ou outros impacto
 decorrentes do uso, nos limites permitidos pela legislação aplicável.
 ===============================================================================
 */
+PROMPT BLOQUEADO: provisionamento legado inseguro; somente revisao.
+EXIT FAILURE ROLLBACK
+
 
 /*  */
 -- this requires a user_temp table that has been pre-loaded with:

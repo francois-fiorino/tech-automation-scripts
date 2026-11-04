@@ -44,6 +44,17 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
   Comentários e créditos históricos preservados abaixo.
 
+REVISÃO COMPLEMENTAR 043 — 04/11/2026
+  Correções e melhorias: DISTINCT evita comandos repetidos por arquivo; nome de tablespace citado com escape.
+  Limitações e pendências: Ainda executa DEF.SQL automaticamente e HOST DEL remove arquivo; não filtra DMT/ONLINE/SYSTEM/TEMP. Helper FREE2_SPC e contrato FREE_SPACE devem ser revisados.
+  Homologação necessária: Dois arquivos no mesmo tablespace, nomes com aspas, helpers ausentes e erro parcial; apenas simular saída nesta revisão.
+  Parâmetros/execução: contratos acima e corpo histórico; somente laboratório.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação: leitura integral/análise estática; sem compilação ou execução Oracle,
+  Windows, escrita de arquivo no servidor, backup/recovery ou alteração de contas.
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
+
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
@@ -77,7 +88,7 @@ ttitle off
 set heading off feedback off echo off termout off
 spool def.sql
 select 
-	'alter tablespace '||tablespace_name||' coalesce;'
+	distinct 'alter tablespace "'||replace(tablespace_name,'"','""')||'" coalesce;'
 from
 	dba_tablespaces,
 	free_space
