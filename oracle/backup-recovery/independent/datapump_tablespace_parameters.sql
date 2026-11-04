@@ -51,6 +51,15 @@ REFERÊNCIAS
  https://docs.oracle.com/en/database/oracle/oracle-database/19/sutil/oracle-data-pump-export-utility.html
  https://docs.oracle.com/en/database/oracle/oracle-database/19/refrn/DBA_TABLESPACES.html
 
+REVISÃO COMPLEMENTAR 040 — 04/11/2026
+  Correções e melhorias: Implementação nova preservada: somente texto de parfile.
+  Limitações e pendências: Nomes fora da regex são omitidos, inclusive nomes longos/mixed case; não concatenar blocos. Nomes dump/log repetem entre execuções; inventário não garante cobertura de objetos/dependências/consistência.
+  Homologação necessária: Fixture de nomes permitidos/omitidos, um parfile por tablespace, DIRECTORY e nomes únicos; não executar export nesta revisão.
+  Parâmetros e execução: contrato detalhado acima e no corpo; somente laboratório.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação: leitura integral e análise estática; sem compilação/execução Oracle,
+  sem Windows, exportação, job ou comando administrativo executado.
+
 AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de
 qualquer utilização em produção. Sua execução é de responsabilidade do
 profissional responsável pelo ambiente. Os mantenedores deste repositório não

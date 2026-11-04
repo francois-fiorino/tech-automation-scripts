@@ -44,6 +44,17 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
   Comentários e créditos históricos preservados abaixo.
 
+REVISÃO COMPLEMENTAR 040 — 04/11/2026
+  Correções e melhorias: Interrupção SQL antes do staging e LINENO exclusivo para status de tablespace.
+  Limitações e pendências: REUSE e caminhos originais preservados: saída pode sobrescrever dados. Sem datafiles, buffers800, status READ ONLY e recursos modernos podem gerar DDL inválido; não é recuperação.
+  Homologação necessária: Comparar ordem DEFAULT STORAGE/status em fixture; vários arquivos, nomes/apóstrofos e tablespaces TEMP/UNDO/LMT; não executar REUSE.
+  Parâmetros e execução: contrato detalhado acima e no corpo; somente laboratório.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação: leitura integral e análise estática; sem compilação/execução Oracle,
+  sem Windows, exportação, job ou comando administrativo executado.
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
+
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
@@ -83,6 +94,7 @@ set termout on;
 select 'Creating tablespace build script...' from dual;
 set termout off;
  
+whenever sqlerror exit failure rollback
 create table ts_temp (lineno number, ts_name varchar2(30),
                     text varchar2(800))
 / 
@@ -170,6 +182,7 @@ BEGIN
          lv_string := (' PCTINCREASE ' ||
                       lv_pct_increase || ')');
          write_out(lv_lineno, lv_tablespace_name, lv_string);
+         lv_lineno := lv_lineno + 1;
          lv_string := ('   '||lv_status);
          write_out(lv_lineno, lv_tablespace_name, lv_string);
          lv_lineno := lv_lineno + 1;

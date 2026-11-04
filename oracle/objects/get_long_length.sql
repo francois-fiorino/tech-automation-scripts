@@ -20,7 +20,7 @@ OBJETOS, VIEWS E PACOTES
   DBMS_SQL, DBMS_ASSERT.SQL_OBJECT_NAME/SIMPLE_SQL_NAME; tabela/coluna LONG
 
 COMPATIBILIDADE CONHECIDA E LIMITAÇÕES
-  CREATE PROCEDURE/EXECUTE/SELECT diretos. DBMS_ASSERT valida forma/nome, não autorização de acesso; definer rights requer revisar quem pode executar. Não é comprimento de CLOB nem suporte genérico de UROWID; byte/charset precisa validação no alvo.
+  CREATE PROCEDURE/EXECUTE/SELECT diretos. DBMS_ASSERT valida forma/nome, não autorização de acesso; direitos do invocador requerem revisar grants do chamador. Não é comprimento de CLOB nem suporte genérico de UROWID; byte/charset precisa validação no alvo.
   Não homologado em versões específicas; validar dicionário e plano em laboratório.
 
 EXEMPLO DE EXECUÇÃO
@@ -44,6 +44,17 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
   Comentários e créditos históricos preservados abaixo.
 
+REVISÃO COMPLEMENTAR 040 — 04/11/2026
+  Correções e melhorias: L_LENGTH usa AUTHID CURRENT_USER para não emprestar privilégios do definidor ao SQL dinâmico.
+  Limitações e pendências: DBMS_ASSERT não autoriza acesso. Retorna bytes dos chunks, NULL sem linha e zero para LONG nulo; ROWID textual não garante suporte IOT/UROWID. Limites multibyte e dois GB exigem laboratório.
+  Homologação necessária: LONG de 0/1/32766/32767/32768 bytes, multibyte, ROWID ausente e chamador sem SELECT; inspecionar cleanup após erro.
+  Parâmetros e execução: contrato detalhado acima e no corpo; somente laboratório.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação: leitura integral e análise estática; sem compilação/execução Oracle,
+  sem Windows, exportação, job ou comando administrativo executado.
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
+
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
@@ -61,6 +72,7 @@ CREATE OR REPLACE FUNCTION l_length(cTabName varchar2,
                                        cColName varchar2, 
                                        cRowid   varchar2) 
     RETURN NUMBER 
+    AUTHID CURRENT_USER
     IS 
            cur_id integer:=null; 
            buff   varchar2(32767); 

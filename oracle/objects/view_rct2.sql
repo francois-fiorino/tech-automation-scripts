@@ -45,6 +45,17 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
   Comentários e créditos históricos preservados abaixo.
 
+REVISÃO COMPLEMENTAR 040 — 04/11/2026
+  Correções e melhorias: Gerador textual preservado.
+  Limitações e pendências: Falta terminador explícito entre DDLs de views; páginas59/linhas79/word_wrap e LONG10000 podem inserir quebras/truncar. Nomes/aliases/editioning não completos. Saída não pronta para executar.
+  Homologação necessária: Duas views consecutivas e body maior que10000, aliases, ampersand e nomes quoted; verificar terminadores/paginação manualmente.
+  Parâmetros e execução: contrato detalhado acima e no corpo; somente laboratório.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação: leitura integral e análise estática; sem compilação/execução Oracle,
+  sem Windows, exportação, job ou comando administrativo executado.
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
+
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento

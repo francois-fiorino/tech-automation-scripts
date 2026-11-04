@@ -44,6 +44,17 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
   Comentários e créditos históricos preservados abaixo.
 
+REVISÃO COMPLEMENTAR 040 — 04/11/2026
+  Correções e melhorias: Interrupção SQL antes do CREATE protege T_TEMP preexistente.
+  Limitações e pendências: Cursor principal usa macros sem normalização enquanto colunas usam UPPER; parâmetros exigem case de catálogo. Saída não qualifica owner e perde NUMBER(*,s), defaults/char semântica/LOB/constraints.
+  Homologação necessária: Owner/tabela lower e upper, tabela homônima e quoted; validar NUMBER e destino de CREATE/DROP.
+  Parâmetros e execução: contrato detalhado acima e no corpo; somente laboratório.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação: leitura integral e análise estática; sem compilação/execução Oracle,
+  sem Windows, exportação, job ou comando administrativo executado.
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
+
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
@@ -88,6 +99,7 @@ set termout on
 select 'Creating table build script...' from dual;
 rem set termout off
  
+whenever sqlerror exit failure rollback
 create table t_temp
      (lineno NUMBER, tb_owner VARCHAR2(30), tb_name VARCHAR2(30),
       text VARCHAR2(2000))

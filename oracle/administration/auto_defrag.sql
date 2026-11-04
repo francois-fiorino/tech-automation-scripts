@@ -13,7 +13,7 @@ FUNCIONAMENTO DETALHADO
 
 PRÉ-REQUISITOS E PRIVILÉGIOS
   SQL*Plus ou SQLcl; conexão ao banco/container que se deseja diagnosticar.
-  Grants DIRETOS e privilégios administrativos conforme limitações de cada arquivo. EXECUTE em DBMS_OUTPUT e SERVEROUTPUT habilitado (o script o configura).
+  Grants DIRETOS e privilégios administrativos conforme limitações de cada arquivo. EXECUTE em DBMS_OUTPUT e SERVEROUTPUT habilitado pelo chamador (não configurado aqui).
   Não requer AWR/ASH nesta implementação.
 
 OBJETOS, VIEWS E PACOTES
@@ -43,6 +43,17 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Cursor GET_FRAGS fechado no término normal; agendamento/commits/política preservados e não executados. 
   Alterações de código revisadas estaticamente; testes Oracle ainda necessários.
   Comentários e créditos históricos preservados abaixo.
+
+REVISÃO COMPLEMENTAR 040 — 04/11/2026
+  Correções e melhorias: Cursor DBMS_SQL inicializado e fechado no tratamento de erro; nome de tablespace citado com escape e flag NATIVE.
+  Limitações e pendências: COALESCE continua amplo, DDL/COMMIT confirmam histórico; handler ainda registra e continua sem relançar. Não filtra DMT e job exige COMMIT para submissão; não mudar política transacional silenciosamente.
+  Homologação necessária: Erro de parse/execução seguido de próximo tablespace, nome quoted, estado do cursor, grants diretos e rollback de submissão de job.
+  Parâmetros e execução: contrato detalhado acima e no corpo; somente laboratório.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação: leitura integral e análise estática; sem compilação/execução Oracle,
+  sem Windows, exportação, job ou comando administrativo executado.
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
 
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
@@ -102,7 +113,7 @@ pieces		NUMBER;
 files		NUMBER;
 tbname		VARCHAR2(64);
 sql_stmt	VARCHAR2(255);
-cur		INTEGER;
+cur		INTEGER := NULL;
 rows		INTEGER;
 PROCEDURE write_out(
   par_name  IN VARCHAR2,
@@ -126,12 +137,17 @@ LOOP
 		write_out('defragmenting '||tbname,pieces,99,sysdate,0);
 		dbms_output.put_line('defragmenting '||tbname||' pieces:'||to_char(pieces));
 		cur:=dbms_sql.open_cursor;
-		sql_stmt:='alter tablespace '||tbname||' coalesce';
-		dbms_sql.parse(cur,sql_stmt,dbms_sql.v7);
+		sql_stmt:='alter tablespace "'||replace(tbname,'"','""')||'" coalesce';
+		dbms_sql.parse(cur,sql_stmt,dbms_sql.NATIVE);
 		rows:=dbms_sql.execute(cur);
 		dbms_sql.close_cursor(cur);
+                cur := NULL;
 	  EXCEPTION
 		WHEN OTHERS THEN
+                IF cur IS NOT NULL AND dbms_sql.is_open(cur) THEN
+                  dbms_sql.close_cursor(cur);
+                END IF;
+                cur := NULL;
 		write_out('error during defrag of '||tbname,pieces,99,sysdate,0);
 		dbms_output.put_line('error defragmenting '||tbname||' error:'||to_char(sqlcode));
 	  END;

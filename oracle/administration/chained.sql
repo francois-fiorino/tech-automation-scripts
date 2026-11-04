@@ -45,6 +45,19 @@ CORREÇÕES REALIZADAS E PENDÊNCIAS
   Revisão estática somente; implantação depende de laboratório e aprovação do PR.
   Comentários e créditos históricos preservados abaixo.
 
+REFERÊNCIA: https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/physical_attributes_clause.html
+
+REVISÃO COMPLEMENTAR 040 — 04/11/2026
+  Correções e melhorias: Removida vírgula inválida entre PCTFREE 80 e PCTUSED 20.
+  Limitações e pendências: DROP destrói homônimo, carga confirma uma linha por vez e EXIT encerra cliente. Apenas COL1 preenchida não comprova chaining; ASSM ignora PCTUSED.
+  Homologação necessária: Compilar DDL em schema descartável, contar 1000 linhas e verificar commits/EXIT; sem executar nesta revisão.
+  Parâmetros e execução: contrato detalhado acima e no corpo; somente laboratório.
+  Compatibilidade: nenhuma versão adicional homologada nesta revisão.
+  Validação: leitura integral e análise estática; sem compilação/execução Oracle,
+  sem Windows, exportação, job ou comando administrativo executado.
+
+AVISO: Este script deve ser avaliado e testado em ambiente controlado antes de qualquer utilização em produção. Sua execução é de responsabilidade do profissional responsável pelo ambiente. Os mantenedores deste repositório não se responsabilizam por indisponibilidade, perda de dados, alterações indevidas ou outros impactos decorrentes de sua utilização.
+
 AVISO DE RESPONSABILIDADE
 Os scripts são disponibilizados para fins técnicos, educacionais e administrativos.
 Antes da utilização, analise integralmente o código, compreenda seu funcionamento
@@ -72,7 +85,7 @@ create table chained
  col6 varchar2(255),
  col7 varchar2(255)
  )
- PCTFREE 80,
+ PCTFREE 80
  PCTUSED 20;
  declare ctr int := 0;
  begin
