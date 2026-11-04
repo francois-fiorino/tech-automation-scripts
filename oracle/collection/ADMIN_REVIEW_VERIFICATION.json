@@ -1,11 +1,11 @@
 {
-  "review_head": "169cc5270f3af21fc0a336badeda46c314beb09c",
-  "reviewed": 60,
-  "code_changed": 36,
-  "documentation_only": 24,
+  "review_head": "4c88d359890cc82a98e6ae3f1a5307a1072a3266",
+  "reviewed": 80,
+  "code_changed": 41,
+  "documentation_only": 39,
   "main_implementations": 476,
   "review_implementations": 177,
-  "pending_complementary_review": 117,
+  "pending_complementary_review": 97,
   "oracle_compilation": false,
   "oracle_execution": false,
   "files": [
@@ -668,6 +668,226 @@
       "tests": "Unicidade entre instâncias/faixas; CYCLE/RESTART/cache; chave fornecida pelo chamador; capacidade de EMP_ID; apenas contraexemplo aritmético local, sem trigger Oracle executado.",
       "commit": "169cc5270f3af21fc0a336badeda46c314beb09c",
       "batch": "038"
+    },
+    {
+      "path": "oracle/troubleshooting/no_trace_my_session.sql",
+      "before_blob": "d99a968081aae7a03ab3c2c1c4781cfff18e77c4",
+      "blob_sha": "518db016f86bc33547d11cb2d53063b01406df04",
+      "code_changed": false,
+      "changes": "Corpo preservado; desabilita apenas a sessão corrente.",
+      "limitations": "Pode interromper diagnóstico planejado; não remove trace existente nem apaga binds já registrados.",
+      "tests": "Habilitar trace em sessão descartável, desabilitar e verificar ausência de novos registros.",
+      "commit": "4c88d359890cc82a98e6ae3f1a5307a1072a3266",
+      "batch": "039"
+    },
+    {
+      "path": "oracle/troubleshooting/trace_my_session.sql",
+      "before_blob": "71692d7eef72ef173392071a654c265a240197da",
+      "blob_sha": "377c2b77b74ccf8431f86f4c9783e30c974f9a87",
+      "code_changed": false,
+      "changes": "Corpo preservado; TRUE/TRUE mantém coleta de waits e binds.",
+      "limitations": "Binds podem conter dados pessoais/segredos. Definir janela, quota e desativação; SID é local à instância e conexão atual.",
+      "tests": "Usar binds fictícios, validar arquivo/overhead e helper de desativação na mesma sessão.",
+      "commit": "4c88d359890cc82a98e6ae3f1a5307a1072a3266",
+      "batch": "039"
+    },
+    {
+      "path": "oracle/security/grant_rc.sql",
+      "before_blob": "312499b58fae223db5e0e6b7b04ab50c6ddb1ddf",
+      "blob_sha": "a63736a78322078e1ff30fdd3b5cd1faea9dbab3",
+      "code_changed": true,
+      "changes": "WRITE_OUT agora usa seus parâmetros; falhas SQL interrompem antes de reutilizar G_TEMP.",
+      "limitations": "SYS.OBJAUTH$ é interface interna; buffers 20/255, nomes LOWER e ordem de grantor ainda limitam fidelidade. Não adicionar senhas ao arquivo apesar da recomendação histórica.",
+      "tests": "G_TEMP preexistente, falha intermediária, grants em cadeia e nomes quoted; comparar grantor e ordem.",
+      "commit": "4c88d359890cc82a98e6ae3f1a5307a1072a3266",
+      "batch": "039"
+    },
+    {
+      "path": "oracle/security/role_rct.sql",
+      "before_blob": "8f063291ee377afe51010c18a2d8072e44e9edda",
+      "blob_sha": "04ba30c51b25e76f26ee14c213a504efcaac961e",
+      "code_changed": true,
+      "changes": "Gerador histórico preservado, com bloqueio incondicional antes de consultar hashes.",
+      "limitations": "Exportação de PASSWORD/USER$ permanece apenas como referência histórica inacessível pelo fluxo normal. Roles modernas e autenticação externa exigem outra implementação homologada.",
+      "tests": "Confirmar EXIT antes de SELECT/Spool; não coletar verificadores reais.",
+      "commit": "4c88d359890cc82a98e6ae3f1a5307a1072a3266",
+      "batch": "039"
+    },
+    {
+      "path": "oracle/security/sys_gran.sql",
+      "before_blob": "1aa69accefc16895913558ab50cc04d4596abfba",
+      "blob_sha": "5f265f6b4f1c3452c95526a754d8659fcff66f12",
+      "code_changed": false,
+      "changes": "Trecho gerador comentado preservado, sem reativação.",
+      "limitations": "SPOOL OFF ativo pode fechar spool do chamador; não gera grants no estado atual. Lista exclui roles predefinidas e não representa inventário completo.",
+      "tests": "Inspecionar comentário e estado do cliente em sessão isolada.",
+      "commit": "4c88d359890cc82a98e6ae3f1a5307a1072a3266",
+      "batch": "039"
+    },
+    {
+      "path": "oracle/security/sys_grnt.sql",
+      "before_blob": "2b2c02b818b781755b0afaf7d1f4c251ba88d5fb",
+      "blob_sha": "442dfdacd22724352ef65563cfc8d0e94228dc81",
+      "code_changed": false,
+      "changes": "Trecho DBA_SYS_PRIVS permanece comentado.",
+      "limitations": "Nome histórico menciona roles, mas consulta privilégios de sistema. Macro GRANTEE não é validada no trecho inativo; não ativar sem revisão.",
+      "tests": "Verificar ausência de arquivo gerado; revisar destinatário/admin option antes de qualquer reativação.",
+      "commit": "4c88d359890cc82a98e6ae3f1a5307a1072a3266",
+      "batch": "039"
+    },
+    {
+      "path": "oracle/security/tab_grnt.sql",
+      "before_blob": "4e20cd2bbb57bc0de69dd17f36742fd4f3c37d79",
+      "blob_sha": "3d8044d55d3c389724165bb9c57bf8c9b4ee3a2d",
+      "code_changed": false,
+      "changes": "Corpo preservado; sem senha embutida.",
+      "limitations": "Ordenação por CONNECT/grantee não resolve dependências transitivas. SQL*Plus quebra/formatos e nomes sem quoting podem invalidar saída; grants de coluna ausentes.",
+      "tests": "Grants encadeados, PUBLIC, nomes mixed case e largura/spool; não aplicar automaticamente.",
+      "commit": "4c88d359890cc82a98e6ae3f1a5307a1072a3266",
+      "batch": "039"
+    },
+    {
+      "path": "oracle/administration/dba_user_privs.sql",
+      "before_blob": "10b77dbdc07aa55c4b75f84f984852e62b584d23",
+      "blob_sha": "49e58cd22f0492044266fab771a7627c27dda068",
+      "code_changed": false,
+      "changes": "View histórica preservada.",
+      "limitations": "Roles de segundo nível e sessões com roles desabilitadas não são resolvidas; SUBSTR trunca nomes/privilégios. Não instalar no SYS nem tratar como autorização efetiva.",
+      "tests": "Comparar privilégios diretos, PUBLIC, role aninhada e nomes longos no mesmo container.",
+      "commit": "4c88d359890cc82a98e6ae3f1a5307a1072a3266",
+      "batch": "039"
+    },
+    {
+      "path": "oracle/administration/display_buffer_contents.sql",
+      "before_blob": "be6121b2c9f412727da1d9de924e9d76904594bf",
+      "blob_sha": "3b412642c99abaf7ffbe74941a111ad8f045c23e",
+      "code_changed": false,
+      "changes": "Corpo preservado; DROP de T1 e CTAS continuam explícitos.",
+      "limitations": "T1 homônima é destruída; falha de DROP não é seletivamente tratada. Root multitenant exige identidade CON_ID; não executar nesse contexto sem adaptação.",
+      "tests": "Schema descartável; comparar partições, dois arquivos e buffer não residente; verificar denominador zero.",
+      "commit": "4c88d359890cc82a98e6ae3f1a5307a1072a3266",
+      "batch": "039"
+    },
+    {
+      "path": "oracle/administration/plan.sql",
+      "before_blob": "fbe2dafa770ec806e3520b7eeb5639a4e6b652ec",
+      "blob_sha": "2f8ea79157317617103c833e42073dc246c1cf13",
+      "code_changed": false,
+      "changes": "Corpo preservado; limpeza e editor mantidos.",
+      "limitations": "CONNECT BY sem identidade de statement pode misturar planos; TRUNCATE remove todos e confirma transação mesmo após erro anterior. OWNER só confiável.",
+      "tests": "Dois planos com IDs iguais, plano vazio e falha SELECT; somente PLAN_TABLE descartável.",
+      "commit": "4c88d359890cc82a98e6ae3f1a5307a1072a3266",
+      "batch": "039"
+    },
+    {
+      "path": "oracle/administration/analyze_all.sql",
+      "before_blob": "3d8068aea66e2e474a729773db5d508a4523efd7",
+      "blob_sha": "e828b1fa9e45a16fa05495537eddc8ad5711a2fc",
+      "code_changed": false,
+      "changes": "Corpo preservado; não substituído por DBMS_STATS silenciosamente.",
+      "limitations": "Macros METHOD/NUM_OF_ROWS/PERCENT_TO_USE são texto SQL e permitem injeção; START aplica análise a todos os owners não excluídos. Estatísticas/locks podem afetar planos.",
+      "tests": "Métodos e números confiáveis, owners adicionais internos, falha parcial e custo; laboratório isolado.",
+      "commit": "4c88d359890cc82a98e6ae3f1a5307a1072a3266",
+      "batch": "039"
+    },
+    {
+      "path": "oracle/performance/big_plan.sql",
+      "before_blob": "90cc29fa9f0e19cf173d2c221203a08d0ef0d30b",
+      "blob_sha": "ede654da0a7eaec69db953f41c3910627654b10e",
+      "code_changed": false,
+      "changes": "Consulta de negócio integral preservada.",
+      "limitations": "Tipos e objetos DIMENSION/TRN_INVENTORY_DLY_3K/DIM_SUB_LOCATION ausentes; BETWEEN textual depende do tipo/NLS e inclui só limites descritos. Não inventar conversão DATE ou mudar precedência AND/OR.",
+      "tests": "Fornecer DDL/dados fictícios; validar joins/cardinalidade, datas e equivalência das duas alternativas do filtro.",
+      "commit": "4c88d359890cc82a98e6ae3f1a5307a1072a3266",
+      "batch": "039"
+    },
+    {
+      "path": "oracle/administration/garbage_view.sql",
+      "before_blob": "04bb4e5728748ffceffe10698d45180364589add",
+      "blob_sha": "2c2f0cd71b06a418219c4adf4b18439fa2c221ad",
+      "code_changed": false,
+      "changes": "Heurística histórica preservada; não recomenda purge.",
+      "limitations": "SHARABLE_MEM e PERSISTENT_MEM podem se sobrepor; UNION produz linhas separadas GOOD/GARBAGE. Execução única não prova desperdício.",
+      "tests": "Usuário com ambas classes, SQL sem execução e snapshot variável; não interpretar soma como memória recuperável.",
+      "commit": "4c88d359890cc82a98e6ae3f1a5307a1072a3266",
+      "batch": "039"
+    },
+    {
+      "path": "oracle/performance/sql/get_sql.sql",
+      "before_blob": "74833c4b093ef6c7a43d1e92e50655a2fcbcd857",
+      "blob_sha": "6fe6755bc171624633cde8b2f1278cd2b162f965",
+      "code_changed": false,
+      "changes": "Trinta chamadas históricas preservadas.",
+      "limitations": "SQLSTMT2 ausente: efeitos e significado dos identificadores não comprovados. Não converter para SQL_ID nem executar helper desconhecido.",
+      "tests": "Localizar fonte completa do helper e validar contrato antes de chamadas.",
+      "commit": "4c88d359890cc82a98e6ae3f1a5307a1072a3266",
+      "batch": "039"
+    },
+    {
+      "path": "oracle/administration/rowsize.sql",
+      "before_blob": "fc0a0c54537a15d8d3f17f152c0a1eedb3c4a27e",
+      "blob_sha": "20c2eb7c7f3888ac5d2ea740a381892d17e7b549",
+      "code_changed": false,
+      "changes": "Gerador preservado, incluindo NULLIF e ordenação.",
+      "limitations": "Sem colunas visíveis produz SQL incompleto; tipos LONG/LOB/objetos e nomes não escapados exigem revisão. VSIZE mais overhead fixo não é tamanho físico. START automático e caminho de saída confiável.",
+      "tests": "Tabela vazia, uma coluna, NULL, LOB, nomes quoted e custo de full scan em laboratório.",
+      "commit": "4c88d359890cc82a98e6ae3f1a5307a1072a3266",
+      "batch": "039"
+    },
+    {
+      "path": "oracle/objects/tabhelp.sql",
+      "before_blob": "7e79ebca2d46a5ac7ec7603960944fa89df4d55f",
+      "blob_sha": "dc447683d8bbcb49c4a7cb72a3fbc83ab143ba46",
+      "code_changed": false,
+      "changes": "Corpo preservado; corrigida afirmação documental sobre SERVEROUTPUT.",
+      "limitations": "UPPER não resolve quoted mixed case; comentários de colunas sem ordenação e tabela inexistente sem mensagem explícita. EXECUTE permite visualizar comentários via direitos do definidor.",
+      "tests": "SET SERVEROUTPUT ON; EXEC table_help('HR','EMPLOYEES'); testar tabela ausente e comentários longos.",
+      "commit": "4c88d359890cc82a98e6ae3f1a5307a1072a3266",
+      "batch": "039"
+    },
+    {
+      "path": "oracle/objects/tab_rct.sql",
+      "before_blob": "a9d01aa7bd2217bcc52adbdc1a4b97ee4ff1e282",
+      "blob_sha": "0878d5f3efbdb28b0fd98fa71bd0028e08d06b9e",
+      "code_changed": true,
+      "changes": "Falhas SQL interrompem o script; T_TEMP excluída do cursor de tabelas.",
+      "limitations": "Saída ainda tem DROP, omite precisão NUMBER/defaults/LOB/partições e usa LOWER sem quoting; não é recuperação fiel. DDL confirma transação; staging não é temporário de sessão.",
+      "tests": "T_TEMP existente, erro de INSERT, NUMBER(p,s) e schema pequeno descartável; nunca aplicar saída em aplicação.",
+      "commit": "4c88d359890cc82a98e6ae3f1a5307a1072a3266",
+      "batch": "039"
+    },
+    {
+      "path": "oracle/objects/tab_scol.sql",
+      "before_blob": "e56b72e9b0a9f61fae4cb194824942a875a2839e",
+      "blob_sha": "67ceee01c1ad37bbb0ac0bab94e097c3d3138c5c",
+      "code_changed": true,
+      "changes": "Colunas projetadas/agrupadas qualificadas com alias A para evitar ambiguidades com DBA_TAB_COLUMNS.",
+      "limitations": "INNER JOIN omite tabelas sem colunas visíveis; estatísticas podem ser NULL/desatualizadas. CREATE simples preservado; grant direto obrigatório.",
+      "tests": "Compilar view em laboratório; comparar duas tabelas homônimas em owners distintos, estatísticas NULL e contagem de colunas.",
+      "commit": "4c88d359890cc82a98e6ae3f1a5307a1072a3266",
+      "batch": "039"
+    },
+    {
+      "path": "oracle/objects/trig_rct.sql",
+      "before_blob": "517ab864f791b379e81dd0581e5d45c2bfb29722",
+      "blob_sha": "c9598774967fb900c37f68a97af01fb3e02cd13a",
+      "code_changed": true,
+      "changes": "Falhas SQL interrompem antes de reutilizar TRIG_TEMP.",
+      "limitations": "LONG 4000 pode truncar body, prefixo ON cabe em variável de owner limitada, WHEN sem parênteses pode ser inválido. Separador inicial / pode repetir buffer; tipos modernos não cobertos. Não usar saída como backup.",
+      "tests": "Staging existente, body maior que 4000, WHEN, multi-event, UPDATE OF e estado DISABLED; inspecionar cada DDL sem executá-lo automaticamente.",
+      "commit": "4c88d359890cc82a98e6ae3f1a5307a1072a3266",
+      "batch": "039"
+    },
+    {
+      "path": "oracle/administration/view.sql",
+      "before_blob": "47f481748a9072c42a4784dab82b09840baad1f8",
+      "blob_sha": "477aa01d7536da6b8308b00db0e59cc9423eb211",
+      "code_changed": false,
+      "changes": "View de sete colunas mantida como variante alternativa.",
+      "limitations": "Arquivos sem extents livres não aparecem. Sem FSFI, incompatível com relatórios que exigem oitava coluna; offline/temp/multitenant exigem tratamento próprio.",
+      "tests": "Arquivo cheio, vários extents, ausência de livre e variante CREA_FS em schemas separados.",
+      "commit": "4c88d359890cc82a98e6ae3f1a5307a1072a3266",
+      "batch": "039"
     }
   ],
   "laboratory_script": {
@@ -677,26 +897,6 @@
     "executed": false
   },
   "next_queue": [
-    "oracle/troubleshooting/no_trace_my_session.sql",
-    "oracle/troubleshooting/trace_my_session.sql",
-    "oracle/security/grant_rc.sql",
-    "oracle/security/role_rct.sql",
-    "oracle/security/sys_gran.sql",
-    "oracle/security/sys_grnt.sql",
-    "oracle/security/tab_grnt.sql",
-    "oracle/administration/dba_user_privs.sql",
-    "oracle/administration/display_buffer_contents.sql",
-    "oracle/administration/plan.sql",
-    "oracle/administration/analyze_all.sql",
-    "oracle/performance/big_plan.sql",
-    "oracle/administration/garbage_view.sql",
-    "oracle/performance/sql/get_sql.sql",
-    "oracle/administration/rowsize.sql",
-    "oracle/objects/tabhelp.sql",
-    "oracle/objects/tab_rct.sql",
-    "oracle/objects/tab_scol.sql",
-    "oracle/objects/trig_rct.sql",
-    "oracle/administration/view.sql",
     "oracle/administration/act_size_tab.sql",
     "oracle/administration/auto_chain.sql",
     "oracle/objects/chain1.sql",
@@ -796,26 +996,26 @@
     "oracle/backup-recovery/vms_oline_bu.sql"
   ],
   "next_batch": [
-    "oracle/troubleshooting/no_trace_my_session.sql",
-    "oracle/troubleshooting/trace_my_session.sql",
-    "oracle/security/grant_rc.sql",
-    "oracle/security/role_rct.sql",
-    "oracle/security/sys_gran.sql",
-    "oracle/security/sys_grnt.sql",
-    "oracle/security/tab_grnt.sql",
-    "oracle/administration/dba_user_privs.sql",
-    "oracle/administration/display_buffer_contents.sql",
-    "oracle/administration/plan.sql",
-    "oracle/administration/analyze_all.sql",
-    "oracle/performance/big_plan.sql",
-    "oracle/administration/garbage_view.sql",
-    "oracle/performance/sql/get_sql.sql",
-    "oracle/administration/rowsize.sql",
-    "oracle/objects/tabhelp.sql",
-    "oracle/objects/tab_rct.sql",
-    "oracle/objects/tab_scol.sql",
-    "oracle/objects/trig_rct.sql",
-    "oracle/administration/view.sql"
+    "oracle/administration/act_size_tab.sql",
+    "oracle/administration/auto_chain.sql",
+    "oracle/objects/chain1.sql",
+    "oracle/administration/chained.sql",
+    "oracle/administration/ext_file.sql",
+    "oracle/objects/get_long_length.sql",
+    "oracle/administration/part_tab_all_rct.sql",
+    "oracle/objects/part_tab_rct.sql",
+    "oracle/objects/part_tab_test.sql",
+    "oracle/administration/recomp_views.sql",
+    "oracle/objects/tab_rct2.sql",
+    "oracle/objects/tab_rct3.sql",
+    "oracle/objects/tab_rebuild.sql",
+    "oracle/administration/tab_size8.sql",
+    "oracle/objects/trig_rct2.sql",
+    "oracle/objects/view_rct2.sql",
+    "oracle/administration/tablesp.sql",
+    "oracle/backup-recovery/independent/datapump_tablespace_parameters.sql",
+    "oracle/administration/tbsp_rct.sql",
+    "oracle/administration/auto_defrag.sql"
   ],
   "validations": {
     "036": {
@@ -878,11 +1078,26 @@
         "RAC offset collision arithmetic"
       ],
       "sqlglot_version": "30.29.0"
+    },
+    "039": {
+      "reviewed": 20,
+      "code_changed": 5,
+      "documentation_only": 15,
+      "oracle_execution": false,
+      "oracle_compilation": false,
+      "checks": [
+        "four view definitions parsed as Oracle SQL",
+        "15 unchanged bodies compared byte for byte",
+        "failstop before staging CREATE in three generators",
+        "role generator exits before hash query",
+        "staging table excluded from table cursor"
+      ]
     }
   },
   "batches": [
     "036",
     "037",
-    "038"
+    "038",
+    "039"
   ]
 }

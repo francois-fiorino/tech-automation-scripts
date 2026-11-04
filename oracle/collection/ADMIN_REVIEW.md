@@ -1,6 +1,6 @@
 # Revisão complementar das propostas administrativas
 
-Atualizado em 04/11/2026. **60 de 177 scripts reavaliados nesta fase; 36 com alteração de código e 24 com comportamento mantido. Nenhuma compilação/execução Oracle.**
+Atualizado em 04/11/2026. **80 de 177 scripts reavaliados nesta fase; 41 com alteração de código e 39 com comportamento mantido. Nenhuma compilação/execução Oracle.**
 
 Commit da revisão 036: [0c6e9ce71d3ffa3d8d4da1bd303a827474ae5d8a](https://github.com/francois-fiorino/tech-automation-scripts/commit/0c6e9ce71d3ffa3d8d4da1bd303a827474ae5d8a). Todos os 20 scripts e o roteiro auxiliar de laboratório foram conferidos após publicação, por conteúdo/caminho/blob. O roteiro não foi executado.
 
@@ -589,29 +589,235 @@ Uma fixture SQLite executou o SELECT do gerador COUNT_BLOCKS, expandindo apenas 
 
 O SELECT de sete CASTs do CTAS foi analisado em dialeto Oracle. A gramática de external table foi confrontada à documentação oficial; não se declarou compilação do CREATE no Oracle nem validação completa dessa extensão pelo parser local. Fixtures adicionais conferiram ordenação do staging por owner/índice/linha, IN com várias colunas, e o contraexemplo aritmético de colisão do trigger RAC. O Shell passou somente por `sh -n`, com inspeção de EXIT antes de todas as escritas e hdparm; seu conteúdo não foi executado.
 
+## Revisão 039 — 04/11/2026
+
+20 scripts: cinco alterações de código e 15 revisões documentais. Commit [4c88d359890cc82a98e6ae3f1a5307a1072a3266](https://github.com/francois-fiorino/tech-automation-scripts/commit/4c88d359890cc82a98e6ae3f1a5307a1072a3266); arquivos confirmados por caminho/conteúdo/blob. Sem execução Oracle, grants, trace ou DDL administrativo. Propostas permanecem no PR #2, sem merge.
+
+### `oracle/troubleshooting/no_trace_my_session.sql`
+
+Corpo preservado; desabilita apenas a sessão corrente.
+
+**Pendências:** Pode interromper diagnóstico planejado; não remove trace existente nem apaga binds já registrados.
+
+**Homologação necessária:** Habilitar trace em sessão descartável, desabilitar e verificar ausência de novos registros.
+
+**Blob confirmado:** `518db016f86bc33547d11cb2d53063b01406df04`.
+
+### `oracle/troubleshooting/trace_my_session.sql`
+
+Corpo preservado; TRUE/TRUE mantém coleta de waits e binds.
+
+**Pendências:** Binds podem conter dados pessoais/segredos. Definir janela, quota e desativação; SID é local à instância e conexão atual.
+
+**Homologação necessária:** Usar binds fictícios, validar arquivo/overhead e helper de desativação na mesma sessão.
+
+**Blob confirmado:** `377c2b77b74ccf8431f86f4c9783e30c974f9a87`.
+
+### `oracle/security/grant_rc.sql`
+
+WRITE_OUT agora usa seus parâmetros; falhas SQL interrompem antes de reutilizar G_TEMP.
+
+**Pendências:** SYS.OBJAUTH$ é interface interna; buffers 20/255, nomes LOWER e ordem de grantor ainda limitam fidelidade. Não adicionar senhas ao arquivo apesar da recomendação histórica.
+
+**Homologação necessária:** G_TEMP preexistente, falha intermediária, grants em cadeia e nomes quoted; comparar grantor e ordem.
+
+**Blob confirmado:** `a63736a78322078e1ff30fdd3b5cd1faea9dbab3`.
+
+### `oracle/security/role_rct.sql`
+
+Gerador histórico preservado, com bloqueio incondicional antes de consultar hashes.
+
+**Pendências:** Exportação de PASSWORD/USER$ permanece apenas como referência histórica inacessível pelo fluxo normal. Roles modernas e autenticação externa exigem outra implementação homologada.
+
+**Homologação necessária:** Confirmar EXIT antes de SELECT/Spool; não coletar verificadores reais.
+
+**Blob confirmado:** `04ba30c51b25e76f26ee14c213a504efcaac961e`.
+
+### `oracle/security/sys_gran.sql`
+
+Trecho gerador comentado preservado, sem reativação.
+
+**Pendências:** SPOOL OFF ativo pode fechar spool do chamador; não gera grants no estado atual. Lista exclui roles predefinidas e não representa inventário completo.
+
+**Homologação necessária:** Inspecionar comentário e estado do cliente em sessão isolada.
+
+**Blob confirmado:** `5f265f6b4f1c3452c95526a754d8659fcff66f12`.
+
+### `oracle/security/sys_grnt.sql`
+
+Trecho DBA_SYS_PRIVS permanece comentado.
+
+**Pendências:** Nome histórico menciona roles, mas consulta privilégios de sistema. Macro GRANTEE não é validada no trecho inativo; não ativar sem revisão.
+
+**Homologação necessária:** Verificar ausência de arquivo gerado; revisar destinatário/admin option antes de qualquer reativação.
+
+**Blob confirmado:** `442dfdacd22724352ef65563cfc8d0e94228dc81`.
+
+### `oracle/security/tab_grnt.sql`
+
+Corpo preservado; sem senha embutida.
+
+**Pendências:** Ordenação por CONNECT/grantee não resolve dependências transitivas. SQL*Plus quebra/formatos e nomes sem quoting podem invalidar saída; grants de coluna ausentes.
+
+**Homologação necessária:** Grants encadeados, PUBLIC, nomes mixed case e largura/spool; não aplicar automaticamente.
+
+**Blob confirmado:** `3d8044d55d3c389724165bb9c57bf8c9b4ee3a2d`.
+
+### `oracle/administration/dba_user_privs.sql`
+
+View histórica preservada.
+
+**Pendências:** Roles de segundo nível e sessões com roles desabilitadas não são resolvidas; SUBSTR trunca nomes/privilégios. Não instalar no SYS nem tratar como autorização efetiva.
+
+**Homologação necessária:** Comparar privilégios diretos, PUBLIC, role aninhada e nomes longos no mesmo container.
+
+**Blob confirmado:** `49e58cd22f0492044266fab771a7627c27dda068`.
+
+### `oracle/administration/display_buffer_contents.sql`
+
+Corpo preservado; DROP de T1 e CTAS continuam explícitos.
+
+**Pendências:** T1 homônima é destruída; falha de DROP não é seletivamente tratada. Root multitenant exige identidade CON_ID; não executar nesse contexto sem adaptação.
+
+**Homologação necessária:** Schema descartável; comparar partições, dois arquivos e buffer não residente; verificar denominador zero.
+
+**Blob confirmado:** `3b412642c99abaf7ffbe74941a111ad8f045c23e`.
+
+### `oracle/administration/plan.sql`
+
+Corpo preservado; limpeza e editor mantidos.
+
+**Pendências:** CONNECT BY sem identidade de statement pode misturar planos; TRUNCATE remove todos e confirma transação mesmo após erro anterior. OWNER só confiável.
+
+**Homologação necessária:** Dois planos com IDs iguais, plano vazio e falha SELECT; somente PLAN_TABLE descartável.
+
+**Blob confirmado:** `2f8ea79157317617103c833e42073dc246c1cf13`.
+
+### `oracle/administration/analyze_all.sql`
+
+Corpo preservado; não substituído por DBMS_STATS silenciosamente.
+
+**Pendências:** Macros METHOD/NUM_OF_ROWS/PERCENT_TO_USE são texto SQL e permitem injeção; START aplica análise a todos os owners não excluídos. Estatísticas/locks podem afetar planos.
+
+**Homologação necessária:** Métodos e números confiáveis, owners adicionais internos, falha parcial e custo; laboratório isolado.
+
+**Blob confirmado:** `e828b1fa9e45a16fa05495537eddc8ad5711a2fc`.
+
+### `oracle/performance/big_plan.sql`
+
+Consulta de negócio integral preservada.
+
+**Pendências:** Tipos e objetos DIMENSION/TRN_INVENTORY_DLY_3K/DIM_SUB_LOCATION ausentes; BETWEEN textual depende do tipo/NLS e inclui só limites descritos. Não inventar conversão DATE ou mudar precedência AND/OR.
+
+**Homologação necessária:** Fornecer DDL/dados fictícios; validar joins/cardinalidade, datas e equivalência das duas alternativas do filtro.
+
+**Blob confirmado:** `ede654da0a7eaec69db953f41c3910627654b10e`.
+
+### `oracle/administration/garbage_view.sql`
+
+Heurística histórica preservada; não recomenda purge.
+
+**Pendências:** SHARABLE_MEM e PERSISTENT_MEM podem se sobrepor; UNION produz linhas separadas GOOD/GARBAGE. Execução única não prova desperdício.
+
+**Homologação necessária:** Usuário com ambas classes, SQL sem execução e snapshot variável; não interpretar soma como memória recuperável.
+
+**Blob confirmado:** `2c2f0cd71b06a418219c4adf4b18439fa2c221ad`.
+
+### `oracle/performance/sql/get_sql.sql`
+
+Trinta chamadas históricas preservadas.
+
+**Pendências:** SQLSTMT2 ausente: efeitos e significado dos identificadores não comprovados. Não converter para SQL_ID nem executar helper desconhecido.
+
+**Homologação necessária:** Localizar fonte completa do helper e validar contrato antes de chamadas.
+
+**Blob confirmado:** `6fe6755bc171624633cde8b2f1278cd2b162f965`.
+
+### `oracle/administration/rowsize.sql`
+
+Gerador preservado, incluindo NULLIF e ordenação.
+
+**Pendências:** Sem colunas visíveis produz SQL incompleto; tipos LONG/LOB/objetos e nomes não escapados exigem revisão. VSIZE mais overhead fixo não é tamanho físico. START automático e caminho de saída confiável.
+
+**Homologação necessária:** Tabela vazia, uma coluna, NULL, LOB, nomes quoted e custo de full scan em laboratório.
+
+**Blob confirmado:** `20c2eb7c7f3888ac5d2ea740a381892d17e7b549`.
+
+### `oracle/objects/tabhelp.sql`
+
+Corpo preservado; corrigida afirmação documental sobre SERVEROUTPUT.
+
+**Pendências:** UPPER não resolve quoted mixed case; comentários de colunas sem ordenação e tabela inexistente sem mensagem explícita. EXECUTE permite visualizar comentários via direitos do definidor.
+
+**Homologação necessária:** SET SERVEROUTPUT ON; EXEC table_help('HR','EMPLOYEES'); testar tabela ausente e comentários longos.
+
+**Blob confirmado:** `dc447683d8bbcb49c4a7cb72a3fbc83ab143ba46`.
+
+### `oracle/objects/tab_rct.sql`
+
+Falhas SQL interrompem o script; T_TEMP excluída do cursor de tabelas.
+
+**Pendências:** Saída ainda tem DROP, omite precisão NUMBER/defaults/LOB/partições e usa LOWER sem quoting; não é recuperação fiel. DDL confirma transação; staging não é temporário de sessão.
+
+**Homologação necessária:** T_TEMP existente, erro de INSERT, NUMBER(p,s) e schema pequeno descartável; nunca aplicar saída em aplicação.
+
+**Blob confirmado:** `0878d5f3efbdb28b0fd98fa71bd0028e08d06b9e`.
+
+### `oracle/objects/tab_scol.sql`
+
+Colunas projetadas/agrupadas qualificadas com alias A para evitar ambiguidades com DBA_TAB_COLUMNS.
+
+**Pendências:** INNER JOIN omite tabelas sem colunas visíveis; estatísticas podem ser NULL/desatualizadas. CREATE simples preservado; grant direto obrigatório.
+
+**Homologação necessária:** Compilar view em laboratório; comparar duas tabelas homônimas em owners distintos, estatísticas NULL e contagem de colunas.
+
+**Blob confirmado:** `67ceee01c1ad37bbb0ac0bab94e097c3d3138c5c`.
+
+### `oracle/objects/trig_rct.sql`
+
+Falhas SQL interrompem antes de reutilizar TRIG_TEMP.
+
+**Pendências:** LONG 4000 pode truncar body, prefixo ON cabe em variável de owner limitada, WHEN sem parênteses pode ser inválido. Separador inicial / pode repetir buffer; tipos modernos não cobertos. Não usar saída como backup.
+
+**Homologação necessária:** Staging existente, body maior que 4000, WHEN, multi-event, UPDATE OF e estado DISABLED; inspecionar cada DDL sem executá-lo automaticamente.
+
+**Blob confirmado:** `c9598774967fb900c37f68a97af01fb3e02cd13a`.
+
+### `oracle/administration/view.sql`
+
+View de sete colunas mantida como variante alternativa.
+
+**Pendências:** Arquivos sem extents livres não aparecem. Sem FSFI, incompatível com relatórios que exigem oitava coluna; offline/temp/multitenant exigem tratamento próprio.
+
+**Homologação necessária:** Arquivo cheio, vários extents, ausência de livre e variante CREA_FS em schemas separados.
+
+**Blob confirmado:** `477aa01d7536da6b8308b00db0e59cc9423eb211`.
+
+### Validação local
+
+Quatro definições CREATE VIEW (DBA_USER_PRIVS, SQL_GARBAGE, TAB_STAT_COL e FREE_SPACE) analisadas pelo parser SQLGlot em dialeto Oracle. Inspeção estática confirmou interrupção antes do CREATE de três tabelas de staging, bloqueio de ROLE_RCT antes da consulta sensível, uso dos parâmetros de WRITE_OUT e exclusão de T_TEMP do cursor. Os 15 corpos sem mudanças foram comparados integralmente com o commit anterior. Parser não valida catálogo/privilégios nem constitui compilação Oracle.
+
 ## Continuidade
 
-Restam **117 de 177** scripts para revisão complementar, além da homologação dos 177. Os 60 já revisados têm commit/blob e testes/impedimentos individuais no inventário. A fila exata está em ADMIN_REVIEW_VERIFICATION.json, campos `next_queue` e `next_batch`. Não repetir arquivos já marcados sem evidência nova. O roteiro auxiliar de laboratório não entra na contagem de implementações da coleção.
+Restam **97 de 177** scripts para revisão complementar, além da homologação dos 177. Acumulado: 80 revisados, 41 com código alterado e 39 revisões documentais. Nenhuma implantação homologada nesta fase. Próxima fila (040), também no JSON de verificação:
 
-Próximo lote planejado (039), em ordem de inventário:
-
-- `oracle/troubleshooting/no_trace_my_session.sql`
-- `oracle/troubleshooting/trace_my_session.sql`
-- `oracle/security/grant_rc.sql`
-- `oracle/security/role_rct.sql`
-- `oracle/security/sys_gran.sql`
-- `oracle/security/sys_grnt.sql`
-- `oracle/security/tab_grnt.sql`
-- `oracle/administration/dba_user_privs.sql`
-- `oracle/administration/display_buffer_contents.sql`
-- `oracle/administration/plan.sql`
-- `oracle/administration/analyze_all.sql`
-- `oracle/performance/big_plan.sql`
-- `oracle/administration/garbage_view.sql`
-- `oracle/performance/sql/get_sql.sql`
-- `oracle/administration/rowsize.sql`
-- `oracle/objects/tabhelp.sql`
-- `oracle/objects/tab_rct.sql`
-- `oracle/objects/tab_scol.sql`
-- `oracle/objects/trig_rct.sql`
-- `oracle/administration/view.sql`
+- `oracle/administration/act_size_tab.sql`
+- `oracle/administration/auto_chain.sql`
+- `oracle/objects/chain1.sql`
+- `oracle/administration/chained.sql`
+- `oracle/administration/ext_file.sql`
+- `oracle/objects/get_long_length.sql`
+- `oracle/administration/part_tab_all_rct.sql`
+- `oracle/objects/part_tab_rct.sql`
+- `oracle/objects/part_tab_test.sql`
+- `oracle/administration/recomp_views.sql`
+- `oracle/objects/tab_rct2.sql`
+- `oracle/objects/tab_rct3.sql`
+- `oracle/objects/tab_rebuild.sql`
+- `oracle/administration/tab_size8.sql`
+- `oracle/objects/trig_rct2.sql`
+- `oracle/objects/view_rct2.sql`
+- `oracle/administration/tablesp.sql`
+- `oracle/backup-recovery/independent/datapump_tablespace_parameters.sql`
+- `oracle/administration/tbsp_rct.sql`
+- `oracle/administration/auto_defrag.sql`

@@ -422,3 +422,10 @@ Ajuste final do mesmo lote 036: parâmetros internos do cursor UPDATE_IT renomea
 ## Lote 038 — revisão complementar confirmada em 04/11/2026
 
 20 arquivos (nove alterações de código,11 revisões documentais); commit 169cc5270f3af21fc0a336badeda46c314beb09c; conteúdo/caminho/blob dos20 confirmados após publicação. FILL_SZ teve todos os1290 INSERTs analisados, com corpo preservado. Fixtures locais e sh -n passaram, sem Oracle/Windows/ajuste administrativo de SO. Acumulado60/177; restam117, próxima fila039 em ADMIN_REVIEW_VERIFICATION.json. Totais476 main e177 revisão preservados; nenhum merge.
+
+## Revisão administrativa complementar — lote 039 (04/11/2026)
+
+20 scripts revisados: cinco alterações de código e 15 revisões documentais. Commit confirmado: [4c88d359890cc82a98e6ae3f1a5307a1072a3266](https://github.com/francois-fiorino/tech-automation-scripts/commit/4c88d359890cc82a98e6ae3f1a5307a1072a3266). Corrigidos parâmetros de WRITE_OUT, interrupção em falha SQL de três geradores, exclusão da tabela de trabalho no gerador de tabelas e qualificação de colunas em TAB_STAT_COL. ROLE_RCT bloqueado antes de extração de verificadores. Pendências individuais e validações locais em ADMIN_REVIEW.md e ADMIN_REVIEW_VERIFICATION.json; sem Oracle ou merge.
+
+Acumulado atual: **80/177**, sendo **41 alterações de código e 39 revisões documentais**. Restam **97** na revisão complementar. Totais preservados: 476 implementações na main e 177 propostas. Próxima fila: 040.
+

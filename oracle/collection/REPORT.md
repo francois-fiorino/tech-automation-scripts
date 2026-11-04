@@ -110,10 +110,16 @@ Mais 20 scripts: **nove alterações de código e 11 revisões documentais**. Pu
 
 Todos os 1.290 INSERTs de FILL_SZ foram conferidos por parser e estrutura; corpo integral preservado. Fixtures locais e `sh -n` passaram. Não houve compilação/execução Oracle nem ajuste de kernel/disco; não foram declarados homólogos os algoritmos preservados. As pendências por script constam em [ADMIN_REVIEW.md](ADMIN_REVIEW.md).
 
-Acumulado atual: **60/177 scripts reavaliados**, **36 alterações de código e 24 revisões documentais**, com **117** na fila complementar. Os 20 arquivos deste lote foram conferidos por conteúdo/caminho/blob após publicação. Totais da coleção permanecem **476 main e 177 propostas**; nenhum merge. [Checkpoint e próxima fila](ADMIN_REVIEW_VERIFICATION.json).
+Acumulado após lote 038: **60/177 scripts reavaliados**, **36 alterações de código e 24 revisões documentais**, com **117** na fila complementar. Os 20 arquivos deste lote foram conferidos por conteúdo/caminho/blob após publicação. Totais da coleção permanecem **476 main e 177 propostas**; nenhum merge. [Checkpoint e próxima fila](ADMIN_REVIEW_VERIFICATION.json).
+
+## Revisão administrativa complementar — lote 039 (04/11/2026)
+
+20 scripts revisados: cinco alterações de código e 15 revisões documentais. Commit confirmado: [4c88d359890cc82a98e6ae3f1a5307a1072a3266](https://github.com/francois-fiorino/tech-automation-scripts/commit/4c88d359890cc82a98e6ae3f1a5307a1072a3266). Corrigidos parâmetros de WRITE_OUT, interrupção em falha SQL de três geradores, exclusão da tabela de trabalho no gerador de tabelas e qualificação de colunas em TAB_STAT_COL. ROLE_RCT bloqueado antes de extração de verificadores. Pendências individuais e validações locais em ADMIN_REVIEW.md e ADMIN_REVIEW_VERIFICATION.json; sem Oracle ou merge.
+
+Acumulado atual: **80/177**, sendo **41 alterações de código e 39 revisões documentais**. Restam **97** na revisão complementar. Totais preservados: 476 implementações na main e 177 propostas. Próxima fila: 040.
 
 ## Próximo ponto de retomada
 
-Os 49 requisitos anteriormente retidos já possuem destinos novos confirmados. Não há requisito restante dessa fila para publicar. Continuar a revisão complementar das 117 propostas restantes pela fila `next_batch` de ADMIN_REVIEW_VERIFICATION.json, em lotes de até 20. Resolver limitações e homologar em laboratório descartável, com contratos/objetos, versão e resultados verificáveis.
+Os 49 requisitos anteriormente retidos já possuem destinos novos confirmados. Não há requisito restante dessa fila para publicar. Continuar a revisão complementar das 97 propostas restantes pela fila `next_batch` de ADMIN_REVIEW_VERIFICATION.json, em lotes de até 20. Resolver limitações e homologar em laboratório descartável, com contratos/objetos, versão e resultados verificáveis.
 
 Nenhum merge automático está autorizado. O projeto não é declarado concluído enquanto as propostas e homologações pendentes permanecerem abertas. Não há execução em segundo plano.
