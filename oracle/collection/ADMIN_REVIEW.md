@@ -1,6 +1,6 @@
 # Revisão complementar das propostas administrativas
 
-Atualizado em 04/11/2026. **140 de 177 scripts reavaliados nesta fase; 72 com alteração de código e 68 com comportamento mantido. Nenhuma compilação/execução Oracle.**
+Atualizado em 04/11/2026. **160 de 177 scripts reavaliados nesta fase; 83 com alteração de código e 77 com comportamento mantido. Nenhuma compilação/execução Oracle.**
 
 Commit da revisão 036: [0c6e9ce71d3ffa3d8d4da1bd303a827474ae5d8a](https://github.com/francois-fiorino/tech-automation-scripts/commit/0c6e9ce71d3ffa3d8d4da1bd303a827474ae5d8a). Todos os 20 scripts e o roteiro auxiliar de laboratório foram conferidos após publicação, por conteúdo/caminho/blob. O roteiro não foi executado.
 
@@ -1429,27 +1429,236 @@ dez corpos preservados comparados integralmente; três CREATE VIEW e16 INSERTs d
 
 Fixtures locais e parser não validam compilação PL/SQL, catálogo, privilégios ou comportamento das APIs Oracle. Não houve execução Oracle/Windows nem homologação de implantação.
 
+## Revisão administrativa complementar — lote 043 (04/11/2026)
+
+20 scripts revisados: 11 alterações de código e 9 revisões documentais. Commit confirmado: [2c4c02ee55b1472605695a93eddb7c4b39ab5578](https://github.com/francois-fiorino/tech-automation-scripts/commit/2c4c02ee55b1472605695a93eddb7c4b39ab5578). Todos os caminhos/conteúdos/blobs conferidos após publicação na branch do PR #2. Pendências individuais e validações locais em ADMIN_REVIEW.md e ADMIN_REVIEW_VERIFICATION.json. Sem compilação/execução Oracle, comandos administrativos ou merge.
+
+Acumulado atual: **160/177**, sendo **83 alterações de código e 77 revisões documentais**. Restam **17** na revisão complementar, além da homologação dos 177. Totais preservados: 476 implementações main e 177 propostas. Próxima fila: 044.
+
+### `oracle/administration/db_rct91a.sql`
+
+Bloco vazio recebe NULL; MAXSIZE ampliado; FIRST/NEXT para coleção esparsa; UTL_FILE fecha com proteção e relança erro; cursor timezone fechado. Interrupção SQL antes de criar sequência/rotina.
+
+**Pendências:** DROP da sequência continua destrutivo e pode invalidar dependentes. Caminho UTL_FILE_DIR Windows/arquivo W e linhas255/256 mantidos; LOG_ARCHIVE_START obsoleto, limites/undo/temp/REUSE não compõem restore homologado.
+
+**Homologação necessária:** Sequência existente/ausente, coleção vazia/índices com lacunas, erro de arquivo e parâmetros ausentes; inspecionar saída sem executar CREATE DATABASE.
+
+**Blob confirmado:** `2055663b90759d0618c56604ae65cdf5e4f6f0c1`.
+
+### `oracle/administration/db_rct91b.sql`
+
+Interrupção SQL antes de CREATE SEQUENCE e chamada do helper.
+
+**Pendências:** DROP LINENO_SEQ confirma e invalida dependentes; RECREATE_DB2 precisa existir na versão revista. Helper escreve em caminho de servidor e não é recuperação completa.
+
+**Homologação necessária:** CREATE SEQUENCE negado e helper inválido devem impedir chamada; somente schema descartável, sem arquivo útil no destino.
+
+**Blob confirmado:** `88c63fbdb688c87d59bb98fcbcefe1043fa44bd1`.
+
+### `oracle/administration/dba_running_stats.sql`
+
+DDL integral preservado.
+
+**Pendências:** DBA_RUNNING_STATS é tabela customizada sem PK/retenção/índices; não inferir unicidade de NAME/MEAS_DATE. Variantes usam contratos e semânticas distintos de DELTA.
+
+**Homologação necessária:** Tabela existente, quota/storage e inserções com mesmo nome/data; definir política antes de coleta ou UPDATE.
+
+**Blob confirmado:** `d4a0966083794b759cdcb7c5486399fdabdcdead`.
+
+### `oracle/administration/def.sql`
+
+Seis COALESCE literais preservados em ordem.
+
+**Pendências:** Inclui SYSTEM/SYSAUX/UNDO e não verifica DMT/ONLINE; não é defrag físico geral nem recomendação LMT. DDL confirma trabalho do chamador.
+
+**Homologação necessária:** Confirmar nomes/tipos/estado no catálogo e escopo autorizado; não executar lista como manutenção genérica.
+
+**Blob confirmado:** `b34b7c01e1225151243b94e8be4d2dbea4dd8e62`.
+
+### `oracle/administration/defrag73.sql`
+
+DISTINCT evita comandos repetidos por arquivo; nome de tablespace citado com escape.
+
+**Pendências:** Ainda executa DEF.SQL automaticamente e HOST DEL remove arquivo; não filtra DMT/ONLINE/SYSTEM/TEMP. Helper FREE2_SPC e contrato FREE_SPACE devem ser revisados.
+
+**Homologação necessária:** Dois arquivos no mesmo tablespace, nomes com aspas, helpers ausentes e erro parcial; apenas simular saída nesta revisão.
+
+**Blob confirmado:** `1d8f1eb24d7de4ec5fed66cab9448f77b0118063`.
+
+### `oracle/administration/delta.sql`
+
+Subconsulta histórica mantida, bloqueada para implantação pela regra de baseline ausente.
+
+**Pendências:** Sem correlação à linha alvo, pode atribuir delta de outra amostra ou ORA-01427. Sem par retorna NULL para todas linhas não nulas. Não escolher MAX/AVG/LAG arbitrariamente para resolver ambiguidade.
+
+**Homologação necessária:** Definir amostra anterior, empate e identidade de série; testar 0/1/vários pares na janela25–35min em cópia descartável.
+
+**Blob confirmado:** `2d47a417846651a7d1dd7bb164c04dc8f04a3a74`.
+
+### `oracle/administration/dml_lock2.sql`
+
+Consulta/spool/EXIT preservados.
+
+**Pendências:** EXIT pode confirmar transação e não é relatório RAC de cadeia completa. OWNER NULL rotulado SYS é heurística, não prova identidade do objeto; nomes longos podem truncar.
+
+**Homologação necessária:** Sessão sem lock, vários modos e transação pendente em cliente descartável; confirmar saída antes de EXIT.
+
+**Blob confirmado:** `07a3bf5e172235506da1246c3827547bf679fa3f`.
+
+### `oracle/administration/drop_con.sql`
+
+Bloco inteiro comentado preservado; não instala rotina.
+
+**Pendências:** Se reativado, remove constraints com DDL parcial; handler mascara erros e pode deixar cursor aberto. Ordem por tipo não garante remover PK referenciada; nomes não citados.
+
+**Homologação necessária:** Não remover comentário sem projeto de rollback/dependências, quoting, cleanup e política de erro.
+
+**Blob confirmado:** `a3d78c1709f432293dd5b9250d2d07efede4d939`.
+
+### `oracle/administration/get_cond.sql`
+
+Buffer de condição ampliado de2000 para32767; escopo USER_CONSTRAINTS preservado.
+
+**Pendências:** LONG continua limitado ao buffer/retornoVARCHAR2 e ao contexto SQL/PLSQL. OWNER não amplia USER_* para outro schema; UPPER não resolve quoted mixed case. NO_DATA_FOUND preservado.
+
+**Homologação necessária:** Condição2001/32767/maior, outro owner, nomequoted e constraint sem condição; não declarar suporte a todo LONG.
+
+**Blob confirmado:** `e7d9ff5a59055acd59ebe261addaaa8df9ea3278`.
+
+### `oracle/administration/get_count2.sql`
+
+AUTHID CURRENT_USER evita emprestar SELECT do definidor; NATIVE e cursor inicializado; contagem NUMBER.
+
+**Pendências:** DBMS_ASSERT valida nome, não autorização. COUNT exato pode fullscan; função GET_COUNT é alternativa incompatível com procedimento homônimo e depende de grants do invocador.
+
+**Homologação necessária:** Nome inválido/quoted, ausência deSELECT, tabela vazia, cursor em erro e número além de inteiro32; não instalar sobre variante sem decisão.
+
+**Blob confirmado:** `e30dc6197607075008e3cd7ed6b46d8d265872b3`.
+
+### `oracle/objects/get_count_proc.sql`
+
+AUTHID CURRENT_USER e NATIVE no procedimento GET_COUNT; contrato OUT preservado.
+
+**Pendências:** Grants/autorizações do invocador passam a governar leitura. DBMS_OUTPUT não habilitado aqui; fullscan caro e contrato homônimo da função é incompatível.
+
+**Homologação necessária:** Tabela vazia, nome inválido, falta deSELECT e erro no cliente/DBMS_OUTPUT; verificar OUT e cleanup em laboratório.
+
+**Blob confirmado:** `a4f6552f92bd2c2a3c596e7f75b264786ea25fe4`.
+
+### `oracle/security/insert_user.sql`
+
+EXIT incondicional antes de instalar gerador fraco e rotinas de provisionamento.
+
+**Pendências:** CREATE_USER exige3argumentos mas INSERT_USERS passa1; roles/profile não definidos. Senha6 previsível e gravação clara permanecem só como código histórico inacessível pelo fluxo normal.
+
+**Homologação necessária:** Confirmar barreira antes de CREATE; definir contrato de provisionamento seguro sem escolher roles/profile ou publicar credenciais.
+
+**Blob confirmado:** `673f5257081208f0a4a230974172a9219974455c`.
+
+### `oracle/objects/nada_view.sql`
+
+DDL de aplicação integral preservado.
+
+**Pendências:** DROP TEST/TEST2 destrói homônimos e confirma DDL; DBO_* ausentes. TOTAL_HITS mistura estadoCHAR e contagens em texto; carga de TEST não incluída e UNION elimina duplicatas.
+
+**Homologação necessária:** Clone com DDL de negócio, dadosfictícios, tipo/NULLs/unidades e duas views; não inferir regra de negócio pelos nomes.
+
+**Blob confirmado:** `025e6f16c687fa9161b462f34fce4ab64d29192a`.
+
+### `oracle/backup-recovery/nt_oline_bu.sql`
+
+Interrupção SQL antes de CREATE/TRUNCATE BU_TEMP.
+
+**Pendências:** OCOPY/START WAIT e paths sem quoting são legados; LINENO ainda tem empates e sem cleanup em falha de BEGIN BACKUP. Copiar redo online/archives por wildcard não comprova consistência.
+
+**Homologação necessária:** BU_TEMP existente, vários tablespaces/arquivos, espaços em paths e retorno deOCOPY; laboratório e plano de recovery, sem executar saída nesta revisão.
+
+**Blob confirmado:** `8c76f347ede455e1525088787afe1eaff90daad5`.
+
+### `oracle/backup-recovery/nt_rec_db.sql`
+
+Interrupção SQL antes de CREATE/TRUNCATE BU_TEMP.
+
+**Pendências:** BAT gerada só copia arquivos, não executa media recovery/mount/recover/open. Paths/OCOPY têm contrato diferente do gerador de backup; LINENO pode empatar entre tablespaces. Redo comentado permanece inativo.
+
+**Homologação necessária:** Conferir simetria nomes backup/restore, arquivos ausentes e sequência de estados do banco; nenhuma cópia/restauração executada.
+
+**Blob confirmado:** `c2dee5542d9e58fc2ca8fbacdf82e50d21620dcc`.
+
+### `oracle/objects/null_test.sql`
+
+Quatro chamadas PRICE_INCREASE e classificação TRUE/FALSE/NULL preservadas.
+
+**Pendências:** PRICE_INCREASE ausente pode ter semântica/efeitos diferentes de AND; não substituí-la por operador apenas pelo rótulo. SERVEROUTPUT não é configurado aqui.
+
+**Homologação necessária:** Fornecer e revisar helper; verificar os4resultados com entradas fictícias e comparar tabela-verdade definida pelo contrato.
+
+**Blob confirmado:** `42b88216a4395b0fdee35a4626e2c4b0d5d3eb93`.
+
+### `oracle/objects/pk_rct.sql`
+
+Identifier MATL_PRICE_GRP_CD recomposto onde quebra de linha havia separado MAT e L_PRICE_GRP_CD. Todas450instruções e150trincas preservadas.
+
+**Pendências:** 150DROP CONSTRAINT/150DROP INDEX/150ADD podem remover integridade parcialmente; DROP da constraint pode remover índice antes do DROP INDEX. Nome_PK não prova tipoPK: há constraintsUnique com sufixoPK. Tablespaces HMINDEX e HMDATA mantidos.
+
+**Homologação necessária:** Confrontar todas150chaves/colunas/índices e FKs dependentes com catálogo; planejar rollback/indisponibilidade. Não executar acervo para recriar índices em produção.
+
+**Blob confirmado:** `569655b366d9707fc5f56bdf879708b4bf8f8d33`.
+
+### `oracle/security/prod_prof.sql`
+
+Quatro INSERTs eCOMMIT preservados.
+
+**Pendências:** PRODUCT_PROFILE é controle cliente e não substitui privilégios Oracle; estrutura pode variar/estar ausente. USERNAME textual aceita injeção/padrões; comentário somenteSELECT não corresponde a toda capacidade restante.
+
+**Homologação necessária:** Cliente/estrutura compatíveis, usuário literal/padrões e todas4regras; sem usuário produtivo ou concessão de privilégios.
+
+**Blob confirmado:** `22feec8e4969858ab43e0eab1740f0a272a9ef30`.
+
+### `oracle/objects/random.sql`
+
+Algoritmo modular completo e escala deRNDINT preservados.
+
+**Pendências:** Não criptográfico; estado por sessão, seedtimer previsível e R sem validação. RNULL/zero/negativo/fracionário não têm contrato de inteiropositivo. Não usar para autenticação.
+
+**Homologação necessária:** Conferir aritmética modular com inteiros exatos, reprodução com seedfixa e faixa0<=x<R para Rpositivo; sem alegar qualidade estatística.
+
+**Blob confirmado:** `86ffaf711d3a1046abd1401258f4ef5353c663e4`.
+
+### `oracle/administration/rebuild_db91.sql`
+
+EXIT incondicional antes de CREATE DATABASE inválido/perigoso.
+
+**Pendências:** AUTOEXTEND NEXT sem valor é inválido; não inferir incremento ou descartar funcionalidades. REUSE, pathsWindows, NOARCHIVELOG e layout9i não são estratégia moderna de restore.
+
+**Homologação necessária:** Confirmar barreira antes de CREATE DATABASE; definir parâmetros/arquivos exclusivos e revisar gramática do modelo em ambiente descartável.
+
+**Blob confirmado:** `09f915294a4fa05c1dab31711c1fc63b74f6b364`.
+
+### Validação local
+
+nove corpos preservados comparados integralmente; 450 comandos PK_RCT conferidos em150trincas, com parser no núcleo dos DROP/ADD e comparação do storage preservado; identifier MATL_PRICE_GRP_CD recomposto sem outra alteração de corpo; SELECT DISTINCT de coalescência exercitado emSQLite com nomes citados e múltiplos arquivos; aritmética modular do gerador RANDOM confrontada com produto/módulo exatos; guards de staging,AUTHID CURRENT_USER,coleção esparsa e cleanup UTL_FILE inspecionados estaticamente.
+
+Fixtures locais e parser não validam compilação PL/SQL, catálogo, privilégios ou comportamento das APIs Oracle. Não houve execução Oracle/Windows nem homologação de implantação.
+
 ## Continuidade
 
-Restam **37 de 177** para revisão complementar. Próximo lote 043; fila exata também em ADMIN_REVIEW_VERIFICATION.json.
+Restam **17 de 177** para revisão complementar. Próximo lote 044; fila exata também em ADMIN_REVIEW_VERIFICATION.json.
 
-- `oracle/administration/db_rct91a.sql`
-- `oracle/administration/db_rct91b.sql`
-- `oracle/administration/dba_running_stats.sql`
-- `oracle/administration/def.sql`
-- `oracle/administration/defrag73.sql`
-- `oracle/administration/delta.sql`
-- `oracle/administration/dml_lock2.sql`
-- `oracle/administration/drop_con.sql`
-- `oracle/administration/get_cond.sql`
-- `oracle/administration/get_count2.sql`
-- `oracle/objects/get_count_proc.sql`
-- `oracle/security/insert_user.sql`
-- `oracle/objects/nada_view.sql`
-- `oracle/backup-recovery/nt_oline_bu.sql`
-- `oracle/backup-recovery/nt_rec_db.sql`
-- `oracle/objects/null_test.sql`
-- `oracle/objects/pk_rct.sql`
-- `oracle/security/prod_prof.sql`
-- `oracle/objects/random.sql`
-- `oracle/administration/rebuild_db91.sql`
+- `oracle/objects/recreate_table.sql`
+- `oracle/objects/ref_prac.sql`
+- `oracle/administration/rep_outsietadrop_anal_ind.sql`
+- `oracle/administration/submit_checks.sql`
+- `oracle/administration/submit_flush.sql`
+- `oracle/administration/submit_running_stats.sql`
+- `oracle/administration/submit_test.sql`
+- `oracle/backup-recovery/thot_bu.sql`
+- `oracle/objects/tk_ind.sql`
+- `oracle/administration/tkp.sql`
+- `oracle/objects/translate_param.sql`
+- `oracle/objects/trig.sql`
+- `oracle/security/umaint.sql`
+- `oracle/backup-recovery/unix_oline_bu.sql`
+- `oracle/administration/user_blocks_used_v_alloc.sql`
+- `oracle/objects/utl_long.sql`
+- `oracle/backup-recovery/vms_oline_bu.sql`

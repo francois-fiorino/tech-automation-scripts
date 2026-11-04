@@ -134,10 +134,16 @@ Acumulado após lote 041: **120/177**, sendo **62 alterações de código e 58 r
 
 20 scripts revisados: 10 alterações de código e 10 revisões documentais. Commit confirmado: [03db2a43adc925940e10462a1b15dca94abbb670](https://github.com/francois-fiorino/tech-automation-scripts/commit/03db2a43adc925940e10462a1b15dca94abbb670). Todos os caminhos/conteúdos/blobs conferidos após publicação na branch do PR #2. Pendências individuais e validações locais em ADMIN_REVIEW.md e ADMIN_REVIEW_VERIFICATION.json. Sem compilação/execução Oracle, comandos administrativos ou merge.
 
-Acumulado atual: **140/177**, sendo **72 alterações de código e 68 revisões documentais**. Restam **37** na revisão complementar, além da homologação dos 177. Totais preservados: 476 implementações main e 177 propostas. Próxima fila: 043.
+Acumulado após lote 042: **140/177**, sendo **72 alterações de código e 68 revisões documentais**. Restam **37** na revisão complementar, além da homologação dos 177. Totais preservados: 476 implementações main e 177 propostas. Próxima fila: 043.
+
+## Revisão administrativa complementar — lote 043 (04/11/2026)
+
+20 scripts revisados: 11 alterações de código e 9 revisões documentais. Commit confirmado: [2c4c02ee55b1472605695a93eddb7c4b39ab5578](https://github.com/francois-fiorino/tech-automation-scripts/commit/2c4c02ee55b1472605695a93eddb7c4b39ab5578). Todos os caminhos/conteúdos/blobs conferidos após publicação na branch do PR #2. Pendências individuais e validações locais em ADMIN_REVIEW.md e ADMIN_REVIEW_VERIFICATION.json. Sem compilação/execução Oracle, comandos administrativos ou merge.
+
+Acumulado atual: **160/177**, sendo **83 alterações de código e 77 revisões documentais**. Restam **17** na revisão complementar, além da homologação dos 177. Totais preservados: 476 implementações main e 177 propostas. Próxima fila: 044.
 
 ## Próximo ponto de retomada
 
-Os 49 requisitos anteriormente retidos já possuem destinos novos confirmados. Não há requisito restante dessa fila para publicar. Continuar a revisão complementar das 37 propostas restantes pela fila `next_batch` de ADMIN_REVIEW_VERIFICATION.json, em lotes de até 20. Resolver limitações e homologar em laboratório descartável, com contratos/objetos, versão e resultados verificáveis.
+Os 49 requisitos anteriormente retidos já possuem destinos novos confirmados. Não há requisito restante dessa fila para publicar. Continuar a revisão complementar das 17 propostas restantes pela fila `next_batch` de ADMIN_REVIEW_VERIFICATION.json, em lotes de até 20. Resolver limitações e homologar em laboratório descartável, com contratos/objetos, versão e resultados verificáveis.
 
 Nenhum merge automático está autorizado. O projeto não é declarado concluído enquanto as propostas e homologações pendentes permanecerem abertas. Não há execução em segundo plano.
