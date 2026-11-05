@@ -1,3 +1,5 @@
+> Checkpoint 05/11/2026: revisão estática histórica de 177 propostas. GET_COUNT foi publicada individualmente na main após ensaios do usuário em Oracle 19.8; restam 176 propostas somente na branch. Não houve merge. Ver [fila atual](PUBLICATION_PENDING.md) e [evidência GET_COUNT](tests/runtime/lote001/evidence.json). As descrições de ausência de execução abaixo registram a fase estática, anterior aos logs.
+
 # Revisão complementar das propostas administrativas
 
 Atualizado em 04/11/2026. **177 de 177 scripts reavaliados nesta fase; 91 com alteração de código e 86 com comportamento mantido. Nenhuma compilação/execução Oracle.**

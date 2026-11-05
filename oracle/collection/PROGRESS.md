@@ -1,24 +1,18 @@
 <!-- CURRENT_STATUS_START -->
-# Estado atual verificado — projeto em andamento
+# Estado atual verificado — 05/11/2026
 
 | Situação | Quantidade |
 |---|---:|
-| Scripts únicos da coleção na main | **432** |
-| Novos publicados na main desde início deste trabalho | 424 |
-| Novos arquivos documentados (main e propostas) | 598 |
-| Novos arquivos main com alterações SQL/cliente/normalização | 366 |
-| Propostas somente em branch/PR #2 | 174 |
-| Fontes aguardando análise individual | **0** |
-| Retidos para verificação de licença | 49 |
-| Retido por credencial literal | 1 |
-| Origens duplicadas/variantes mapeadas | 32 |
-| Fontes sem implementação funcional | 5 |
+| Origens classificadas | 697 |
+| Implementações únicas na main | 477 |
+| Implementações somente em branch/PR #2 | 176 |
+| Revisão estática complementar concluída | 177/177 |
+| Scripts com execução Oracle registrada pelo usuário | 1 |
+| Scripts integralmente homologados sem limites | 0 |
 
-[Inventário de 697 arquivos](inventory.csv): 693 fontes SQL e quatro auxiliares. Os itens da branch estão no [PR #2](https://github.com/francois-fiorino/tech-automation-scripts/pull/2), fora do total main. Oito scripts anteriores foram preservados. As seções históricas abaixo pertencem a seus estágios; esta tabela é o estado atual.
+GET_COUNT publicada individualmente após ensaios Oracle 19.8/PDB1, com corpo preservado e limitações documentadas. Commit de conteúdo: `bdad5525ad0dfd0e02b1cbe069b7448db98547d2`. Não houve execução Oracle pelo agente nem merge dos PRs. A validação é delimitada aos casos registrados e não comprova todos os caminhos de erro ou ambientes.
 
-Cada lote foi lido individualmente e publicado com código integral, cabeçalhos técnicos e correções registradas. SHA dos blobs foi comparado após publicação. Nenhum banco Oracle/ASM ou comando administrativo foi executado; compatibilidade, compilação e impacto exigem homologação. Fixtures locais auxiliares, quando usadas, não substituem testes Oracle. Não executar propostas administrativas ou instalar todas as definições alternativas em sequência.
-
-**O projeto não está concluído enquanto houver elegíveis pendentes. Não há processamento em segundo plano associado a este checkpoint.**
+Próxima retomada: [176 impedimentos individuais](PUBLICATION_PENDING.md), em grupos de até 20. As seções abaixo são históricas e seus totais não representam o checkpoint atual. Projeto em andamento; sem processamento em segundo plano.
 <!-- CURRENT_STATUS_END -->
 
 ## Histórico das etapas

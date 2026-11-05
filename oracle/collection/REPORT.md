@@ -1,21 +1,21 @@
 # Relatório de revisão e publicação da coleção Oracle 2015
 
-Atualizado em 04/11/2026. **Projeto em andamento: revisão estática e publicação de implementações novas; homologação Oracle e propostas administrativas continuam pendentes.**
+Atualizado em 05/11/2026. **Projeto em andamento: revisão estática e publicação de implementações novas; homologação Oracle e propostas administrativas continuam pendentes.**
 
 ## Estado atual reconciliado
 
 | Medida | Total | Critério |
 |---|---:|---|
 | Origens inventariadas | 697 | 693 SQL e quatro auxiliares |
-| Implementações únicas na main | 476 | 432 anteriores + 44 novas |
-| Implementações somente na branch/PR #2 | 177 | 175 anteriores + 2 novos geradores |
+| Implementações únicas na main | 477 | 476 anteriores + GET_COUNT publicada individualmente |
+| Implementações somente na branch/PR #2 | 176 | 177 revisadas; GET_COUNT promovida individualmente |
 | Origens variantes/canônicas compartilhadas | 35 | 32 anteriores + 3 novas correspondências compartilhadas |
 | Fontes sem implementação funcional | 5 | placeholders/referências sem código; não publicadas ficticiamente |
 | Requisitos das 49 fontes retidas atendidos por código novo | 49 | 46 implementações novas com conteúdo publicado e verificado |
 | Requisitos ainda aguardando nova implementação publicada | 0 | fila de requisitos, sem republicar código original |
 | Fontes originais restritas republicadas | 0 | os 49 originais permanecem retidos |
-| Pendências de main | 177 | 177 propostas no PR + 0 requisitos restantes |
-| Compilações/execuções efetivas em Oracle | 0 | parser local e fixtures não são homologação Oracle |
+| Pendências de main | 176 | impedimentos individuais em PUBLICATION_PENDING.md |
+| Scripts com execução Oracle registrada | 1 | GET_COUNT pelo usuário em 19.8; validação delimitada, não aprovação genérica |
 
 Os oito scripts anteriores à campanha continuam incluídos nas 432 implementações preservadas. Novas implementações não são contadas como correções do código original, nem como licença ou autorização de redistribuição. Cada cabeçalho descreve as diferenças funcionais, dependências, parâmetros, riscos, referências e limites de validação.
 
@@ -172,3 +172,11 @@ Compilação VALID e AUTHID CURRENT_USER confirmados; oito asserções passaram:
 Cinco logs enviados pelo usuário em `tests/runtime/lote001/` confirmam preparação com duas linhas, rejeição sem SELECT (-44002), contagem 2 com SELECT, rejeição após REVOKE (-44002) e 1.000 chamadas inválidas após 20 de aquecimento, com cursores 5 antes/5 depois (diferença 0). Grants/revoke de SELECT foram conduzidos na conversa e não aparecem nos spools anexos. Versão 19.8.0.0.0 confirmada nos banners da conversa. Fonte, roteiro e log básicos reenviados são idênticos aos já registrados, sem republicar duplicatas.
 
 Estas evidências resolvem os cenários específicos de privilégios e de cursores para entrada inválida da seção anterior. Não comprovam todos os caminhos de erro de parse/execute/fetch, contagem acima de 32 bits, concorrência, desempenho ou outras versões. Um script parcialmente exercitado e 176 sem execução registrada; permanecem 177 pendentes de homologação completa/decisão individual, sem merge ou promoção. Evidência detalhada em `tests/runtime/lote001/evidence.json`. Próxima retomada: delimitar compatibilidade e casos residuais de GET_COUNT e preparar ensaios dos demais scripts, sem gerar bilhões de linhas na VM.
+
+## Publicação individual após laboratório — 05/11/2026
+
+GET_COUNT publicada em `oracle/administration/get_count2.sql`, commit `bdad5525ad0dfd0e02b1cbe069b7448db98547d2`, blob `2c70501aad667ae090c3c515260da1ac2911450b`. O corpo é idêntico ao fonte testado pelo usuário; somente o cabeçalho foi atualizado para descrever dependências, parâmetros, instalação, riscos e evidências. Publicação de código com validação delimitada não significa aprovação universal para produção. Os testes residuais de grande volume, outros caminhos de erro, desempenho, concorrência e outras versões continuam explícitos. Não se exige gerar bilhões de linhas na VM para publicar o corpo NUMBER com esta limitação declarada.
+
+Contagem atual: **477 implementações main e 176 propostas somente na branch**. A branch histórica também contém GET_COUNT; essa sobreposição é promoção rastreada, não uma segunda implementação. Não substituir a documentação atual pela versão antiga do PR. O inventário mantém SHA original e revisão histórica, além do commit de publicação individual.
+
+A fila estática permanece encerrada; a fila de promoção remanescente está em [PUBLICATION_PENDING.md](PUBLICATION_PENDING.md), com 176 caminhos, impedimentos e próximos ensaios, agrupados em até 20. Todos esses arquivos já estão no GitHub na branch do PR #2; nenhum foi declarado homologado por ausência de erro em parser. PR #1 aberto e PR #2 Draft, sem merge automático. Projeto não concluído; não existe execução em segundo plano.

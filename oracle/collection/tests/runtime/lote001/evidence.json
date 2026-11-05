@@ -34,7 +34,7 @@
     "oracle_lab_lote001.log": "5cddb257ed0a2c0c1d499a8e03d68c2a0b61d19c6f1b34c405ba30190dd2b5b8",
     "teste_get_count.sql": "91fee487c05d03bd3c902e29327959c289db42eb8033b733a9f3714543798963"
   },
-  "promoted_to_main": false,
+  "promoted_to_main": true,
   "note": "Oito casos básicos e quatro cenários adicionais passaram em execução pelo usuário. Homologação permanece delimitada aos casos registrados; sem promoção automática. Não houve nova captura do corpo instalado entre as duas sessões; fonte reenviado é idêntico ao originalmente testado.",
   "followup": {
     "date": "2026-11-05",
@@ -61,5 +61,12 @@
       "oracle/collection/tests/runtime/lote001/oracle_lab_privilegios_revogado.log",
       "oracle/collection/tests/runtime/lote001/oracle_lab_cursores.log"
     ]
+  },
+  "publication": {
+    "commit": "bdad5525ad0dfd0e02b1cbe069b7448db98547d2",
+    "path": "oracle/administration/get_count2.sql",
+    "blob": "2c70501aad667ae090c3c515260da1ac2911450b",
+    "scope": "publicado com validação delimitada Oracle 19.8; testes residuais preservados",
+    "header_updated_only": true
   }
 }

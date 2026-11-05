@@ -3,11 +3,11 @@
   "reviewed": 177,
   "code_changed": 91,
   "documentation_only": 86,
-  "main_implementations": 476,
-  "review_implementations": 177,
+  "main_implementations": 477,
+  "review_implementations": 176,
   "pending_complementary_review": 0,
-  "oracle_compilation": false,
-  "oracle_execution": false,
+  "oracle_compilation": "user-executed: GET_COUNT VALID on Oracle 19.8; agent did not execute Oracle",
+  "oracle_execution": "user-executed: GET_COUNT basic/privilege/invalid-input cursor cases passed; see evidence",
   "files": [
     {
       "path": "oracle/objects/new_fprc.sql",
@@ -1658,7 +1658,14 @@
       "tests": "Nome inválido/quoted, ausência deSELECT, tabela vazia, cursor em erro e número além de inteiro32; não instalar sobre variante sem decisão.",
       "commit": "2c4c02ee55b1472605695a93eddb7c4b39ab5578",
       "batch": "043",
-      "runtime_evidence": "oracle/collection/tests/runtime/lote001/evidence.json"
+      "runtime_evidence": "oracle/collection/tests/runtime/lote001/evidence.json",
+      "main_publication": {
+        "commit": "bdad5525ad0dfd0e02b1cbe069b7448db98547d2",
+        "blob_sha": "2c70501aad667ae090c3c515260da1ac2911450b",
+        "body_unchanged_from_tested_source": true,
+        "validation_scope": "Oracle 19.8/PDB1; execução pelo usuário; não homologação universal",
+        "evidence": "oracle/collection/tests/runtime/lote001/evidence.json"
+      }
     },
     {
       "path": "oracle/objects/get_count_proc.sql",
@@ -2138,21 +2145,21 @@
   "static_review_complete": true,
   "project_complete": false,
   "runtime_homologation_pending": 177,
-  "promotion_to_main_pending": 177,
-  "next_action": "Homologar individualmente as 177 propostas em laboratório Oracle descartável, resolver contratos/segurança/compatibilidade e selecionar promoção por arquivo; nenhum merge automático.",
+  "promotion_to_main_pending": 176,
+  "next_action": "176 propostas com impedimentos individuais em PUBLICATION_PENDING.md; GET_COUNT publicada com escopo delimitado e testes residuais documentados, sem merge dos PRs.",
   "publication_audit": {
-    "main_code_snapshot": "d4603b67ddce9d01ebf3cfd0d6870b7147b55e15",
+    "main_code_snapshot": "bdad5525ad0dfd0e02b1cbe069b7448db98547d2",
     "review_head": "bc277eba3fb4a3c9b45705efd1f0969dc4e19b4b",
     "inventory_rows": 697,
     "all_rows_classified": true,
-    "main_implementations": 476,
-    "review_implementations": 177,
-    "main_review_overlap": 0,
+    "main_implementations": 477,
+    "review_implementations": 176,
+    "main_review_overlap": 1,
     "status_counts": {
-      "publicado e verificado na main": 476,
+      "publicado e verificado na main": 477,
       "duplicata exata": 1,
       "mapeada à implementação nova canônica": 3,
-      "branch verificada": 177,
+      "branch verificada": 176,
       "duplicata de SQL": 28,
       "referência/placeholder sem implementação": 4,
       "auxiliar duplicado mapeado para PR #2": 1,
@@ -4066,20 +4073,27 @@
       {
         "path": "oracle/objects/var_len_col.sql",
         "blob_sha": "5083b76f0d1543df716c54230e0aff4a3c868433"
+      },
+      {
+        "path": "oracle/administration/get_count2.sql",
+        "blob_sha": "2c70501aad667ae090c3c515260da1ac2911450b",
+        "commit": "bdad5525ad0dfd0e02b1cbe069b7448db98547d2"
       }
     ],
-    "oracle_execution": false,
-    "oracle_compilation": false,
+    "oracle_execution": "user-executed: GET_COUNT basic/privilege/invalid-input cursor cases passed; see evidence",
+    "oracle_compilation": "user-executed: GET_COUNT VALID on Oracle 19.8; agent did not execute Oracle",
     "historical_snapshots_unchanged": [
       "RECONCILIATION.json",
       "VERIFICATION.json",
       "INDEPENDENT_VERIFICATION.json"
-    ]
+    ],
+    "main_review_overlap_explanation": "GET_COUNT existe na branch histórica e main por promoção individual; proposta antiga não deve sobrescrever o cabeçalho/evidências da main."
   },
   "runtime_user_evidence": {
     "partially_validated": 1,
     "not_executed": 176,
     "fully_homologated": 0,
-    "evidence": "oracle/collection/tests/runtime/lote001/evidence.json"
+    "evidence": "oracle/collection/tests/runtime/lote001/evidence.json",
+    "published_with_bounded_validation": 1
   }
 }
