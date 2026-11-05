@@ -1,0 +1,27 @@
+SQL> 
+SQL> declare
+  2    v_n number;
+  3  begin
+  4    if sys_context('USERENV','SESSION_USER') <> 'ORACLE_SCRIPT_CALLER'
+  5       or sys_context('USERENV','CON_NAME') <> 'PDB1'
+  6    then
+  7      raise_application_error(-20001, 'Usuario/container incorretos.');
+  8    end if;
+  9  
+ 10    v_n := ORACLE_SCRIPT_LAB.GET_COUNT(
+ 11      'ORACLE_SCRIPT_LAB.LAB_PRIV_FIXTURE'
+ 12    );
+ 13  
+ 14    if v_n is null or v_n <> 2 then
+ 15      raise_application_error(-20011, 'FALHA: contagem diferente de 2.');
+ 16    end if;
+ 17  
+ 18    dbms_output.put_line('PASS: com SELECT, contagem = 2.');
+ 19  end;
+ 20  /
+PASS: com SELECT, contagem = 2.                                                 
+
+PL/SQL procedure successfully completed.
+
+SQL> 
+SQL> spool off

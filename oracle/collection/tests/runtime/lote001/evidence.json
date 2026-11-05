@@ -26,15 +26,40 @@
     "tabela após DELETE: 0"
   ],
   "remaining": [
-    "ausência de SELECT entre usuários distintos",
-    "medição de cursores antes/depois de erros repetidos",
     "contagem superior a inteiro de 32 bits",
-    "desempenho e concorrência; outras versões não homologadas"
+    "desempenho e concorrência; outras versões não homologadas",
+    "caminhos adicionais de erro de parse/execute/fetch não exercitados no ensaio de cursores"
   ],
   "artifacts_sha256": {
     "oracle_lab_lote001.log": "5cddb257ed0a2c0c1d499a8e03d68c2a0b61d19c6f1b34c405ba30190dd2b5b8",
     "teste_get_count.sql": "91fee487c05d03bd3c902e29327959c289db42eb8033b733a9f3714543798963"
   },
   "promoted_to_main": false,
-  "note": "A recuperação após erro não comprova ausência de vazamento de cursores. O cabeçalho do fonte descreve a fase estática histórica; esta evidência posterior não altera seu corpo."
+  "note": "Oito casos básicos e quatro cenários adicionais passaram em execução pelo usuário. Homologação permanece delimitada aos casos registrados; sem promoção automática. Não houve nova captura do corpo instalado entre as duas sessões; fonte reenviado é idêntico ao originalmente testado.",
+  "followup": {
+    "date": "2026-11-05",
+    "executor": "usuário; logs enviados como anexos",
+    "version": "19.8.0.0.0 confirmada nas transcrições da conexão; logs anexos não incluem banner",
+    "privileges": {
+      "without_select": "rejeitado -44002",
+      "with_select": "2 linhas",
+      "after_revoke": "rejeitado -44002",
+      "note": "Logs comprovam os resultados. GRANT/REVOKE de SELECT foram conduzidos na conversa; esses comandos não constam nos spools anexos."
+    },
+    "cursors": {
+      "warmup": 20,
+      "invalid_calls": 1000,
+      "before": 5,
+      "after": 5,
+      "delta": 0,
+      "scope": "entrada inválida rejeitada pelo DBMS_ASSERT; não cobre todos os erros de parse/execute/fetch"
+    },
+    "artifacts": [
+      "oracle/collection/tests/runtime/lote001/oracle_lab_privilegios_owner.log",
+      "oracle/collection/tests/runtime/lote001/oracle_lab_privilegios_negativo.log",
+      "oracle/collection/tests/runtime/lote001/oracle_lab_privilegios_positivo.log",
+      "oracle/collection/tests/runtime/lote001/oracle_lab_privilegios_revogado.log",
+      "oracle/collection/tests/runtime/lote001/oracle_lab_cursores.log"
+    ]
+  }
 }

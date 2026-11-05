@@ -1,0 +1,40 @@
+SQL> 
+SQL> declare
+  2    v_n number;
+  3    v_rejeitado boolean := false;
+  4  begin
+  5    if sys_context('USERENV','SESSION_USER') <> 'ORACLE_SCRIPT_CALLER'
+  6       or sys_context('USERENV','CON_NAME') <> 'PDB1'
+  7    then
+  8      raise_application_error(-20001, 'Usuario/container incorretos.');
+  9    end if;
+ 10  
+ 11    begin
+ 12      v_n := ORACLE_SCRIPT_LAB.GET_COUNT(
+ 13        'ORACLE_SCRIPT_LAB.LAB_PRIV_FIXTURE'
+ 14      );
+ 15    exception
+ 16      when others then
+ 17        if sqlcode not in (-942, -1031, -44002) then
+ 18          raise;
+ 19        end if;
+ 20  
+ 21        v_rejeitado := true;
+ 22        dbms_output.put_line(
+ 23          'PASS: acesso sem SELECT rejeitado: ' || sqlcode
+ 24        );
+ 25    end;
+ 26  
+ 27    if not v_rejeitado then
+ 28      raise_application_error(
+ 29        -20010, 'FALHA: conseguiu acessar tabela sem SELECT.'
+ 30      );
+ 31    end if;
+ 32  end;
+ 33  /
+PASS: acesso sem SELECT rejeitado: -44002                                       
+
+PL/SQL procedure successfully completed.
+
+SQL> 
+SQL> spool off

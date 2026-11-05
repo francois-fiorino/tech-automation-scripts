@@ -1,0 +1,45 @@
+SQL> 
+SQL> begin
+  2    if sys_context('USERENV','SESSION_USER') <> 'ORACLE_SCRIPT_LAB'
+  3       or sys_context('USERENV','CON_NAME') <> 'PDB1'
+  4    then
+  5      raise_application_error(-20001, 'Usuario/container incorretos.');
+  6    end if;
+  7  end;
+  8  /
+
+PL/SQL procedure successfully completed.
+
+SQL> 
+SQL> create table LAB_PRIV_FIXTURE (id number);
+
+Table created.
+
+SQL> 
+SQL> insert into LAB_PRIV_FIXTURE values (1);
+
+1 row created.
+
+SQL> insert into LAB_PRIV_FIXTURE values (2);
+
+1 row created.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> 
+SQL> grant execute on GET_COUNT to ORACLE_SCRIPT_CALLER;
+
+Grant succeeded.
+
+SQL> 
+SQL> select count(*) as quantidade
+  2  from LAB_PRIV_FIXTURE;
+
+QUANTIDADE                                                                      
+----------                                                                      
+         2                                                                      
+
+SQL> 
+SQL> spool off

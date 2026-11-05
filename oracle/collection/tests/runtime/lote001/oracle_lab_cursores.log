@@ -1,0 +1,87 @@
+SQL> 
+SQL> declare
+  2    v_antes  number;
+  3    v_depois number;
+  4    v_n      number;
+  5    v_erros  number := 0;
+  6  
+  7    function cursores_abertos return number is
+  8      v_total number;
+  9    begin
+ 10      select m.value
+ 11        into v_total
+ 12        from sys.v_$mystat m
+ 13        join sys.v_$statname n
+ 14          on n.statistic# = m.statistic#
+ 15       where n.name = 'opened cursors current';
+ 16  
+ 17      return v_total;
+ 18    end;
+ 19  
+ 20    procedure provocar_erro is
+ 21    begin
+ 22      begin
+ 23        v_n := GET_COUNT('LAB_PRIV_FIXTURE where 1=1');
+ 24      exception
+ 25        when others then
+ 26          if sqlcode not in (-44002, -44003, -44004) then
+ 27            raise;
+ 28          end if;
+ 29  
+ 30          v_erros := v_erros + 1;
+ 31          return;
+ 32      end;
+ 33  
+ 34      raise_application_error(-20012, 'Entrada invalida foi aceita.');
+ 35    end;
+ 36  begin
+ 37    if sys_context('USERENV','SESSION_USER') <> 'ORACLE_SCRIPT_LAB'
+ 38       or sys_context('USERENV','CON_NAME') <> 'PDB1'
+ 39    then
+ 40      raise_application_error(-20001, 'Usuario/container incorretos.');
+ 41    end if;
+ 42  
+ 43    -- Aquecimento antes da medição.
+ 44    for i in 1..20 loop
+ 45      provocar_erro;
+ 46    end loop;
+ 47  
+ 48    v_erros := 0;
+ 49    v_antes := cursores_abertos;
+ 50  
+ 51    for i in 1..1000 loop
+ 52      provocar_erro;
+ 53    end loop;
+ 54  
+ 55    v_depois := cursores_abertos;
+ 56  
+ 57    dbms_output.put_line('Erros esperados: ' || v_erros);
+ 58    dbms_output.put_line('Cursores antes: ' || v_antes);
+ 59    dbms_output.put_line('Cursores depois: ' || v_depois);
+ 60    dbms_output.put_line('Diferenca: ' || (v_depois - v_antes));
+ 61  
+ 62    if v_erros <> 1000 then
+ 63      raise_application_error(-20013, 'Quantidade de erros inesperada.');
+ 64    end if;
+ 65  
+ 66    if v_depois <> v_antes then
+ 67      raise_application_error(
+ 68        -20014, 'Variacao de cursores detectada; analisar o log.'
+ 69      );
+ 70    end if;
+ 71  
+ 72    dbms_output.put_line(
+ 73      'PASS: sem crescimento de cursores nas 1000 chamadas com erro.'
+ 74    );
+ 75  end;
+ 76  /
+Erros esperados: 1000                                                           
+Cursores antes: 5                                                               
+Cursores depois: 5                                                              
+Diferenca: 0                                                                    
+PASS: sem crescimento de cursores nas 1000 chamadas com erro.                   
+
+PL/SQL procedure successfully completed.
+
+SQL> 
+SQL> spool off
